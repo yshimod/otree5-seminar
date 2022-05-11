@@ -3,7 +3,10 @@
 * [oTree5 勉強会](README.md)
 
 * [Ubuntu環境の準備](ubuntu/README.md)
-    * [VirtualBox + Vagrant](ubuntu/vagrant.md)
     * [WSL2](ubuntu/wsl2.md)
+    * [VirtualBox + Vagrant](ubuntu/vagrant.md)
 
-* [Server setup](server_setup/README.md)
+* [UbuntuでoTreeを動かす](server_setup/README.md)
+
+* [HerokuでoTreeを動かす](heroku/README.md)
+

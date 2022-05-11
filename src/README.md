@@ -7,10 +7,12 @@
 ## 2022年5月12日
 
 - oTreeの動かし方
-    - オンプレミス（e.g., 社研サーバー），IaaS（e.g., Amazon EC2, Google Compute Engine），VPS（e.g., ConoHa）などのLinuxサーバーで動かす  
-    [Server setup](server_setup/README.md)
-    - PaaS（e.g., Heroku）で動かす（oTree公式のおすすめ）
-    - Windowsで動かす（たとえば，ラボでzTreeを動かしていたようなマシンで）
+    - オンプレミス（e.g., 社研サーバー），IaaS（e.g., Amazon EC2, Google Compute Engine），VPS（e.g., ConoHa）などのLinuxサーバーで動かす．  
+    [UbuntuでoTreeを動かす](server_setup/README.md)
+    - PaaS（e.g., Heroku）で動かす（oTree公式のおすすめ）．  
+    [HerokuでoTreeを動かす](heroku/README.md)
+    - Windowsで動かす（たとえば，ラボでzTreeを動かしていたようなマシンで）．  
+    [https://otree.readthedocs.io/en/latest/install-windows.html#install-windows](https://otree.readthedocs.io/en/latest/install-windows.html#install-windows)
 
 
 ### 事前準備
