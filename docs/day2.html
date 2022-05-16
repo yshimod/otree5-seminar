@@ -3,7 +3,7 @@
 <html lang="ja" >
     <head>
         <meta charset="UTF-8">
-        <title>oTree5 勉強会 · oTree5 勉強会</title>
+        <title>第2回 · oTree5 勉強会</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 3.7.1">
@@ -56,8 +56,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="day1.html" />
+    <link rel="next" href="ubuntu/" />
     
+    
+    <link rel="prev" href="day1.html" />
     
 
     </head>
@@ -86,7 +88,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -113,7 +115,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.1.2" data-path="day2.html">
+        <li class="chapter active" data-level="1.1.2" data-path="day2.html">
             
                 <a href="day2.html">
             
@@ -245,7 +247,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >oTree5 勉強会</a>
+        <a href="." >第2回</a>
     </h1>
 </div>
 
@@ -260,9 +262,74 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="otree5-勉強会">oTree5 勉強会</h1>
+                                <h1 id="【第2回】-2022年5月19日">【第2回】 2022年5月19日</h1>
+<h3 id="始める前にやっておいたほうが良いこと">始める前にやっておいたほうが良いこと</h3>
 <ul>
-<li>oTree（バージョン5以降）を使いこなせるようになりたい！</li>
+<li><p>結局どうにかして（PostgreSQLうんぬんは無視してでも）oTreeをインストールする．</p>
+<ul>
+<li>WindowsにPythonを直接インストールして，pipでoTreeを入れる．<br>  <a href="https://otree.readthedocs.io/en/latest/install-windows.html#install-windows" target="_blank">https://otree.readthedocs.io/en/latest/install-windows.html#install-windows</a>  <ul>
+<li>【フリーライド】立命館竹内研長瀬さんのチュートリアル動画が参考になります．<br>  「#2 oTree Windowsでのインストール」
+  （動画リンクは竹内研Slack内を検索してください．）</li>
+</ul>
+</li>
+<li>頑張ってWSL2を使い，Ubuntu環境を用意してから...  <ol>
+<li><a href="ubuntu/wsl2.html">WSL2のインストール</a></li>
+<li><a href="server_setup/">UbuntuでoTreeを動かす</a></li>
+</ol>
+</li>
+<li>Macの場合はまずhomebrewをインストールしてから...<ul>
+<li>【フリーライド】立命館竹内研長瀬さんのチュートリアル動画が参考になります．<br>  「#2 oTree Macでのインストール」
+  （動画リンクは竹内研Slack内を検索してください．）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Herokuのアカウントを作成． <a href="https://signup.heroku.com/login" target="_blank">https://signup.heroku.com/login</a></p>
+</li>
+<li><p>GitHubのアカウントを作成． <a href="https://github.com/signup" target="_blank">https://github.com/signup</a></p>
+</li>
+<li><p>Gitのインストール</p>
+<ul>
+<li>Windowsに直接Pythonを入れてoTreeを動かす場合，Gitのインストーラーを <a href="https://gitforwindows.org/" target="_blank">https://gitforwindows.org/</a> からダウンロードしてインストールする．<ul>
+<li>参考 <a href="https://www.curict.com/item/60/60bfe0e.html" target="_blank">https://www.curict.com/item/60/60bfe0e.html</a></li>
+</ul>
+</li>
+<li>Ubuntuを使う場合，以下のコマンドでインストール．<pre><code class="lang-bash">  sudo apt update
+  sudo apt install git
+</code></pre>
+</li>
+<li>Macを使う場合，Xcode Command Line Toolsが導入済みならばすでに <code>git</code> コマンドは使えるはず．あるいはhomebrewで入れる．</li>
+</ul>
+</li>
+<li><p>VS Code（Visual Studio Code）のインストール</p>
+<ul>
+<li><a href="https://code.visualstudio.com/" target="_blank">https://code.visualstudio.com/</a> からインストーラーをダウンロードしてインストール．</li>
+<li>WSL2やVagrantで入れたUbuntuを使っている場合でも，<strong>Windowsに</strong> VS Codeを入れる．</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-gitとgithub">1. GitとGitHub</h3>
+<ul>
+<li>GitHubを使うメリット</li>
+<li>GitとGitHubの使い方</li>
+</ul>
+<h3 id="2-herokuの使い方">2. Herokuの使い方</h3>
+<ul>
+<li>デプロイ</li>
+<li>アドオンの設定</li>
+<li>環境変数の設定</li>
+</ul>
+<h3 id="3-開発環境の準備">3. 開発環境の準備</h3>
+<ul>
+<li>VS Codeの導入</li>
+<li>（VSCodeのWSL用アドオン）</li>
+<li>VSCodeのPython用アドオン</li>
+</ul>
+<h3 id="4-otreeプログラミングの概要">4. oTreeプログラミングの概要</h3>
+<ul>
+<li>プロジェクトファイルの構成</li>
+<li><code>__init__.py</code> の構成</li>
+<li>oTree3との変更点</li>
 </ul>
 
                                 
@@ -291,8 +358,12 @@
 
             
                 
+                <a href="day1.html" class="navigation navigation-prev " aria-label="Previous page: 第1回">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="day1.html" class="navigation navigation-next navigation-unique" aria-label="Next page: 第1回">
+                
+                <a href="ubuntu/" class="navigation navigation-next " aria-label="Next page: Ubuntuの仮想環境の構築">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -303,7 +374,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"oTree5 勉強会","level":"1.1","depth":1,"next":{"title":"第1回","level":"1.1.1","depth":2,"path":"day1.md","ref":"day1.md","articles":[]},"articles":[{"title":"第1回","level":"1.1.1","depth":2,"path":"day1.md","ref":"day1.md","articles":[]},{"title":"第2回","level":"1.1.2","depth":2,"path":"day2.md","ref":"day2.md","articles":[]}],"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"README.md","mtime":"2022-05-14T16:17:05.155Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-05-16T22:57:58.635Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第2回","level":"1.1.2","depth":2,"next":{"title":"Ubuntuの仮想環境の構築","level":"1.2","depth":1,"path":"ubuntu/README.md","ref":"ubuntu/README.md","articles":[{"title":"WSL2","level":"1.2.1","depth":2,"path":"ubuntu/wsl2.md","ref":"ubuntu/wsl2.md","articles":[]},{"title":"VirtualBox + Vagrant","level":"1.2.2","depth":2,"path":"ubuntu/vagrant.md","ref":"ubuntu/vagrant.md","articles":[]}]},"previous":{"title":"第1回","level":"1.1.1","depth":2,"path":"day1.md","ref":"day1.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day2.md","mtime":"2022-05-16T22:51:14.327Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-05-16T22:57:58.635Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

@@ -4,14 +4,14 @@
 - [https://signup.heroku.com/](https://signup.heroku.com/)
 - とりあえずは無料枠で．
 
-## GitHubのリポジトリからHerokuへデプロイする
+## 【方法1】 GitHubのリポジトリからHerokuへデプロイする
 - [https://devcenter.heroku.com/articles/github-integration](https://devcenter.heroku.com/articles/github-integration)
-- 2022年にGitHubのOAuthトークンが流出し一時的に連携機能が停止．困った困った．  
+- 2022年4月にGitHubのOAuthトークンが流出し一時的に連携機能が停止．困った困った．  
     [https://blog.heroku.com/we-heard-your-feedback](https://blog.heroku.com/we-heard-your-feedback)
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/LnrY1AKVmqQ" frameborder="0" allowfullscreen></iframe>
 
-## HerokuのCLIを使い，直接Herokuへデプロイする
+## 【方法2】 HerokuのCLIを使い，直接Herokuへデプロイする
 - [https://devcenter.heroku.com/articles/git](https://devcenter.heroku.com/articles/git)
 - ブラウザでHerokuのappを作っておく．
 - gitをインストール．  
