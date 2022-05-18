@@ -56,6 +56,8 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
+    <link rel="next" href="ubuntu/" />
+    
     
     <link rel="prev" href="day1.html" />
     
@@ -134,24 +136,11 @@
 
     
         
-        <li class="divider"></li>
+        <li class="header">資料編</li>
         
         
     
-        <li class="chapter " data-level="2.1" >
-            
-                <span>
-            
-                    
-                    【資料編】
-            
-                </span>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="2.2" data-path="ubuntu/">
+        <li class="chapter " data-level="2.1" data-path="ubuntu/">
             
                 <a href="ubuntu/">
             
@@ -165,7 +154,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="2.2.1" data-path="ubuntu/wsl2.html">
+        <li class="chapter " data-level="2.1.1" data-path="ubuntu/wsl2.html">
             
                 <a href="ubuntu/wsl2.html">
             
@@ -178,7 +167,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.2.2" data-path="ubuntu/vagrant.html">
+        <li class="chapter " data-level="2.1.2" data-path="ubuntu/vagrant.html">
             
                 <a href="ubuntu/vagrant.html">
             
@@ -196,7 +185,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.3" data-path="server_setup/">
+        <li class="chapter " data-level="2.2" data-path="server_setup/">
             
                 <a href="server_setup/">
             
@@ -209,7 +198,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.4" data-path="heroku/">
+        <li class="chapter " data-level="2.3" data-path="heroku/">
             
                 <a href="heroku/">
             
@@ -222,7 +211,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.5" data-path="references/">
+        <li class="chapter " data-level="2.4" data-path="references/">
             
                 <a href="references/">
             
@@ -281,7 +270,7 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="【第2回】-2022年5月19日">【第2回】 2022年5月19日</h1>
-<h3 id="始める前にやっておいたほうが良いこと">始める前にやっておいたほうが良いこと</h3>
+<h2 id="始める前にやっておいたほうが良いこと">始める前にやっておいたほうが良いこと</h2>
 <ul>
 <li><p>結局どうにかして（PostgreSQLうんぬんは無視してでも）oTreeをインストールする．</p>
 <ul>
@@ -326,24 +315,135 @@
 </ul>
 </li>
 </ul>
-<h3 id="1-gitとgithub">1. GitとGitHub</h3>
+<h2 id="1-git・github">1. Git・GitHub</h2>
+<h4 id="git・githubを使うメリット">Git・GitHubを使うメリット</h4>
 <ul>
-<li>GitHubを使うメリット</li>
-<li>GitとGitHubの使い方</li>
+<li>Gitはローカル環境においてバージョン管理を行うソフトウェア．<ul>
+<li>ファイルを上書き保存していくと開発の過程が記録されない．</li>
+<li>ファイル名に枝番をつける的な手動バージョン管理ではしっちゃかめっちゃかに．</li>
 </ul>
-<h3 id="2-herokuの使い方">2. Herokuの使い方</h3>
+</li>
+<li>GitHub（クラウド）にローカルのGitで管理しているリポジトリをアップロードできる．<ul>
+<li>クラウドを介して複数人での開発が効率化できる．</li>
+<li>複数のマシンで1つのプロジェクトを管理できる．</li>
+<li>GitHubはホスティングサービスとしても有用．</li>
+<li>GitHubとHerokuとの連携も便利（2022年5月現在使えないけど）．</li>
+<li>（GitHubのほかにGitLabもある．）</li>
+</ul>
+</li>
+<li>研究活動でのGitHubの活用例<ul>
+<li>国里愛彦ラボ <a href="https://kunisatolab.github.io/main/how-to-github.html" target="_blank">https://kunisatolab.github.io/main/how-to-github.html</a></li>
+</ul>
+</li>
+</ul>
+<h4 id="使い方">使い方</h4>
+<ul>
+<li><p>参考資料</p>
+<ul>
+<li>名城大理工学部大原研 <a href="https://www1.meijo-u.ac.jp/~kohara/cms/technicalreport" target="_blank">https://www1.meijo-u.ac.jp/~kohara/cms/technicalreport</a></li>
+<li>ドットインストール git入門 <a href="https://dotinstall.com/lessons/basic_git" target="_blank">https://dotinstall.com/lessons/basic_git</a> （無料で視聴可能）</li>
+<li>Webでも書籍でも，Gitに関するドキュメントは大量に存在する．</li>
+</ul>
+</li>
+<li><p>初期設定</p>
+<ol>
+<li>Gitのインストール<ul>
+<li>Windowsに直接Pythonを入れてoTreeを動かす場合，Gitのインストーラーを <a href="https://gitforwindows.org/" target="_blank">https://gitforwindows.org/</a> からダウンロードしてインストールする．<ul>
+<li>参考 <a href="https://www.curict.com/item/60/60bfe0e.html" target="_blank">https://www.curict.com/item/60/60bfe0e.html</a></li>
+</ul>
+</li>
+<li>Ubuntuを使う場合，以下のコマンドでインストール．<pre><code class="lang-bash">  sudo apt update
+  sudo apt install git
+</code></pre>
+</li>
+<li>Macを使う場合，Xcode Command Line Toolsが導入済みならばすでに <code>git</code> コマンドは使えるはず．あるいはhomebrewで入れる．</li>
+</ul>
+</li>
+<li>GitHubのアカウントを作る． <a href="https://github.com/signup" target="_blank">https://github.com/signup</a></li>
+<li>GitHubで登録しているユーザー名とメールアドレスをローカルで設定（コミット毎にユーザー名とメールアドレスが記録される）．<pre><code class="lang-bash"> git config --global user.email <span class="hljs-string">&quot;xxxxxxxx@example.com&quot;</span>
+ git config --global user.name <span class="hljs-string">&quot;namaenamae&quot;</span>
+</code></pre>
+</li>
+<li>GitHubへSSHで接続できるようにする．<br> <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/about-ssh" target="_blank">https://docs.github.com/en/authentication/connecting-to-github-with-ssh/about-ssh</a><ol>
+<li>SSHの鍵を作る．GitHubで登録したメールアドレスを陽に指定する．<pre><code class="lang-bash"> ssh-keygen -t ed25519 -C <span class="hljs-string">&quot;xxxxxxxx@example.com&quot;</span>
+</code></pre>
+</li>
+<li>鍵の場所は <code>~/.ssh</code> ．</li>
+<li>鍵にパスフレーズは不要（設定するなら鍵をssh-agentに登録する必要あり）．</li>
+<li><code>~/.ssh/config</code> にSSH鍵関係の情報を追記．<pre><code> Host github.com
+     IdentityFile ~/.ssh/鍵ファイル名
+     User git
+</code></pre></li>
+<li>アクセスできるか確認．<pre><code class="lang-bash"> ssh -T git@github.com
+</code></pre>
+</li>
+<li>すでにGitHubにリポジトリがあればクローンしてみる．<pre><code class="lang-bash"> git <span class="hljs-built_in">clone</span> git@github.com:namaenamae/rrrrrrrrrr.git
+</code></pre>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>基本的な手順<br>  <a href="https://learnxinyminutes.com/docs/git/" target="_blank">https://learnxinyminutes.com/docs/git/</a></p>
+<ol>
+<li>（初回のみ）初期化... 作業ディレクトリに移動して，そのディレクトリをGitリポジトリとして設定（<code>.git</code>ディレクトリができる）．<pre><code class="lang-bash"> git init
+</code></pre>
+</li>
+<li>（初回のみ）ブラウザでGitHubを開き，作業ディレクトリと同名のリポジトリを作成．リモートリポジトリを設定．<pre><code class="lang-bash"> git remote add origin git@github.com:namaenamae/rrrrrrrrrr.git
+</code></pre>
+</li>
+<li>作成・編集したファイルをステージングエリアに追加する．たとえばディレクトリ全体なら...<pre><code class="lang-bash"> git add .
+</code></pre>
+</li>
+<li>「キリのよいところで」コミットする．<pre><code class="lang-bash"> git commit -m <span class="hljs-string">&quot;first commit&quot;</span>
+</code></pre>
+<ul>
+<li>オプション <code>-m</code> 以下を指定しない場合はVimかnanoが起動するので，それでコメントを書く．</li>
+</ul>
+</li>
+<li>ある程度コミットが溜まったら，GitHubへプッシュ（アップロード）．<pre><code class="lang-bash"> git push -u origin master
+</code></pre>
+<ul>
+<li>オプション <code>-u</code> は2回目以降では不要．</li>
+<li>ブランチ名はデフォルトで <code>master</code>になっているはずだが要確認．<br>  GitHubはポリコレ的にデフォルトブランチ名を <code>main</code> に変えることを勧めている．</li>
+</ul>
+</li>
+<li>明くる日作業を再開するときには，それまでの（他人の）変更分をダウンロードする．<pre><code class="lang-bash"> git pull origin master
+</code></pre>
+</li>
+<li>1日の作業の流れ: <code>pull</code> -&gt; ( 編集 -&gt; <code>add</code> -&gt; <code>commit</code> ) の繰り返し -&gt; <code>push</code></li>
+</ol>
+</li>
+<li><p>ブランチの操作</p>
+<ul>
+<li>ブランチを切る（たとえば開発用に<code>namaenamae/dev</code>なるブランチを作ってそこに切り替える）．<pre><code class="lang-bash">  git checkout -b namaenamae/dev
+</code></pre>
+</li>
+<li>ブランチを切り替える（たとえば<code>master</code>に戻る）．<pre><code class="lang-bash">  git checkout master
+</code></pre>
+</li>
+<li><code>master</code>ブランチに<code>namaenamae/dev</code>ブランチの変更分をマージするには，<code>git checkout master</code>した後，<pre><code class="lang-bash">  git merge namaenamae/dev
+</code></pre>
+</li>
+<li>↑ のように <code>merge</code> でマージできるが，節目にはGitHubでプルリクエストしてマージ分を誰かにレビューしてもらったほうが良い．</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-herokuの使い方">2. Herokuの使い方</h2>
 <ul>
 <li>デプロイ</li>
 <li>アドオンの設定</li>
 <li>環境変数の設定</li>
 </ul>
-<h3 id="3-開発環境の準備">3. 開発環境の準備</h3>
+<h2 id="3-開発環境の準備">3. 開発環境の準備</h2>
 <ul>
 <li>VS Codeの導入</li>
-<li>（VSCodeのWSL用アドオン）</li>
-<li>VSCodeのPython用アドオン</li>
+<li>（VS CodeのWSL用アドオン <a href="https://docs.microsoft.com/ja-jp/windows/wsl/tutorials/wsl-vscode" target="_blank">https://docs.microsoft.com/ja-jp/windows/wsl/tutorials/wsl-vscode</a>）</li>
+<li>VS CodeのPython用アドオン</li>
+<li>VS Codeでターミナルは使えるか？使いたいシェルに接続できているか？</li>
+<li>Gitは使えるか？</li>
 </ul>
-<h3 id="4-otreeプログラミングの概要">4. oTreeプログラミングの概要</h3>
+<h2 id="4-otreeプログラミングの概要">4. oTreeプログラミングの概要</h2>
 <ul>
 <li>プロジェクトファイルの構成</li>
 <li><code>__init__.py</code> の構成</li>
@@ -376,10 +476,14 @@
 
             
                 
-                <a href="day1.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 第1回">
+                <a href="day1.html" class="navigation navigation-prev " aria-label="Previous page: 第1回">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
+                
+                <a href="ubuntu/" class="navigation navigation-next " aria-label="Next page: Ubuntuの仮想環境の構築">
+                    <i class="fa fa-angle-right"></i>
+                </a>
                 
             
         
@@ -388,7 +492,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第2回","level":"1.1.2","depth":2,"next":{"title":"【資料編】","level":"2.1","depth":1,"ref":"","articles":[]},"previous":{"title":"第1回","level":"1.1.1","depth":2,"path":"day1.md","ref":"day1.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day2.md","mtime":"2022-05-16T22:51:14.327Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-05-16T23:12:51.612Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第2回","level":"1.1.2","depth":2,"next":{"title":"Ubuntuの仮想環境の構築","level":"2.1","depth":1,"path":"ubuntu/README.md","ref":"ubuntu/README.md","articles":[{"title":"WSL2","level":"2.1.1","depth":2,"path":"ubuntu/wsl2.md","ref":"ubuntu/wsl2.md","articles":[]},{"title":"VirtualBox + Vagrant","level":"2.1.2","depth":2,"path":"ubuntu/vagrant.md","ref":"ubuntu/vagrant.md","articles":[]}]},"previous":{"title":"第1回","level":"1.1.1","depth":2,"path":"day1.md","ref":"day1.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day2.md","mtime":"2022-05-18T17:14:11.114Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-05-18T17:14:28.301Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

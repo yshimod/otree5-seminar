@@ -136,24 +136,11 @@
 
     
         
-        <li class="divider"></li>
+        <li class="header">資料編</li>
         
         
     
-        <li class="chapter " data-level="2.1" >
-            
-                <span>
-            
-                    
-                    【資料編】
-            
-                </span>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="2.2" data-path="./">
+        <li class="chapter " data-level="2.1" data-path="./">
             
                 <a href="./">
             
@@ -167,7 +154,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter active" data-level="2.2.1" data-path="wsl2.html">
+        <li class="chapter active" data-level="2.1.1" data-path="wsl2.html">
             
                 <a href="wsl2.html">
             
@@ -180,7 +167,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.2.2" data-path="vagrant.html">
+        <li class="chapter " data-level="2.1.2" data-path="vagrant.html">
             
                 <a href="vagrant.html">
             
@@ -198,7 +185,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.3" data-path="../server_setup/">
+        <li class="chapter " data-level="2.2" data-path="../server_setup/">
             
                 <a href="../server_setup/">
             
@@ -211,7 +198,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.4" data-path="../heroku/">
+        <li class="chapter " data-level="2.3" data-path="../heroku/">
             
                 <a href="../heroku/">
             
@@ -224,7 +211,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.5" data-path="../references/">
+        <li class="chapter " data-level="2.4" data-path="../references/">
             
                 <a href="../references/">
             
@@ -299,6 +286,18 @@
 <li>マシンを再起動</li>
 <li>Ubuntuのユーザ名・パスワードを設定</li>
 </ol>
+<h2 id="注意">注意</h2>
+<ul>
+<li>使うPCの設定次第では，WSL2のインストールが失敗する可能性があります．Microsoftのドキュメント <a href="https://docs.microsoft.com/ja-jp/windows/wsl/troubleshooting#installation-issues" target="_blank">https://docs.microsoft.com/ja-jp/windows/wsl/troubleshooting#installation-issues</a> が参考になります．<ul>
+<li>エラー <code>0x80070003</code> または エラー <code>0x80370102</code> と表示された場合... BIOS（ないしはUEFI）の設定を変更して仮想化支援技術を有効にする必要があります．<ul>
+<li>CPUがIntel製の場合はVT-x，AMD製の場合はAMD-Vを有効にしてください．</li>
+<li>BIOSのメニューは，使っているPC（のマザーボード）のメーカーによって異なるので，詳しくは検索してください．</li>
+<li>BIOS画面に入るには，PCの電源を入れた後すぐにDeleteキーやF2キーなどを押し続けます．どのキーを押すのかもメーカーによって異なります．PC起動直後でメーカーのロゴが表示されている最中に，画面のどこかにどのキーを押すべきかが表示されていることが多いです．</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
                                 
                                 </section>
@@ -342,7 +341,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"WSL2","level":"2.2.1","depth":2,"next":{"title":"VirtualBox + Vagrant","level":"2.2.2","depth":2,"path":"ubuntu/vagrant.md","ref":"ubuntu/vagrant.md","articles":[]},"previous":{"title":"Ubuntuの仮想環境の構築","level":"2.2","depth":1,"path":"ubuntu/README.md","ref":"ubuntu/README.md","articles":[{"title":"WSL2","level":"2.2.1","depth":2,"path":"ubuntu/wsl2.md","ref":"ubuntu/wsl2.md","articles":[]},{"title":"VirtualBox + Vagrant","level":"2.2.2","depth":2,"path":"ubuntu/vagrant.md","ref":"ubuntu/vagrant.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"ubuntu/wsl2.md","mtime":"2022-05-11T02:19:56.653Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-05-16T23:12:51.612Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"WSL2","level":"2.1.1","depth":2,"next":{"title":"VirtualBox + Vagrant","level":"2.1.2","depth":2,"path":"ubuntu/vagrant.md","ref":"ubuntu/vagrant.md","articles":[]},"previous":{"title":"Ubuntuの仮想環境の構築","level":"2.1","depth":1,"path":"ubuntu/README.md","ref":"ubuntu/README.md","articles":[{"title":"WSL2","level":"2.1.1","depth":2,"path":"ubuntu/wsl2.md","ref":"ubuntu/wsl2.md","articles":[]},{"title":"VirtualBox + Vagrant","level":"2.1.2","depth":2,"path":"ubuntu/vagrant.md","ref":"ubuntu/vagrant.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"ubuntu/wsl2.md","mtime":"2022-05-18T14:19:24.740Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-05-18T17:14:28.301Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

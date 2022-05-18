@@ -136,24 +136,11 @@
 
     
         
-        <li class="divider"></li>
+        <li class="header">資料編</li>
         
         
     
-        <li class="chapter " data-level="2.1" >
-            
-                <span>
-            
-                    
-                    【資料編】
-            
-                </span>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="2.2" data-path="./">
+        <li class="chapter " data-level="2.1" data-path="./">
             
                 <a href="./">
             
@@ -167,7 +154,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="2.2.1" data-path="wsl2.html">
+        <li class="chapter " data-level="2.1.1" data-path="wsl2.html">
             
                 <a href="wsl2.html">
             
@@ -180,7 +167,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="2.2.2" data-path="vagrant.html">
+        <li class="chapter active" data-level="2.1.2" data-path="vagrant.html">
             
                 <a href="vagrant.html">
             
@@ -198,7 +185,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.3" data-path="../server_setup/">
+        <li class="chapter " data-level="2.2" data-path="../server_setup/">
             
                 <a href="../server_setup/">
             
@@ -211,7 +198,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.4" data-path="../heroku/">
+        <li class="chapter " data-level="2.3" data-path="../heroku/">
             
                 <a href="../heroku/">
             
@@ -224,7 +211,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.5" data-path="../references/">
+        <li class="chapter " data-level="2.4" data-path="../references/">
             
                 <a href="../references/">
             
@@ -304,72 +291,72 @@
 <li><code>vagrant ssh</code> でシェルに入ってみる</li>
 </ol>
 <h2 id="vagrantfileの中身">Vagrantfileの中身</h2>
-<pre><code class="lang-Vagrantfile"># -*- mode: ruby -*-
-# vi: set ft=ruby :
+<pre><code class="lang-ruby"><span class="hljs-comment"># -*- mode: ruby -*-</span>
+<span class="hljs-comment"># vi: set ft=ruby :</span>
 
-# All Vagrant configuration is done below. The &quot;2&quot; in Vagrant.configure
-# configures the configuration version (we support older styles for
-# backwards compatibility). Please don&apos;t change it unless you know what
-# you&apos;re doing.
-Vagrant.configure(&quot;2&quot;) do |config|
-  # The most common configuration options are documented and commented below.
-  # For a complete reference, please see the online documentation at
-  # https://docs.vagrantup.com.
+<span class="hljs-comment"># All Vagrant configuration is done below. The &quot;2&quot; in Vagrant.configure</span>
+<span class="hljs-comment"># configures the configuration version (we support older styles for</span>
+<span class="hljs-comment"># backwards compatibility). Please don&apos;t change it unless you know what</span>
+<span class="hljs-comment"># you&apos;re doing.</span>
+Vagrant.configure(<span class="hljs-string">&quot;2&quot;</span>) <span class="hljs-keyword">do</span> <span class="hljs-params">|config|</span>
+  <span class="hljs-comment"># The most common configuration options are documented and commented below.</span>
+  <span class="hljs-comment"># For a complete reference, please see the online documentation at</span>
+  <span class="hljs-comment"># https://docs.vagrantup.com.</span>
 
-  # Every Vagrant development environment requires a box. You can search for
-  # boxes at https://vagrantcloud.com/search.
-  config.vm.box = &quot;ubuntu/focal64&quot;
+  <span class="hljs-comment"># Every Vagrant development environment requires a box. You can search for</span>
+  <span class="hljs-comment"># boxes at https://vagrantcloud.com/search.</span>
+  config.vm.box = <span class="hljs-string">&quot;ubuntu/focal64&quot;</span>
 
-  # Disable automatic box update checking. If you disable this, then
-  # boxes will only be checked for updates when the user runs
-  # `vagrant box outdated`. This is not recommended.
-  # config.vm.box_check_update = false
+  <span class="hljs-comment"># Disable automatic box update checking. If you disable this, then</span>
+  <span class="hljs-comment"># boxes will only be checked for updates when the user runs</span>
+  <span class="hljs-comment"># `vagrant box outdated`. This is not recommended.</span>
+  <span class="hljs-comment"># config.vm.box_check_update = false</span>
 
-  # Create a forwarded port mapping which allows access to a specific port
-  # within the machine from a port on the host machine. In the example below,
-  # accessing &quot;localhost:8080&quot; will access port 80 on the guest machine.
-  # NOTE: This will enable public access to the opened port
-  # config.vm.network &quot;forwarded_port&quot;, guest: 80, host: 8080
+  <span class="hljs-comment"># Create a forwarded port mapping which allows access to a specific port</span>
+  <span class="hljs-comment"># within the machine from a port on the host machine. In the example below,</span>
+  <span class="hljs-comment"># accessing &quot;localhost:8080&quot; will access port 80 on the guest machine.</span>
+  <span class="hljs-comment"># <span class="hljs-doctag">NOTE:</span> This will enable public access to the opened port</span>
+  <span class="hljs-comment"># config.vm.network &quot;forwarded_port&quot;, guest: 80, host: 8080</span>
 
-  # Create a forwarded port mapping which allows access to a specific port
-  # within the machine from a port on the host machine and only allow access
-  # via 127.0.0.1 to disable public access
-  # config.vm.network &quot;forwarded_port&quot;, guest: 80, host: 8080, host_ip: &quot;127.0.0.1&quot;
+  <span class="hljs-comment"># Create a forwarded port mapping which allows access to a specific port</span>
+  <span class="hljs-comment"># within the machine from a port on the host machine and only allow access</span>
+  <span class="hljs-comment"># via 127.0.0.1 to disable public access</span>
+  <span class="hljs-comment"># config.vm.network &quot;forwarded_port&quot;, guest: 80, host: 8080, host_ip: &quot;127.0.0.1&quot;</span>
 
-  # Create a private network, which allows host-only access to the machine
-  # using a specific IP.
-  # config.vm.network &quot;private_network&quot;, ip: &quot;192.168.33.10&quot;
+  <span class="hljs-comment"># Create a private network, which allows host-only access to the machine</span>
+  <span class="hljs-comment"># using a specific IP.</span>
+  <span class="hljs-comment"># config.vm.network &quot;private_network&quot;, ip: &quot;192.168.33.10&quot;</span>
 
-  # Create a public network, which generally matched to bridged network.
-  # Bridged networks make the machine appear as another physical device on
-  # your network.
-  config.vm.network &quot;public_network&quot;
+  <span class="hljs-comment"># Create a public network, which generally matched to bridged network.</span>
+  <span class="hljs-comment"># Bridged networks make the machine appear as another physical device on</span>
+  <span class="hljs-comment"># your network.</span>
+  config.vm.network <span class="hljs-string">&quot;public_network&quot;</span>
 
-  # Share an additional folder to the guest VM. The first argument is
-  # the path on the host to the actual folder. The second argument is
-  # the path on the guest to mount the folder. And the optional third
-  # argument is a set of non-required options.
-  # config.vm.synced_folder &quot;../data&quot;, &quot;/vagrant_data&quot;
+  <span class="hljs-comment"># Share an additional folder to the guest VM. The first argument is</span>
+  <span class="hljs-comment"># the path on the host to the actual folder. The second argument is</span>
+  <span class="hljs-comment"># the path on the guest to mount the folder. And the optional third</span>
+  <span class="hljs-comment"># argument is a set of non-required options.</span>
+  <span class="hljs-comment"># config.vm.synced_folder &quot;../data&quot;, &quot;/vagrant_data&quot;</span>
 
-  # Provider-specific configuration so you can fine-tune various
-  # backing providers for Vagrant. These expose provider-specific options.
-  # Example for VirtualBox:
-  #
-  config.vm.provider &quot;virtualbox&quot; do |vb|
-  #   # Display the VirtualBox GUI when booting the machine
-  #   vb.gui = true
-  #
-  #   # Customize the amount of memory on the VM:
-    vb.memory = &quot;8192&quot;
-  end
-  #
-  # View the documentation for the provider you are using for more
-  # information on available options.
+  <span class="hljs-comment"># Provider-specific configuration so you can fine-tune various</span>
+  <span class="hljs-comment"># backing providers for Vagrant. These expose provider-specific options.</span>
+  <span class="hljs-comment"># Example for VirtualBox:</span>
+  <span class="hljs-comment">#</span>
+  config.vm.provider <span class="hljs-string">&quot;virtualbox&quot;</span> <span class="hljs-keyword">do</span> <span class="hljs-params">|vb|</span>
+  <span class="hljs-comment">#   # Display the VirtualBox GUI when booting the machine</span>
+  <span class="hljs-comment">#   vb.gui = true</span>
+  <span class="hljs-comment">#</span>
+    <span class="hljs-comment"># Customize the amount of memory on the VM:</span>
+    vb.memory = <span class="hljs-string">&quot;8192&quot;</span>
+  <span class="hljs-keyword">end</span>
+  <span class="hljs-comment">#</span>
+  <span class="hljs-comment"># View the documentation for the provider you are using for more</span>
+  <span class="hljs-comment"># information on available options.</span>
 
-  # Enable provisioning with a shell script. Additional provisioners such as
-  # Ansible, Chef, Docker, Puppet and Salt are also available. Please see the
-  # documentation for more information about their specific syntax and use.
-  config.vm.provision &quot;shell&quot;, inline: &lt;&lt;-SHELL
+  <span class="hljs-comment"># Enable provisioning with a shell script. Additional provisioners such as</span>
+  <span class="hljs-comment"># Ansible, Chef, Docker, Puppet and Salt are also available. Please see the</span>
+  <span class="hljs-comment"># documentation for more information about their specific syntax and use.</span>
+  config.vm.provision <span class="hljs-string">&quot;shell&quot;</span>, <span class="hljs-symbol">inline:</span> <span class="hljs-string">&lt;&lt;-SHELL
     export DEBIAN_FRONTEND=noninteractive
     apt-get update
     apt-get upgrade -y
@@ -390,8 +377,8 @@ Vagrant.configure(&quot;2&quot;) do |config|
 
     ## For psycopg2
     apt-get install -y libpq-dev
-  SHELL
-end
+  SHELL</span>
+<span class="hljs-keyword">end</span>
 </code></pre>
 <h5 id="プロビジョニング部分の中身">プロビジョニング部分の中身</h5>
 <p>（プロビジョニング: ソフトウェアのインストールなどを自動化すること．）</p>
@@ -442,7 +429,7 @@ end
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"VirtualBox + Vagrant","level":"2.2.2","depth":2,"next":{"title":"UbuntuでoTreeを動かす","level":"2.3","depth":1,"path":"server_setup/README.md","ref":"server_setup/README.md","articles":[]},"previous":{"title":"WSL2","level":"2.2.1","depth":2,"path":"ubuntu/wsl2.md","ref":"ubuntu/wsl2.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"ubuntu/vagrant.md","mtime":"2022-05-11T02:15:10.861Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-05-16T23:12:51.612Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"VirtualBox + Vagrant","level":"2.1.2","depth":2,"next":{"title":"UbuntuでoTreeを動かす","level":"2.2","depth":1,"path":"server_setup/README.md","ref":"server_setup/README.md","articles":[]},"previous":{"title":"WSL2","level":"2.1.1","depth":2,"path":"ubuntu/wsl2.md","ref":"ubuntu/wsl2.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"ubuntu/vagrant.md","mtime":"2022-05-18T14:17:15.466Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-05-18T17:14:28.301Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

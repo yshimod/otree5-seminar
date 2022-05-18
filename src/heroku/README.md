@@ -54,6 +54,7 @@
 
 ## デプロイ後にすること
 - Heroku Postgresなるアドオンを追加してPostgreSQLを使うように設定（ブラウザ操作）．
+- ログのためにPapertrailなるアドオンを追加してもよし．
 - 環境変数の設定（ブラウザ操作）．
 - データベースをリセットするときは，「Run console」から `otree resetdb`．
 - 本番では必要に応じてDyno，PostgreSQLに課金．
