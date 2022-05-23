@@ -56,7 +56,7 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="ubuntu/" />
+    <link rel="next" href="day3.html" />
     
     
     <link rel="prev" href="day1.html" />
@@ -121,6 +121,19 @@
             
                     
                     第2回
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.3" data-path="day3.html">
+            
+                <a href="day3.html">
+            
+                    
+                    第3回
             
                 </a>
             
@@ -269,8 +282,9 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="【第2回】-2022年5月19日">【第2回】 2022年5月19日</h1>
-<h2 id="始める前にやっておいたほうが良いこと">始める前にやっておいたほうが良いこと</h2>
+                                <p>【第2回】 2022年5月19日</p>
+<h1 id="gitとgithubの使い方・herokuの使い方">GitとGitHubの使い方・Herokuの使い方</h1>
+<h3 id="始める前にやっておいたほうが良いこと">始める前にやっておいたほうが良いこと</h3>
 <ul>
 <li><p>結局どうにかして（PostgreSQLうんぬんは無視してでも）oTreeをインストールする．</p>
 <ul>
@@ -293,34 +307,16 @@
 </li>
 <li><p>Herokuのアカウントを作成． <a href="https://signup.heroku.com/login" target="_blank">https://signup.heroku.com/login</a></p>
 </li>
-<li><p>GitHubのアカウントを作成． <a href="https://github.com/signup" target="_blank">https://github.com/signup</a></p>
-</li>
-<li><p>Gitのインストール</p>
-<ul>
-<li>Windowsに直接Pythonを入れてoTreeを動かす場合，Gitのインストーラーを <a href="https://gitforwindows.org/" target="_blank">https://gitforwindows.org/</a> からダウンロードしてインストールする．<ul>
-<li>参考 <a href="https://www.curict.com/item/60/60bfe0e.html" target="_blank">https://www.curict.com/item/60/60bfe0e.html</a></li>
+<li>GitHubのアカウントを作成． <a href="https://github.com/signup" target="_blank">https://github.com/signup</a></li>
 </ul>
-</li>
-<li>Ubuntuを使う場合，以下のコマンドでインストール．<pre><code class="lang-bash">  sudo apt update
-  sudo apt install git
-</code></pre>
-</li>
-<li>Macを使う場合，Xcode Command Line Toolsが導入済みならばすでに <code>git</code> コマンドは使えるはず．あるいはhomebrewで入れる．</li>
-</ul>
-</li>
-<li><p>VS Code（Visual Studio Code）のインストール</p>
-<ul>
-<li><a href="https://code.visualstudio.com/" target="_blank">https://code.visualstudio.com/</a> からインストーラーをダウンロードしてインストール．</li>
-<li>WSL2やVagrantで入れたUbuntuを使っている場合でも，<strong>Windowsに</strong> VS Codeを入れる．</li>
-</ul>
-</li>
-</ul>
-<h2 id="1-git・github">1. Git・GitHub</h2>
-<h4 id="git・githubを使うメリット">Git・GitHubを使うメリット</h4>
+<h3 id="1-gitとgithubを使うメリット">1. GitとGitHubを使うメリット</h3>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/mqX7XHzyoXs?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 <ul>
 <li>Gitはローカル環境においてバージョン管理を行うソフトウェア．<ul>
 <li>ファイルを上書き保存していくと開発の過程が記録されない．</li>
 <li>ファイル名に枝番をつける的な手動バージョン管理ではしっちゃかめっちゃかに．</li>
+<li>Gitでシステマティックにバージョン管理をしよう！</li>
 </ul>
 </li>
 <li>GitHub（クラウド）にローカルのGitで管理しているリポジトリをアップロードできる．<ul>
@@ -336,16 +332,19 @@
 </ul>
 </li>
 </ul>
-<h4 id="使い方">使い方</h4>
+<h3 id="2-gitとgithubの使い方">2. GitとGitHubの使い方</h3>
 <ul>
 <li><p>参考資料</p>
 <ul>
+<li>公式の教科書 <a href="https://git-scm.com/book/en/v2" target="_blank">https://git-scm.com/book/en/v2</a></li>
 <li>名城大理工学部大原研 <a href="https://www1.meijo-u.ac.jp/~kohara/cms/technicalreport" target="_blank">https://www1.meijo-u.ac.jp/~kohara/cms/technicalreport</a></li>
 <li>ドットインストール git入門 <a href="https://dotinstall.com/lessons/basic_git" target="_blank">https://dotinstall.com/lessons/basic_git</a> （無料で視聴可能）</li>
 <li>Webでも書籍でも，Gitに関するドキュメントは大量に存在する．</li>
 </ul>
 </li>
 <li><p>初期設定</p>
+  <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/xnznSzfV_6g?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 <ol>
 <li>Gitのインストール<ul>
 <li>Windowsに直接Pythonを入れてoTreeを動かす場合，Gitのインストーラーを <a href="https://gitforwindows.org/" target="_blank">https://gitforwindows.org/</a> からダウンロードしてインストールする．<ul>
@@ -365,11 +364,19 @@
 </code></pre>
 </li>
 <li>GitHubへSSHで接続できるようにする．<br> <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/about-ssh" target="_blank">https://docs.github.com/en/authentication/connecting-to-github-with-ssh/about-ssh</a><ol>
-<li>SSHの鍵を作る．GitHubで登録したメールアドレスを陽に指定する．<pre><code class="lang-bash"> ssh-keygen -t ed25519 -C <span class="hljs-string">&quot;xxxxxxxx@example.com&quot;</span>
+<li>SSHの鍵を作る．オプション<code>-C</code>以下でGitHubで登録したメールアドレスを陽に指定する．<pre><code class="lang-bash"> ssh-keygen -t ed25519 -C <span class="hljs-string">&quot;xxxxxxxx@example.com&quot;</span>
 </code></pre>
-</li>
+<ul>
 <li>鍵の場所は <code>~/.ssh</code> ．</li>
 <li>鍵にパスフレーズは不要（設定するなら鍵をssh-agentに登録する必要あり）．</li>
+</ul>
+</li>
+<li>公開鍵（<code>*.pub</code>）をGitHubに登録．
+ <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account" target="_blank">https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account</a><ul>
+<li><code>cat ~/.ssh/鍵ファイル名.pub</code> で公開鍵の中身を表示し，コピーしておく．</li>
+<li>GitHub <a href="https://github.com/settings/keys" target="_blank">https://github.com/settings/keys</a> をブラウザで開き，「New SSH key」をクリックし，コピーした公開鍵の中身をペーストする．</li>
+</ul>
+</li>
 <li><code>~/.ssh/config</code> にSSH鍵関係の情報を追記．<pre><code> Host github.com
      IdentityFile ~/.ssh/鍵ファイル名
      User git
@@ -377,7 +384,7 @@
 <li>アクセスできるか確認．<pre><code class="lang-bash"> ssh -T git@github.com
 </code></pre>
 </li>
-<li>すでにGitHubにリポジトリがあればクローンしてみる．<pre><code class="lang-bash"> git <span class="hljs-built_in">clone</span> git@github.com:namaenamae/rrrrrrrrrr.git
+<li>すでにGitHubに（プライベート）リポジトリがあればクローンしてみる．<pre><code class="lang-bash"> git <span class="hljs-built_in">clone</span> git@github.com:namaenamae/rrrrrrrrrr.git
 </code></pre>
 </li>
 </ol>
@@ -385,6 +392,8 @@
 </ol>
 </li>
 <li><p>基本的な手順<br>  <a href="https://learnxinyminutes.com/docs/git/" target="_blank">https://learnxinyminutes.com/docs/git/</a></p>
+  <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/LK7CFRvSTlc?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 <ol>
 <li>（初回のみ）初期化... 作業ディレクトリに移動して，そのディレクトリをGitリポジトリとして設定（<code>.git</code>ディレクトリができる）．<pre><code class="lang-bash"> git init
 </code></pre>
@@ -429,25 +438,16 @@
 </ul>
 </li>
 </ul>
-<h2 id="2-herokuの使い方">2. Herokuの使い方</h2>
+<h3 id="3-herokuの使い方">3. Herokuの使い方</h3>
 <ul>
-<li>デプロイ</li>
-<li>アドオンの設定</li>
-<li>環境変数の設定</li>
-</ul>
-<h2 id="3-開発環境の準備">3. 開発環境の準備</h2>
-<ul>
-<li>VS Codeの導入</li>
-<li>（VS CodeのWSL用アドオン <a href="https://docs.microsoft.com/ja-jp/windows/wsl/tutorials/wsl-vscode" target="_blank">https://docs.microsoft.com/ja-jp/windows/wsl/tutorials/wsl-vscode</a>）</li>
-<li>VS CodeのPython用アドオン</li>
-<li>VS Codeでターミナルは使えるか？使いたいシェルに接続できているか？</li>
-<li>Gitは使えるか？</li>
-</ul>
-<h2 id="4-otreeプログラミングの概要">4. oTreeプログラミングの概要</h2>
-<ul>
-<li>プロジェクトファイルの構成</li>
-<li><code>__init__.py</code> の構成</li>
-<li>oTree3との変更点</li>
+<li><p>デプロイの方法</p>
+  <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/bfrCwKshc74?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</li>
+<li><p>アドオンと環境変数の設定</p>
+  <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/8rkwfkv6sTg?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</li>
+<li><p><a href="heroku/">詳しくはこちら</a></p>
+</li>
 </ul>
 
                                 
@@ -481,7 +481,7 @@
                 </a>
                 
                 
-                <a href="ubuntu/" class="navigation navigation-next " aria-label="Next page: Ubuntuの仮想環境の構築">
+                <a href="day3.html" class="navigation navigation-next " aria-label="Next page: 第3回">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -492,7 +492,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第2回","level":"1.1.2","depth":2,"next":{"title":"Ubuntuの仮想環境の構築","level":"2.1","depth":1,"path":"ubuntu/README.md","ref":"ubuntu/README.md","articles":[{"title":"WSL2","level":"2.1.1","depth":2,"path":"ubuntu/wsl2.md","ref":"ubuntu/wsl2.md","articles":[]},{"title":"VirtualBox + Vagrant","level":"2.1.2","depth":2,"path":"ubuntu/vagrant.md","ref":"ubuntu/vagrant.md","articles":[]}]},"previous":{"title":"第1回","level":"1.1.1","depth":2,"path":"day1.md","ref":"day1.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day2.md","mtime":"2022-05-18T17:14:11.114Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-05-18T17:14:28.301Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第2回","level":"1.1.2","depth":2,"next":{"title":"第3回","level":"1.1.3","depth":2,"path":"day3.md","ref":"day3.md","articles":[]},"previous":{"title":"第1回","level":"1.1.1","depth":2,"path":"day1.md","ref":"day1.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day2.md","mtime":"2022-05-23T15:59:23.537Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-05-23T16:13:32.084Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

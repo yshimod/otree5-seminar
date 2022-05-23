@@ -1,6 +1,8 @@
-# 【第2回】 2022年5月19日
+【第2回】 2022年5月19日
 
-## 始める前にやっておいたほうが良いこと
+# GitとGitHubの使い方・Herokuの使い方
+
+### 始める前にやっておいたほうが良いこと
 - 結局どうにかして（PostgreSQLうんぬんは無視してでも）oTreeをインストールする．
     - WindowsにPythonを直接インストールして，pipでoTreeを入れる．  
         [https://otree.readthedocs.io/en/latest/install-windows.html#install-windows](https://otree.readthedocs.io/en/latest/install-windows.html#install-windows)  
@@ -18,28 +20,15 @@
 - Herokuのアカウントを作成． [https://signup.heroku.com/login](https://signup.heroku.com/login)
 - GitHubのアカウントを作成． [https://github.com/signup](https://github.com/signup)
 
-- Gitのインストール
-    - Windowsに直接Pythonを入れてoTreeを動かす場合，Gitのインストーラーを [https://gitforwindows.org/](https://gitforwindows.org/) からダウンロードしてインストールする．
-        - 参考 [https://www.curict.com/item/60/60bfe0e.html](https://www.curict.com/item/60/60bfe0e.html)
-    - Ubuntuを使う場合，以下のコマンドでインストール．
-        ```bash
-        sudo apt update
-        sudo apt install git
-        ```
-    - Macを使う場合，Xcode Command Line Toolsが導入済みならばすでに `git` コマンドは使えるはず．あるいはhomebrewで入れる．
 
-- VS Code（Visual Studio Code）のインストール
-    - [https://code.visualstudio.com/](https://code.visualstudio.com/) からインストーラーをダウンロードしてインストール．
-    - WSL2やVagrantで入れたUbuntuを使っている場合でも，**Windowsに** VS Codeを入れる．
+### 1. GitとGitHubを使うメリット
 
-
-## 1. Git・GitHub
-
-#### Git・GitHubを使うメリット
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/mqX7XHzyoXs?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 - Gitはローカル環境においてバージョン管理を行うソフトウェア．
     - ファイルを上書き保存していくと開発の過程が記録されない．
     - ファイル名に枝番をつける的な手動バージョン管理ではしっちゃかめっちゃかに．
+    - Gitでシステマティックにバージョン管理をしよう！
 - GitHub（クラウド）にローカルのGitで管理しているリポジトリをアップロードできる．
     - クラウドを介して複数人での開発が効率化できる．
     - 複数のマシンで1つのプロジェクトを管理できる．
@@ -49,14 +38,19 @@
 - 研究活動でのGitHubの活用例
     - 国里愛彦ラボ [https://kunisatolab.github.io/main/how-to-github.html](https://kunisatolab.github.io/main/how-to-github.html)
 
-#### 使い方
+
+### 2. GitとGitHubの使い方
 
 - 参考資料
+    - 公式の教科書 [https://git-scm.com/book/en/v2](https://git-scm.com/book/en/v2)
     - 名城大理工学部大原研 [https://www1.meijo-u.ac.jp/~kohara/cms/technicalreport](https://www1.meijo-u.ac.jp/~kohara/cms/technicalreport)
     - ドットインストール git入門 [https://dotinstall.com/lessons/basic_git](https://dotinstall.com/lessons/basic_git) （無料で視聴可能）
     - Webでも書籍でも，Gitに関するドキュメントは大量に存在する．
 
 - 初期設定
+
+    <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/xnznSzfV_6g?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
     1. Gitのインストール
         - Windowsに直接Pythonを入れてoTreeを動かす場合，Gitのインストーラーを [https://gitforwindows.org/](https://gitforwindows.org/) からダウンロードしてインストールする．
             - 参考 [https://www.curict.com/item/60/60bfe0e.html](https://www.curict.com/item/60/60bfe0e.html)
@@ -74,12 +68,16 @@
         ```
     1. GitHubへSSHで接続できるようにする．  
         [https://docs.github.com/en/authentication/connecting-to-github-with-ssh/about-ssh](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/about-ssh)
-        1. SSHの鍵を作る．GitHubで登録したメールアドレスを陽に指定する．
+        1. SSHの鍵を作る．オプション`-C`以下でGitHubで登録したメールアドレスを陽に指定する．
             ```bash
             ssh-keygen -t ed25519 -C "xxxxxxxx@example.com"
             ```
-        1. 鍵の場所は `~/.ssh` ．
-        1. 鍵にパスフレーズは不要（設定するなら鍵をssh-agentに登録する必要あり）．
+            - 鍵の場所は `~/.ssh` ．
+            - 鍵にパスフレーズは不要（設定するなら鍵をssh-agentに登録する必要あり）．
+        1. 公開鍵（`*.pub`）をGitHubに登録．
+            [https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
+            - `cat ~/.ssh/鍵ファイル名.pub` で公開鍵の中身を表示し，コピーしておく．
+            - GitHub [https://github.com/settings/keys](https://github.com/settings/keys) をブラウザで開き，「New SSH key」をクリックし，コピーした公開鍵の中身をペーストする．
         1. `~/.ssh/config` にSSH鍵関係の情報を追記．
             ```
             Host github.com
@@ -90,13 +88,16 @@
             ```bash
             ssh -T git@github.com
             ```
-        1. すでにGitHubにリポジトリがあればクローンしてみる．
+        1. すでにGitHubに（プライベート）リポジトリがあればクローンしてみる．
             ```bash
             git clone git@github.com:namaenamae/rrrrrrrrrr.git
             ```
 
 - 基本的な手順  
     [https://learnxinyminutes.com/docs/git/](https://learnxinyminutes.com/docs/git/)
+
+    <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/LK7CFRvSTlc?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
     1. （初回のみ）初期化... 作業ディレクトリに移動して，そのディレクトリをGitリポジトリとして設定（`.git`ディレクトリができる）．
         ```bash
         git init
@@ -143,21 +144,12 @@
     - ↑ のように `merge` でマージできるが，節目にはGitHubでプルリクエストしてマージ分を誰かにレビューしてもらったほうが良い．
 
 
-## 2. Herokuの使い方
-- デプロイ
-- アドオンの設定
-- 環境変数の設定
+### 3. Herokuの使い方
 
+- デプロイの方法
+    <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/bfrCwKshc74?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-## 3. 開発環境の準備
-- VS Codeの導入
-- （VS CodeのWSL用アドオン [https://docs.microsoft.com/ja-jp/windows/wsl/tutorials/wsl-vscode](https://docs.microsoft.com/ja-jp/windows/wsl/tutorials/wsl-vscode)）
-- VS CodeのPython用アドオン
-- VS Codeでターミナルは使えるか？使いたいシェルに接続できているか？
-- Gitは使えるか？
+- アドオンと環境変数の設定
+    <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/8rkwfkv6sTg?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-
-## 4. oTreeプログラミングの概要
-- プロジェクトファイルの構成
-- `__init__.py` の構成
-- oTree3との変更点
+- [詳しくはこちら](heroku/README.md)

@@ -5,6 +5,7 @@
 - PyPIのoTreeのページ [https://pypi.org/project/otree/](https://pypi.org/project/otree/)
 - oTree Hub [https://www.otreehub.com/](https://www.otreehub.com/)
 - Google グループ "oTree help & discussion" [https://groups.google.com/g/otree](https://groups.google.com/g/otree)
+- 公式フォーラム（2022年5月23日スタート） [https://www.otreehub.com/forum/](https://www.otreehub.com/forum/)
 
 ### 公式ではないドキュメント
 

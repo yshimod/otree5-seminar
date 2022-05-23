@@ -3,6 +3,7 @@
 * [oTree5 勉強会](README.md)
     * [第1回](day1.md)
     * [第2回](day2.md)
+    * [第3回](day3.md)
 
 
 ### 資料編

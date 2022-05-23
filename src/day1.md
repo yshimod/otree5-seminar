@@ -1,14 +1,17 @@
-# 【第1回】 2022年5月12日
+【第1回】 2022年5月12日
+
+# UbuntuでoTree本番環境を構築する
+
 
 ### 1. oTreeに関する情報
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/pSNcDqts_Jg" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/pSNcDqts_Jg?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 - [参考文献のリスト](references/README.md)
 
 ### 2. oTreeを（本番として）動かす環境: Linuxサーバー v. Heroku v. Windowsマシン
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/SVMcdmlakxM" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/SVMcdmlakxM?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 - オンプレミス（e.g., 社研サーバー），IaaS（e.g., Amazon EC2, Google Compute Engine），VPS（e.g., ConoHa）などのLinuxサーバーで動かす．  
     [UbuntuでoTreeを動かす](server_setup/README.md)
@@ -20,7 +23,7 @@
 
 ### 3. Ubuntuに慣れる
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/ys42gwdtefE" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/ys42gwdtefE?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 - シェルBashの使い方
     - [https://learnxinyminutes.com/docs/bash/](https://learnxinyminutes.com/docs/bash/)
@@ -49,7 +52,7 @@
 
 ### 4. Pythonの導入からpipでoTreeをインストールするまで
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/AlKiPuN4gYg" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/AlKiPuN4gYg?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 - [詳しくはこちら](server_setup/README.md#pythoninstallation)
 - 動画内で少々グダついてしまったので，補足します．  
@@ -66,7 +69,7 @@
 
 ### 5. 本番としてoTreeを動かすために必要なこと
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/oTbznkpAvjM" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/oTbznkpAvjM?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 - [詳しくはこちら](server_setup/README.md#postinstallation)
 - 「oTree勉強会」なる催し物の第1回でやるべき内容ではなかったかもしれませんが，お付き合いください．
@@ -85,7 +88,7 @@
 
 ### 6. oTreeサーバーをインターネットにさらす方法（の梗概）
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/9Hzzzg2-xX8" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/9Hzzzg2-xX8?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 - [詳しくはこちら](server_setup/README.md#webserver)
 - 「oTree勉強会」なる催し物の第1回でやるべき内容ではないし，Herokuで十分な人にとっても不要な内容かも分かりませんが，お付き合いください．
@@ -95,7 +98,7 @@
 
 ### 7. HerokuでoTreeを動かす方法（さわりだけ）
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/3Dzm6s8nPDA" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/3Dzm6s8nPDA?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 - [詳しくはこちら](heroku/README.md)
 - oTreeの著者たちにお金を払ってもよい場合はoTree HubのHeroku連携機能を使っても良いでしょう．

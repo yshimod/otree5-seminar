@@ -29,7 +29,7 @@
 
 ## Python を pyenv (+ virtualenv) で導入 <a id="pythoninstallation"></a>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/xOPHDOUsg0c" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/xOPHDOUsg0c?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 - UbuntuはシステムにデフォルトでPythonが入っているので，それを使っても良いが，おすすめしない．
 - Pythonを導入するのに pyenv + virtualenv を必ず使わなければならないわけではない．
@@ -130,7 +130,7 @@
 
 #### データベースサーバーソフトウェアの PostgreSQL を導入
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/uYNYo1IICvA" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/uYNYo1IICvA?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 - oTree公式はPostgreSQLを使うことを推奨
 - PostgreSQLを使わない場合，SQLite3を使う．

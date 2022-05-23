@@ -5,51 +5,58 @@
 - とりあえずは無料枠で．
 
 ## 【方法1】 GitHubのリポジトリからHerokuへデプロイする
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/LnrY1AKVmqQ?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 - [https://devcenter.heroku.com/articles/github-integration](https://devcenter.heroku.com/articles/github-integration)
-- 2022年4月にGitHubのOAuthトークンが流出し一時的に連携機能が停止．困った困った．  
+    1. ブラウザでHerokuのappを作っておく．
+    1. Heroku Dashboard​ で GitHub Integration の有効化．
+    1. リポジトリを指定し，「Deploy Branch」を押してデプロイ開始．
+- *2022年4月にGitHubのOAuthトークンが流出し一時的に連携機能が停止．困った困った．*  
     [https://blog.heroku.com/we-heard-your-feedback](https://blog.heroku.com/we-heard-your-feedback)
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/LnrY1AKVmqQ" frameborder="0" allowfullscreen></iframe>
 
 ## 【方法2】 HerokuのCLIを使い，直接Herokuへデプロイする
 - [https://devcenter.heroku.com/articles/git](https://devcenter.heroku.com/articles/git)
-- ブラウザでHerokuのappを作っておく．
-- gitをインストール．  
-    [https://git-scm.com/downloads](https://git-scm.com/downloads)
-    - Ubuntuの場合はapt，Macの場合はbrewで入れれば良い．
-- Heroku CLIをインストール．  
-    [https://devcenter.heroku.com/articles/heroku-cli](https://devcenter.heroku.com/articles/heroku-cli)
-    - WSL2でUbuntuを使っている場合は...
+    1. ブラウザでHerokuのappを作っておく．
+    1. Gitをインストール．  
+        [https://git-scm.com/downloads](https://git-scm.com/downloads)
+        - Ubuntuの場合はapt，Macの場合はbrewで入れれば良い．
+    1. Heroku CLIをインストール．  
+        [https://devcenter.heroku.com/articles/heroku-cli](https://devcenter.heroku.com/articles/heroku-cli)
+        - WSL2でUbuntuを使っている場合は...
+            ```bash
+            curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+            ```
+    1. Heroku CLIでログインしておく．
         ```bash
-        curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+        heroku login
         ```
-- Heroku CLIでログインしておく．
-    ```bash
-    heroku login
-    ```
-- まずはoTreeプロジェクトを（ローカルの）gitで管理する（GitHubのリモートリポジトリを使うか否かは関係なし）．
-    ```bash
-    git init
-    ```
-- oTreeプロジェクトにHeroku用の設定ファイルが入っているか確認．
-    - Procfile
-    - requirements.txt （pipで入れるもののリスト）
-    - Pythonのバージョンを指定する場合はruntime.txt
-- Heroku CLI でHerokuのgitサーバーをリモートリポジトリ（herokuという名前）として追加．
-    ```bash
-    heroku git:remote -a 「APP名」
-    ```
-    - GitHubを併用している場合，GitHubのリモートリポジトリが「origin」，Herokuのリモートリポジトリが「heroku」という名前で登録されている．
-    - **GitHubとgitを明確に区別すること！**
-- Herokuのリモートリポジトリにステージングしてコミットしてプッシュ．
-    ```bash
-    git add .
-    git commit -m "first commit"
-    git push heroku 「ブランチ名」
-    ```
-    - ブランチ名はデフォルトなら `master`，特殊なブランチ名（例えば`dev`）なら`dev:master`．
-    - つまり，Herokuのリモートリポジトリのブランチ名は`master`（ないし`main`）．
-- プッシュすると自動的にデプロイされる．
+    1. まずはoTreeプロジェクトを（ローカルの）Gitで管理する（初期化する）．  
+        **すでにGitHubをリモートリポジトリとして使っていてる場合，ここで初期化してはいけない**．
+        ```bash
+        git init
+        ```
+    1. oTreeプロジェクトにHeroku用の設定ファイルが入っているか確認．
+        - Procfile
+        - requirements.txt （pipで入れるもののリスト）
+        - Pythonのバージョンを指定する場合はruntime.txt
+    1. Heroku CLI でHerokuのGitサーバーをリモートリポジトリ（herokuという名前）として追加．「APP名」はHeroku Dashboardで確認する．
+        ```bash
+        heroku git:remote -a 「APP名」
+        ```
+    1. Herokuのリモートリポジトリにステージングしてコミットしてプッシュ．
+        ```bash
+        git add .
+        git commit -m "first commit"
+        git push heroku 「ブランチ名」:main
+        ```
+        - GitHubを併用している場合，GitHubのリモートリポジトリが「origin」，Herokuのリモートリポジトリが「heroku」という名前で登録されている．
+        - **GitHubとGitを明確に区別すること！**
+        - Herokuのリモートリポジトリのブランチ名は`main`（ないし`master`）．
+        - ローカルのブランチ名はデフォルトなら `master`．`git push heroku master:main` ないしは `git push heroku master`でプッシュできる．
+        - ローカルのブランチ名が，たとえば`dev`であれば，`git push heroku dev:main`．
+    1. プッシュすると自動的にデプロイされる．
 
 
 ## デプロイ後にすること
@@ -58,3 +65,7 @@
 - 環境変数の設定（ブラウザ操作）．
 - データベースをリセットするときは，「Run console」から `otree resetdb`．
 - 本番では必要に応じてDyno，PostgreSQLに課金．
+
+
+## 課金メニューはどれを選ぶ？
+- 執筆中．
