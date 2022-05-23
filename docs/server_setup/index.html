@@ -284,10 +284,23 @@
                                 
                                 <h1 id="ubuntuでotreeを動かす">UbuntuでoTreeを動かす</h1>
 <ul>
-<li>公式ドキュメント <a href="https://otree.readthedocs.io/en/latest/server/ubuntu.html" target="_blank">https://otree.readthedocs.io/en/latest/server/ubuntu.html</a></li>
-<li>情報が古いが...<ul>
-<li><a href="https://otree-server-setup.readthedocs.io/en/latest/index.html" target="_blank">https://otree-server-setup.readthedocs.io/en/latest/index.html</a></li>
-<li><a href="https://otreecb.netlify.app/reference/ubuntu_server_setup.html" target="_blank">https://otreecb.netlify.app/reference/ubuntu_server_setup.html</a></li>
+<li><a href="#ubuntuでotreeを動かす">UbuntuでoTreeを動かす</a><ul>
+<li><a href="#目的">目的</a><ul>
+<li><a href="#linuxの使い方に慣れましょう">Linuxの使い方に慣れましょう</a></li>
+<li><a href="#屋上屋を架する愚は避ける">屋上屋を架する愚は避ける</a></li>
+</ul>
+</li>
+<li><a href="#参考">参考</a></li>
+<li><a href="#linuxマシンを用意する">Linuxマシンを用意する</a></li>
+<li><a href="#python-を-pyenv--virtualenv-で導入-">Python を pyenv (+ virtualenv) で導入 <a id="pythoninstallation"></a></a></li>
+<li><a href="#pipでotreeのインストール-">pipでoTreeのインストール <a id="otreeinstallation"></a></a></li>
+<li><a href="#本番としてotreeを動かすために必要なこと-">本番としてoTreeを動かすために必要なこと <a id="postinstallation"></a></a><ul>
+<li><a href="#データベースサーバーソフトウェアの-postgresql-を導入">データベースサーバーソフトウェアの PostgreSQL を導入</a></li>
+<li><a href="#redis-は不要">Redis は不要</a></li>
+<li><a href="#環境変数の設定">環境変数の設定</a></li>
+<li><a href="#ネットワークの設定-">ネットワークの設定 <a id="webserver"></a></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -307,9 +320,20 @@
 <li>Windowsに直接Python・oTreeを入れる方法は公式ドキュメント <a href="https://otree.readthedocs.io/en/latest/install-windows.html#install-windows" target="_blank">https://otree.readthedocs.io/en/latest/install-windows.html#install-windows</a> を参照してください．</li>
 <li>UNIXな環境を前提としたドキュメントは少ない．公式ドキュメントでも説明が雑（MacやLinuxが使える人に詳しい説明は不要と思われている？その推論はいくらか正しいとしても......）．</li>
 </ul>
-<h2 id="マシンを用意してlinuxを入れる">マシンを用意してLinuxを入れる</h2>
+<h2 id="参考">参考</h2>
+<ul>
+<li>公式ドキュメント <a href="https://otree.readthedocs.io/en/latest/server/ubuntu.html" target="_blank">https://otree.readthedocs.io/en/latest/server/ubuntu.html</a></li>
+<li>情報が古いが...<ul>
+<li><a href="https://otree-server-setup.readthedocs.io/en/latest/index.html" target="_blank">https://otree-server-setup.readthedocs.io/en/latest/index.html</a></li>
+<li><a href="https://otreecb.netlify.app/reference/ubuntu_server_setup.html" target="_blank">https://otreecb.netlify.app/reference/ubuntu_server_setup.html</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="linuxマシンを用意する">Linuxマシンを用意する</h2>
+<p>以下のいずれかの方法で．</p>
 <ul>
 <li>isoファイルを公式Webページからダウンロードし，USBメモリに（ブータブルな形式で）コピーする．それを使って実機にインストール．</li>
+<li>VPSやIaaSを契約してインスタンスを作成．</li>
 <li><a href="../ubuntu/">Ubuntuの仮想環境の構築</a></li>
 </ul>
 <h2 id="python-を-pyenv--virtualenv-で導入-">Python を pyenv (+ virtualenv) で導入 <a id="pythoninstallation"></a></h2>
@@ -525,7 +549,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"UbuntuでoTreeを動かす","level":"2.2","depth":1,"next":{"title":"HerokuでoTreeを動かす","level":"2.3","depth":1,"path":"heroku/README.md","ref":"heroku/README.md","articles":[]},"previous":{"title":"VirtualBox + Vagrant","level":"2.1.2","depth":2,"path":"ubuntu/vagrant.md","ref":"ubuntu/vagrant.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"server_setup/README.md","mtime":"2022-05-20T00:29:02.389Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-05-23T16:13:32.084Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"UbuntuでoTreeを動かす","level":"2.2","depth":1,"next":{"title":"HerokuでoTreeを動かす","level":"2.3","depth":1,"path":"heroku/README.md","ref":"heroku/README.md","articles":[]},"previous":{"title":"VirtualBox + Vagrant","level":"2.1.2","depth":2,"path":"ubuntu/vagrant.md","ref":"ubuntu/vagrant.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"server_setup/README.md","mtime":"2022-05-23T16:36:01.518Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-05-23T16:42:20.629Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

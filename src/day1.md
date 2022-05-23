@@ -1,6 +1,14 @@
 【第1回】 2022年5月12日
 
-# UbuntuでoTree本番環境を構築する
+<h1>UbuntuでoTree本番環境を構築する</h1>
+
+- [1. oTreeに関する情報](#1-otreeに関する情報)
+- [2. oTreeの本番環境](#2-otreeの本番環境)
+- [3. Ubuntuに慣れる](#3-ubuntuに慣れる)
+- [4. Pythonの導入からpipでoTreeをインストールするまで](#4-pythonの導入からpipでotreeをインストールするまで)
+- [5. 本番としてoTreeを動かすために必要なこと](#5-本番としてotreeを動かすために必要なこと)
+- [6. oTreeサーバーをインターネットにさらす方法 (の概要)](#6-otreeサーバーをインターネットにさらす方法-の概要)
+- [7. HerokuでoTreeを動かす方法 (さわりだけ)](#7-herokuでotreeを動かす方法-さわりだけ)
 
 
 ### 1. oTreeに関する情報
@@ -9,7 +17,7 @@
 
 - [参考文献のリスト](references/README.md)
 
-### 2. oTreeを（本番として）動かす環境: Linuxサーバー v. Heroku v. Windowsマシン
+### 2. oTreeの本番環境
 
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/SVMcdmlakxM?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -86,7 +94,7 @@
     - Bashの場合のお話なので，Macユーザーでzshを使っている場合はzsh用の設定ファイルの仕様を確認してください（またはBashを使ってください）．
 
 
-### 6. oTreeサーバーをインターネットにさらす方法（の梗概）
+### 6. oTreeサーバーをインターネットにさらす方法 (の概要)
 
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/9Hzzzg2-xX8?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -96,7 +104,7 @@
 - WSL2を使っている場合，ネットワークの設定の段階まで来るとややこしさが急激に上昇すると思われます．Microsoftのドキュメント（ [https://docs.microsoft.com/ja-jp/windows/wsl/networking](https://docs.microsoft.com/ja-jp/windows/wsl/networking) ）を参照して，ポートフォワーディングの設定等をする必要があります．
 
 
-### 7. HerokuでoTreeを動かす方法（さわりだけ）
+### 7. HerokuでoTreeを動かす方法 (さわりだけ)
 
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/3Dzm6s8nPDA?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 

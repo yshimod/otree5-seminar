@@ -1,10 +1,18 @@
 # HerokuでoTreeを動かす
 
+- [HerokuでoTreeを動かす](#herokuでotreeを動かす)
+  - [まずはアカウントを作る](#まずはアカウントを作る)
+  - [(方法1) GitHubのリポジトリからHerokuへデプロイする](#方法1-githubのリポジトリからherokuへデプロイする)
+  - [(方法2) HerokuのCLIを使い直接Herokuへデプロイする](#方法2-herokuのcliを使い直接herokuへデプロイする)
+  - [デプロイ後にすること](#デプロイ後にすること)
+  - [課金メニューはどれを選ぶ？](#課金メニューはどれを選ぶ)
+
+
 ## まずはアカウントを作る
 - [https://signup.heroku.com/](https://signup.heroku.com/)
 - とりあえずは無料枠で．
 
-## 【方法1】 GitHubのリポジトリからHerokuへデプロイする
+## (方法1) GitHubのリポジトリからHerokuへデプロイする
 
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/LnrY1AKVmqQ?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -16,7 +24,7 @@
     [https://blog.heroku.com/we-heard-your-feedback](https://blog.heroku.com/we-heard-your-feedback)
 
 
-## 【方法2】 HerokuのCLIを使い，直接Herokuへデプロイする
+## (方法2) HerokuのCLIを使い直接Herokuへデプロイする
 - [https://devcenter.heroku.com/articles/git](https://devcenter.heroku.com/articles/git)
     1. ブラウザでHerokuのappを作っておく．
     1. Gitをインストール．  
