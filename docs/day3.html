@@ -56,8 +56,6 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="ubuntu/" />
-    
     
     <link rel="prev" href="day2.html" />
     
@@ -149,11 +147,89 @@
 
     
         
-        <li class="header">資料編</li>
+        <li class="divider"></li>
         
         
     
-        <li class="chapter " data-level="2.1" data-path="ubuntu/">
+        <li class="chapter " data-level="2.1" >
+            
+                <span>
+            
+                    
+                    【資料編】
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="otree_ref/cmd.html">
+            
+                <a href="otree_ref/cmd.html">
+            
+                    
+                    シェルで使用するoTreeサブコマンド
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="otree_ref/settings.html">
+            
+                <a href="otree_ref/settings.html">
+            
+                    
+                    settings.py の書き方
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="otree_ref/init.html">
+            
+                <a href="otree_ref/init.html">
+            
+                    
+                    __init__.py の書き方
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="server_setup/">
+            
+                <a href="server_setup/">
+            
+                    
+                    UbuntuでoTreeを動かす
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" data-path="heroku/">
+            
+                <a href="heroku/">
+            
+                    
+                    HerokuでoTreeを動かす
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.7" data-path="ubuntu/">
             
                 <a href="ubuntu/">
             
@@ -167,7 +243,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="2.1.1" data-path="ubuntu/wsl2.html">
+        <li class="chapter " data-level="2.7.1" data-path="ubuntu/wsl2.html">
             
                 <a href="ubuntu/wsl2.html">
             
@@ -180,7 +256,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.1.2" data-path="ubuntu/vagrant.html">
+        <li class="chapter " data-level="2.7.2" data-path="ubuntu/vagrant.html">
             
                 <a href="ubuntu/vagrant.html">
             
@@ -198,33 +274,14 @@
             
         </li>
     
-        <li class="chapter " data-level="2.2" data-path="server_setup/">
-            
-                <a href="server_setup/">
-            
-                    
-                    UbuntuでoTreeを動かす
-            
-                </a>
-            
 
-            
-        </li>
     
-        <li class="chapter " data-level="2.3" data-path="heroku/">
-            
-                <a href="heroku/">
-            
-                    
-                    HerokuでoTreeを動かす
-            
-                </a>
-            
-
-            
-        </li>
+        
+        <li class="divider"></li>
+        
+        
     
-        <li class="chapter " data-level="2.4" data-path="references/">
+        <li class="chapter " data-level="3.1" data-path="references/">
             
                 <a href="references/">
             
@@ -288,7 +345,11 @@
 <ul>
 <li><a href="#始める前にやっておいたほうが良いこと">始める前にやっておいたほうが良いこと</a></li>
 <li><a href="#1-開発環境の準備">1. 開発環境の準備</a></li>
-<li><a href="#2-otreeプログラミングの概要">2. oTreeプログラミングの概要</a></li>
+<li><a href="#2-シェルで使用するotreeサブコマンド">2. シェルで使用するoTreeサブコマンド</a></li>
+<li><a href="#3-otreeプロジェクトファイルの構成と-settingspy">3. oTreeプロジェクトファイルの構成と <code>settings.py</code></a></li>
+<li><a href="#4-管理者画面">4. 管理者画面</a></li>
+<li><a href="#5-__init__py-の構成">5. <code>__init__.py</code> の構成</a></li>
+<li><a href="#6-otreeで実験プログラムを開発する前に考えておくこと">6. oTreeで実験プログラムを開発する前に考えておくこと</a></li>
 </ul>
 <h2 id="始める前にやっておいたほうが良いこと">始める前にやっておいたほうが良いこと</h2>
 <ul>
@@ -300,17 +361,84 @@
 </ul>
 <h2 id="1-開発環境の準備">1. 開発環境の準備</h2>
 <ul>
-<li>VS Codeの導入</li>
+<li>VS Codeの導入<ul>
 <li>（VS CodeのWSL用アドオン <a href="https://docs.microsoft.com/ja-jp/windows/wsl/tutorials/wsl-vscode" target="_blank">https://docs.microsoft.com/ja-jp/windows/wsl/tutorials/wsl-vscode</a>）</li>
 <li>VS CodeのPython用アドオン</li>
 <li>VS Codeでターミナルは使えるか？使いたいシェルに接続できているか？</li>
 <li>Gitは使えるか？</li>
 </ul>
-<h2 id="2-otreeプログラミングの概要">2. oTreeプログラミングの概要</h2>
+</li>
+<li>Chromeデベロッパーツール（検証モード）</li>
+</ul>
+<h2 id="2-シェルで使用するotreeサブコマンド">2. シェルで使用するoTreeサブコマンド</h2>
+<h2 id="3-otreeプロジェクトファイルの構成と-settingspy">3. oTreeプロジェクトファイルの構成と <code>settings.py</code></h2>
 <ul>
-<li>プロジェクトファイルの構成</li>
-<li><code>__init__.py</code> の構成</li>
-<li>oTree3との変更点</li>
+<li>ファイル構成<ul>
+<li><code>settings.py</code></li>
+<li><code>requirements.txt</code></li>
+<li><code>Procfile</code></li>
+<li><code>_static</code> ディレクトリ</li>
+<li><code>_templates</code> ディレクトリ</li>
+<li>各アプリのディレクトリ<ul>
+<li><code>__init__.py</code></li>
+<li><code>*.html</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>重要なoTree用語 <a href="https://otree.readthedocs.io/ja/latest/conceptual_overview.html" target="_blank">https://otree.readthedocs.io/ja/latest/conceptual_overview.html</a></li>
+<li><code>settings.py</code> の書き方</li>
+</ul>
+<h2 id="4-管理者画面">4. 管理者画面</h2>
+<ul>
+<li>Demo</li>
+<li>Sessions</li>
+<li>Rooms</li>
+<li>Data</li>
+<li>Server Check</li>
+<li>一つの実験セッションの中で<ul>
+<li>Links</li>
+<li>Monitor</li>
+<li>Data</li>
+<li>Payments</li>
+<li>Description</li>
+<li>Edit</li>
+</ul>
+</li>
+</ul>
+<h2 id="5-initpy-の構成">5. <code>__init__.py</code> の構成</h2>
+<ul>
+<li>チュートリアル（公共財ゲーム）を参照しながら<br>  <a href="https://otree.readthedocs.io/ja/latest/tutorial/part2.html" target="_blank">https://otree.readthedocs.io/ja/latest/tutorial/part2.html</a></li>
+</ul>
+<h2 id="6-otreeで実験プログラムを開発する前に考えておくこと">6. oTreeで実験プログラムを開発する前に考えておくこと</h2>
+<ul>
+<li>ラボでの集団実験か？Zoomでの集団実験か？アンケートなど個人の意思決定課題か？<ul>
+<li>参加者の端末は何？（ラボのPC？各参加者の私物PC？スマホに対応する？）</li>
+<li>インストラクションは紙で配布する？画面を読ませる？</li>
+<li>確認クイズはどのような形式？（どうしても確認クイズに正答できない場合は？）</li>
+<li>実験中の参加者の行動を監視できるか？</li>
+<li>途中で脱落する参加者への対応は？</li>
+<li>報酬の支払い方法は？</li>
+</ul>
+</li>
+<li>実験の流れは？画面の構成は？<ul>
+<li>課題の順番？（一つ一つの課題をアプリとして実装する．）<br>  たとえば...<ol>
+<li>インストラクション・確認クイズ</li>
+<li>意思決定課題</li>
+<li>アンケート</li>
+<li>報酬額フィードバック</li>
+</ol>
+</li>
+<li>トリートメントの条件分岐をどう実装する？</li>
+<li>各課題（アプリ）で表示するページの順番？（絵コンテを作ってみる．）</li>
+<li>意思決定のインターフェイスは？</li>
+</ul>
+</li>
+<li>どんなデータを取る？<ul>
+<li>得られる意思決定データの形式は？（インターフェイスのデザインとも関係．）</li>
+<li>意思決定データ以外に記録しておくデータは？</li>
+</ul>
+</li>
 </ul>
 
                                 
@@ -339,14 +467,10 @@
 
             
                 
-                <a href="day2.html" class="navigation navigation-prev " aria-label="Previous page: 第2回">
+                <a href="day2.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 第2回">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="ubuntu/" class="navigation navigation-next " aria-label="Next page: Ubuntuの仮想環境の構築">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -355,7 +479,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第3回","level":"1.1.3","depth":2,"next":{"title":"Ubuntuの仮想環境の構築","level":"2.1","depth":1,"path":"ubuntu/README.md","ref":"ubuntu/README.md","articles":[{"title":"WSL2","level":"2.1.1","depth":2,"path":"ubuntu/wsl2.md","ref":"ubuntu/wsl2.md","articles":[]},{"title":"VirtualBox + Vagrant","level":"2.1.2","depth":2,"path":"ubuntu/vagrant.md","ref":"ubuntu/vagrant.md","articles":[]}]},"previous":{"title":"第2回","level":"1.1.2","depth":2,"path":"day2.md","ref":"day2.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day3.md","mtime":"2022-05-23T16:22:35.516Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-05-23T16:42:20.629Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第3回","level":"1.1.3","depth":2,"next":{"title":"【資料編】","level":"2.1","depth":1,"ref":"","articles":[]},"previous":{"title":"第2回","level":"1.1.2","depth":2,"path":"day2.md","ref":"day2.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day3.md","mtime":"2022-05-26T00:26:21.752Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-05-26T00:32:17.144Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

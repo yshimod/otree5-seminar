@@ -56,7 +56,7 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="../references/" />
+    <link rel="next" href="../ubuntu/" />
     
     
     <link rel="prev" href="../server_setup/" />
@@ -149,11 +149,89 @@
 
     
         
-        <li class="header">資料編</li>
+        <li class="divider"></li>
         
         
     
-        <li class="chapter " data-level="2.1" data-path="../ubuntu/">
+        <li class="chapter " data-level="2.1" >
+            
+                <span>
+            
+                    
+                    【資料編】
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../otree_ref/cmd.html">
+            
+                <a href="../otree_ref/cmd.html">
+            
+                    
+                    シェルで使用するoTreeサブコマンド
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../otree_ref/settings.html">
+            
+                <a href="../otree_ref/settings.html">
+            
+                    
+                    settings.py の書き方
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="../otree_ref/init.html">
+            
+                <a href="../otree_ref/init.html">
+            
+                    
+                    __init__.py の書き方
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="../server_setup/">
+            
+                <a href="../server_setup/">
+            
+                    
+                    UbuntuでoTreeを動かす
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="2.6" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    HerokuでoTreeを動かす
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.7" data-path="../ubuntu/">
             
                 <a href="../ubuntu/">
             
@@ -167,7 +245,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="2.1.1" data-path="../ubuntu/wsl2.html">
+        <li class="chapter " data-level="2.7.1" data-path="../ubuntu/wsl2.html">
             
                 <a href="../ubuntu/wsl2.html">
             
@@ -180,7 +258,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.1.2" data-path="../ubuntu/vagrant.html">
+        <li class="chapter " data-level="2.7.2" data-path="../ubuntu/vagrant.html">
             
                 <a href="../ubuntu/vagrant.html">
             
@@ -198,33 +276,14 @@
             
         </li>
     
-        <li class="chapter " data-level="2.2" data-path="../server_setup/">
-            
-                <a href="../server_setup/">
-            
-                    
-                    UbuntuでoTreeを動かす
-            
-                </a>
-            
 
-            
-        </li>
     
-        <li class="chapter active" data-level="2.3" data-path="./">
-            
-                <a href="./">
-            
-                    
-                    HerokuでoTreeを動かす
-            
-                </a>
-            
-
-            
-        </li>
+        
+        <li class="divider"></li>
+        
+        
     
-        <li class="chapter " data-level="2.4" data-path="../references/">
+        <li class="chapter " data-level="3.1" data-path="../references/">
             
                 <a href="../references/">
             
@@ -301,61 +360,56 @@
 <h2 id="方法1-githubのリポジトリからherokuへデプロイする">(方法1) GitHubのリポジトリからHerokuへデプロイする</h2>
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/LnrY1AKVmqQ?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-<ul>
-<li><a href="https://devcenter.heroku.com/articles/github-integration" target="_blank">https://devcenter.heroku.com/articles/github-integration</a><ol>
-<li>ブラウザでHerokuのappを作っておく．</li>
-<li>Heroku Dashboard​ で GitHub Integration の有効化．</li>
-<li>リポジトリを指定し，「Deploy Branch」を押してデプロイ開始．</li>
-</ol>
-</li>
+
+<p><a href="https://devcenter.heroku.com/articles/github-integration" target="_blank">https://devcenter.heroku.com/articles/github-integration</a></p>
+<pre><code>1. ブラウザでHerokuのappを作っておく．
+1. Heroku Dashboard​ で GitHub Integration の有効化．
+1. リポジトリを指定し，「Deploy Branch」を押してデプロイ開始．
+</code></pre><ul>
 <li><em>2022年4月にGitHubのOAuthトークンが流出し一時的に連携機能が停止．困った困った．</em><br>  <a href="https://blog.heroku.com/we-heard-your-feedback" target="_blank">https://blog.heroku.com/we-heard-your-feedback</a></li>
 </ul>
 <h2 id="方法2-herokuのcliを使い直接herokuへデプロイする">(方法2) HerokuのCLIを使い直接Herokuへデプロイする</h2>
-<ul>
-<li><a href="https://devcenter.heroku.com/articles/git" target="_blank">https://devcenter.heroku.com/articles/git</a><ol>
-<li>ブラウザでHerokuのappを作っておく．</li>
-<li>Gitをインストール．<br> <a href="https://git-scm.com/downloads" target="_blank">https://git-scm.com/downloads</a><ul>
-<li>Ubuntuの場合はapt，Macの場合はbrewで入れれば良い．</li>
-</ul>
-</li>
-<li>Heroku CLIをインストール．<br> <a href="https://devcenter.heroku.com/articles/heroku-cli" target="_blank">https://devcenter.heroku.com/articles/heroku-cli</a><ul>
-<li>WSL2でUbuntuを使っている場合は...<pre><code class="lang-bash">  curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
-</code></pre>
-</li>
-</ul>
-</li>
-<li>Heroku CLIでログインしておく．<pre><code class="lang-bash"> heroku login
-</code></pre>
-</li>
-<li>まずはoTreeプロジェクトを（ローカルの）Gitで管理する（初期化する）．<br> <strong>すでにGitHubをリモートリポジトリとして使っていてる場合，ここで初期化してはいけない</strong>．<pre><code class="lang-bash"> git init
-</code></pre>
-</li>
-<li>oTreeプロジェクトにHeroku用の設定ファイルが入っているか確認．<ul>
-<li>Procfile</li>
-<li>requirements.txt （pipで入れるもののリスト）</li>
-<li>Pythonのバージョンを指定する場合はruntime.txt</li>
-</ul>
-</li>
-<li>Heroku CLI でHerokuのGitサーバーをリモートリポジトリ（herokuという名前）として追加．「APP名」はHeroku Dashboardで確認する．<pre><code class="lang-bash"> heroku git:remote -a 「APP名」
-</code></pre>
-</li>
-<li>Herokuのリモートリポジトリにステージングしてコミットしてプッシュ．<pre><code class="lang-bash"> git add .
- git commit -m <span class="hljs-string">&quot;first commit&quot;</span>
- git push heroku 「ブランチ名」:main
-</code></pre>
-<ul>
-<li>GitHubを併用している場合，GitHubのリモートリポジトリが「origin」，Herokuのリモートリポジトリが「heroku」という名前で登録されている．</li>
-<li><strong>GitHubとGitを明確に区別すること！</strong></li>
-<li>Herokuのリモートリポジトリのブランチ名は<code>main</code>（ないし<code>master</code>）．</li>
-<li>ローカルのブランチ名はデフォルトなら <code>master</code>．<code>git push heroku master:main</code> ないしは <code>git push heroku master</code>でプッシュできる．</li>
-<li>ローカルのブランチ名が，たとえば<code>dev</code>であれば，<code>git push heroku dev:main</code>．</li>
-</ul>
-</li>
-<li>プッシュすると自動的にデプロイされる．</li>
-</ol>
-</li>
-</ul>
-<h2 id="デプロイ後にすること">デプロイ後にすること</h2>
+<p><a href="https://devcenter.heroku.com/articles/git" target="_blank">https://devcenter.heroku.com/articles/git</a></p>
+<pre><code>1. ブラウザでHerokuのappを作っておく．
+1. Gitをインストール．  
+    [https://git-scm.com/downloads](https://git-scm.com/downloads)
+    - Ubuntuの場合はapt，Macの場合はbrewで入れれば良い．
+1. Heroku CLIをインストール．  
+    [https://devcenter.heroku.com/articles/heroku-cli](https://devcenter.heroku.com/articles/heroku-cli)
+    - WSL2でUbuntuを使っている場合は...
+        ```bash
+        curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+        ```
+1. Heroku CLIでログインしておく．
+    ```bash
+    heroku login
+    ```
+1. まずはoTreeプロジェクトを（ローカルの）Gitで管理する（初期化する）．  
+    **すでにGitHubをリモートリポジトリとして使っていてる場合，ここで初期化してはいけない**．
+    ```bash
+    git init
+    ```
+1. oTreeプロジェクトにHeroku用の設定ファイルが入っているか確認．
+    - Procfile
+    - requirements.txt （pipで入れるもののリスト）
+    - Pythonのバージョンを指定する場合はruntime.txt
+1. Heroku CLI でHerokuのGitサーバーをリモートリポジトリ（herokuという名前）として追加．「APP名」はHeroku Dashboardで確認する．
+    ```bash
+    heroku git:remote -a 「APP名」
+    ```
+1. Herokuのリモートリポジトリにステージングしてコミットしてプッシュ．
+    ```bash
+    git add .
+    git commit -m &quot;first commit&quot;
+    git push heroku 「ブランチ名」:main
+    ```
+    - GitHubを併用している場合，GitHubのリモートリポジトリが「origin」，Herokuのリモートリポジトリが「heroku」という名前で登録されている．
+    - **GitHubとGitを明確に区別すること！**
+    - Herokuのリモートリポジトリのブランチ名は`main`（ないし`master`）．
+    - ローカルのブランチ名はデフォルトなら `master`．`git push heroku master:main` ないしは `git push heroku master`でプッシュできる．
+    - ローカルのブランチ名が，たとえば`dev`であれば，`git push heroku dev:main`．
+1. プッシュすると自動的にデプロイされる．
+</code></pre><h2 id="デプロイ後にすること">デプロイ後にすること</h2>
 <ul>
 <li>Heroku Postgresなるアドオンを追加してPostgreSQLを使うように設定（ブラウザ操作）．</li>
 <li>ログのためにPapertrailなるアドオンを追加してもよし．</li>
@@ -399,7 +453,7 @@
                 </a>
                 
                 
-                <a href="../references/" class="navigation navigation-next " aria-label="Next page: 参考文献">
+                <a href="../ubuntu/" class="navigation navigation-next " aria-label="Next page: Ubuntuの仮想環境の構築">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -410,7 +464,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"HerokuでoTreeを動かす","level":"2.3","depth":1,"next":{"title":"参考文献","level":"2.4","depth":1,"path":"references/README.md","ref":"references/README.md","articles":[]},"previous":{"title":"UbuntuでoTreeを動かす","level":"2.2","depth":1,"path":"server_setup/README.md","ref":"server_setup/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"heroku/README.md","mtime":"2022-05-23T16:42:07.155Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-05-23T16:42:20.629Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"HerokuでoTreeを動かす","level":"2.6","depth":1,"next":{"title":"Ubuntuの仮想環境の構築","level":"2.7","depth":1,"path":"ubuntu/README.md","ref":"ubuntu/README.md","articles":[{"title":"WSL2","level":"2.7.1","depth":2,"path":"ubuntu/wsl2.md","ref":"ubuntu/wsl2.md","articles":[]},{"title":"VirtualBox + Vagrant","level":"2.7.2","depth":2,"path":"ubuntu/vagrant.md","ref":"ubuntu/vagrant.md","articles":[]}]},"previous":{"title":"UbuntuでoTreeを動かす","level":"2.5","depth":1,"path":"server_setup/README.md","ref":"server_setup/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"heroku/README.md","mtime":"2022-05-26T00:30:16.727Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-05-26T00:32:17.144Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

@@ -16,7 +16,10 @@
 
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/LnrY1AKVmqQ?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-- [https://devcenter.heroku.com/articles/github-integration](https://devcenter.heroku.com/articles/github-integration)
+
+[https://devcenter.heroku.com/articles/github-integration](https://devcenter.heroku.com/articles/github-integration)
+
+
     1. ブラウザでHerokuのappを作っておく．
     1. Heroku Dashboard​ で GitHub Integration の有効化．
     1. リポジトリを指定し，「Deploy Branch」を押してデプロイ開始．
@@ -25,7 +28,9 @@
 
 
 ## (方法2) HerokuのCLIを使い直接Herokuへデプロイする
-- [https://devcenter.heroku.com/articles/git](https://devcenter.heroku.com/articles/git)
+
+[https://devcenter.heroku.com/articles/git](https://devcenter.heroku.com/articles/git)
+
     1. ブラウザでHerokuのappを作っておく．
     1. Gitをインストール．  
         [https://git-scm.com/downloads](https://git-scm.com/downloads)

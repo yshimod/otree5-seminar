@@ -1,0 +1,605 @@
+
+<!DOCTYPE HTML>
+<html lang="ja" >
+    <head>
+        <meta charset="UTF-8">
+        <title>__init__.py の書き方 · oTree5 勉強会</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 3.7.1">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../server_setup/" />
+    
+    
+    <link rel="prev" href="settings.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="検索ワードを入力" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    oTree5 勉強会
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1.1" data-path="../day1.html">
+            
+                <a href="../day1.html">
+            
+                    
+                    第1回
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.2" data-path="../day2.html">
+            
+                <a href="../day2.html">
+            
+                    
+                    第2回
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.3" data-path="../day3.html">
+            
+                <a href="../day3.html">
+            
+                    
+                    第3回
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" >
+            
+                <span>
+            
+                    
+                    【資料編】
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="cmd.html">
+            
+                <a href="cmd.html">
+            
+                    
+                    シェルで使用するoTreeサブコマンド
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="settings.html">
+            
+                <a href="settings.html">
+            
+                    
+                    settings.py の書き方
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="2.4" data-path="init.html">
+            
+                <a href="init.html">
+            
+                    
+                    __init__.py の書き方
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="../server_setup/">
+            
+                <a href="../server_setup/">
+            
+                    
+                    UbuntuでoTreeを動かす
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" data-path="../heroku/">
+            
+                <a href="../heroku/">
+            
+                    
+                    HerokuでoTreeを動かす
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.7" data-path="../ubuntu/">
+            
+                <a href="../ubuntu/">
+            
+                    
+                    Ubuntuの仮想環境の構築
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.7.1" data-path="../ubuntu/wsl2.html">
+            
+                <a href="../ubuntu/wsl2.html">
+            
+                    
+                    WSL2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.7.2" data-path="../ubuntu/vagrant.html">
+            
+                <a href="../ubuntu/vagrant.html">
+            
+                    
+                    VirtualBox + Vagrant
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../references/">
+            
+                <a href="../references/">
+            
+                    
+                    参考文献
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            HonKitで公開 
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >__init__.py の書き方</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="initpy-の書き方"><code>__init__.py</code> の書き方</h1>
+<h2 id="otreeapi-のインポート"><code>otree.api</code> のインポート</h2>
+<pre><code class="lang-python"><span class="hljs-keyword">from</span> otree.api <span class="hljs-keyword">import</span> *
+</code></pre>
+<ul>
+<li>oTree3ではインポートするものを細かく指定していた．</li>
+</ul>
+<h2 id="定数-クラス-c">定数: クラス <code>C</code></h2>
+<ul>
+<li><a href="https://otree.readthedocs.io/en/latest/models.html#constants" target="_blank">https://otree.readthedocs.io/en/latest/models.html#constants</a></li>
+<li>アプリ内で参照する変数（定数）を定義する．</li>
+<li>クラス <code>C</code> で設定するものはCSVデータ出力には含まれない．CSVデータに記録しなくても平気な定数を定義する．<ul>
+<li>セッションごと（トリートメントごと）変化しうる変数はクラス <code>C</code> ではなく <code>settings.py</code> の <code>SESSION_CONFIGS</code> の中で定義するべき． <code>SESSION_CONFIGS</code> で定義した変数（ <code>session.変数</code> ）はCSVデータ出力に含まれる．</li>
+</ul>
+</li>
+<li>公式ドキュメントには，dict型の変数はメソッドで定義せよ，とあるが，dict型の変数も普通に定義できそう．</li>
+<li>マナーとして変数名は大文字にしておくと良い？</li>
+<li>oTree3では <code>Constants</code> なるクラスで設定していた．</li>
+</ul>
+<h4 id="nameinurl"><code>NAME_IN_URL</code></h4>
+<ul>
+<li>URLにアプリ名として表示するものを設定．</li>
+<li>必ず設定しなければならないが，アプリ名（ <code>__name__</code> で取得できる）と異なっていても良い．</li>
+</ul>
+<h4 id="playerspergroup"><code>PLAYERS_PER_GROUP</code></h4>
+<ul>
+<li>ゲーム実験の場合，各グループの人数を設定する．</li>
+<li>必ず設定する．</li>
+<li>プレーヤーの相互作用が無い場合（アンケートなど）は <code>1</code> ではなく <code>None</code> とする．</li>
+<li>セッションを作成するとき，人数は <code>PLAYERS_PER_GROUP</code> の整数倍でなければならない．</li>
+<li>グループ内でプレイヤーに番号（ <code>player.id_in_group</code> ）が振られる．この番号はグループにおける役割のインデックスとして使うと良い．</li>
+</ul>
+<h4 id="numrounds"><code>NUM_ROUNDS</code></h4>
+<ul>
+<li>アプリを繰り返す場合，繰り返す回（最大）数を設定する．</li>
+<li>1以上の整数を必ず設定する．</li>
+</ul>
+<h4 id="role"><code>*_ROLE</code></h4>
+<ul>
+<li>変数名の末尾に <code>_ROLE</code> ，または先頭に <code>ROLE_</code> をつけたものは， <code>player.id_in_group</code> のラベルとして使うことができる．</li>
+<li>たとえば <code>PLAYERS_PER_GROUP = 2</code> のとき，<pre><code class="lang-python">  BUYER_ROLE = <span class="hljs-string">&quot;買い手&quot;</span>
+  SELLER_ROLE = <span class="hljs-string">&quot;売り手&quot;</span>
+</code></pre>
+  とすると， <code>player.id_in_group == 1</code> のプレイヤーの <code>player.role</code> は <code>買い手</code> ， <code>player.id_in_group == 2</code> のプレイヤーの <code>player.role</code> は <code>売り手</code> となる．</li>
+<li><code>player.id_in_group</code> のラベルとして使いたくない場合， <code>C</code> のクラス変数の名前に <code>_ROLE</code> や <code>ROLE_</code> をつけてはいけない．</li>
+</ul>
+<h2 id="データモデル">データモデル</h2>
+<ul>
+<li><a href="https://otree.readthedocs.io/en/latest/models.html" target="_blank">https://otree.readthedocs.io/en/latest/models.html</a></li>
+</ul>
+<h4 id="クラス-subsession">クラス <code>Subsession</code></h4>
+<ul>
+<li><a href="https://otree.readthedocs.io/en/latest/models.html#subsession" target="_blank">https://otree.readthedocs.io/en/latest/models.html#subsession</a></li>
+</ul>
+<h4 id="クラス-group">クラス <code>Group</code></h4>
+<ul>
+<li><a href="https://otree.readthedocs.io/en/latest/models.html#group" target="_blank">https://otree.readthedocs.io/en/latest/models.html#group</a></li>
+</ul>
+<h4 id="クラス-player">クラス <code>Player</code></h4>
+<ul>
+<li><a href="https://otree.readthedocs.io/en/latest/models.html#player" target="_blank">https://otree.readthedocs.io/en/latest/models.html#player</a></li>
+</ul>
+<h4 id="フィールドの型">フィールドの型</h4>
+<ul>
+<li><code>models.BooleanField</code> (for true/false and yes/no values)</li>
+<li><code>models.CurrencyField</code> for currency amounts; see Currency.</li>
+<li><code>models.IntegerField</code></li>
+<li><code>models.FloatField</code> (for real numbers)</li>
+<li><code>models.StringField</code> (for text strings)</li>
+<li><code>models.LongStringField</code> (for long text strings; its form widget is a multi-line textarea)</li>
+</ul>
+<h2 id="ページ">ページ</h2>
+<ul>
+<li><a href="https://otree.readthedocs.io/en/latest/pages.html" target="_blank">https://otree.readthedocs.io/en/latest/pages.html</a></li>
+<li>クラス <code>Page</code> を継承する．</li>
+<li>待機ページではクラス <code>WaitPage</code> を継承する．</li>
+<li>クラス名がURLに表示される．</li>
+</ul>
+<h3 id="変数">変数</h3>
+<h4 id="templatename"><code>template_name</code></h4>
+<h4 id="formmodel"><code>form_model</code></h4>
+<h4 id="formfields"><code>form_fields</code></h4>
+<h4 id="groupbyarrivaltime"><code>group_by_arrival_time</code></h4>
+<h4 id="timeoutseconds"><code>timeout_seconds</code></h4>
+<h3 id="組み込み関数">組み込み関数</h3>
+<h4 id="livemethod"><code>live_method</code></h4>
+<ul>
+<li>(player: Player, data)</li>
+<li>クラス <code>Page</code> のみ．</li>
+</ul>
+<h4 id="getformfields"><code>get_form_fields</code></h4>
+<ul>
+<li>(player: Player)</li>
+<li>クラス <code>Page</code> のみ．</li>
+</ul>
+<h4 id="varsfortemplate"><code>vars_for_template</code></h4>
+<ul>
+<li>(player: Player)</li>
+</ul>
+<h4 id="jsvars"><code>js_vars</code></h4>
+<ul>
+<li>(player: Player)</li>
+</ul>
+<h4 id="beforenextpage"><code>before_next_page</code></h4>
+<ul>
+<li>(player: Player, timeout_happened)</li>
+<li>クラス <code>Page</code> のみ．</li>
+</ul>
+<h4 id="isdisplayed"><code>is_displayed</code></h4>
+<ul>
+<li>(player: Player)</li>
+</ul>
+<h4 id="errormessage"><code>error_message</code></h4>
+<ul>
+<li>(player: Player, values)</li>
+<li>クラス <code>Page</code> のみ．</li>
+</ul>
+<h4 id="gettimeoutseconds"><code>get_timeout_seconds</code></h4>
+<ul>
+<li>(player: Player)</li>
+<li>クラス <code>Page</code> のみ．</li>
+</ul>
+<h4 id="appafterthispage"><code>app_after_this_page</code></h4>
+<ul>
+<li>(player: Player, upcoming_apps)</li>
+</ul>
+<h4 id="afterallplayersarrive"><code>after_all_players_arrive</code></h4>
+<ul>
+<li>(group: Group)</li>
+<li>クラス <code>WaitPage</code> のみ．</li>
+</ul>
+<h2 id="組み込み関数">組み込み関数</h2>
+<h4 id="creatingsession"><code>creating_session</code></h4>
+<h4 id="customexport"><code>custom_export</code></h4>
+<h4 id="groupbyarrivaltimemethod"><code>group_by_arrival_time_method</code></h4>
+<h4 id="varsforadminreport"><code>vars_for_admin_report</code></h4>
+<h4 id="min"><code>*_min</code></h4>
+<h4 id="max"><code>*_max</code></h4>
+<h4 id="choices"><code>*_choices</code></h4>
+<h4 id="errormessage"><code>*_error_message</code></h4>
+<h2 id="自作の関数">自作の関数</h2>
+<h2 id="pagesequence"><code>page_sequence</code></h2>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="settings.html" class="navigation navigation-prev " aria-label="Previous page: settings.py の書き方">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../server_setup/" class="navigation navigation-next " aria-label="Next page: UbuntuでoTreeを動かす">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"__init__.py の書き方","level":"2.4","depth":1,"next":{"title":"UbuntuでoTreeを動かす","level":"2.5","depth":1,"path":"server_setup/README.md","ref":"server_setup/README.md","articles":[]},"previous":{"title":"settings.py の書き方","level":"2.3","depth":1,"path":"otree_ref/settings.md","ref":"otree_ref/settings.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"otree_ref/init.md","mtime":"2022-05-26T00:08:43.831Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-05-26T00:32:17.144Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
