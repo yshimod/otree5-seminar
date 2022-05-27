@@ -4,7 +4,7 @@
 
 ## `create_session`
 - コマンドでセッションを作成する．
-- セッション名，人数（，ルーム）の指定しかできないため使いどころは不明．より詳細な設定でセッション作成を自動化したい場合はREST APIを使ったほうが良い．
+- セッション名，人数（，ルーム）の指定しかできないため使いどころは不明．より詳細な設定でセッション作成を自動化したい場合はREST APIを使った方が良い．
 [https://otree.readthedocs.io/en/latest/misc/rest_api.html#create-sessions-endpoint](https://otree.readthedocs.io/en/latest/misc/rest_api.html#create-sessions-endpoint)
 - 使い方
     - ` otree create_session session_config_name num_participants`
@@ -77,7 +77,7 @@
     - `otree startproject プロジェクト名`
 - サンプルゲームを追加する場合は `Include sample games? (y or n)` と聞かれたときに `y` と答える．
 - サンプルゲームを追加しない場合，`startapp` コマンドで1つずつ空のアプリを追加していく．
-- GitHubで管理するときにはアプリ単位ではなくプロジェクト単位のほうが良い．プロジェクトで1つのリポジトリであれば，そのままHerokuにデプロイできる．
+- GitHubで管理するときにはアプリ単位ではなくプロジェクト単位の方が良い．プロジェクトで1つのリポジトリであれば，そのままHerokuにデプロイできる．
 
 ## `test`
 

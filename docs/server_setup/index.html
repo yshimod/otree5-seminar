@@ -141,6 +141,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.1.4" data-path="../day4.html">
+            
+                <a href="../day4.html">
+            
+                    
+                    第4回
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -356,7 +369,7 @@
 <li><a href="#本番としてotreeを動かすために必要なこと-">本番としてoTreeを動かすために必要なこと <a id="postinstallation"></a></a><ul>
 <li><a href="#データベースサーバーソフトウェアの-postgresql-を導入">データベースサーバーソフトウェアの PostgreSQL を導入</a></li>
 <li><a href="#redis-は不要">Redis は不要</a></li>
-<li><a href="#環境変数の設定">環境変数の設定</a></li>
+<li><a href="#環境変数の設定-">環境変数の設定 <a id="envvar"></a></a></li>
 <li><a href="#ネットワークの設定-">ネットワークの設定 <a id="webserver"></a></a></li>
 </ul>
 </li>
@@ -513,7 +526,7 @@
 <ul>
 <li>oTreeの以前のバージョンではRedisの導入が必須だったが，v3.3.4以降（しれっと）不要になった．</li>
 </ul>
-<h4 id="環境変数の設定">環境変数の設定</h4>
+<h4 id="環境変数の設定-">環境変数の設定 <a id="envvar"></a></h4>
 <ul>
 <li><p>（Bashを使っている場合は）.bashrcに環境変数を設定．</p>
 <pre><code class="lang-bash">  <span class="hljs-comment"># oTree実験者画面へのパスワードをたとえば000999にしてみる．本当はもっと複雑なものにする．</span>
@@ -538,9 +551,9 @@
   <span class="hljs-comment"># DATABASE_URLを設定しなければoTreeはSQLiteを使う．</span>
 </code></pre>
 <ul>
-<li>Vim（vi）を使って.bashrcを編集できるようにしておいたほうが良い．nanoでも良いが．</li>
+<li>Vim（vi）を使って.bashrcを編集できるようにしておいた方が良い．nanoでも良いが．</li>
 <li>PostgreSQLのURL（<code>DATABASE_URL</code>）にパスワード（例では0099）を書いても良い．そのときはPostgreSQLのパスワードファイル.pgpassが不要．</li>
-<li>oTreeの公式ドキュメントでは言及されていないが，settings.pyの <code>SECRET_KEY</code> も環境変数から受け取るように変えたほうが良い気がする．</li>
+<li>oTreeの公式ドキュメントでは言及されていないが，settings.pyの <code>SECRET_KEY</code> も環境変数から受け取るように変えた方が良い気がする．</li>
 </ul>
 </li>
 </ul>
@@ -608,7 +621,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"UbuntuでoTreeを動かす","level":"2.5","depth":1,"next":{"title":"HerokuでoTreeを動かす","level":"2.6","depth":1,"path":"heroku/README.md","ref":"heroku/README.md","articles":[]},"previous":{"title":"__init__.py の書き方","level":"2.4","depth":1,"path":"otree_ref/init.md","ref":"otree_ref/init.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"server_setup/README.md","mtime":"2022-05-23T16:36:01.518Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-05-26T00:32:17.144Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"UbuntuでoTreeを動かす","level":"2.5","depth":1,"next":{"title":"HerokuでoTreeを動かす","level":"2.6","depth":1,"path":"heroku/README.md","ref":"heroku/README.md","articles":[]},"previous":{"title":"__init__.py の書き方","level":"2.4","depth":1,"path":"otree_ref/init.md","ref":"otree_ref/init.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"server_setup/README.md","mtime":"2022-05-27T14:21:44.768Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-05-27T14:31:37.776Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

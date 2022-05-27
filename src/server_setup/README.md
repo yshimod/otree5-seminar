@@ -11,7 +11,7 @@
   - [本番としてoTreeを動かすために必要なこと <a id="postinstallation"></a>](#本番としてotreeを動かすために必要なこと-)
       - [データベースサーバーソフトウェアの PostgreSQL を導入](#データベースサーバーソフトウェアの-postgresql-を導入)
       - [Redis は不要](#redis-は不要)
-      - [環境変数の設定](#環境変数の設定)
+      - [環境変数の設定 <a id="envvar"></a>](#環境変数の設定-)
       - [ネットワークの設定 <a id="webserver"></a>](#ネットワークの設定-)
 
 
@@ -160,7 +160,7 @@
 - oTreeの以前のバージョンではRedisの導入が必須だったが，v3.3.4以降（しれっと）不要になった．
 
 
-#### 環境変数の設定
+#### 環境変数の設定 <a id="envvar"></a>
 
 - （Bashを使っている場合は）.bashrcに環境変数を設定．
     ```bash
@@ -185,9 +185,9 @@
     export DATABASE_URL=postgres://user01:0099@localhost/otreedb
     # DATABASE_URLを設定しなければoTreeはSQLiteを使う．
     ```
-    - Vim（vi）を使って.bashrcを編集できるようにしておいたほうが良い．nanoでも良いが．
+    - Vim（vi）を使って.bashrcを編集できるようにしておいた方が良い．nanoでも良いが．
     - PostgreSQLのURL（`DATABASE_URL`）にパスワード（例では0099）を書いても良い．そのときはPostgreSQLのパスワードファイル.pgpassが不要．
-    - oTreeの公式ドキュメントでは言及されていないが，settings.pyの `SECRET_KEY` も環境変数から受け取るように変えたほうが良い気がする．
+    - oTreeの公式ドキュメントでは言及されていないが，settings.pyの `SECRET_KEY` も環境変数から受け取るように変えた方が良い気がする．
 
 
 #### ネットワークの設定 <a id="webserver"></a>

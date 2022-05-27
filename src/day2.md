@@ -2,7 +2,7 @@
 
 <h1>GitとGitHubの使い方・Herokuの使い方</h1>
 
-- [始める前にやっておいたほうが良いこと](#始める前にやっておいたほうが良いこと)
+- [始める前にやっておいた方が良いこと](#始める前にやっておいた方が良いこと)
 - [1. GitとGitHubを使うメリット](#1-gitとgithubを使うメリット)
 - [2. GitとGitHubの使い方](#2-gitとgithubの使い方)
     - [参考資料](#参考資料)
@@ -14,7 +14,7 @@
     - [アドオンと環境変数の設定](#アドオンと環境変数の設定)
 
 
-## 始める前にやっておいたほうが良いこと
+## 始める前にやっておいた方が良いこと
 - 結局どうにかして（PostgreSQLうんぬんは無視してでも）oTreeをインストールする．
     - WindowsにPythonを直接インストールして，pipでoTreeを入れる．  
         [https://otree.readthedocs.io/en/latest/install-windows.html#install-windows](https://otree.readthedocs.io/en/latest/install-windows.html#install-windows)  
@@ -153,7 +153,7 @@
      ```bash
      git merge namaenamae/dev
      ```
- - ↑ のように `merge` でマージできるが，節目にはGitHubでプルリクエストしてマージ分を誰かにレビューしてもらったほうが良い．
+ - ↑ のように `merge` でマージできるが，節目にはGitHubでプルリクエストしてマージ分を誰かにレビューしてもらった方が良い．
 
 
 ## 3. Herokuの使い方

@@ -56,6 +56,7 @@
         - ノーマルモードで `:q!` を押して編集内容を破棄して終了．
         - ノーマルモードで `:x` を押して編集内容を保存して終了．
     - `vimtutor` コマンドでチュートリアル開始．
+    - ドットインストール vim入門 [https://dotinstall.com/lessons/basic_vim](https://dotinstall.com/lessons/basic_vim)
 
 
 ### 4. Pythonの導入からpipでoTreeをインストールするまで

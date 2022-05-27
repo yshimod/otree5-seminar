@@ -130,8 +130,8 @@
     ```
 
 ## `ADMIN_PASSWORD`
-- 管理者のパスワード． `settings.py` 内で直接設定できなくもないが，環境変数で設定するほうが良い．
-- 例
+- 管理者のパスワード． `settings.py` 内で直接設定できなくもないが，環境変数（ `OTREE_ADMIN_PASSWORD` ）を設定する方が良い．
+- デフォルト
     ```python
     # for security, best to set admin password in an environment variable
     ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
@@ -148,7 +148,7 @@
 - URLに付与されるランダム文字列の生成に使われる．
 - `otree startproject` でプロジェクトを作成したときに文字列が自動的に生成される．
 - `SECRET_KEY` があれば不正にアクセスできてしまう？
-- GitHubでプロジェクトを管理する場合， `settings.py` の中には書かず環境変数で設定したほうが良い？（Djangoの `SECRET_KEY` はGitHubにプッシュすると警告される．）
+- GitHubでプロジェクトを管理する場合， `settings.py` の中には書かず環境変数で設定した方が良い？（Djangoの `SECRET_KEY` はGitHubにプッシュすると警告される．）
 - 例
     ```python
     SECRET_KEY = '1234567890'
@@ -160,8 +160,22 @@
     - 環境変数は `export OTREE_SECRET_KEY=1234567890` などのように設定．
 
 ## `INSTALLED_APPS`
-- oTree5では不要？
-- デフォルト
+- デフォルトで以下が設定されているが，oTree5では不要？
     ```python
     INSTALLED_APPS = ['otree']
     ```
+
+## `DEBUG`
+- oTree本体では `DEBUG = os.environ.get('OTREE_PRODUCTION') in [None, '', '0']`
+- つまり，環境変数で `export OTREE_PRODUCTION=1` とするか `settings.py` で以下の設定をしない限りデバッグモードで起動する．
+    ```python
+    DEBUG = False
+    ```
+
+## `AUTH_LEVEL`
+- oTree本体では `AUTH_LEVEL = os.environ.get('OTREE_AUTH_LEVEL')`
+- 環境変数で `export OTREE_AUTH_LEVEL=STUDY` とするか `settings.py` で以下の設定すると本番モード（管理者画面全体がパスワード保護）で起動する．
+    ```python
+    OTREE_AUTH_LEVEL = "STUDY"
+    ```
+- `STUDY` を `DEMO` に変えると，管理者画面のデモページ以外がパスワード保護で起動する．
