@@ -353,6 +353,26 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="シェルで使用するotreeサブコマンド">シェルで使用するoTreeサブコマンド</h1>
+<ul>
+<li><a href="#シェルで使用するotreeサブコマンド">シェルで使用するoTreeサブコマンド</a><ul>
+<li><a href="#browser_bots"><code>browser_bots</code></a></li>
+<li><a href="#create_session"><code>create_session</code></a></li>
+<li><a href="#devserver"><code>devserver</code></a></li>
+<li><a href="#prodserver"><code>prodserver</code></a></li>
+<li><a href="#prodserver1of2"><code>prodserver1of2</code></a></li>
+<li><a href="#prodserver2of2"><code>prodserver2of2</code></a></li>
+<li><a href="#remove_self"><code>remove_self</code></a></li>
+<li><a href="#resetdb"><code>resetdb</code></a></li>
+<li><a href="#startapp"><code>startapp</code></a></li>
+<li><a href="#startproject"><code>startproject</code></a></li>
+<li><a href="#test"><code>test</code></a></li>
+<li><a href="#unzip"><code>unzip</code></a></li>
+<li><a href="#update_my_code"><code>update_my_code</code></a></li>
+<li><a href="#zip"><code>zip</code></a></li>
+<li><a href="#zipserver"><code>zipserver</code></a></li>
+</ul>
+</li>
+</ul>
 <h2 id="browserbots"><code>browser_bots</code></h2>
 <h2 id="createsession"><code>create_session</code></h2>
 <ul>
@@ -371,6 +391,7 @@
 <h2 id="devserver"><code>devserver</code></h2>
 <ul>
 <li>開発中の動作環境のためにサーバーを起動するコマンド．</li>
+<li>起動後（ポートを特定しなければ） <code>http://localhost:8000</code> で管理者画面にアクセスできる．</li>
 <li><code>prodserver</code> コマンドとは異なり，稼働中に <code>settings.py</code> や <code>__init__.py</code> などを編集すると自動的にサーバーを再起動して編集分を反映してくれる．</li>
 <li>使い方<ul>
 <li><code>otree devserver</code></li>
@@ -382,6 +403,7 @@
 <h2 id="prodserver"><code>prodserver</code></h2>
 <ul>
 <li>実験本番のためにサーバーを起動するコマンド．</li>
+<li>起動後（ポートを特定しなければ） <code>http://localhost:8000</code> で管理者画面にアクセスできる．</li>
 <li><code>devserver</code> コマンドとは異なり，稼働中にWebサーバーのログがシェル標準出力される．</li>
 <li>使い方<ul>
 <li><code>otree prodserver</code></li>
@@ -488,7 +510,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"シェルで使用するoTreeサブコマンド","level":"2.2","depth":1,"next":{"title":"settings.py の書き方","level":"2.3","depth":1,"path":"otree_ref/settings.md","ref":"otree_ref/settings.md","articles":[]},"previous":{"title":"【資料編】","level":"2.1","depth":1,"ref":"","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"otree_ref/cmd.md","mtime":"2022-05-27T06:24:23.279Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-05-27T14:31:37.776Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"シェルで使用するoTreeサブコマンド","level":"2.2","depth":1,"next":{"title":"settings.py の書き方","level":"2.3","depth":1,"path":"otree_ref/settings.md","ref":"otree_ref/settings.md","articles":[]},"previous":{"title":"【資料編】","level":"2.1","depth":1,"ref":"","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"otree_ref/cmd.md","mtime":"2022-06-02T00:29:38.566Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-02T00:47:15.361Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

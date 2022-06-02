@@ -1,5 +1,24 @@
 # シェルで使用するoTreeサブコマンド
 
+
+- [シェルで使用するoTreeサブコマンド](#シェルで使用するotreeサブコマンド)
+  - [`browser_bots`](#browser_bots)
+  - [`create_session`](#create_session)
+  - [`devserver`](#devserver)
+  - [`prodserver`](#prodserver)
+  - [`prodserver1of2`](#prodserver1of2)
+  - [`prodserver2of2`](#prodserver2of2)
+  - [`remove_self`](#remove_self)
+  - [`resetdb`](#resetdb)
+  - [`startapp`](#startapp)
+  - [`startproject`](#startproject)
+  - [`test`](#test)
+  - [`unzip`](#unzip)
+  - [`update_my_code`](#update_my_code)
+  - [`zip`](#zip)
+  - [`zipserver`](#zipserver)
+
+
 ## `browser_bots`
 
 ## `create_session`
@@ -15,6 +34,7 @@
 
 ## `devserver`
 - 開発中の動作環境のためにサーバーを起動するコマンド．
+- 起動後（ポートを特定しなければ） `http://localhost:8000` で管理者画面にアクセスできる．
 - `prodserver` コマンドとは異なり，稼働中に `settings.py` や `__init__.py` などを編集すると自動的にサーバーを再起動して編集分を反映してくれる．
 - 使い方
     - `otree devserver`
@@ -23,6 +43,7 @@
 
 ## `prodserver`
 - 実験本番のためにサーバーを起動するコマンド．
+- 起動後（ポートを特定しなければ） `http://localhost:8000` で管理者画面にアクセスできる．
 - `devserver` コマンドとは異なり，稼働中にWebサーバーのログがシェル標準出力される．
 - 使い方
     - `otree prodserver`

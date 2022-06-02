@@ -192,6 +192,9 @@
 
 #### ネットワークの設定 <a id="webserver"></a>
 - [https://otreecb.netlify.app/reference/ubuntu_server_setup.html#step-3-install-nginx](https://otreecb.netlify.app/reference/ubuntu_server_setup.html#step-3-install-nginx) が詳しい．
+- WSL2のUbuntuを使っている場合はポートフォワードを設定する必要がある．
+    - [https://docs.microsoft.com/ja-jp/windows/wsl/networking](https://docs.microsoft.com/ja-jp/windows/wsl/networking)
+    - [https://bayashi.net/diary/2020/1121](https://bayashi.net/diary/2020/1121)
 - サーバーのIPアドレスを固定する．
 - ファイアウォール（ufw）で開放するポートを設定．
     - LAN内で完結する場合（学内のラボなど）はあまり気にしなくて良い．

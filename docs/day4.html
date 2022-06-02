@@ -356,14 +356,10 @@
 <h1 id="otreeプログラミングの概要">oTreeプログラミングの概要</h1>
 
 <ul>
-<li><a href="#1-__init__py-の構成">1. <code>__init__.py</code> の構成</a></li>
-<li><a href="#2-otreeで実験プログラムを開発する前に考えておくこと">2. oTreeで実験プログラムを開発する前に考えておくこと</a></li>
+<li><a href="#1-otreeで実験プログラムを開発する前に考えておくこと">1. oTreeで実験プログラムを開発する前に考えておくこと</a></li>
+<li><a href="#2-__init__py-の構成">2. <code>__init__.py</code> の構成</a></li>
 </ul>
-<h2 id="1-initpy-の構成">1. <code>__init__.py</code> の構成</h2>
-<ul>
-<li>チュートリアル（公共財ゲーム）を参照しながら<br>  <a href="https://otree.readthedocs.io/ja/latest/tutorial/part2.html" target="_blank">https://otree.readthedocs.io/ja/latest/tutorial/part2.html</a></li>
-</ul>
-<h2 id="2-otreeで実験プログラムを開発する前に考えておくこと">2. oTreeで実験プログラムを開発する前に考えておくこと</h2>
+<h2 id="1-otreeで実験プログラムを開発する前に考えておくこと">1. oTreeで実験プログラムを開発する前に考えておくこと</h2>
 <ul>
 <li>ラボでの集団実験か？Zoomでの集団実験か？アンケートなど個人の意思決定課題か？<ul>
 <li>参加者の端末は何？（ラボのPC？各参加者の私物PC？スマホに対応する？）</li>
@@ -390,6 +386,34 @@
 <li>どんなデータを取る？<ul>
 <li>得られる意思決定データの形式は？（インターフェイスのデザインとも関係．）</li>
 <li>意思決定データ以外に記録しておくデータは？</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-initpy-の構成">2. <code>__init__.py</code> の構成</h2>
+<ul>
+<li>チュートリアル（公共財ゲーム）を参照しながら<br>  <a href="https://otree.readthedocs.io/ja/latest/tutorial/part2.html" target="_blank">https://otree.readthedocs.io/ja/latest/tutorial/part2.html</a><ul>
+<li>3人ゲーム</li>
+<li>同時手番</li>
+<li>利得: 初期保有 - 貢献額 + （グループ内合計貢献額 * 倍率 / 人数）</li>
+<li>定数<ul>
+<li>PLAYERS_PER_GROUP（1グループあたりの人数） = 3</li>
+<li>NUM_ROUNDS（ラウンド数） = 1</li>
+<li>ENDOWMENT（初期保有） = 1000</li>
+<li>MULTIPLIER（倍率） = 2</li>
+</ul>
+</li>
+<li>記録するデータ<ul>
+<li>player.contribution（各プレイヤーの貢献額）</li>
+<li>group.total_contribution（各グループの合計貢献額）</li>
+<li>group.individual_share（各グループにおける各プレイヤーへの配分額）</li>
+</ul>
+</li>
+<li>3ページ構成:<ol>
+<li>&quot;Contribute&quot;（意思決定画面）</li>
+<li>&quot;ResultsWaitPage&quot;（待機ページ）</li>
+<li>&quot;Results&quot;（結果表示ページ）</li>
+</ol>
+</li>
 </ul>
 </li>
 </ul>
@@ -432,7 +456,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第4回","level":"1.1.4","depth":2,"next":{"title":"【資料編】","level":"2.1","depth":1,"ref":"","articles":[]},"previous":{"title":"第3回","level":"1.1.3","depth":2,"path":"day3.md","ref":"day3.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day4.md","mtime":"2022-05-27T09:29:35.904Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-05-27T14:31:37.776Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第4回","level":"1.1.4","depth":2,"next":{"title":"【資料編】","level":"2.1","depth":1,"ref":"","articles":[]},"previous":{"title":"第3回","level":"1.1.3","depth":2,"path":"day3.md","ref":"day3.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day4.md","mtime":"2022-06-02T00:43:09.322Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-02T00:47:15.361Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

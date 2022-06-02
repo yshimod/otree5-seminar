@@ -355,15 +355,108 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="initpy-の書き方"><code>__init__.py</code> の書き方</h1>
-<h2 id="otreeapi-のインポート"><code>otree.api</code> のインポート</h2>
-<pre><code class="lang-python"><span class="hljs-keyword">from</span> otree.api <span class="hljs-keyword">import</span> *
+<ul>
+<li><a href="#__init__py-の書き方"><code>__init__.py</code> の書き方</a><ul>
+<li><a href="#ファイルの冒頭">ファイルの冒頭</a></li>
+<li><a href="#定数-クラス-c">定数: クラス <code>C</code></a><ul>
+<li><a href="#name_in_url"><code>NAME_IN_URL</code></a></li>
+<li><a href="#players_per_group"><code>PLAYERS_PER_GROUP</code></a></li>
+<li><a href="#num_rounds"><code>NUM_ROUNDS</code></a></li>
+<li><a href="#_role"><code>*_ROLE</code></a></li>
+</ul>
+</li>
+<li><a href="#データモデル">データモデル</a><ul>
+<li><a href="#クラス-subsession">クラス <code>Subsession</code></a><ul>
+<li><a href="#アクセスできる上層のデータ">アクセスできる上層のデータ</a></li>
+</ul>
+</li>
+<li><a href="#クラス-group">クラス <code>Group</code></a><ul>
+<li><a href="#アクセスできる上層のデータ-1">アクセスできる上層のデータ</a></li>
+</ul>
+</li>
+<li><a href="#クラス-player">クラス <code>Player</code></a><ul>
+<li><a href="#アクセスできる上層のデータ-2">アクセスできる上層のデータ</a></li>
+</ul>
+</li>
+<li><a href="#フィールドの型">フィールドの型</a></li>
+<li><a href="#入力フォームとの対応">入力フォームとの対応</a></li>
+</ul>
+</li>
+<li><a href="#ページ">ページ</a><ul>
+<li><a href="#変数">変数</a><ul>
+<li><a href="#round_number"><code>round_number</code></a></li>
+<li><a href="#template_name"><code>template_name</code></a></li>
+<li><a href="#form_model"><code>form_model</code></a></li>
+<li><a href="#form_fields"><code>form_fields</code></a></li>
+<li><a href="#timeout_seconds"><code>timeout_seconds</code></a></li>
+<li><a href="#timer_text"><code>timer_text</code></a></li>
+</ul>
+</li>
+<li><a href="#組み込み関数">組み込み関数</a><ul>
+<li><a href="#live_method"><code>live_method</code></a></li>
+<li><a href="#get_form_fields"><code>get_form_fields</code></a></li>
+<li><a href="#vars_for_template"><code>vars_for_template</code></a></li>
+<li><a href="#js_vars"><code>js_vars</code></a></li>
+<li><a href="#before_next_page"><code>before_next_page</code></a></li>
+<li><a href="#is_displayed"><code>is_displayed</code></a></li>
+<li><a href="#error_message"><code>error_message</code></a></li>
+<li><a href="#get_timeout_seconds"><code>get_timeout_seconds</code></a></li>
+<li><a href="#app_after_this_page"><code>app_after_this_page</code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#待機ページ">待機ページ</a><ul>
+<li><a href="#変数-1">変数</a><ul>
+<li><a href="#round_number-1"><code>round_number</code></a></li>
+<li><a href="#template_name-1"><code>template_name</code></a></li>
+<li><a href="#group_by_arrival_time"><code>group_by_arrival_time</code></a></li>
+<li><a href="#wait_for_all_groups"><code>wait_for_all_groups</code></a></li>
+<li><a href="#title_text"><code>title_text</code></a></li>
+<li><a href="#body_text"><code>body_text</code></a></li>
+</ul>
+</li>
+<li><a href="#組み込み関数-1">組み込み関数</a><ul>
+<li><a href="#vars_for_template-1"><code>vars_for_template</code></a></li>
+<li><a href="#js_vars-1"><code>js_vars</code></a></li>
+<li><a href="#is_displayed-1"><code>is_displayed</code></a></li>
+<li><a href="#app_after_this_page-1"><code>app_after_this_page</code></a></li>
+<li><a href="#after_all_players_arrive"><code>after_all_players_arrive</code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#組み込み関数-2">組み込み関数</a><ul>
+<li><a href="#creating_session"><code>creating_session</code></a></li>
+<li><a href="#custom_export"><code>custom_export</code></a></li>
+<li><a href="#group_by_arrival_time_method"><code>group_by_arrival_time_method</code></a></li>
+<li><a href="#vars_for_admin_report"><code>vars_for_admin_report</code></a></li>
+<li><a href="#field_name_min"><code>{field_name}_min</code></a></li>
+<li><a href="#field_name_max"><code>{field_name}_max</code></a></li>
+<li><a href="#field_name_choices"><code>{field_name}_choices</code></a></li>
+<li><a href="#field_name_error_message"><code>{field_name}_error_message</code></a></li>
+</ul>
+</li>
+<li><a href="#自作の関数">自作の関数</a></li>
+<li><a href="#page_sequence"><code>page_sequence</code></a></li>
+</ul>
+</li>
+</ul>
+<h2 id="ファイルの冒頭">ファイルの冒頭</h2>
+<ul>
+<li>シバン（shebang... <code>#!/usr/bin/env python3</code> みたいなやつ）は不要．</li>
+<li>文字コード宣言（ <code># -*- coding: utf-8 -*-</code> みたいなやつ）は不要（むしろ非推奨）．</li>
+<li><code>otree.api</code> のインポート<pre><code class="lang-python">  <span class="hljs-keyword">from</span> otree.api <span class="hljs-keyword">import</span> *
 </code></pre>
 <ul>
 <li>oTree3ではインポートするものを細かく指定していた．</li>
 </ul>
+</li>
+<li>他にも使いたいモジュール（<code>time</code>，<code>random</code>，<code>json</code>，<code>numpy</code>など）があれば，冒頭でインポートしておく．</li>
+</ul>
 <h2 id="定数-クラス-c">定数: クラス <code>C</code></h2>
+<p><a href="https://otree.readthedocs.io/en/latest/models.html#constants" target="_blank">https://otree.readthedocs.io/en/latest/models.html#constants</a></p>
 <ul>
-<li><a href="https://otree.readthedocs.io/en/latest/models.html#constants" target="_blank">https://otree.readthedocs.io/en/latest/models.html#constants</a></li>
 <li>アプリ内で参照する変数（定数）を定義する．</li>
 <li>クラス <code>C</code> で設定するものはCSVデータ出力には含まれない．CSVデータに記録しなくても平気な定数を定義する．<ul>
 <li>セッションごと（トリートメントごと）変化しうる変数はクラス <code>C</code> ではなく <code>settings.py</code> の <code>SESSION_CONFIGS</code> の中で定義するべき． <code>SESSION_CONFIGS</code> で定義した変数（ <code>session.変数</code> ）はCSVデータ出力に含まれる．</li>
@@ -401,20 +494,63 @@
 <li><code>player.id_in_group</code> のラベルとして使いたくない場合， <code>C</code> のクラス変数の名前に <code>_ROLE</code> や <code>ROLE_</code> をつけてはいけない．</li>
 </ul>
 <h2 id="データモデル">データモデル</h2>
-<ul>
-<li><a href="https://otree.readthedocs.io/en/latest/models.html" target="_blank">https://otree.readthedocs.io/en/latest/models.html</a></li>
-</ul>
+<p><a href="https://otree.readthedocs.io/en/latest/models.html" target="_blank">https://otree.readthedocs.io/en/latest/models.html</a></p>
 <h4 id="クラス-subsession">クラス <code>Subsession</code></h4>
+<p><a href="https://otree.readthedocs.io/en/latest/models.html#subsession" target="_blank">https://otree.readthedocs.io/en/latest/models.html#subsession</a></p>
 <ul>
-<li><a href="https://otree.readthedocs.io/en/latest/models.html#subsession" target="_blank">https://otree.readthedocs.io/en/latest/models.html#subsession</a></li>
+<li>round_number</li>
+<li>get_groups()</li>
+<li>get_players()</li>
+<li>group_randomly()</li>
+<li>group_like_round()</li>
+<li>get_group_matrix()</li>
+<li>set_group_matrix()</li>
+<li>in_all_rounds()</li>
+<li>in_previous_rounds()</li>
+<li>in_rounds(first, last)</li>
+<li>in_round(round_number)</li>
+</ul>
+<h5 id="アクセスできる上層のデータ">アクセスできる上層のデータ</h5>
+<ul>
+<li>session</li>
 </ul>
 <h4 id="クラス-group">クラス <code>Group</code></h4>
+<p><a href="https://otree.readthedocs.io/en/latest/models.html#group" target="_blank">https://otree.readthedocs.io/en/latest/models.html#group</a></p>
 <ul>
-<li><a href="https://otree.readthedocs.io/en/latest/models.html#group" target="_blank">https://otree.readthedocs.io/en/latest/models.html#group</a></li>
+<li>round_number</li>
+<li>in_all_rounds()</li>
+<li>in_previous_rounds()</li>
+<li>in_rounds(first, last)</li>
+<li>in_round(round_number)</li>
+<li>get_player_by_role(role)</li>
+<li>get_player_by_id(id_in_group)</li>
+<li>get_players()</li>
+<li>set_players()</li>
+</ul>
+<h5 id="アクセスできる上層のデータ">アクセスできる上層のデータ</h5>
+<ul>
+<li>subsession</li>
+<li>session</li>
 </ul>
 <h4 id="クラス-player">クラス <code>Player</code></h4>
+<p><a href="https://otree.readthedocs.io/en/latest/models.html#player" target="_blank">https://otree.readthedocs.io/en/latest/models.html#player</a></p>
 <ul>
-<li><a href="https://otree.readthedocs.io/en/latest/models.html#player" target="_blank">https://otree.readthedocs.io/en/latest/models.html#player</a></li>
+<li>id_in_group</li>
+<li>payoff</li>
+<li>round_number</li>
+<li>in_all_rounds()</li>
+<li>in_previous_rounds()</li>
+<li>in_rounds(first, last)</li>
+<li>in_round(round_number)</li>
+<li>get_others_in_subsession()</li>
+<li>get_others_in_group()</li>
+</ul>
+<h5 id="アクセスできる上層のデータ">アクセスできる上層のデータ</h5>
+<ul>
+<li>participant</li>
+<li>group</li>
+<li>subsession</li>
+<li>session</li>
 </ul>
 <h4 id="フィールドの型">フィールドの型</h4>
 <ul>
@@ -425,29 +561,35 @@
 <li><code>models.StringField</code> (for text strings)</li>
 <li><code>models.LongStringField</code> (for long text strings; its form widget is a multi-line textarea)</li>
 </ul>
+<h4 id="入力フォームとの対応">入力フォームとの対応</h4>
+<ol>
+<li>データを参加者に入力させたいページのクラスにおいて <code>form_model</code> と <code>form_fields</code> を設定する．</li>
+<li>フィールド名（記憶するデータの変数名）を，HTMLテンプレートの <code>&lt;input&gt;</code> タグの <code>name</code> 属性に設定する．<ul>
+<li>↑ oTreeのマスタッシュ記法を使えば自動でやってくれる．</li>
+</ul>
+</li>
+</ol>
 <h2 id="ページ">ページ</h2>
+<p><a href="https://otree.readthedocs.io/en/latest/pages.html" target="_blank">https://otree.readthedocs.io/en/latest/pages.html</a></p>
 <ul>
-<li><a href="https://otree.readthedocs.io/en/latest/pages.html" target="_blank">https://otree.readthedocs.io/en/latest/pages.html</a></li>
 <li>クラス <code>Page</code> を継承する．</li>
-<li>待機ページではクラス <code>WaitPage</code> を継承する．</li>
 <li>クラス名がURLに表示される．</li>
 </ul>
 <h3 id="変数">変数</h3>
+<h4 id="roundnumber"><code>round_number</code></h4>
 <h4 id="templatename"><code>template_name</code></h4>
 <h4 id="formmodel"><code>form_model</code></h4>
 <h4 id="formfields"><code>form_fields</code></h4>
-<h4 id="groupbyarrivaltime"><code>group_by_arrival_time</code></h4>
 <h4 id="timeoutseconds"><code>timeout_seconds</code></h4>
+<h4 id="timertext"><code>timer_text</code></h4>
 <h3 id="組み込み関数">組み込み関数</h3>
 <h4 id="livemethod"><code>live_method</code></h4>
 <ul>
 <li>(player: Player, data)</li>
-<li>クラス <code>Page</code> のみ．</li>
 </ul>
 <h4 id="getformfields"><code>get_form_fields</code></h4>
 <ul>
 <li>(player: Player)</li>
-<li>クラス <code>Page</code> のみ．</li>
 </ul>
 <h4 id="varsfortemplate"><code>vars_for_template</code></h4>
 <ul>
@@ -460,7 +602,6 @@
 <h4 id="beforenextpage"><code>before_next_page</code></h4>
 <ul>
 <li>(player: Player, timeout_happened)</li>
-<li>クラス <code>Page</code> のみ．</li>
 </ul>
 <h4 id="isdisplayed"><code>is_displayed</code></h4>
 <ul>
@@ -469,12 +610,40 @@
 <h4 id="errormessage"><code>error_message</code></h4>
 <ul>
 <li>(player: Player, values)</li>
-<li>クラス <code>Page</code> のみ．</li>
 </ul>
 <h4 id="gettimeoutseconds"><code>get_timeout_seconds</code></h4>
 <ul>
 <li>(player: Player)</li>
-<li>クラス <code>Page</code> のみ．</li>
+</ul>
+<h4 id="appafterthispage"><code>app_after_this_page</code></h4>
+<ul>
+<li>(player: Player, upcoming_apps)</li>
+</ul>
+<h2 id="待機ページ">待機ページ</h2>
+<p><a href="https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html" target="_blank">https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html</a></p>
+<ul>
+<li>クラス <code>WaitPage</code> を継承する．</li>
+<li>クラス名がURLに表示される．</li>
+</ul>
+<h3 id="変数">変数</h3>
+<h4 id="roundnumber"><code>round_number</code></h4>
+<h4 id="templatename"><code>template_name</code></h4>
+<h4 id="groupbyarrivaltime"><code>group_by_arrival_time</code></h4>
+<h4 id="waitforallgroups"><code>wait_for_all_groups</code></h4>
+<h4 id="titletext"><code>title_text</code></h4>
+<h4 id="bodytext"><code>body_text</code></h4>
+<h3 id="組み込み関数">組み込み関数</h3>
+<h4 id="varsfortemplate"><code>vars_for_template</code></h4>
+<ul>
+<li>(player: Player)</li>
+</ul>
+<h4 id="jsvars"><code>js_vars</code></h4>
+<ul>
+<li>(player: Player)</li>
+</ul>
+<h4 id="isdisplayed"><code>is_displayed</code></h4>
+<ul>
+<li>(player: Player)</li>
 </ul>
 <h4 id="appafterthispage"><code>app_after_this_page</code></h4>
 <ul>
@@ -483,17 +652,16 @@
 <h4 id="afterallplayersarrive"><code>after_all_players_arrive</code></h4>
 <ul>
 <li>(group: Group)</li>
-<li>クラス <code>WaitPage</code> のみ．</li>
 </ul>
 <h2 id="組み込み関数">組み込み関数</h2>
 <h4 id="creatingsession"><code>creating_session</code></h4>
 <h4 id="customexport"><code>custom_export</code></h4>
 <h4 id="groupbyarrivaltimemethod"><code>group_by_arrival_time_method</code></h4>
 <h4 id="varsforadminreport"><code>vars_for_admin_report</code></h4>
-<h4 id="min"><code>*_min</code></h4>
-<h4 id="max"><code>*_max</code></h4>
-<h4 id="choices"><code>*_choices</code></h4>
-<h4 id="errormessage"><code>*_error_message</code></h4>
+<h4 id="fieldnamemin"><code>{field_name}_min</code></h4>
+<h4 id="fieldnamemax"><code>{field_name}_max</code></h4>
+<h4 id="fieldnamechoices"><code>{field_name}_choices</code></h4>
+<h4 id="fieldnameerrormessage"><code>{field_name}_error_message</code></h4>
 <h2 id="自作の関数">自作の関数</h2>
 <h2 id="pagesequence"><code>page_sequence</code></h2>
 
@@ -539,7 +707,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"__init__.py の書き方","level":"2.4","depth":1,"next":{"title":"UbuntuでoTreeを動かす","level":"2.5","depth":1,"path":"server_setup/README.md","ref":"server_setup/README.md","articles":[]},"previous":{"title":"settings.py の書き方","level":"2.3","depth":1,"path":"otree_ref/settings.md","ref":"otree_ref/settings.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"otree_ref/init.md","mtime":"2022-05-26T00:08:43.831Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-05-27T14:31:37.776Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"__init__.py の書き方","level":"2.4","depth":1,"next":{"title":"UbuntuでoTreeを動かす","level":"2.5","depth":1,"path":"server_setup/README.md","ref":"server_setup/README.md","articles":[]},"previous":{"title":"settings.py の書き方","level":"2.3","depth":1,"path":"otree_ref/settings.md","ref":"otree_ref/settings.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"otree_ref/init.md","mtime":"2022-06-02T00:37:53.782Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-02T00:47:15.361Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

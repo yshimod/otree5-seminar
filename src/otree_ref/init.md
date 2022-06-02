@@ -1,14 +1,82 @@
 # `__init__.py` の書き方
 
-## `otree.api` のインポート
-```python
-from otree.api import *
-```
-- oTree3ではインポートするものを細かく指定していた．
+
+- [`__init__.py` の書き方](#__init__py-の書き方)
+  - [ファイルの冒頭](#ファイルの冒頭)
+  - [定数: クラス `C`](#定数-クラス-c)
+      - [`NAME_IN_URL`](#name_in_url)
+      - [`PLAYERS_PER_GROUP`](#players_per_group)
+      - [`NUM_ROUNDS`](#num_rounds)
+      - [`*_ROLE`](#_role)
+  - [データモデル](#データモデル)
+      - [クラス `Subsession`](#クラス-subsession)
+        - [アクセスできる上層のデータ](#アクセスできる上層のデータ)
+      - [クラス `Group`](#クラス-group)
+        - [アクセスできる上層のデータ](#アクセスできる上層のデータ-1)
+      - [クラス `Player`](#クラス-player)
+        - [アクセスできる上層のデータ](#アクセスできる上層のデータ-2)
+      - [フィールドの型](#フィールドの型)
+      - [入力フォームとの対応](#入力フォームとの対応)
+  - [ページ](#ページ)
+    - [変数](#変数)
+      - [`round_number`](#round_number)
+      - [`template_name`](#template_name)
+      - [`form_model`](#form_model)
+      - [`form_fields`](#form_fields)
+      - [`timeout_seconds`](#timeout_seconds)
+      - [`timer_text`](#timer_text)
+    - [組み込み関数](#組み込み関数)
+      - [`live_method`](#live_method)
+      - [`get_form_fields`](#get_form_fields)
+      - [`vars_for_template`](#vars_for_template)
+      - [`js_vars`](#js_vars)
+      - [`before_next_page`](#before_next_page)
+      - [`is_displayed`](#is_displayed)
+      - [`error_message`](#error_message)
+      - [`get_timeout_seconds`](#get_timeout_seconds)
+      - [`app_after_this_page`](#app_after_this_page)
+  - [待機ページ](#待機ページ)
+    - [変数](#変数-1)
+      - [`round_number`](#round_number-1)
+      - [`template_name`](#template_name-1)
+      - [`group_by_arrival_time`](#group_by_arrival_time)
+      - [`wait_for_all_groups`](#wait_for_all_groups)
+      - [`title_text`](#title_text)
+      - [`body_text`](#body_text)
+    - [組み込み関数](#組み込み関数-1)
+      - [`vars_for_template`](#vars_for_template-1)
+      - [`js_vars`](#js_vars-1)
+      - [`is_displayed`](#is_displayed-1)
+      - [`app_after_this_page`](#app_after_this_page-1)
+      - [`after_all_players_arrive`](#after_all_players_arrive)
+  - [組み込み関数](#組み込み関数-2)
+      - [`creating_session`](#creating_session)
+      - [`custom_export`](#custom_export)
+      - [`group_by_arrival_time_method`](#group_by_arrival_time_method)
+      - [`vars_for_admin_report`](#vars_for_admin_report)
+      - [`{field_name}_min`](#field_name_min)
+      - [`{field_name}_max`](#field_name_max)
+      - [`{field_name}_choices`](#field_name_choices)
+      - [`{field_name}_error_message`](#field_name_error_message)
+  - [自作の関数](#自作の関数)
+  - [`page_sequence`](#page_sequence)
+
+
+## ファイルの冒頭
+- シバン（shebang... `#!/usr/bin/env python3` みたいなやつ）は不要．
+- 文字コード宣言（ `# -*- coding: utf-8 -*-` みたいなやつ）は不要（むしろ非推奨）．
+- `otree.api` のインポート
+    ```python
+    from otree.api import *
+    ```
+    - oTree3ではインポートするものを細かく指定していた．
+- 他にも使いたいモジュール（`time`，`random`，`json`，`numpy`など）があれば，冒頭でインポートしておく．
 
 
 ## 定数: クラス `C`
-- [https://otree.readthedocs.io/en/latest/models.html#constants](https://otree.readthedocs.io/en/latest/models.html#constants)
+[https://otree.readthedocs.io/en/latest/models.html#constants](https://otree.readthedocs.io/en/latest/models.html#constants)
+
+
 - アプリ内で参照する変数（定数）を定義する．
 - クラス `C` で設定するものはCSVデータ出力には含まれない．CSVデータに記録しなくても平気な定数を定義する．
     - セッションごと（トリートメントごと）変化しうる変数はクラス `C` ではなく `settings.py` の `SESSION_CONFIGS` の中で定義するべき． `SESSION_CONFIGS` で定義した変数（ `session.変数` ）はCSVデータ出力に含まれる．
@@ -43,17 +111,71 @@ from otree.api import *
 
 
 ## データモデル
-- [https://otree.readthedocs.io/en/latest/models.html](https://otree.readthedocs.io/en/latest/models.html)
-
+[https://otree.readthedocs.io/en/latest/models.html](https://otree.readthedocs.io/en/latest/models.html)
 
 #### クラス `Subsession`
-- [https://otree.readthedocs.io/en/latest/models.html#subsession](https://otree.readthedocs.io/en/latest/models.html#subsession)
+[https://otree.readthedocs.io/en/latest/models.html#subsession](https://otree.readthedocs.io/en/latest/models.html#subsession)
+
+
+- round_number
+- get_groups()
+- get_players()
+- group_randomly()
+- group_like_round()
+- get_group_matrix()
+- set_group_matrix()
+- in_all_rounds()
+- in_previous_rounds()
+- in_rounds(first, last)
+- in_round(round_number)
+
+
+##### アクセスできる上層のデータ
+- session
+
 
 #### クラス `Group`
-- [https://otree.readthedocs.io/en/latest/models.html#group](https://otree.readthedocs.io/en/latest/models.html#group)
+[https://otree.readthedocs.io/en/latest/models.html#group](https://otree.readthedocs.io/en/latest/models.html#group)
+
+
+- round_number
+- in_all_rounds()
+- in_previous_rounds()
+- in_rounds(first, last)
+- in_round(round_number)
+- get_player_by_role(role)
+- get_player_by_id(id_in_group)
+- get_players()
+- set_players()
+
+
+##### アクセスできる上層のデータ
+- subsession
+- session
+
+
 
 #### クラス `Player`
-- [https://otree.readthedocs.io/en/latest/models.html#player](https://otree.readthedocs.io/en/latest/models.html#player)
+[https://otree.readthedocs.io/en/latest/models.html#player](https://otree.readthedocs.io/en/latest/models.html#player)
+
+
+- id_in_group
+- payoff
+- round_number
+- in_all_rounds()
+- in_previous_rounds()
+- in_rounds(first, last)
+- in_round(round_number)
+- get_others_in_subsession()
+- get_others_in_group()
+
+
+##### アクセスできる上層のデータ
+- participant
+- group
+- subsession
+- session
+
 
 #### フィールドの型
 - `models.BooleanField` (for true/false and yes/no values)
@@ -63,32 +185,38 @@ from otree.api import *
 - `models.StringField` (for text strings)
 - `models.LongStringField` (for long text strings; its form widget is a multi-line textarea)
 
+#### 入力フォームとの対応
+1. データを参加者に入力させたいページのクラスにおいて `form_model` と `form_fields` を設定する．
+1. フィールド名（記憶するデータの変数名）を，HTMLテンプレートの `<input>` タグの `name` 属性に設定する．
+    - ↑ oTreeのマスタッシュ記法を使えば自動でやってくれる．
 
 ## ページ
-- [https://otree.readthedocs.io/en/latest/pages.html](https://otree.readthedocs.io/en/latest/pages.html)
+[https://otree.readthedocs.io/en/latest/pages.html](https://otree.readthedocs.io/en/latest/pages.html)
+
+
 - クラス `Page` を継承する．
-- 待機ページではクラス `WaitPage` を継承する．
 - クラス名がURLに表示される．
 
 ### 変数
+#### `round_number`
+
 #### `template_name`
 
 #### `form_model`
 
 #### `form_fields`
 
-#### `group_by_arrival_time`
-
 #### `timeout_seconds`
+
+#### `timer_text`
+
 
 ### 組み込み関数
 #### `live_method`
 - (player: Player, data)
-- クラス `Page` のみ．
 
 #### `get_form_fields`
 - (player: Player)
-- クラス `Page` のみ．
 
 #### `vars_for_template`
 - (player: Player)
@@ -98,25 +226,56 @@ from otree.api import *
 
 #### `before_next_page`
 - (player: Player, timeout_happened)
-- クラス `Page` のみ．
 
 #### `is_displayed`
 - (player: Player)
 
 #### `error_message`
 - (player: Player, values)
-- クラス `Page` のみ．
 
 #### `get_timeout_seconds`
 - (player: Player)
-- クラス `Page` のみ．
+
+#### `app_after_this_page`
+- (player: Player, upcoming_apps)
+
+
+## 待機ページ
+[https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html](https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html)
+
+
+- クラス `WaitPage` を継承する．
+- クラス名がURLに表示される．
+
+### 変数
+#### `round_number`
+
+#### `template_name`
+
+#### `group_by_arrival_time`
+
+#### `wait_for_all_groups`
+
+#### `title_text`
+
+#### `body_text`
+
+### 組み込み関数
+#### `vars_for_template`
+- (player: Player)
+
+#### `js_vars`
+- (player: Player)
+
+#### `is_displayed`
+- (player: Player)
 
 #### `app_after_this_page`
 - (player: Player, upcoming_apps)
 
 #### `after_all_players_arrive`
 - (group: Group)
-- クラス `WaitPage` のみ．
+
 
 
 ## 組み込み関数
@@ -128,13 +287,13 @@ from otree.api import *
 
 #### `vars_for_admin_report`
 
-#### `*_min`
+#### `{field_name}_min`
 
-#### `*_max`
+#### `{field_name}_max`
 
-#### `*_choices`
+#### `{field_name}_choices`
 
-#### `*_error_message`
+#### `{field_name}_error_message`
 
 
 ## 自作の関数

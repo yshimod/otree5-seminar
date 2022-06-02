@@ -2,17 +2,11 @@
 
 <h1>oTreeプログラミングの概要</h1>
 
-- [1. `__init__.py` の構成](#1-__init__py-の構成)
-- [2. oTreeで実験プログラムを開発する前に考えておくこと](#2-otreeで実験プログラムを開発する前に考えておくこと)
+- [1. oTreeで実験プログラムを開発する前に考えておくこと](#1-otreeで実験プログラムを開発する前に考えておくこと)
+- [2. `__init__.py` の構成](#2-__init__py-の構成)
 
 
-## 1. `__init__.py` の構成
-- チュートリアル（公共財ゲーム）を参照しながら  
-    [https://otree.readthedocs.io/ja/latest/tutorial/part2.html](https://otree.readthedocs.io/ja/latest/tutorial/part2.html)
-
-
-
-## 2. oTreeで実験プログラムを開発する前に考えておくこと
+## 1. oTreeで実験プログラムを開発する前に考えておくこと
 - ラボでの集団実験か？Zoomでの集団実験か？アンケートなど個人の意思決定課題か？
     - 参加者の端末は何？（ラボのPC？各参加者の私物PC？スマホに対応する？）
     - インストラクションは紙で配布する？画面を読ませる？
@@ -33,3 +27,26 @@
 - どんなデータを取る？
     - 得られる意思決定データの形式は？（インターフェイスのデザインとも関係．）
     - 意思決定データ以外に記録しておくデータは？
+
+
+## 2. `__init__.py` の構成
+- チュートリアル（公共財ゲーム）を参照しながら  
+    [https://otree.readthedocs.io/ja/latest/tutorial/part2.html](https://otree.readthedocs.io/ja/latest/tutorial/part2.html)
+    - 3人ゲーム
+    - 同時手番
+    - 利得: 初期保有 - 貢献額 + （グループ内合計貢献額 * 倍率 / 人数）
+    - 定数
+        - PLAYERS_PER_GROUP（1グループあたりの人数） = 3
+        - NUM_ROUNDS（ラウンド数） = 1
+        - ENDOWMENT（初期保有） = 1000
+        - MULTIPLIER（倍率） = 2
+    - 記録するデータ
+        - player.contribution（各プレイヤーの貢献額）
+        - group.total_contribution（各グループの合計貢献額）
+        - group.individual_share（各グループにおける各プレイヤーへの配分額）
+    - 3ページ構成:
+        1. "Contribute"（意思決定画面）
+        2. "ResultsWaitPage"（待機ページ）
+        3. "Results"（結果表示ページ）
+
+
