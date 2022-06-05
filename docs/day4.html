@@ -353,46 +353,52 @@
                                 <section class="normal markdown-section">
                                 
                                 <p>【第4回】 2022年6月2日</p>
-<h1 id="otreeプログラミングの概要">oTreeプログラミングの概要</h1>
+<h1 id="otreeプログラミングの進め方">oTreeプログラミングの進め方</h1>
 
 <ul>
-<li><p>今後の予定</p>
-<ul>
+<li>今後の予定<ul>
 <li>第4回（今日）: 同時手番ゲーム（oTreeプログラミングの基礎）</li>
 <li>第回: 逐次手番ゲーム（プレイヤーごと表示させるページが変わる）</li>
 <li>第回: 繰り返しゲーム（ラウンド間でプレイヤーのシャッフル）</li>
 <li>第回: ダブルオークション（JavaScriptとライブページ，ExtraModel）</li>
 <li>第回: 質問紙調査（ページのデザイン，CSS，Bootstrap）</li>
-<li>第回: 質問紙調査（ページのデザイン，CSS，Bootstrap）</li>
 <li>第回: 補遺</li>
 </ul>
 </li>
-<li><p><a href="#1-otreeで実験プログラムを開発する前に考えておくこと">1. oTreeで実験プログラムを開発する前に考えておくこと</a></p>
-</li>
-<li><a href="#2-__init__py-の構成">2. <code>__init__.py</code> の構成</a></li>
+</ul>
+<ul>
+<li><a href="#1-otreeで実験プログラムを開発する前に考えておくこと">1. oTreeで実験プログラムを開発する前に考えておくこと</a></li>
+<li><a href="#2-計画">2. 計画</a></li>
+<li><a href="#3-プロジェクトの空ファイルを作成する">3. プロジェクトの空ファイルを作成する</a></li>
+<li><a href="#4-settingspy-を書いておく">4. <code>settings.py</code> を書いておく</a></li>
+<li><a href="#5-テンプレートファイルを作成して-__init__py-の最低限の設定をする">5. テンプレートファイルを作成して <code>__init__.py</code> の最低限の設定をする</a></li>
+<li><a href="#6-テンプレートファイルを編集する">6. テンプレートファイルを編集する</a></li>
+<li><a href="#7-__init__py-を編集する">7. <code>__init__.py</code> を編集する</a></li>
 </ul>
 <h2 id="1-otreeで実験プログラムを開発する前に考えておくこと">1. oTreeで実験プログラムを開発する前に考えておくこと</h2>
 <ul>
-<li>ラボでの集団実験か？Zoomでの集団実験か？アンケートなど個人の意思決定課題か？<ul>
-<li>参加者の端末は何？（ラボのPC？各参加者の私物PC？スマホに対応する？）</li>
-<li>インストラクションは紙で配布する？画面を読ませる？</li>
-<li>確認クイズはどのような形式？（どうしても確認クイズに正答できない場合は？）</li>
-<li>実験中の参加者の行動を監視できるか？</li>
-<li>途中で脱落する参加者への対応は？</li>
-<li>報酬の支払い方法は？</li>
-</ul>
-</li>
-<li>実験の流れは？画面の構成は？<ul>
-<li>課題の順番？（一つ一つの課題をアプリとして実装する．）<br>  たとえば...<ol>
+<li>実験セッションの流れは？<ul>
+<li>たとえば...<ol>
 <li>インストラクション・確認クイズ</li>
 <li>意思決定課題</li>
 <li>アンケート</li>
 <li>報酬額フィードバック</li>
 </ol>
 </li>
-<li>トリートメントの条件分岐をどう実装する？</li>
-<li>各課題（アプリ）で表示するページの順番？（絵コンテを作ってみる．）</li>
-<li>意思決定のインターフェイスは？</li>
+<li>→ 実験課題ごとにアプリを作るとして，途中でアプリを分割・結合するのは面倒くさい．</li>
+</ul>
+</li>
+<li>表示するページの構成は？<ul>
+<li>絵コンテを作ってみる．</li>
+</ul>
+</li>
+<li>意思決定のインターフェイスは？<ul>
+<li>テキストフォーム，ドロップダウンリスト，ラジオボタン，......</li>
+</ul>
+</li>
+<li>トリートメントの条件分岐をどう実装する？<ul>
+<li>条件別にアプリを作る？ SESSION_CONFIGSで条件分岐？ セッション内で乱数を引いて割り付ける？</li>
+<li>→ 途中で実装を変えるのは面倒くさい．</li>
 </ul>
 </li>
 <li>どんなデータを取る？<ul>
@@ -400,31 +406,503 @@
 <li>意思決定データ以外に記録しておくデータは？</li>
 </ul>
 </li>
+<li>ラボでの集団実験か？Zoomでの集団実験か？アンケートなど個人の意思決定課題か？<ul>
+<li>参加者の端末は何？（ラボのPCを想定してハードコーディングする？ 各参加者の私物PCやスマホに対応する？）</li>
+<li>インストラクションは紙で配布する？画面を読ませる？</li>
+<li>確認クイズはどのような形式？（どうしても確認クイズに正答できない場合は？）</li>
+<li>実験中の参加者の行動を監視できるか？</li>
+<li>途中で脱落する参加者への対応は？</li>
+<li>報酬の支払い方法は？</li>
 </ul>
-<h2 id="2-initpy-の構成">2. <code>__init__.py</code> の構成</h2>
+</li>
+</ul>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/tlWHJFvWkv4?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<ul>
+<li>プログラム開発を開始する前に細かく計画しておいたほうが良い．<ul>
+<li>一度作り始めてから仕様を変更するとき，場合によってはゼロスタートと変わらない工数を要することも．</li>
+</ul>
+</li>
+<li>勉強会では様々な事態に対応できるように機能を網羅しようとしますが，取捨選択してください．</li>
+</ul>
+<h2 id="2-計画">2. 計画</h2>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/XBL7DyYMtIA?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
 <ul>
 <li>チュートリアル（公共財ゲーム）を参照しながら<br>  <a href="https://otree.readthedocs.io/ja/latest/tutorial/part2.html" target="_blank">https://otree.readthedocs.io/ja/latest/tutorial/part2.html</a><ul>
 <li>3人ゲーム</li>
 <li>同時手番</li>
 <li>利得: 初期保有 - 貢献額 + （グループ内合計貢献額 * 倍率 / 人数）</li>
 <li>定数<ul>
-<li>PLAYERS_PER_GROUP（1グループあたりの人数） = 3</li>
-<li>NUM_ROUNDS（ラウンド数） = 1</li>
-<li>ENDOWMENT（初期保有） = 1000</li>
-<li>MULTIPLIER（倍率） = 2</li>
+<li><code>PLAYERS_PER_GROUP</code>（1グループあたりの人数） <code>= 3</code></li>
+<li><code>NUM_ROUNDS</code>（ラウンド数） <code>= 1</code></li>
+<li><code>ENDOWMENT</code>（初期保有） <code>= 1000</code></li>
+<li><code>MULTIPLIER</code>（倍率） <code>= 2</code></li>
 </ul>
 </li>
 <li>記録するデータ<ul>
-<li>player.contribution（各プレイヤーの貢献額）</li>
-<li>group.total_contribution（各グループの合計貢献額）</li>
-<li>group.individual_share（各グループにおける各プレイヤーへの配分額）</li>
+<li><code>player.contribution</code>（各プレイヤーの貢献額）</li>
+<li><code>group.total_contribution</code>（各グループの合計貢献額）</li>
+<li><code>group.individual_share</code>（各グループにおける各プレイヤーへの配分額）</li>
 </ul>
 </li>
 <li>3ページ構成:<ol>
-<li>&quot;Contribute&quot;（意思決定画面）</li>
+<li>&quot;Contribute&quot;（意思決定ページ）</li>
 <li>&quot;ResultsWaitPage&quot;（待機ページ）</li>
 <li>&quot;Results&quot;（結果表示ページ）</li>
 </ol>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-プロジェクトの空ファイルを作成する">3. プロジェクトの空ファイルを作成する</h2>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/XWCOhnx6Tvw?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+<ol>
+<li><code>otree startproject pgg</code> で <code>pgg</code> なるプロジェクトを作成．サンプルゲームは追加しない．</li>
+<li><code>cd pgg</code> で作成したプロジェクトディレクトリに入った後，<code>otree startapp publicgoodsgame</code> で <code>publicgoodsgame</code> なるアプリを作成．</li>
+<li>Gitでプロジェクトを管理する場合，この段階で <code>git init</code> しておく．<ul>
+<li>GitHubも使う場合はブラウザでGitHubを開き，リポジトリを作成しておく．このとき，リポジトリ名はプロジェクト名 <code>publicgoodsgame</code> と一緒にしておく．</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>勉強のためにサンプルゲームを追加せず，ゼロの状態から始めています．</li>
+<li>実際プログラムを始めるときには，サンプルゲームや，自分（あるいは友達）が以前作ったプロジェクトを書き換えていくのが多いでしょう．</li>
+</ul>
+<h2 id="4-settingspy-を書いておく">4. <code>settings.py</code> を書いておく</h2>
+<p>プロジェクトのディレクトリ直下にある <code>settings.py</code> を編集して，作成したアプリ <code>publicgoodsgame</code> を起動するように設定する．</p>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/AA-EYCAknsw?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+<ol>
+<li><code>SESSION_CONFIG</code> を以下のように設定．<pre><code class="lang-python"> SESSION_CONFIG = [
+     <span class="hljs-built_in">dict</span>(
+         name = <span class="hljs-string">&quot;publicgoodsgame&quot;</span>,
+         app_sequence = [<span class="hljs-string">&quot;publicgoodsgame&quot;</span>],
+         num_demo_participants = <span class="hljs-number">3</span>
+     )
+ ]
+</code></pre>
+<ul>
+<li><code>name</code> は管理者画面に表示するセッション名．何でも良いが，とりあえずアプリ名にしておく．</li>
+<li><code>app_sequence</code> には使うアプリの名前をリストで渡す．まだアプリは <code>publicgoodsgame</code> 一つしかないため，要素が一つだけのリスト <code>[&quot;publicgoodsgame&quot;]</code> を設定する．</li>
+<li><code>num_demo_participants</code> にはデモページでの参加者数を設定する．今作ろうとしている公共財ゲームは3人ゲームなので3の倍数を設定する．</li>
+</ul>
+</li>
+<li><code>LANGUAGE_CODE = &apos;ja&apos;</code> として日本語を使うようにしておく．</li>
+<li><code>REAL_WORLD_CURRENCY_CODE = &apos;JPY&apos;</code> として通貨単位を「円」にする．</li>
+<li>その他， <code>ADMIN_*</code> の設定などはとりあえずいじらないでおいておく．</li>
+<li>編集が終わったら， <code>otree devserver</code> でサーバーを起動させてみる．<ul>
+<li>サーバーを起動させる前に，プロジェクトのディレクトリに <code>db.sqlite3</code> があれば消しておく．</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>公式ドキュメントのチュートリアルでは，アプリの <code>__init__.py</code> やテンプレートファイルの編集を一通りしたあとに <code>settings.py</code> の編集をしているが，ここでは最初にやっておく．</li>
+<li>そのココロは，アプリの <code>__init__.py</code> やテンプレートファイルを編集している最中に <code>otree devserver</code> でサーバーを起動させておき，ブラウザで動作確認をするため．<code>settings.py</code> の <code>SESSION_CONFIG</code> が設定されていないとアプリを動かせない．</li>
+</ul>
+<h2 id="5-テンプレートファイルを作成して-initpy-の最低限の設定をする">5. テンプレートファイルを作成して <code>__init__.py</code> の最低限の設定をする</h2>
+<ul>
+<li>参加者に呈示されるページの内容は，テンプレートファイル（アプリのディレクトリにあるHTMLファイル）に記述する．</li>
+<li>テンプレートファイルを編集するときには，ブラウザでどのように表示されるのかを確認しながら作業した方が良い．</li>
+<li>サーバーを起動させ，テンプレートファイルをページとして正しい順番で表示させるためには <code>__init__.py</code> に設定しなければならない．</li>
+</ul>
+<ol>
+<li><code>otree startapp</code> でアプリを追加した段階では <code>MyPage.html</code> と <code>Results.html</code> の2つのテンプレートファイルが生成されている．</li>
+<li>テンプレートファイルを必要なだけコピーする（削除する）．</li>
+<li><code>__init__.py</code> で，表示するページごとに <code>Page</code> クラスを継承するクラスを設定する．<ul>
+<li>クラスの名前はテンプレートファイルのファイル名と同じにする．</li>
+<li>全プレイヤーの回答を待機するページが必要な場合は <code>WaitPage</code> クラスを継承するクラスを設定する．<ul>
+<li>デフォルトのサンプルとして挿入されているクラスの名前は <code>ResultsWaitPage</code> ．</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>表示するページの順番を <code>page_sequence</code> で設定する．クラス名をリストで渡す．</li>
+<li>定数クラス <code>C</code> に必要最低限の設定をする．<ul>
+<li>デフォルトで <code>NAME_IN_URL</code>，<code>PLAYERS_PER_GROUP</code>，<code>NUM_ROUNDS</code> が設定されている．単にテンプレートファイルがブラウザでどう見えるかを確認するためにoTreeサーバーを起動することが目的であれば，とりあえずデフォルトのままでも良い．</li>
+</ul>
+</li>
+</ol>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/4h6R9dFzXKk?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<ul>
+<li><p>作業内容:</p>
+<ul>
+<li>必要なテンプレートファイルは <code>Contribute.html</code>（意思決定ページ）と <code>Results.html</code>（結果表示ページ）．<code>otree startapp</code> で生成された <code>MyPage.html</code> のファイル名を <code>Contribute.html</code> に変更する．<code>Results.html</code> はそのまま．</li>
+<li>↑ のファイル名変更に対応するために，<code>__init__.py</code> で <code>MyPage</code> なるクラスの名前を <code>Contribute</code> に変更する．</li>
+<li>↑ のクラス名変更に対応し，<code>page_sequence = [Contribute, ResultsWaitPage, Results]</code> に直す．</li>
+<li>この段階でアプリのディレクトリの中身は以下:<pre><code>  ./publicgoodsgame/
+  ├── Contribute.html
+  ├── Results.html
+  ├── __init__.py
+  └── __pycache__
+</code></pre></li>
+<li><p>この段階で <code>__init__.py</code> の内容は以下:</p>
+<pre><code class="lang-python">  <span class="hljs-keyword">from</span> otree.api <span class="hljs-keyword">import</span> *
+
+  doc = <span class="hljs-string">&quot;&quot;&quot;
+  Your app description
+  &quot;&quot;&quot;</span>
+
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">C</span>(<span class="hljs-params">BaseConstants</span>):</span>
+      NAME_IN_URL = <span class="hljs-string">&apos;publicgoodsgame&apos;</span>
+      PLAYERS_PER_GROUP = <span class="hljs-literal">None</span>
+      NUM_ROUNDS = <span class="hljs-number">1</span>
+
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Subsession</span>(<span class="hljs-params">BaseSubsession</span>):</span>
+      <span class="hljs-keyword">pass</span>
+
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Group</span>(<span class="hljs-params">BaseGroup</span>):</span>
+      <span class="hljs-keyword">pass</span>
+
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Player</span>(<span class="hljs-params">BasePlayer</span>):</span>
+      <span class="hljs-keyword">pass</span>
+
+  <span class="hljs-comment"># PAGES</span>
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Contribute</span>(<span class="hljs-params">Page</span>):</span>
+      <span class="hljs-keyword">pass</span>
+
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ResultsWaitPage</span>(<span class="hljs-params">WaitPage</span>):</span>
+      <span class="hljs-keyword">pass</span>
+
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Results</span>(<span class="hljs-params">Page</span>):</span>
+      <span class="hljs-keyword">pass</span>
+
+  page_sequence = [Contribute, ResultsWaitPage, Results]
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="6-テンプレートファイルを編集する">6. テンプレートファイルを編集する</h2>
+<ol>
+<li>タイトルブロックを編集する．<ul>
+<li><code>{{ block title }}</code> と <code>{{ endblock }}</code> に挟まれた部分（デフォルトでは <code>Page title</code> と入っている部分）を「タイトルブロック」と呼ぶ．</li>
+<li>タイトルブロック内に，ページの冒頭で表示するタイトルを記述する．</li>
+<li>oTreeサーバーはテンプレートファイルを解釈して，記述した内容を <code>&lt;head&gt;</code> の <code>&lt;title&gt;</code> タグの中身（ブラウザウィンドウのタイトルに表示される）と，<code>&lt;body&gt;</code> の冒頭にある <code>&lt;h2&gt;</code> タグの中に挿入する．</li>
+<li><code>&lt;h2&gt;</code> タグ内にテキストが挿入されることによって，ページ内にタイトルが大きな文字で表示される．</li>
+<li>ページ内で表示するタイトルのスタイルを変えることを目的として，タイトルブロックの中でhtmlタグを使うことができる．しかし，タイトルブロック内でhtmlタグを駆使するのではなく，CSSで <code>.otree-title</code> クラスのスタイルを指定するべき．</li>
+</ul>
+</li>
+<li>コンテンツブロックを編集する．<ul>
+<li><code>{{ block content }}</code> と <code>{{ endblock }}</code> に挟まれた部分を「コンテンツブロック」と呼ぶ．</li>
+<li>コンテンツブロック内に，ページの本文を，htmlタグも適宜使って記述する．</li>
+<li>oTreeサーバーはテンプレートファイルを解釈して，記述した内容を <code>&lt;body&gt;</code> 内の <code>&lt;form&gt;</code> タグの中に挿入する．</li>
+<li>説明文などの文章は <code>&lt;p&gt;</code> タグや <code>&lt;div&gt;</code> タグで記述する．<ul>
+<li>一般論として，<code>&lt;br&gt;</code> タグによる改行を多用するのではなく，段落ごと <code>&lt;p&gt;</code> タグを使うのが良い．</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>コンテンツブロック内に入力フォームを挿入する<ul>
+<li>【原理的な話】 oTreeサーバーはコンテンツブロック内の記述したものを <code>&lt;body&gt;</code> 内の <code>&lt;form&gt;</code> タグの中に挿入する．<code>&lt;form&gt;</code> タグに <code>method=&quot;post&quot;</code> が設定されているため，<code>&lt;form&gt;</code> タグ内の <code>&lt;input&gt;</code> 要素等のデータがPOSTメソッドでサーバーに送信される．<ul>
+<li>したがって，サーバーに送信したいデータの入力フォームを作るためには，コンテンツブロック内に <code>&lt;input&gt;</code> タグなどを記述する．このとき <code>name</code> 属性に，記録するデータの変数名を設定する．</li>
+<li><a href="https://developer.mozilla.org/ja/docs/Learn/Forms" target="_blank">HTMLフォーム</a></li>
+<li><a href="https://developer.mozilla.org/ja/docs/Learn/Forms/Sending_and_retrieving_form_data" target="_blank">フォームデータの送信</a></li>
+<li>たとえば変数名を <code>contribution</code> にするとき，以下をコンテンツブロック内に記述すれば，とりあえず入力フォームができる．<pre><code class="lang-html">  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;contribution&quot;</span>&gt;</span>
+</code></pre>
+</li>
+<li><code>name</code> 属性が <code>name=&quot;contribution&quot;</code> である入力フォームに「12」と入力してフォームを送信したとき（「次へ」ボタンを押したとき），HTTPリクエストの本文は <code>contribution=12</code> となる．oTreeサーバーがこのHTTPリクエストを受け取りデータベースに書き込んでくれる．</li>
+</ul>
+</li>
+<li><code>&lt;input&gt;</code> の他に <code>&lt;select&gt;</code> や <code>&lt;textarea&gt;</code> など， <code>&lt;form&gt;</code> の中で使えるものが同様に使える．<ul>
+<li><a href="https://developer.mozilla.org/ja/docs/Learn/Forms/How_to_structure_a_web_form" target="_blank">フォームの構築方法</a></li>
+</ul>
+</li>
+<li>クライアント側で行う検証も設定する．<ul>
+<li>必須回答にする場合には <code>required</code> 属性を追加する．</li>
+<li>文字数の長さを <code>maxlength</code>，<code>minlength</code> 属性で指定したり，数値の範囲を <code>max</code>，<code>min</code> 属性で指定したりすることができる．</li>
+<li><a href="https://developer.mozilla.org/ja/docs/Learn/Forms/Form_validation" target="_blank">クライアント側のフォームデータ検証</a></li>
+<li>たとえば，必須回答で数値を入力させ，かつ，最小値を0，最大値を100にするときは以下．<pre><code class="lang-html">  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;number&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;contribution&quot;</span> <span class="hljs-attr">required</span> <span class="hljs-attr">min</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">max</span>=<span class="hljs-string">&quot;100&quot;</span>&gt;</span>
+</code></pre>
+</li>
+<li>任意回答にする（空欄を許す）場合には <code>required</code> 属性を使わないことに加え，<code>__init__.py</code> でフォームを定義するときに <code>blank=True</code> とする．さもないと，フォーム送信時にoTreeサーバー側でエラーが出る．</li>
+</ul>
+</li>
+<li>マスタッシュ記法で記述すれば，↑ 以上のようにしてタグを自分で記述して入力フォームを作る作業を，oTreeサーバーがやってくれる．<ul>
+<li>コンテンツブロック内に <code>{{ formfields }}</code> と記述すれば，<code>&lt;input&gt;</code> タグと，その入力フォームに対応する <code>&lt;label&gt;</code> タグを生成してくれる．</li>
+<li><a href="https://otree.readthedocs.io/en/latest/forms.html" target="_blank">詳細はこちら</a></li>
+<li>同じような入力フォームがたくさんある場合（たとえば質問紙調査）はoTreeの機能を使った方が良い（DRY原則）．検証を独自に実装したい場合（たとえばJavaScriptやライブページを駆使するとき）は自分でタグを記述する．</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>コンテンツブロック内に「次へ」ボタンを挿入する<ul>
+<li>【原理的な話】 （入力フォームが何もなくても）フォームの送信をすれば，oTreeサーバーが次のページに遷移させる．<ul>
+<li>したがって，コンテンツブロック内でフォームを送信させるボタンを作れば，それが次のページへ進ませるボタンとなる．</li>
+<li>たとえば以下のどちらかをコンテンツブロック内に記述すれば良い．<pre><code class="lang-html">  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span>&gt;</span>次へ<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+</code></pre>
+<pre><code class="lang-html">  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;次へ&quot;</span>&gt;</span>
+</code></pre>
+</li>
+<li>実は <code>&lt;button&gt;</code> タグで <code>type=&quot;submit&quot;</code> と陽に指定しなくても良い．なぜならば <code>type</code> 属性のデフォルトが <code>submit</code> であるため．</li>
+</ul>
+</li>
+<li>コンテンツブロック内に <code>{{ next_button }}</code> と記述すれば，oTreeサーバーが以下の <code>&lt;button&gt;</code> タグを生成してくれる．<pre><code class="lang-html">  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;otree-btn-next btn btn-primary&quot;</span>&gt;</span>次へ<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/udHF5mDzv94?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<ul>
+<li>作業内容:<ul>
+<li>とりあえず <code>Contribute.html</code> に説明文と入力フォームを作る．</li>
+<li>見てくれはさておき，とにかく最低限のことだけを記述する．</li>
+<li>コンテンツブロック内でマスタッシュ記法を使わない場合:<pre><code class="lang-html">  {{ block title }}
+      意思決定
+  {{ endblock }}
+  {{ block content }}
+      <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>以下の入力欄に貢献額を入力してください．<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;contribution&quot;</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">button</span>&gt;</span>次へ<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+  {{ endblock }}
+</code></pre>
+</li>
+<li>コンテンツブロック内でマスタッシュ記法を使う場合:<pre><code class="lang-html">  {{ block title }}
+      意思決定
+  {{ endblock }}
+  {{ block content }}
+      <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>以下の入力欄に貢献額を入力してください．<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+      {{ formfields }}
+      {{ next_button }}
+  {{ endblock }}
+</code></pre>
+</li>
+<li>ページ内で変数を展開する（たとえば，計算した報酬額などを <code>Results.html</code> で表示する）方法は次回に後回し．</li>
+</ul>
+</li>
+</ul>
+<h2 id="7-initpy-を編集する">7. <code>__init__.py</code> を編集する</h2>
+<ol>
+<li>【Pageパート】 まずテンプレートファイルの存在をoTreeに知らせる<ul>
+<li>（oTree3では，<code>pages.py</code> に記述していた内容）</li>
+<li>表示するページごとに <code>Page</code> クラスを継承するクラスを設定する．</li>
+<li>クラスの名前はテンプレートファイルのファイル名と同じにする．</li>
+<li>クラスの名前がURLに表示される．<ul>
+<li>クラス変数 <code>template_name</code> にテンプレートファイルのパスを代入することによって，ページクラスとテンプレートファイルの関係を陽に記述すれば，クラス名とテンプレートファイルのファイル名を一致させる必要はない．</li>
+</ul>
+</li>
+<li>待機ページのために <code>WaitPage</code> クラスを継承するクラスを設定する．<ul>
+<li>同時手番ゲームで利得を計算するためには，グループ内の全メンバーの意思決定が完了したタイミングで利得を計算する関数を動かさなければならない．タイミングを合わせるために，先に意思決定を済ませた参加者に表示するための待機ページを用意すればよい．</li>
+<li>待機ページのためにテンプレートファイルを作成して通常のページとして実装することも可能ではある．しかし，oTreeの機能（<code>WaitPage</code> クラス）を使うのが楽．</li>
+</ul>
+</li>
+<li>各ページのクラスを設定した後，表示するページの順番を <code>page_sequence</code> で設定する．クラス名をリストで渡す．</li>
+</ul>
+</li>
+<li>【Modelパート】 入力フォームの変数をデータベースのどこに保存するかを設定する<ul>
+<li>（oTree3では，<code>models.py</code> に記述していた内容）</li>
+<li>player，group，subsessionの各階層で保存するべきデータの変数名を <code>Player</code> クラス，<code>Group</code> クラス，<code>Subsession</code> クラスのそれぞれで定義する．<ul>
+<li>公共財ゲームなど，プレイヤーに役割の区別がなく対称的な場合，意思決定データは一つの変数名でplayerの階層に保存しておけば良い．</li>
+<li>信頼ゲームにおける提案者・応答者など，プレイヤーに役割の区別があって，かつ，グループ内で一つの役割に複数のプレイヤーが縮退しない場合，各プレイヤーの意思決定データはグループにおいてユニークなので，playerの階層に保存するよりもgroupの階層に保存する方が良い．</li>
+<li>セッションにおいて，（グループをまたいで）ある特定の一人だけが意思決定する場合は，subsessionの階層に保存する方が良い．</li>
+<li>participantとsessionの階層へは入力フォームから直接データを保存できないため，工夫を要する．</li>
+</ul>
+</li>
+<li>デフォルトで <code>Player</code> クラス，<code>Group</code> クラス，<code>Subsession</code> クラスが <code>__init__.py</code> に記述されているので，変数を設定する場合には <code>pass</code> を削除して書き込めば良い．</li>
+<li><code>変数名 = models.*Field()</code> と記述して設定する．<ul>
+<li><code>models.*Field()</code> で使えるものは以下:<ul>
+<li><code>models.BooleanField()</code>: ブール代数型</li>
+<li><code>models.CurrencyField()</code>: oTree組み込みの通貨型</li>
+<li><code>models.IntegerField()</code>: 整数型</li>
+<li><code>models.FloatField()</code>: 実数型</li>
+<li><code>models.StringField()</code>: 文字列型（デフォルトで10000字まで）</li>
+<li><code>models.LongStringField()</code>: テキスト型（可変長文字列型）</li>
+</ul>
+</li>
+<li><code>models.*Field()</code> の引数で，最大値と最小値などの検証の設定や，初期値や選択肢の設定ができる．<ul>
+<li><code>choices</code>: 選択肢（<code>[value, display]</code> を要素とする（2次元）リストで渡す）</li>
+<li><code>widget</code>: マスタッシュ記法によって入力フォームを作る場合，<code>widget = widgets.RadioSelect</code> または <code>widget = widgets.RadioSelectHorizontal</code> と設定すれば入力フォームがラジオボタンになる．<code>choices</code> も設定しておく必要がある．</li>
+<li><code>initial</code>: 初期値</li>
+<li><code>label</code>: フォームのラベル（デフォルトは変数名）</li>
+<li><code>min</code>: 最小値</li>
+<li><code>max</code>: 最大値</li>
+<li><code>max_length</code>: 文字列の長さ</li>
+<li><code>blank</code>: 回答を強制しない場合は <code>True</code> を渡す．</li>
+</ul>
+</li>
+<li>（マスタッシュ記法ではなく）タグの直打ちで入力フォームを作りながら，<code>models.*Field()</code> の引数で <code>choices</code>，<code>min</code>，<code>max</code> を設定している場合，タグの直打ちでの実装との整合性に気をつける．<ul>
+<li>タグの属性で<code>min</code>や<code>max</code>などの制約を設定しない場合（クライアントでの検証をしない場合）でも，oTreeサーバー側で検証は行われる．</li>
+<li>たとえば <code>models.*Field()</code> の引数で <code>choices = [0, 100]</code> としておきながら，タグ直打ちで <code>&lt;input type=&quot;number&quot; name=&quot;contribution&quot; required min=&quot;0&quot; max=&quot;100&quot;&gt;</code> と入力フォームを作り，参加者が「10」と回答した場合，クライアントの検証は通過するが，10が <code>[0, 100]</code> に含まれないため，oTreeの検証は通過せず，エラーが出る．</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>データモデルを設定した後，どのページで入力フォームを使うのかを設定する．<ul>
+<li>入力フォームを使うページのクラスで以下の2つを設定:<ul>
+<li><code>form_model</code>: 保存したいデータのモデル（player，group，subsessionのいずれか）から一つを選んで文字列で指定する．<ul>
+<li><code>Player</code> クラスで定義した <code>contribution</code> なる変数を使う場合は <code>form_model = &quot;player&quot;</code> とする．</li>
+<li>同一のページでplayerモデルの変数とgroupモデルの変数の入力フォームを作ることは原則はできないため，工夫する（たとえば一旦playerモデルでデータを保存しておいて，後でgroupモデルに転記する，など）．</li>
+</ul>
+</li>
+<li><code>form_fields</code>: 保存したいデータの変数名をリストで指定する．<ul>
+<li><code>Player</code> クラスで定義した <code>contribution</code> なる変数を使う場合は <code>form_fields = [&quot;contribution&quot;]</code> とする．</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>ページクラスの設定とデータモデルの設定が終われば，とりあえず意思決定データを収集することはできる．質問紙調査であれば，ここまでの作業で完成．</li>
+</ul>
+</li>
+<li>【Constantsパート・関数パート】 定数や関数の設定をしてゲームとして成立させる<ul>
+<li>oTreeで収集した意思決定データからゲームの利得（報酬額）を計算することができる．<ul>
+<li>（その場で）フィードバックする必要が無ければ，必ずしもoTreeで計算しなければならないわけではない．</li>
+<li>たとえばラボでくじを引いて，その結果を使って報酬額を計算する，ということもできる． <a href="https://otree.readthedocs.io/en/latest/misc/rest_api.html#session-vars-endpoint" target="_blank">https://otree.readthedocs.io/en/latest/misc/rest_api.html#session-vars-endpoint</a></li>
+</ul>
+</li>
+<li>クラス <code>C</code> （かつては <code>Constants</code> ）で定数を定義する．<ul>
+<li>必ず定義しなければならないもの:<ul>
+<li><code>NAME_IN_URL</code>: デフォルトではアプリ名の文字列が設定されている．任意に変えても良い．</li>
+<li><code>PLAYERS_PER_GROUP</code>: ゲーム実験の場合，各グループの人数（2以上）を設定する．グループを設定しない場合は <code>None</code> とする．</li>
+<li><code>NUM_ROUNDS</code>: アプリを繰り返す場合，繰り返す（最大）回数を設定する．繰り返さない場合は <code>1</code> とする．</li>
+</ul>
+</li>
+<li>↑ 以上の3つの変数名については小文字（<code>name_in_url</code>，<code>players_per_group</code>，<code>num_rounds</code>）でも良い．バージョン互換性対応．</li>
+<li>クラス <code>C</code> で定義する変数名は大文字にすると良い？ 自分で定義するものについては厳密に大文字小文字を区別することに注意．</li>
+<li>ゲームのパラメータもクラス <code>C</code> で設定すると良い．<ul>
+<li>しかし，トリートメントをクラス <code>C</code> で実装するべきではない．たとえば公共財ゲームの限界収益率を変えて実験を行う場合，アプリごと複製して，複製した各アプリのクラス <code>C</code> で限界収益率の値を変える，という方法でも実装は可能である．しかし，アプリごと複製する，というのは筋が悪い（DRY原則に反する）．それよりも <code>settings.py</code> の <code>SESSION_CONFIGS</code> で定数を定義し，セッションを作成する際に値を具体的に設定する方が良い．</li>
+<li>パラメータを（たとえば報酬額を計算する関数で）ハードコーディングしてしまうのも良くない．当座の実験計画では変更する予定のないパラメータであっても，将来的には値を変えて実験を実施する場面が訪れるかもしれない．ハードコーディングしてしまうと，パラメータの変更に漏れが生じるかもしれない．</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>報酬を計算する関数などは，<code>__init__.py</code> のどこかに記述すれば良い．<ul>
+<li>oTree3では <code>Player</code> クラスなどの中でインスタンスメソッドとして定義していた．</li>
+<li>関数を呼び出す前に関数を定義する必要がある．たとえばページクラスで関数を使いたい場合はページクラスを定義している行よりも上で関数を定義しなければならない．</li>
+<li>関数の引数に注意．<ul>
+<li>待機ページで <code>after_all_players_arrive</code> として呼び出したい場合，引数は <code>group</code> （<code>Group</code> クラスのインスタンスオブジェクト）とする．このとき，各プレイヤーに個別の処理をするときにはforループを使う．</li>
+<li><code>before_next_page</code> や <code>vars_for_template</code> の中で呼び出したい場合，引数は <code>player</code> （<code>Player</code> クラスのインスタンスオブジェクト）とする．呼び出されるタイミングはプレイヤーごと異なるため，グループでユニークな処理をしたい場合は注意．</li>
+</ul>
+</li>
+<li>自前で作った関数は，陽に呼び出さないと動かない．忘れずに設定する．</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/eUxjPHHrrTY?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<ul>
+<li>作業内容:<ul>
+<li>まずはテンプレートファイルに記述した入力フォームが機能するように（フォームを送信したときにoTreeサーバーで認識できるように）設定する．<ul>
+<li><code>Player</code> クラスに <code>contribution = models.FloatField()</code> を記述する．<ul>
+<li>公式ドキュメントのチュートリアルでは <code>models.CurrencyField()</code> を使用しているが，oTreeの通貨型を理解するのが面倒なので，単純な実数型を使う．</li>
+</ul>
+</li>
+<li><code>Contribute</code> クラスに <code>form_model = &quot;player&quot;</code> と <code>form_fields = [&quot;contribution&quot;]</code> を記述する．</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/qsyWxGr8U-M?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<ul>
+<li><p>作業内容:</p>
+<ul>
+<li>利得を計算する際の途中の変数（グループでの貢献額の合計値と分配額）をグループモデルに保存するために定義する．<ul>
+<li><code>Group</code> クラスに <code>total_contribution = models.FloatField()</code> と <code>individual_share = models.FloatField()</code><ul>
+<li>公式ドキュメントのチュートリアルでは <code>models.CurrencyField()</code> を使用しているが，oTreeの通貨型を理解するのが面倒なので，単純な実数型を使う．</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>定数を定義する．<ul>
+<li>3人での公共財ゲームを作るため，<code>PLAYERS_PER_GROUP = 3</code> とする．</li>
+<li>利得を計算する際のパラメータとして， <code>ENDOWMENT = 1000</code> と <code>MULTIPLIER = 2</code> を定義する．</li>
+</ul>
+</li>
+<li><p>利得を計算する関数 <code>set_payoffs</code> を定義する．</p>
+<ul>
+<li><code>ResultsWaitPage</code> クラスにおいて <code>after_all_players_arrive</code> として呼び出すため，<code>ResultsWaitPage</code> クラスよりも上に記述する．</li>
+<li><code>ResultsWaitPage</code> クラスにおいて <code>after_all_players_arrive</code> として呼び出すため，引数は <code>group</code> とする．<ul>
+<li>型アノテーションをつけて <code>group: Group</code> と記述しておくと良い．</li>
+</ul>
+</li>
+<li><p>関数の中身は公式ドキュメントのチュートリアルからコピペして以下の通り:</p>
+<pre><code class="lang-python">  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">set_payoffs</span>(<span class="hljs-params">group: Group</span>):</span>
+      <span class="hljs-comment">## 全プレイヤーのインスタンスオブジェクトが入ったリスト．</span>
+      players = group.get_players()
+
+      <span class="hljs-comment">## players から一人ずつプレイヤーオブジェクト p を取り出し，contribution の値を並べたリストを内包記法で生成．</span>
+      contributions = [p.contribution <span class="hljs-keyword">for</span> p <span class="hljs-keyword">in</span> players]
+
+      <span class="hljs-comment">## 各プレイヤーの contribution の合計を，リスト contributions の sum として計算し，</span>
+      <span class="hljs-comment">## Group の total_contribution に代入（代入することによってデータベースにも書き込まれる）．</span>
+      group.total_contribution = <span class="hljs-built_in">sum</span>(contributions)
+
+      <span class="hljs-comment">## 各プレイヤーの配分額を計算し，Group の individual_share に代入．</span>
+      group.individual_share = group.total_contribution * C.MULTIPLIER / C.PLAYERS_PER_GROUP
+
+      <span class="hljs-comment">## 一人ずつプレイヤーの報酬額を計算し，Player の 予め用意されている変数 payoff に代入．</span>
+      <span class="hljs-keyword">for</span> player <span class="hljs-keyword">in</span> players:
+          player.payoff = C.ENDOWMENT - player.contribution + group.individual_share
+          <span class="hljs-comment">## ↑ player.payoff に値を代入すると，勝手にoTree組み込みの通貨型に変換される．値は丸められる．</span>
+</code></pre>
+</li>
+<li><code>ResultsWaitPage</code> クラスにおいて <code>after_all_players_arrive = &quot;set_payoffs&quot;</code> とすると，グループの全プレイヤーの意思決定が送信されたタイミングで関数 <code>set_payoffs</code> が呼び出される．<ul>
+<li><code>ResultsWaitPage</code> クラスに以下のように記述しても良い．<pre><code class="lang-python"><span class="hljs-meta">  @staticmethod</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">after_all_players_arrive</span>(<span class="hljs-params">group: Group</span>):</span>
+      set_payoffs(group)
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>この段階で <code>__init__.py</code> の内容は以下:</p>
+<pre><code class="lang-python">  <span class="hljs-keyword">from</span> otree.api <span class="hljs-keyword">import</span> *
+
+  doc = <span class="hljs-string">&quot;&quot;&quot;
+  Your app description
+  &quot;&quot;&quot;</span>
+
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">C</span>(<span class="hljs-params">BaseConstants</span>):</span>
+      NAME_IN_URL = <span class="hljs-string">&apos;publicgoodsgame&apos;</span>
+      PLAYERS_PER_GROUP = <span class="hljs-number">3</span>
+      NUM_ROUNDS = <span class="hljs-number">1</span>
+      ENDOWMENT = <span class="hljs-number">1000</span>
+      MULTIPLIER = <span class="hljs-number">2</span>
+
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Subsession</span>(<span class="hljs-params">BaseSubsession</span>):</span>
+      <span class="hljs-keyword">pass</span>
+
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Group</span>(<span class="hljs-params">BaseGroup</span>):</span>
+      total_contribution = models.FloatField()
+      individual_share = models.FloatField()
+
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Player</span>(<span class="hljs-params">BasePlayer</span>):</span>
+      contribution = models.IntegerField()
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">set_payoffs</span>(<span class="hljs-params">group: Group</span>):</span>
+      players = group.get_players()
+      contributions = [p.contribution <span class="hljs-keyword">for</span> p <span class="hljs-keyword">in</span> players]
+      group.total_contribution = <span class="hljs-built_in">sum</span>(contributions)
+      group.individual_share = group.total_contribution * C.MULTIPLIER / C.PLAYERS_PER_GROUP
+      <span class="hljs-keyword">for</span> player <span class="hljs-keyword">in</span> players:
+          player.payoff = C.ENDOWMENT - player.contribution + group.individual_share
+
+  <span class="hljs-comment"># PAGES</span>
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Contribute</span>(<span class="hljs-params">Page</span>):</span>
+      form_model = <span class="hljs-string">&apos;player&apos;</span>
+      form_fields = [<span class="hljs-string">&apos;contribution&apos;</span>]
+
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ResultsWaitPage</span>(<span class="hljs-params">WaitPage</span>):</span>
+      after_all_players_arrive = <span class="hljs-string">&quot;set_payoffs&quot;</span>
+
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Results</span>(<span class="hljs-params">Page</span>):</span>
+      <span class="hljs-keyword">pass</span>
+
+  page_sequence = [Contribute, ResultsWaitPage, Results]
+</code></pre>
 </li>
 </ul>
 </li>
@@ -468,7 +946,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第4回","level":"1.1.4","depth":2,"next":{"title":"【資料編】","level":"2.1","depth":1,"ref":"","articles":[]},"previous":{"title":"第3回","level":"1.1.3","depth":2,"path":"day3.md","ref":"day3.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day4.md","mtime":"2022-06-02T01:04:42.591Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-02T01:04:48.014Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第4回","level":"1.1.4","depth":2,"next":{"title":"【資料編】","level":"2.1","depth":1,"ref":"","articles":[]},"previous":{"title":"第3回","level":"1.1.3","depth":2,"path":"day3.md","ref":"day3.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day4.md","mtime":"2022-06-05T10:08:00.973Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-05T10:10:12.300Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

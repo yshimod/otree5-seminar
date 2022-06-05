@@ -1,6 +1,7 @@
+{% raw %}
 【第4回】 2022年6月2日
 
-<h1>oTreeプログラミングの概要</h1>
+<h1>oTreeプログラミングの進め方</h1>
 
 - 今後の予定
     - 第4回（今日）: 同時手番ゲーム（oTreeプログラミングの基礎）
@@ -8,54 +9,453 @@
     - 第回: 繰り返しゲーム（ラウンド間でプレイヤーのシャッフル）
     - 第回: ダブルオークション（JavaScriptとライブページ，ExtraModel）
     - 第回: 質問紙調査（ページのデザイン，CSS，Bootstrap）
-    - 第回: 質問紙調査（ページのデザイン，CSS，Bootstrap）
     - 第回: 補遺
 
+
 - [1. oTreeで実験プログラムを開発する前に考えておくこと](#1-otreeで実験プログラムを開発する前に考えておくこと)
-- [2. `__init__.py` の構成](#2-__init__py-の構成)
+- [2. 計画](#2-計画)
+- [3. プロジェクトの空ファイルを作成する](#3-プロジェクトの空ファイルを作成する)
+- [4. `settings.py` を書いておく](#4-settingspy-を書いておく)
+- [5. テンプレートファイルを作成して `__init__.py` の最低限の設定をする](#5-テンプレートファイルを作成して-__init__py-の最低限の設定をする)
+- [6. テンプレートファイルを編集する](#6-テンプレートファイルを編集する)
+- [7. `__init__.py` を編集する](#7-__init__py-を編集する)
+
+
 
 
 ## 1. oTreeで実験プログラムを開発する前に考えておくこと
+
+- 実験セッションの流れは？
+    - たとえば...
+        1. インストラクション・確認クイズ
+        2. 意思決定課題
+        3. アンケート
+        4. 報酬額フィードバック
+    - → 実験課題ごとにアプリを作るとして，途中でアプリを分割・結合するのは面倒くさい．
+- 表示するページの構成は？
+    - 絵コンテを作ってみる．
+- 意思決定のインターフェイスは？
+    - テキストフォーム，ドロップダウンリスト，ラジオボタン，......
+- トリートメントの条件分岐をどう実装する？
+    - 条件別にアプリを作る？ SESSION_CONFIGSで条件分岐？ セッション内で乱数を引いて割り付ける？
+    - → 途中で実装を変えるのは面倒くさい．
+- どんなデータを取る？
+    - 得られる意思決定データの形式は？（インターフェイスのデザインとも関係．）
+    - 意思決定データ以外に記録しておくデータは？
 - ラボでの集団実験か？Zoomでの集団実験か？アンケートなど個人の意思決定課題か？
-    - 参加者の端末は何？（ラボのPC？各参加者の私物PC？スマホに対応する？）
+    - 参加者の端末は何？（ラボのPCを想定してハードコーディングする？ 各参加者の私物PCやスマホに対応する？）
     - インストラクションは紙で配布する？画面を読ませる？
     - 確認クイズはどのような形式？（どうしても確認クイズに正答できない場合は？）
     - 実験中の参加者の行動を監視できるか？
     - 途中で脱落する参加者への対応は？
     - 報酬の支払い方法は？
-- 実験の流れは？画面の構成は？
-    - 課題の順番？（一つ一つの課題をアプリとして実装する．）  
-        たとえば...
-        1. インストラクション・確認クイズ
-        2. 意思決定課題
-        3. アンケート
-        4. 報酬額フィードバック
-    - トリートメントの条件分岐をどう実装する？
-    - 各課題（アプリ）で表示するページの順番？（絵コンテを作ってみる．）
-    - 意思決定のインターフェイスは？
-- どんなデータを取る？
-    - 得られる意思決定データの形式は？（インターフェイスのデザインとも関係．）
-    - 意思決定データ以外に記録しておくデータは？
 
 
-## 2. `__init__.py` の構成
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/tlWHJFvWkv4?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+- プログラム開発を開始する前に細かく計画しておいたほうが良い．
+    - 一度作り始めてから仕様を変更するとき，場合によってはゼロスタートと変わらない工数を要することも．
+- 勉強会では様々な事態に対応できるように機能を網羅しようとしますが，取捨選択してください．
+
+
+
+## 2. 計画
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/XBL7DyYMtIA?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
 - チュートリアル（公共財ゲーム）を参照しながら  
     [https://otree.readthedocs.io/ja/latest/tutorial/part2.html](https://otree.readthedocs.io/ja/latest/tutorial/part2.html)
     - 3人ゲーム
     - 同時手番
     - 利得: 初期保有 - 貢献額 + （グループ内合計貢献額 * 倍率 / 人数）
     - 定数
-        - PLAYERS_PER_GROUP（1グループあたりの人数） = 3
-        - NUM_ROUNDS（ラウンド数） = 1
-        - ENDOWMENT（初期保有） = 1000
-        - MULTIPLIER（倍率） = 2
+        - `PLAYERS_PER_GROUP`（1グループあたりの人数） `= 3`
+        - `NUM_ROUNDS`（ラウンド数） `= 1`
+        - `ENDOWMENT`（初期保有） `= 1000`
+        - `MULTIPLIER`（倍率） `= 2`
     - 記録するデータ
-        - player.contribution（各プレイヤーの貢献額）
-        - group.total_contribution（各グループの合計貢献額）
-        - group.individual_share（各グループにおける各プレイヤーへの配分額）
+        - `player.contribution`（各プレイヤーの貢献額）
+        - `group.total_contribution`（各グループの合計貢献額）
+        - `group.individual_share`（各グループにおける各プレイヤーへの配分額）
     - 3ページ構成:
-        1. "Contribute"（意思決定画面）
+        1. "Contribute"（意思決定ページ）
         2. "ResultsWaitPage"（待機ページ）
         3. "Results"（結果表示ページ）
 
 
+
+## 3. プロジェクトの空ファイルを作成する
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/XWCOhnx6Tvw?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+1. `otree startproject pgg` で `pgg` なるプロジェクトを作成．サンプルゲームは追加しない．
+2. `cd pgg` で作成したプロジェクトディレクトリに入った後，`otree startapp publicgoodsgame` で `publicgoodsgame` なるアプリを作成．
+3. Gitでプロジェクトを管理する場合，この段階で `git init` しておく．
+    - GitHubも使う場合はブラウザでGitHubを開き，リポジトリを作成しておく．このとき，リポジトリ名はプロジェクト名 `publicgoodsgame` と一緒にしておく．
+
+
+- 勉強のためにサンプルゲームを追加せず，ゼロの状態から始めています．
+- 実際プログラムを始めるときには，サンプルゲームや，自分（あるいは友達）が以前作ったプロジェクトを書き換えていくのが多いでしょう．
+
+
+
+## 4. `settings.py` を書いておく
+
+プロジェクトのディレクトリ直下にある `settings.py` を編集して，作成したアプリ `publicgoodsgame` を起動するように設定する．
+
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/AA-EYCAknsw?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+1. `SESSION_CONFIG` を以下のように設定．
+    ```python
+    SESSION_CONFIG = [
+        dict(
+            name = "publicgoodsgame",
+            app_sequence = ["publicgoodsgame"],
+            num_demo_participants = 3
+        )
+    ]
+    ```
+    - `name` は管理者画面に表示するセッション名．何でも良いが，とりあえずアプリ名にしておく．
+    - `app_sequence` には使うアプリの名前をリストで渡す．まだアプリは `publicgoodsgame` 一つしかないため，要素が一つだけのリスト `["publicgoodsgame"]` を設定する．
+    - `num_demo_participants` にはデモページでの参加者数を設定する．今作ろうとしている公共財ゲームは3人ゲームなので3の倍数を設定する．
+2. `LANGUAGE_CODE = 'ja'` として日本語を使うようにしておく．
+3. `REAL_WORLD_CURRENCY_CODE = 'JPY'` として通貨単位を「円」にする．
+4. その他， `ADMIN_*` の設定などはとりあえずいじらないでおいておく．
+5. 編集が終わったら， `otree devserver` でサーバーを起動させてみる．
+    - サーバーを起動させる前に，プロジェクトのディレクトリに `db.sqlite3` があれば消しておく．
+
+
+- 公式ドキュメントのチュートリアルでは，アプリの `__init__.py` やテンプレートファイルの編集を一通りしたあとに `settings.py` の編集をしているが，ここでは最初にやっておく．
+- そのココロは，アプリの `__init__.py` やテンプレートファイルを編集している最中に `otree devserver` でサーバーを起動させておき，ブラウザで動作確認をするため．`settings.py` の `SESSION_CONFIG` が設定されていないとアプリを動かせない．
+
+
+
+## 5. テンプレートファイルを作成して `__init__.py` の最低限の設定をする
+
+- 参加者に呈示されるページの内容は，テンプレートファイル（アプリのディレクトリにあるHTMLファイル）に記述する．
+- テンプレートファイルを編集するときには，ブラウザでどのように表示されるのかを確認しながら作業した方が良い．
+- サーバーを起動させ，テンプレートファイルをページとして正しい順番で表示させるためには `__init__.py` に設定しなければならない．
+
+
+1. `otree startapp` でアプリを追加した段階では `MyPage.html` と `Results.html` の2つのテンプレートファイルが生成されている．
+1. テンプレートファイルを必要なだけコピーする（削除する）．
+1. `__init__.py` で，表示するページごとに `Page` クラスを継承するクラスを設定する．
+    - クラスの名前はテンプレートファイルのファイル名と同じにする．
+    - 全プレイヤーの回答を待機するページが必要な場合は `WaitPage` クラスを継承するクラスを設定する．
+        - デフォルトのサンプルとして挿入されているクラスの名前は `ResultsWaitPage` ．
+1. 表示するページの順番を `page_sequence` で設定する．クラス名をリストで渡す．
+1. 定数クラス `C` に必要最低限の設定をする．
+    - デフォルトで `NAME_IN_URL`，`PLAYERS_PER_GROUP`，`NUM_ROUNDS` が設定されている．単にテンプレートファイルがブラウザでどう見えるかを確認するためにoTreeサーバーを起動することが目的であれば，とりあえずデフォルトのままでも良い．
+
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/4h6R9dFzXKk?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+- 作業内容:
+    - 必要なテンプレートファイルは `Contribute.html`（意思決定ページ）と `Results.html`（結果表示ページ）．`otree startapp` で生成された `MyPage.html` のファイル名を `Contribute.html` に変更する．`Results.html` はそのまま．
+    - ↑ のファイル名変更に対応するために，`__init__.py` で `MyPage` なるクラスの名前を `Contribute` に変更する．
+    - ↑ のクラス名変更に対応し，`page_sequence = [Contribute, ResultsWaitPage, Results]` に直す．
+    - この段階でアプリのディレクトリの中身は以下:
+        ```
+        ./publicgoodsgame/
+        ├── Contribute.html
+        ├── Results.html
+        ├── __init__.py
+        └── __pycache__
+        ```
+    - この段階で `__init__.py` の内容は以下:
+        ```python
+        from otree.api import *
+
+        doc = """
+        Your app description
+        """
+
+        class C(BaseConstants):
+            NAME_IN_URL = 'publicgoodsgame'
+            PLAYERS_PER_GROUP = None
+            NUM_ROUNDS = 1
+
+        class Subsession(BaseSubsession):
+            pass
+
+        class Group(BaseGroup):
+            pass
+
+        class Player(BasePlayer):
+            pass
+
+        # PAGES
+        class Contribute(Page):
+            pass
+
+        class ResultsWaitPage(WaitPage):
+            pass
+
+        class Results(Page):
+            pass
+
+        page_sequence = [Contribute, ResultsWaitPage, Results]
+        ```
+
+
+
+## 6. テンプレートファイルを編集する
+
+1. タイトルブロックを編集する．
+    - `{{ block title }}` と `{{ endblock }}` に挟まれた部分（デフォルトでは `Page title` と入っている部分）を「タイトルブロック」と呼ぶ．
+    - タイトルブロック内に，ページの冒頭で表示するタイトルを記述する．
+    - oTreeサーバーはテンプレートファイルを解釈して，記述した内容を `<head>` の `<title>` タグの中身（ブラウザウィンドウのタイトルに表示される）と，`<body>` の冒頭にある `<h2>` タグの中に挿入する．
+    - `<h2>` タグ内にテキストが挿入されることによって，ページ内にタイトルが大きな文字で表示される．
+    - ページ内で表示するタイトルのスタイルを変えることを目的として，タイトルブロックの中でhtmlタグを使うことができる．しかし，タイトルブロック内でhtmlタグを駆使するのではなく，CSSで `.otree-title` クラスのスタイルを指定するべき．
+2. コンテンツブロックを編集する．
+    - `{{ block content }}` と `{{ endblock }}` に挟まれた部分を「コンテンツブロック」と呼ぶ．
+    - コンテンツブロック内に，ページの本文を，htmlタグも適宜使って記述する．
+    - oTreeサーバーはテンプレートファイルを解釈して，記述した内容を `<body>` 内の `<form>` タグの中に挿入する．
+    - 説明文などの文章は `<p>` タグや `<div>` タグで記述する．
+        - 一般論として，`<br>` タグによる改行を多用するのではなく，段落ごと `<p>` タグを使うのが良い．
+3. コンテンツブロック内に入力フォームを挿入する
+    - 【原理的な話】 oTreeサーバーはコンテンツブロック内の記述したものを `<body>` 内の `<form>` タグの中に挿入する．`<form>` タグに `method="post"` が設定されているため，`<form>` タグ内の `<input>` 要素等のデータがPOSTメソッドでサーバーに送信される．
+        - したがって，サーバーに送信したいデータの入力フォームを作るためには，コンテンツブロック内に `<input>` タグなどを記述する．このとき `name` 属性に，記録するデータの変数名を設定する．
+        - [HTMLフォーム](https://developer.mozilla.org/ja/docs/Learn/Forms)
+        - [フォームデータの送信](https://developer.mozilla.org/ja/docs/Learn/Forms/Sending_and_retrieving_form_data)
+        - たとえば変数名を `contribution` にするとき，以下をコンテンツブロック内に記述すれば，とりあえず入力フォームができる．
+            ```html
+            <input name="contribution">
+            ```
+        - `name` 属性が `name="contribution"` である入力フォームに「12」と入力してフォームを送信したとき（「次へ」ボタンを押したとき），HTTPリクエストの本文は `contribution=12` となる．oTreeサーバーがこのHTTPリクエストを受け取りデータベースに書き込んでくれる．
+    - `<input>` の他に `<select>` や `<textarea>` など， `<form>` の中で使えるものが同様に使える．
+        - [フォームの構築方法](https://developer.mozilla.org/ja/docs/Learn/Forms/How_to_structure_a_web_form)
+    - クライアント側で行う検証も設定する．
+        - 必須回答にする場合には `required` 属性を追加する．
+        - 文字数の長さを `maxlength`，`minlength` 属性で指定したり，数値の範囲を `max`，`min` 属性で指定したりすることができる．
+        - [クライアント側のフォームデータ検証](https://developer.mozilla.org/ja/docs/Learn/Forms/Form_validation)
+        - たとえば，必須回答で数値を入力させ，かつ，最小値を0，最大値を100にするときは以下．
+            ```html
+            <input type="number" name="contribution" required min="0" max="100">
+            ```
+        - 任意回答にする（空欄を許す）場合には `required` 属性を使わないことに加え，`__init__.py` でフォームを定義するときに `blank=True` とする．さもないと，フォーム送信時にoTreeサーバー側でエラーが出る．
+    - マスタッシュ記法で記述すれば，↑ 以上のようにしてタグを自分で記述して入力フォームを作る作業を，oTreeサーバーがやってくれる．
+        - コンテンツブロック内に `{{ formfields }}` と記述すれば，`<input>` タグと，その入力フォームに対応する `<label>` タグを生成してくれる．
+        - [詳細はこちら](https://otree.readthedocs.io/en/latest/forms.html)
+        - 同じような入力フォームがたくさんある場合（たとえば質問紙調査）はoTreeの機能を使った方が良い（DRY原則）．検証を独自に実装したい場合（たとえばJavaScriptやライブページを駆使するとき）は自分でタグを記述する．
+4. コンテンツブロック内に「次へ」ボタンを挿入する
+    - 【原理的な話】 （入力フォームが何もなくても）フォームの送信をすれば，oTreeサーバーが次のページに遷移させる．
+        - したがって，コンテンツブロック内でフォームを送信させるボタンを作れば，それが次のページへ進ませるボタンとなる．
+        - たとえば以下のどちらかをコンテンツブロック内に記述すれば良い．
+            ```html
+            <button type="submit">次へ</button>
+            ```
+            ```html
+            <input type="submit" value="次へ">
+            ```
+        - 実は `<button>` タグで `type="submit"` と陽に指定しなくても良い．なぜならば `type` 属性のデフォルトが `submit` であるため．
+    - コンテンツブロック内に `{{ next_button }}` と記述すれば，oTreeサーバーが以下の `<button>` タグを生成してくれる．
+        ```html
+        <button class="otree-btn-next btn btn-primary">次へ</button>
+        ```
+
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/udHF5mDzv94?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+- 作業内容:
+    - とりあえず `Contribute.html` に説明文と入力フォームを作る．
+    - 見てくれはさておき，とにかく最低限のことだけを記述する．
+    - コンテンツブロック内でマスタッシュ記法を使わない場合:
+        ```html
+        {{ block title }}
+            意思決定
+        {{ endblock }}
+        {{ block content }}
+            <p>以下の入力欄に貢献額を入力してください．</p>
+            <input name="contribution">
+            <button>次へ</button>
+        {{ endblock }}
+        ```
+    - コンテンツブロック内でマスタッシュ記法を使う場合:
+        ```html
+        {{ block title }}
+            意思決定
+        {{ endblock }}
+        {{ block content }}
+            <p>以下の入力欄に貢献額を入力してください．</p>
+            {{ formfields }}
+            {{ next_button }}
+        {{ endblock }}
+        ```
+    - ページ内で変数を展開する（たとえば，計算した報酬額などを `Results.html` で表示する）方法は次回に後回し．
+
+
+## 7. `__init__.py` を編集する
+
+1. 【Pageパート】 まずテンプレートファイルの存在をoTreeに知らせる
+    - （oTree3では，`pages.py` に記述していた内容）
+    - 表示するページごとに `Page` クラスを継承するクラスを設定する．
+    - クラスの名前はテンプレートファイルのファイル名と同じにする．
+    - クラスの名前がURLに表示される．
+        - クラス変数 `template_name` にテンプレートファイルのパスを代入することによって，ページクラスとテンプレートファイルの関係を陽に記述すれば，クラス名とテンプレートファイルのファイル名を一致させる必要はない．
+    - 待機ページのために `WaitPage` クラスを継承するクラスを設定する．
+        - 同時手番ゲームで利得を計算するためには，グループ内の全メンバーの意思決定が完了したタイミングで利得を計算する関数を動かさなければならない．タイミングを合わせるために，先に意思決定を済ませた参加者に表示するための待機ページを用意すればよい．
+        - 待機ページのためにテンプレートファイルを作成して通常のページとして実装することも可能ではある．しかし，oTreeの機能（`WaitPage` クラス）を使うのが楽．
+    - 各ページのクラスを設定した後，表示するページの順番を `page_sequence` で設定する．クラス名をリストで渡す．
+2. 【Modelパート】 入力フォームの変数をデータベースのどこに保存するかを設定する
+    - （oTree3では，`models.py` に記述していた内容）
+    - player，group，subsessionの各階層で保存するべきデータの変数名を `Player` クラス，`Group` クラス，`Subsession` クラスのそれぞれで定義する．
+        - 公共財ゲームなど，プレイヤーに役割の区別がなく対称的な場合，意思決定データは一つの変数名でplayerの階層に保存しておけば良い．
+        - 信頼ゲームにおける提案者・応答者など，プレイヤーに役割の区別があって，かつ，グループ内で一つの役割に複数のプレイヤーが縮退しない場合，各プレイヤーの意思決定データはグループにおいてユニークなので，playerの階層に保存するよりもgroupの階層に保存する方が良い．
+        - セッションにおいて，（グループをまたいで）ある特定の一人だけが意思決定する場合は，subsessionの階層に保存する方が良い．
+        - participantとsessionの階層へは入力フォームから直接データを保存できないため，工夫を要する．
+    - デフォルトで `Player` クラス，`Group` クラス，`Subsession` クラスが `__init__.py` に記述されているので，変数を設定する場合には `pass` を削除して書き込めば良い．
+    - `変数名 = models.*Field()` と記述して設定する．
+        - `models.*Field()` で使えるものは以下:
+            - `models.BooleanField()`: ブール代数型
+            - `models.CurrencyField()`: oTree組み込みの通貨型
+            - `models.IntegerField()`: 整数型
+            - `models.FloatField()`: 実数型
+            - `models.StringField()`: 文字列型（デフォルトで10000字まで）
+            - `models.LongStringField()`: テキスト型（可変長文字列型）
+        - `models.*Field()` の引数で，最大値と最小値などの検証の設定や，初期値や選択肢の設定ができる．
+            - `choices`: 選択肢（`[value, display]` を要素とする（2次元）リストで渡す）
+            - `widget`: マスタッシュ記法によって入力フォームを作る場合，`widget = widgets.RadioSelect` または `widget = widgets.RadioSelectHorizontal` と設定すれば入力フォームがラジオボタンになる．`choices` も設定しておく必要がある．
+            - `initial`: 初期値
+            - `label`: フォームのラベル（デフォルトは変数名）
+            - `min`: 最小値
+            - `max`: 最大値
+            - `max_length`: 文字列の長さ
+            - `blank`: 回答を強制しない場合は `True` を渡す．
+        - （マスタッシュ記法ではなく）タグの直打ちで入力フォームを作りながら，`models.*Field()` の引数で `choices`，`min`，`max` を設定している場合，タグの直打ちでの実装との整合性に気をつける．
+            - タグの属性で`min`や`max`などの制約を設定しない場合（クライアントでの検証をしない場合）でも，oTreeサーバー側で検証は行われる．
+            - たとえば `models.*Field()` の引数で `choices = [0, 100]` としておきながら，タグ直打ちで `<input type="number" name="contribution" required min="0" max="100">` と入力フォームを作り，参加者が「10」と回答した場合，クライアントの検証は通過するが，10が `[0, 100]` に含まれないため，oTreeの検証は通過せず，エラーが出る．
+    - データモデルを設定した後，どのページで入力フォームを使うのかを設定する．
+        - 入力フォームを使うページのクラスで以下の2つを設定:
+            - `form_model`: 保存したいデータのモデル（player，group，subsessionのいずれか）から一つを選んで文字列で指定する．
+                - `Player` クラスで定義した `contribution` なる変数を使う場合は `form_model = "player"` とする．
+                - 同一のページでplayerモデルの変数とgroupモデルの変数の入力フォームを作ることは原則はできないため，工夫する（たとえば一旦playerモデルでデータを保存しておいて，後でgroupモデルに転記する，など）．
+            - `form_fields`: 保存したいデータの変数名をリストで指定する．
+                - `Player` クラスで定義した `contribution` なる変数を使う場合は `form_fields = ["contribution"]` とする．
+    - ページクラスの設定とデータモデルの設定が終われば，とりあえず意思決定データを収集することはできる．質問紙調査であれば，ここまでの作業で完成．
+3. 【Constantsパート・関数パート】 定数や関数の設定をしてゲームとして成立させる
+    - oTreeで収集した意思決定データからゲームの利得（報酬額）を計算することができる．
+        - （その場で）フィードバックする必要が無ければ，必ずしもoTreeで計算しなければならないわけではない．
+        - たとえばラボでくじを引いて，その結果を使って報酬額を計算する，ということもできる． [https://otree.readthedocs.io/en/latest/misc/rest_api.html#session-vars-endpoint](https://otree.readthedocs.io/en/latest/misc/rest_api.html#session-vars-endpoint)
+    - クラス `C` （かつては `Constants` ）で定数を定義する．
+        - 必ず定義しなければならないもの:
+            - `NAME_IN_URL`: デフォルトではアプリ名の文字列が設定されている．任意に変えても良い．
+            - `PLAYERS_PER_GROUP`: ゲーム実験の場合，各グループの人数（2以上）を設定する．グループを設定しない場合は `None` とする．
+            - `NUM_ROUNDS`: アプリを繰り返す場合，繰り返す（最大）回数を設定する．繰り返さない場合は `1` とする．
+        - ↑ 以上の3つの変数名については小文字（`name_in_url`，`players_per_group`，`num_rounds`）でも良い．バージョン互換性対応．
+        - クラス `C` で定義する変数名は大文字にすると良い？ 自分で定義するものについては厳密に大文字小文字を区別することに注意．
+        - ゲームのパラメータもクラス `C` で設定すると良い．
+            - しかし，トリートメントをクラス `C` で実装するべきではない．たとえば公共財ゲームの限界収益率を変えて実験を行う場合，アプリごと複製して，複製した各アプリのクラス `C` で限界収益率の値を変える，という方法でも実装は可能である．しかし，アプリごと複製する，というのは筋が悪い（DRY原則に反する）．それよりも `settings.py` の `SESSION_CONFIGS` で定数を定義し，セッションを作成する際に値を具体的に設定する方が良い．
+            - パラメータを（たとえば報酬額を計算する関数で）ハードコーディングしてしまうのも良くない．当座の実験計画では変更する予定のないパラメータであっても，将来的には値を変えて実験を実施する場面が訪れるかもしれない．ハードコーディングしてしまうと，パラメータの変更に漏れが生じるかもしれない．
+    - 報酬を計算する関数などは，`__init__.py` のどこかに記述すれば良い．
+        - oTree3では `Player` クラスなどの中でインスタンスメソッドとして定義していた．
+        - 関数を呼び出す前に関数を定義する必要がある．たとえばページクラスで関数を使いたい場合はページクラスを定義している行よりも上で関数を定義しなければならない．
+        - 関数の引数に注意．
+            - 待機ページで `after_all_players_arrive` として呼び出したい場合，引数は `group` （`Group` クラスのインスタンスオブジェクト）とする．このとき，各プレイヤーに個別の処理をするときにはforループを使う．
+            - `before_next_page` や `vars_for_template` の中で呼び出したい場合，引数は `player` （`Player` クラスのインスタンスオブジェクト）とする．呼び出されるタイミングはプレイヤーごと異なるため，グループでユニークな処理をしたい場合は注意．
+        - 自前で作った関数は，陽に呼び出さないと動かない．忘れずに設定する．
+
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/eUxjPHHrrTY?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+- 作業内容:
+    - まずはテンプレートファイルに記述した入力フォームが機能するように（フォームを送信したときにoTreeサーバーで認識できるように）設定する．
+        - `Player` クラスに `contribution = models.FloatField()` を記述する．
+            - 公式ドキュメントのチュートリアルでは `models.CurrencyField()` を使用しているが，oTreeの通貨型を理解するのが面倒なので，単純な実数型を使う．
+        - `Contribute` クラスに `form_model = "player"` と `form_fields = ["contribution"]` を記述する．
+
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/qsyWxGr8U-M?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+- 作業内容:
+    - 利得を計算する際の途中の変数（グループでの貢献額の合計値と分配額）をグループモデルに保存するために定義する．
+        - `Group` クラスに `total_contribution = models.FloatField()` と `individual_share = models.FloatField()`
+            - 公式ドキュメントのチュートリアルでは `models.CurrencyField()` を使用しているが，oTreeの通貨型を理解するのが面倒なので，単純な実数型を使う．
+    - 定数を定義する．
+        - 3人での公共財ゲームを作るため，`PLAYERS_PER_GROUP = 3` とする．
+        - 利得を計算する際のパラメータとして， `ENDOWMENT = 1000` と `MULTIPLIER = 2` を定義する．
+    - 利得を計算する関数 `set_payoffs` を定義する．
+        - `ResultsWaitPage` クラスにおいて `after_all_players_arrive` として呼び出すため，`ResultsWaitPage` クラスよりも上に記述する．
+        - `ResultsWaitPage` クラスにおいて `after_all_players_arrive` として呼び出すため，引数は `group` とする．
+            - 型アノテーションをつけて `group: Group` と記述しておくと良い．
+        - 関数の中身は公式ドキュメントのチュートリアルからコピペして以下の通り:
+            ```python
+            def set_payoffs(group: Group):
+                ## 全プレイヤーのインスタンスオブジェクトが入ったリスト．
+                players = group.get_players()
+
+                ## players から一人ずつプレイヤーオブジェクト p を取り出し，contribution の値を並べたリストを内包記法で生成．
+                contributions = [p.contribution for p in players]
+
+                ## 各プレイヤーの contribution の合計を，リスト contributions の sum として計算し，
+                ## Group の total_contribution に代入（代入することによってデータベースにも書き込まれる）．
+                group.total_contribution = sum(contributions)
+
+                ## 各プレイヤーの配分額を計算し，Group の individual_share に代入．
+                group.individual_share = group.total_contribution * C.MULTIPLIER / C.PLAYERS_PER_GROUP
+
+                ## 一人ずつプレイヤーの報酬額を計算し，Player の 予め用意されている変数 payoff に代入．
+                for player in players:
+                    player.payoff = C.ENDOWMENT - player.contribution + group.individual_share
+                    ## ↑ player.payoff に値を代入すると，勝手にoTree組み込みの通貨型に変換される．値は丸められる．
+            ```
+        - `ResultsWaitPage` クラスにおいて `after_all_players_arrive = "set_payoffs"` とすると，グループの全プレイヤーの意思決定が送信されたタイミングで関数 `set_payoffs` が呼び出される．
+            - `ResultsWaitPage` クラスに以下のように記述しても良い．
+                ```python
+                @staticmethod
+                def after_all_players_arrive(group: Group):
+                    set_payoffs(group)
+                ```
+    - この段階で `__init__.py` の内容は以下:
+        ```python
+        from otree.api import *
+
+        doc = """
+        Your app description
+        """
+
+        class C(BaseConstants):
+            NAME_IN_URL = 'publicgoodsgame'
+            PLAYERS_PER_GROUP = 3
+            NUM_ROUNDS = 1
+            ENDOWMENT = 1000
+            MULTIPLIER = 2
+
+        class Subsession(BaseSubsession):
+            pass
+
+        class Group(BaseGroup):
+            total_contribution = models.FloatField()
+            individual_share = models.FloatField()
+
+        class Player(BasePlayer):
+            contribution = models.IntegerField()
+
+        def set_payoffs(group: Group):
+            players = group.get_players()
+            contributions = [p.contribution for p in players]
+            group.total_contribution = sum(contributions)
+            group.individual_share = group.total_contribution * C.MULTIPLIER / C.PLAYERS_PER_GROUP
+            for player in players:
+                player.payoff = C.ENDOWMENT - player.contribution + group.individual_share
+
+        # PAGES
+        class Contribute(Page):
+            form_model = 'player'
+            form_fields = ['contribution']
+
+        class ResultsWaitPage(WaitPage):
+            after_all_players_arrive = "set_payoffs"
+
+        class Results(Page):
+            pass
+
+        page_sequence = [Contribute, ResultsWaitPage, Results]
+        ```
+
+
+{% endraw %}

@@ -390,7 +390,7 @@
 </ul>
 <h2 id="devserver"><code>devserver</code></h2>
 <ul>
-<li>開発中の動作環境のためにサーバーを起動するコマンド．</li>
+<li>開発中の動作確認のためにサーバーを起動するコマンド．</li>
 <li>起動後（ポートを特定しなければ） <code>http://localhost:8000</code> で管理者画面にアクセスできる．</li>
 <li><code>prodserver</code> コマンドとは異なり，稼働中に <code>settings.py</code> や <code>__init__.py</code> などを編集すると自動的にサーバーを再起動して編集分を反映してくれる．</li>
 <li>使い方<ul>
@@ -464,6 +464,7 @@
 </li>
 <li>サンプルゲームを追加する場合は <code>Include sample games? (y or n)</code> と聞かれたときに <code>y</code> と答える．</li>
 <li>サンプルゲームを追加しない場合，<code>startapp</code> コマンドで1つずつ空のアプリを追加していく．</li>
+<li>サンプルゲームは自動的に <a href="https://github.com/oTree-org/oTree/archive/lite.zip" target="_blank">https://github.com/oTree-org/oTree/archive/lite.zip</a> からダウンロードしてくる．したがってインターネットに接続していないとサンプルゲームの追加に失敗する．</li>
 <li>GitHubで管理するときにはアプリ単位ではなくプロジェクト単位の方が良い．プロジェクトで1つのリポジトリであれば，そのままHerokuにデプロイできる．</li>
 </ul>
 <h2 id="test"><code>test</code></h2>
@@ -510,7 +511,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"シェルで使用するoTreeサブコマンド","level":"2.2","depth":1,"next":{"title":"settings.py の書き方","level":"2.3","depth":1,"path":"otree_ref/settings.md","ref":"otree_ref/settings.md","articles":[]},"previous":{"title":"【資料編】","level":"2.1","depth":1,"ref":"","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"otree_ref/cmd.md","mtime":"2022-06-02T00:29:38.566Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-02T01:04:48.014Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"シェルで使用するoTreeサブコマンド","level":"2.2","depth":1,"next":{"title":"settings.py の書き方","level":"2.3","depth":1,"path":"otree_ref/settings.md","ref":"otree_ref/settings.md","articles":[]},"previous":{"title":"【資料編】","level":"2.1","depth":1,"ref":"","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"otree_ref/cmd.md","mtime":"2022-06-05T10:09:58.992Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-05T10:10:12.300Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
