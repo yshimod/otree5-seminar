@@ -3,5 +3,18 @@
     "title": "oTree5 勉強会",
     "description": "",
     "author": "",
-    "language": "ja"
+    "language": "ja",
+    "styles": {
+        "website": "styles/website.css"
+    },
+    "plugins": [
+        "page-toc"
+    ],
+    "pluginsConfig": {
+        "page-toc": {
+            "selector": ".markdown-section h2, .markdown-section h3, .markdown-section h4",
+            "position": "before-first",
+            "showByDefault": true
+        }
+    }
 }

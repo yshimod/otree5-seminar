@@ -16,6 +16,10 @@
     
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-page-toc/page-toc.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
                 
             
@@ -33,15 +37,7 @@
 
     
         
-    
-        
-    
-        
-    
-        
-    
-        
-    
+        <link rel="stylesheet" href="../styles/website.css">
         
     
 
@@ -355,23 +351,13 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="herokuでotreeを動かす">HerokuでoTreeを動かす</h1>
-<ul>
-<li><a href="#herokuでotreeを動かす">HerokuでoTreeを動かす</a><ul>
-<li><a href="#まずはアカウントを作る">まずはアカウントを作る</a></li>
-<li><a href="#方法1-githubのリポジトリからherokuへデプロイする">(方法1) GitHubのリポジトリからHerokuへデプロイする</a></li>
-<li><a href="#方法2-herokuのcliを使い直接herokuへデプロイする">(方法2) HerokuのCLIを使い直接Herokuへデプロイする</a></li>
-<li><a href="#デプロイ後にすること">デプロイ後にすること</a></li>
-<li><a href="#課金メニューはどれを選ぶ">課金メニューはどれを選ぶ？</a></li>
-</ul>
-</li>
-</ul>
 <h2 id="まずはアカウントを作る">まずはアカウントを作る</h2>
 <ul>
 <li><a href="https://signup.heroku.com/" target="_blank">https://signup.heroku.com/</a></li>
 <li>とりあえずは無料枠で．</li>
 </ul>
 <h2 id="方法1-githubのリポジトリからherokuへデプロイする">(方法1) GitHubのリポジトリからHerokuへデプロイする</h2>
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/LnrY1AKVmqQ?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/LnrY1AKVmqQ?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 
 <p><a href="https://devcenter.heroku.com/articles/github-integration" target="_blank">https://devcenter.heroku.com/articles/github-integration</a></p>
@@ -485,7 +471,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"HerokuでoTreeを動かす","level":"2.6","depth":1,"next":{"title":"Ubuntuの仮想環境の構築","level":"2.7","depth":1,"path":"ubuntu/README.md","ref":"ubuntu/README.md","articles":[{"title":"WSL2","level":"2.7.1","depth":2,"path":"ubuntu/wsl2.md","ref":"ubuntu/wsl2.md","articles":[]},{"title":"VirtualBox + Vagrant","level":"2.7.2","depth":2,"path":"ubuntu/vagrant.md","ref":"ubuntu/vagrant.md","articles":[]}]},"previous":{"title":"UbuntuでoTreeを動かす","level":"2.5","depth":1,"path":"server_setup/README.md","ref":"server_setup/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"heroku/README.md","mtime":"2022-06-01T06:27:15.987Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-05T10:10:12.300Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"HerokuでoTreeを動かす","level":"2.6","depth":1,"next":{"title":"Ubuntuの仮想環境の構築","level":"2.7","depth":1,"path":"ubuntu/README.md","ref":"ubuntu/README.md","articles":[{"title":"WSL2","level":"2.7.1","depth":2,"path":"ubuntu/wsl2.md","ref":"ubuntu/wsl2.md","articles":[]},{"title":"VirtualBox + Vagrant","level":"2.7.2","depth":2,"path":"ubuntu/vagrant.md","ref":"ubuntu/vagrant.md","articles":[]}]},"previous":{"title":"UbuntuでoTreeを動かす","level":"2.5","depth":1,"path":"server_setup/README.md","ref":"server_setup/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"heroku/README.md","mtime":"2022-06-06T04:53:34.412Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-06T05:17:05.930Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
@@ -537,6 +523,14 @@
     </script>
     <script src="../gitbook/gitbook.js"></script>
     <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-page-toc/anchor-3.1.1.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-page-toc/page-toc.js"></script>
+        
     
         
         <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>

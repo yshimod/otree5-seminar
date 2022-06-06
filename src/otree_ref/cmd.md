@@ -1,24 +1,6 @@
 # シェルで使用するoTreeサブコマンド
 
 
-- [シェルで使用するoTreeサブコマンド](#シェルで使用するotreeサブコマンド)
-  - [`browser_bots`](#browser_bots)
-  - [`create_session`](#create_session)
-  - [`devserver`](#devserver)
-  - [`prodserver`](#prodserver)
-  - [`prodserver1of2`](#prodserver1of2)
-  - [`prodserver2of2`](#prodserver2of2)
-  - [`remove_self`](#remove_self)
-  - [`resetdb`](#resetdb)
-  - [`startapp`](#startapp)
-  - [`startproject`](#startproject)
-  - [`test`](#test)
-  - [`unzip`](#unzip)
-  - [`update_my_code`](#update_my_code)
-  - [`zip`](#zip)
-  - [`zipserver`](#zipserver)
-
-
 ## `browser_bots`
 
 ## `create_session`

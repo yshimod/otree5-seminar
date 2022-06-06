@@ -16,6 +16,10 @@
     
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-page-toc/page-toc.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
                 
             
@@ -33,15 +37,7 @@
 
     
         
-    
-        
-    
-        
-    
-        
-    
-        
-    
+        <link rel="stylesheet" href="../styles/website.css">
         
     
 
@@ -355,93 +351,6 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="initpy-の書き方"><code>__init__.py</code> の書き方</h1>
-<ul>
-<li><a href="#__init__py-の書き方"><code>__init__.py</code> の書き方</a><ul>
-<li><a href="#ファイルの冒頭">ファイルの冒頭</a></li>
-<li><a href="#定数-クラス-c">定数: クラス <code>C</code></a><ul>
-<li><a href="#name_in_url"><code>NAME_IN_URL</code></a></li>
-<li><a href="#players_per_group"><code>PLAYERS_PER_GROUP</code></a></li>
-<li><a href="#num_rounds"><code>NUM_ROUNDS</code></a></li>
-<li><a href="#_role"><code>*_ROLE</code></a></li>
-</ul>
-</li>
-<li><a href="#データモデル">データモデル</a><ul>
-<li><a href="#クラス-subsession">クラス <code>Subsession</code></a><ul>
-<li><a href="#アクセスできる上層のデータ">アクセスできる上層のデータ</a></li>
-</ul>
-</li>
-<li><a href="#クラス-group">クラス <code>Group</code></a><ul>
-<li><a href="#アクセスできる上層のデータ-1">アクセスできる上層のデータ</a></li>
-</ul>
-</li>
-<li><a href="#クラス-player">クラス <code>Player</code></a><ul>
-<li><a href="#アクセスできる上層のデータ-2">アクセスできる上層のデータ</a></li>
-</ul>
-</li>
-<li><a href="#フィールドの型">フィールドの型</a></li>
-<li><a href="#入力フォームとの対応">入力フォームとの対応</a></li>
-</ul>
-</li>
-<li><a href="#ページ">ページ</a><ul>
-<li><a href="#変数">変数</a><ul>
-<li><a href="#round_number"><code>round_number</code></a></li>
-<li><a href="#template_name"><code>template_name</code></a></li>
-<li><a href="#form_model"><code>form_model</code></a></li>
-<li><a href="#form_fields"><code>form_fields</code></a></li>
-<li><a href="#timeout_seconds"><code>timeout_seconds</code></a></li>
-<li><a href="#timer_text"><code>timer_text</code></a></li>
-</ul>
-</li>
-<li><a href="#組み込み関数">組み込み関数</a><ul>
-<li><a href="#live_method"><code>live_method</code></a></li>
-<li><a href="#get_form_fields"><code>get_form_fields</code></a></li>
-<li><a href="#vars_for_template"><code>vars_for_template</code></a></li>
-<li><a href="#js_vars"><code>js_vars</code></a></li>
-<li><a href="#before_next_page"><code>before_next_page</code></a></li>
-<li><a href="#is_displayed"><code>is_displayed</code></a></li>
-<li><a href="#error_message"><code>error_message</code></a></li>
-<li><a href="#get_timeout_seconds"><code>get_timeout_seconds</code></a></li>
-<li><a href="#app_after_this_page"><code>app_after_this_page</code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#待機ページ">待機ページ</a><ul>
-<li><a href="#変数-1">変数</a><ul>
-<li><a href="#round_number-1"><code>round_number</code></a></li>
-<li><a href="#template_name-1"><code>template_name</code></a></li>
-<li><a href="#group_by_arrival_time"><code>group_by_arrival_time</code></a></li>
-<li><a href="#wait_for_all_groups"><code>wait_for_all_groups</code></a></li>
-<li><a href="#title_text"><code>title_text</code></a></li>
-<li><a href="#body_text"><code>body_text</code></a></li>
-</ul>
-</li>
-<li><a href="#組み込み関数-1">組み込み関数</a><ul>
-<li><a href="#vars_for_template-1"><code>vars_for_template</code></a></li>
-<li><a href="#js_vars-1"><code>js_vars</code></a></li>
-<li><a href="#is_displayed-1"><code>is_displayed</code></a></li>
-<li><a href="#app_after_this_page-1"><code>app_after_this_page</code></a></li>
-<li><a href="#after_all_players_arrive"><code>after_all_players_arrive</code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#組み込み関数-2">組み込み関数</a><ul>
-<li><a href="#creating_session"><code>creating_session</code></a></li>
-<li><a href="#custom_export"><code>custom_export</code></a></li>
-<li><a href="#group_by_arrival_time_method"><code>group_by_arrival_time_method</code></a></li>
-<li><a href="#vars_for_admin_report"><code>vars_for_admin_report</code></a></li>
-<li><a href="#field_name_min"><code>{field_name}_min</code></a></li>
-<li><a href="#field_name_max"><code>{field_name}_max</code></a></li>
-<li><a href="#field_name_choices"><code>{field_name}_choices</code></a></li>
-<li><a href="#field_name_error_message"><code>{field_name}_error_message</code></a></li>
-</ul>
-</li>
-<li><a href="#自作の関数">自作の関数</a></li>
-<li><a href="#page_sequence"><code>page_sequence</code></a></li>
-</ul>
-</li>
-</ul>
 <h2 id="ファイルの冒頭">ファイルの冒頭</h2>
 <ul>
 <li>シバン（shebang... <code>#!/usr/bin/env python3</code> みたいなやつ）は不要．</li>
@@ -707,7 +616,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"__init__.py の書き方","level":"2.4","depth":1,"next":{"title":"UbuntuでoTreeを動かす","level":"2.5","depth":1,"path":"server_setup/README.md","ref":"server_setup/README.md","articles":[]},"previous":{"title":"settings.py の書き方","level":"2.3","depth":1,"path":"otree_ref/settings.md","ref":"otree_ref/settings.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"otree_ref/init.md","mtime":"2022-06-05T05:53:49.948Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-05T10:10:12.300Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"__init__.py の書き方","level":"2.4","depth":1,"next":{"title":"UbuntuでoTreeを動かす","level":"2.5","depth":1,"path":"server_setup/README.md","ref":"server_setup/README.md","articles":[]},"previous":{"title":"settings.py の書き方","level":"2.3","depth":1,"path":"otree_ref/settings.md","ref":"otree_ref/settings.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"otree_ref/init.md","mtime":"2022-06-06T04:12:33.155Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-06T05:17:05.930Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
@@ -759,6 +668,14 @@
     </script>
     <script src="../gitbook/gitbook.js"></script>
     <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-page-toc/anchor-3.1.1.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-page-toc/page-toc.js"></script>
+        
     
         
         <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>

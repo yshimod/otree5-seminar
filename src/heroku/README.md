@@ -1,12 +1,5 @@
 # HerokuでoTreeを動かす
 
-- [HerokuでoTreeを動かす](#herokuでotreeを動かす)
-  - [まずはアカウントを作る](#まずはアカウントを作る)
-  - [(方法1) GitHubのリポジトリからHerokuへデプロイする](#方法1-githubのリポジトリからherokuへデプロイする)
-  - [(方法2) HerokuのCLIを使い直接Herokuへデプロイする](#方法2-herokuのcliを使い直接herokuへデプロイする)
-  - [デプロイ後にすること](#デプロイ後にすること)
-  - [課金メニューはどれを選ぶ？](#課金メニューはどれを選ぶ)
-
 
 ## まずはアカウントを作る
 - [https://signup.heroku.com/](https://signup.heroku.com/)
@@ -14,7 +7,7 @@
 
 ## (方法1) GitHubのリポジトリからHerokuへデプロイする
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/LnrY1AKVmqQ?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/LnrY1AKVmqQ?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 
 [https://devcenter.heroku.com/articles/github-integration](https://devcenter.heroku.com/articles/github-integration)

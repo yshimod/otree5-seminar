@@ -1,7 +1,7 @@
 {% raw %}
 【第4回】 2022年6月2日
 
-<h1>oTreeプログラミングの進め方</h1>
+# oTreeプログラミングの進め方
 
 - 今後の予定
     - 第4回（今日）: 同時手番ゲーム（oTreeプログラミングの基礎）
@@ -10,16 +10,6 @@
     - 第回: ダブルオークション（JavaScriptとライブページ，ExtraModel）
     - 第回: 質問紙調査（ページのデザイン，CSS，Bootstrap）
     - 第回: 補遺
-
-
-- [1. oTreeで実験プログラムを開発する前に考えておくこと](#1-otreeで実験プログラムを開発する前に考えておくこと)
-- [2. 計画](#2-計画)
-- [3. プロジェクトの空ファイルを作成する](#3-プロジェクトの空ファイルを作成する)
-- [4. `settings.py` を書いておく](#4-settingspy-を書いておく)
-- [5. テンプレートファイルを作成して `__init__.py` の最低限の設定をする](#5-テンプレートファイルを作成して-__init__py-の最低限の設定をする)
-- [6. テンプレートファイルを編集する](#6-テンプレートファイルを編集する)
-- [7. `__init__.py` を編集する](#7-__init__py-を編集する)
-
 
 
 
@@ -51,7 +41,7 @@
     - 報酬の支払い方法は？
 
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/tlWHJFvWkv4?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/tlWHJFvWkv4?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 - プログラム開発を開始する前に細かく計画しておいたほうが良い．
     - 一度作り始めてから仕様を変更するとき，場合によってはゼロスタートと変わらない工数を要することも．
@@ -61,7 +51,7 @@
 
 ## 2. 計画
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/XBL7DyYMtIA?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/XBL7DyYMtIA?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 
 - チュートリアル（公共財ゲーム）を参照しながら  
@@ -87,7 +77,13 @@
 
 ## 3. プロジェクトの空ファイルを作成する
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/XWCOhnx6Tvw?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+- 勉強のためにサンプルゲームを追加せず，ゼロの状態から始めています．
+- 実際プログラムを始めるときには，サンプルゲームや，自分（あるいは友達）が以前作ったプロジェクトを書き換えていくのが多いでしょう．
+
+
+#### 作業1
+
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/XWCOhnx6Tvw?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 
 1. `otree startproject pgg` で `pgg` なるプロジェクトを作成．サンプルゲームは追加しない．
@@ -96,17 +92,17 @@
     - GitHubも使う場合はブラウザでGitHubを開き，リポジトリを作成しておく．このとき，リポジトリ名はプロジェクト名 `publicgoodsgame` と一緒にしておく．
 
 
-- 勉強のためにサンプルゲームを追加せず，ゼロの状態から始めています．
-- 実際プログラムを始めるときには，サンプルゲームや，自分（あるいは友達）が以前作ったプロジェクトを書き換えていくのが多いでしょう．
-
-
 
 ## 4. `settings.py` を書いておく
 
-プロジェクトのディレクトリ直下にある `settings.py` を編集して，作成したアプリ `publicgoodsgame` を起動するように設定する．
+- プロジェクトのディレクトリ直下にある `settings.py` を編集して，作成したアプリ `publicgoodsgame` を起動するように設定する．
+- 公式ドキュメントのチュートリアルでは，アプリの `__init__.py` やテンプレートファイルの編集を一通りしたあとに `settings.py` の編集をしているが，ここでは最初にやっておく．
+- そのココロは，アプリの `__init__.py` やテンプレートファイルを編集している最中に `otree devserver` でサーバーを起動させておき，ブラウザで動作確認をするため．`settings.py` の `SESSION_CONFIG` が設定されていないとアプリを動かせない．
 
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/AA-EYCAknsw?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+#### 作業2
+
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/AA-EYCAknsw?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 
 1. `SESSION_CONFIG` を以下のように設定．
@@ -129,10 +125,6 @@
     - サーバーを起動させる前に，プロジェクトのディレクトリに `db.sqlite3` があれば消しておく．
 
 
-- 公式ドキュメントのチュートリアルでは，アプリの `__init__.py` やテンプレートファイルの編集を一通りしたあとに `settings.py` の編集をしているが，ここでは最初にやっておく．
-- そのココロは，アプリの `__init__.py` やテンプレートファイルを編集している最中に `otree devserver` でサーバーを起動させておき，ブラウザで動作確認をするため．`settings.py` の `SESSION_CONFIG` が設定されていないとアプリを動かせない．
-
-
 
 ## 5. テンプレートファイルを作成して `__init__.py` の最低限の設定をする
 
@@ -152,54 +144,56 @@
     - デフォルトで `NAME_IN_URL`，`PLAYERS_PER_GROUP`，`NUM_ROUNDS` が設定されている．単にテンプレートファイルがブラウザでどう見えるかを確認するためにoTreeサーバーを起動することが目的であれば，とりあえずデフォルトのままでも良い．
 
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/4h6R9dFzXKk?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+#### 作業3
 
-- 作業内容:
-    - 必要なテンプレートファイルは `Contribute.html`（意思決定ページ）と `Results.html`（結果表示ページ）．`otree startapp` で生成された `MyPage.html` のファイル名を `Contribute.html` に変更する．`Results.html` はそのまま．
-    - ↑ のファイル名変更に対応するために，`__init__.py` で `MyPage` なるクラスの名前を `Contribute` に変更する．
-    - ↑ のクラス名変更に対応し，`page_sequence = [Contribute, ResultsWaitPage, Results]` に直す．
-    - この段階でアプリのディレクトリの中身は以下:
-        ```
-        ./publicgoodsgame/
-        ├── Contribute.html
-        ├── Results.html
-        ├── __init__.py
-        └── __pycache__
-        ```
-    - この段階で `__init__.py` の内容は以下:
-        ```python
-        from otree.api import *
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/4h6R9dFzXKk?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
-        doc = """
-        Your app description
-        """
 
-        class C(BaseConstants):
-            NAME_IN_URL = 'publicgoodsgame'
-            PLAYERS_PER_GROUP = None
-            NUM_ROUNDS = 1
+- 必要なテンプレートファイルは `Contribute.html`（意思決定ページ）と `Results.html`（結果表示ページ）．`otree startapp` で生成された `MyPage.html` のファイル名を `Contribute.html` に変更する．`Results.html` はそのまま．
+- ↑ のファイル名変更に対応するために，`__init__.py` で `MyPage` なるクラスの名前を `Contribute` に変更する．
+- ↑ のクラス名変更に対応し，`page_sequence = [Contribute, ResultsWaitPage, Results]` に直す．
+- この段階でアプリのディレクトリの中身は以下:
+    ```
+    ./publicgoodsgame/
+    ├── Contribute.html
+    ├── Results.html
+    ├── __init__.py
+    └── __pycache__
+    ```
+- この段階で `__init__.py` の内容は以下:
+    ```python
+    from otree.api import *
 
-        class Subsession(BaseSubsession):
-            pass
+    doc = """
+    Your app description
+    """
 
-        class Group(BaseGroup):
-            pass
+    class C(BaseConstants):
+        NAME_IN_URL = 'publicgoodsgame'
+        PLAYERS_PER_GROUP = None
+        NUM_ROUNDS = 1
 
-        class Player(BasePlayer):
-            pass
+    class Subsession(BaseSubsession):
+        pass
 
-        # PAGES
-        class Contribute(Page):
-            pass
+    class Group(BaseGroup):
+        pass
 
-        class ResultsWaitPage(WaitPage):
-            pass
+    class Player(BasePlayer):
+        pass
 
-        class Results(Page):
-            pass
+    # PAGES
+    class Contribute(Page):
+        pass
 
-        page_sequence = [Contribute, ResultsWaitPage, Results]
-        ```
+    class ResultsWaitPage(WaitPage):
+        pass
+
+    class Results(Page):
+        pass
+
+    page_sequence = [Contribute, ResultsWaitPage, Results]
+    ```
 
 
 
@@ -215,8 +209,8 @@
     - `{{ block content }}` と `{{ endblock }}` に挟まれた部分を「コンテンツブロック」と呼ぶ．
     - コンテンツブロック内に，ページの本文を，htmlタグも適宜使って記述する．
     - oTreeサーバーはテンプレートファイルを解釈して，記述した内容を `<body>` 内の `<form>` タグの中に挿入する．
-    - 説明文などの文章は `<p>` タグや `<div>` タグで記述する．
-        - 一般論として，`<br>` タグによる改行を多用するのではなく，段落ごと `<p>` タグを使うのが良い．
+    - 説明文などの文章は `<p class="ytubevideo">` タグや `<div>` タグで記述する．
+        - 一般論として，`<br>` タグによる改行を多用するのではなく，段落ごと `<p class="ytubevideo">` タグを使うのが良い．
 3. コンテンツブロック内に入力フォームを挿入する
     - 【原理的な話】 oTreeサーバーはコンテンツブロック内の記述したものを `<body>` 内の `<form>` タグの中に挿入する．`<form>` タグに `method="post"` が設定されているため，`<form>` タグ内の `<input>` 要素等のデータがPOSTメソッドでサーバーに送信される．
         - したがって，サーバーに送信したいデータの入力フォームを作るためには，コンテンツブロック内に `<input>` タグなどを記述する．このとき `name` 属性に，記録するデータの変数名を設定する．
@@ -259,34 +253,37 @@
         ```
 
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/udHF5mDzv94?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+#### 作業4
 
-- 作業内容:
-    - とりあえず `Contribute.html` に説明文と入力フォームを作る．
-    - 見てくれはさておき，とにかく最低限のことだけを記述する．
-    - コンテンツブロック内でマスタッシュ記法を使わない場合:
-        ```html
-        {{ block title }}
-            意思決定
-        {{ endblock }}
-        {{ block content }}
-            <p>以下の入力欄に貢献額を入力してください．</p>
-            <input name="contribution">
-            <button>次へ</button>
-        {{ endblock }}
-        ```
-    - コンテンツブロック内でマスタッシュ記法を使う場合:
-        ```html
-        {{ block title }}
-            意思決定
-        {{ endblock }}
-        {{ block content }}
-            <p>以下の入力欄に貢献額を入力してください．</p>
-            {{ formfields }}
-            {{ next_button }}
-        {{ endblock }}
-        ```
-    - ページ内で変数を展開する（たとえば，計算した報酬額などを `Results.html` で表示する）方法は次回に後回し．
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/udHF5mDzv94?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
+
+- とりあえず `Contribute.html` に説明文と入力フォームを作る．
+- 見てくれはさておき，とにかく最低限のことだけを記述する．
+- コンテンツブロック内でマスタッシュ記法を使わない場合:
+    ```html
+    {{ block title }}
+        意思決定
+    {{ endblock }}
+    {{ block content }}
+        <p class="ytubevideo">以下の入力欄に貢献額を入力してください．</p>
+        <input name="contribution">
+        <button>次へ</button>
+    {{ endblock }}
+    ```
+- コンテンツブロック内でマスタッシュ記法を使う場合:
+    ```html
+    {{ block title }}
+        意思決定
+    {{ endblock }}
+    {{ block content }}
+        <p class="ytubevideo">以下の入力欄に貢献額を入力してください．</p>
+        {{ formfields }}
+        {{ next_button }}
+    {{ endblock }}
+    ```
+- ページ内で変数を展開する（たとえば，計算した報酬額などを `Results.html` で表示する）方法は次回に後回し．
+
 
 
 ## 7. `__init__.py` を編集する
@@ -328,7 +325,7 @@
             - `blank`: 回答を強制しない場合は `True` を渡す．
         - （マスタッシュ記法ではなく）タグの直打ちで入力フォームを作りながら，`models.*Field()` の引数で `choices`，`min`，`max` を設定している場合，タグの直打ちでの実装との整合性に気をつける．
             - タグの属性で`min`や`max`などの制約を設定しない場合（クライアントでの検証をしない場合）でも，oTreeサーバー側で検証は行われる．
-            - たとえば `models.*Field()` の引数で `choices = [0, 100]` としておきながら，タグ直打ちで `<input type="number" name="contribution" required min="0" max="100">` と入力フォームを作り，参加者が「10」と回答した場合，クライアントの検証は通過するが，10が `[0, 100]` に含まれないため，oTreeの検証は通過せず，エラーが出る．
+            - たとえば `models.IntegerField()` の引数で `choices = [0, 100]` としておきながら，タグ直打ちで `<input type="number" name="contribution" required min="0" max="100">` と入力フォームを作り，参加者が「10」と回答した場合，クライアントの検証は通過するが，10が `[0, 100]` に含まれないため，oTreeの検証は通過せず，エラーが出る．
     - データモデルを設定した後，どのページで入力フォームを使うのかを設定する．
         - 入力フォームを使うページのクラスで以下の2つを設定:
             - `form_model`: 保存したいデータのモデル（player，group，subsessionのいずれか）から一つを選んで文字列で指定する．
@@ -341,15 +338,15 @@
     - oTreeで収集した意思決定データからゲームの利得（報酬額）を計算することができる．
         - （その場で）フィードバックする必要が無ければ，必ずしもoTreeで計算しなければならないわけではない．
         - たとえばラボでくじを引いて，その結果を使って報酬額を計算する，ということもできる． [https://otree.readthedocs.io/en/latest/misc/rest_api.html#session-vars-endpoint](https://otree.readthedocs.io/en/latest/misc/rest_api.html#session-vars-endpoint)
-    - クラス `C` （かつては `Constants` ）で定数を定義する．
+    - `C` クラス （oTree3では， `Constants`）で定数を定義する．
         - 必ず定義しなければならないもの:
             - `NAME_IN_URL`: デフォルトではアプリ名の文字列が設定されている．任意に変えても良い．
             - `PLAYERS_PER_GROUP`: ゲーム実験の場合，各グループの人数（2以上）を設定する．グループを設定しない場合は `None` とする．
             - `NUM_ROUNDS`: アプリを繰り返す場合，繰り返す（最大）回数を設定する．繰り返さない場合は `1` とする．
-        - ↑ 以上の3つの変数名については小文字（`name_in_url`，`players_per_group`，`num_rounds`）でも良い．バージョン互換性対応．
-        - クラス `C` で定義する変数名は大文字にすると良い？ 自分で定義するものについては厳密に大文字小文字を区別することに注意．
-        - ゲームのパラメータもクラス `C` で設定すると良い．
-            - しかし，トリートメントをクラス `C` で実装するべきではない．たとえば公共財ゲームの限界収益率を変えて実験を行う場合，アプリごと複製して，複製した各アプリのクラス `C` で限界収益率の値を変える，という方法でも実装は可能である．しかし，アプリごと複製する，というのは筋が悪い（DRY原則に反する）．それよりも `settings.py` の `SESSION_CONFIGS` で定数を定義し，セッションを作成する際に値を具体的に設定する方が良い．
+        - ↑ 以上の3つの変数名については小文字（`name_in_url`， `players_per_group`， `num_rounds`）でも良い．バージョン互換性対応．
+        - `C` クラス で定義する変数名は大文字にすると良い？ 自分で定義するものについては厳密に大文字小文字を区別することに注意．
+        - ゲームのパラメータも`C` クラス で設定すると良い．
+            - しかし，トリートメントを`C` クラス で実装するべきではない．たとえば公共財ゲームの限界収益率を変えて実験を行う場合，アプリごと複製して，複製した各アプリの`C` クラス で限界収益率の値を変える，という方法でも実装は可能である．しかし，アプリごと複製する，というのは筋が悪い（DRY原則に反する）．それよりも `settings.py` の `SESSION_CONFIGS` で定数を定義し，セッションを作成する際に値を具体的に設定する方が良い．
             - パラメータを（たとえば報酬額を計算する関数で）ハードコーディングしてしまうのも良くない．当座の実験計画では変更する予定のないパラメータであっても，将来的には値を変えて実験を実施する場面が訪れるかもしれない．ハードコーディングしてしまうと，パラメータの変更に漏れが生じるかもしれない．
     - 報酬を計算する関数などは，`__init__.py` のどこかに記述すれば良い．
         - oTree3では `Player` クラスなどの中でインスタンスメソッドとして定義していた．
@@ -360,102 +357,104 @@
         - 自前で作った関数は，陽に呼び出さないと動かない．忘れずに設定する．
 
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/eUxjPHHrrTY?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+#### 作業5
 
-- 作業内容:
-    - まずはテンプレートファイルに記述した入力フォームが機能するように（フォームを送信したときにoTreeサーバーで認識できるように）設定する．
-        - `Player` クラスに `contribution = models.FloatField()` を記述する．
-            - 公式ドキュメントのチュートリアルでは `models.CurrencyField()` を使用しているが，oTreeの通貨型を理解するのが面倒なので，単純な実数型を使う．
-        - `Contribute` クラスに `form_model = "player"` と `form_fields = ["contribution"]` を記述する．
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/eUxjPHHrrTY?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/qsyWxGr8U-M?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+- まずはテンプレートファイルに記述した入力フォームが機能するように（フォームを送信したときにoTreeサーバーで認識できるように）設定する．
+    - `Player` クラスに `contribution = models.FloatField()` を記述する．
+        - 公式ドキュメントのチュートリアルでは `models.CurrencyField()` を使用しているが，oTreeの通貨型を理解するのが面倒なので，単純な実数型を使う．
+    - `Contribute` クラスに `form_model = "player"` と `form_fields = ["contribution"]` を記述する．
 
-- 作業内容:
-    - 利得を計算する際の途中の変数（グループでの貢献額の合計値と分配額）をグループモデルに保存するために定義する．
-        - `Group` クラスに `total_contribution = models.FloatField()` と `individual_share = models.FloatField()`
-            - 公式ドキュメントのチュートリアルでは `models.CurrencyField()` を使用しているが，oTreeの通貨型を理解するのが面倒なので，単純な実数型を使う．
-    - 定数を定義する．
-        - 3人での公共財ゲームを作るため，`PLAYERS_PER_GROUP = 3` とする．
-        - 利得を計算する際のパラメータとして， `ENDOWMENT = 1000` と `MULTIPLIER = 2` を定義する．
-    - 利得を計算する関数 `set_payoffs` を定義する．
-        - `ResultsWaitPage` クラスにおいて `after_all_players_arrive` として呼び出すため，`ResultsWaitPage` クラスよりも上に記述する．
-        - `ResultsWaitPage` クラスにおいて `after_all_players_arrive` として呼び出すため，引数は `group` とする．
-            - 型アノテーションをつけて `group: Group` と記述しておくと良い．
-        - 関数の中身は公式ドキュメントのチュートリアルからコピペして以下の通り:
-            ```python
-            def set_payoffs(group: Group):
-                ## 全プレイヤーのインスタンスオブジェクトが入ったリスト．
-                players = group.get_players()
 
-                ## players から一人ずつプレイヤーオブジェクト p を取り出し，contribution の値を並べたリストを内包記法で生成．
-                contributions = [p.contribution for p in players]
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/qsyWxGr8U-M?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
-                ## 各プレイヤーの contribution の合計を，リスト contributions の sum として計算し，
-                ## Group の total_contribution に代入（代入することによってデータベースにも書き込まれる）．
-                group.total_contribution = sum(contributions)
 
-                ## 各プレイヤーの配分額を計算し，Group の individual_share に代入．
-                group.individual_share = group.total_contribution * C.MULTIPLIER / C.PLAYERS_PER_GROUP
-
-                ## 一人ずつプレイヤーの報酬額を計算し，Player の 予め用意されている変数 payoff に代入．
-                for player in players:
-                    player.payoff = C.ENDOWMENT - player.contribution + group.individual_share
-                    ## ↑ player.payoff に値を代入すると，勝手にoTree組み込みの通貨型に変換される．値は丸められる．
-            ```
-        - `ResultsWaitPage` クラスにおいて `after_all_players_arrive = "set_payoffs"` とすると，グループの全プレイヤーの意思決定が送信されたタイミングで関数 `set_payoffs` が呼び出される．
-            - `ResultsWaitPage` クラスに以下のように記述しても良い．
-                ```python
-                @staticmethod
-                def after_all_players_arrive(group: Group):
-                    set_payoffs(group)
-                ```
-    - この段階で `__init__.py` の内容は以下:
+- 利得を計算する際の途中の変数（グループでの貢献額の合計値と分配額）をグループモデルに保存するために定義する．
+    - `Group` クラスに `total_contribution = models.FloatField()` と `individual_share = models.FloatField()`
+        - 公式ドキュメントのチュートリアルでは `models.CurrencyField()` を使用しているが，oTreeの通貨型を理解するのが面倒なので，単純な実数型を使う．
+- 定数を定義する．
+    - 3人での公共財ゲームを作るため，`PLAYERS_PER_GROUP = 3` とする．
+    - 利得を計算する際のパラメータとして， `ENDOWMENT = 1000` と `MULTIPLIER = 2` を定義する．
+- 利得を計算する関数 `set_payoffs` を定義する．
+    - `ResultsWaitPage` クラスにおいて `after_all_players_arrive` として呼び出すため，`ResultsWaitPage` クラスよりも上に記述する．
+    - `ResultsWaitPage` クラスにおいて `after_all_players_arrive` として呼び出すため，引数は `group` とする．
+        - 型アノテーションをつけて `group: Group` と記述しておくと良い．
+    - 関数の中身は公式ドキュメントのチュートリアルからコピペして以下の通り:
         ```python
-        from otree.api import *
-
-        doc = """
-        Your app description
-        """
-
-        class C(BaseConstants):
-            NAME_IN_URL = 'publicgoodsgame'
-            PLAYERS_PER_GROUP = 3
-            NUM_ROUNDS = 1
-            ENDOWMENT = 1000
-            MULTIPLIER = 2
-
-        class Subsession(BaseSubsession):
-            pass
-
-        class Group(BaseGroup):
-            total_contribution = models.FloatField()
-            individual_share = models.FloatField()
-
-        class Player(BasePlayer):
-            contribution = models.IntegerField()
-
         def set_payoffs(group: Group):
+            ## 全プレイヤーのインスタンスオブジェクトが入ったリスト．
             players = group.get_players()
+
+            ## players から一人ずつプレイヤーオブジェクト p を取り出し，contribution の値を並べたリストを内包記法で生成．
             contributions = [p.contribution for p in players]
+
+            ## 各プレイヤーの contribution の合計を，リスト contributions の sum として計算し，
+            ## Group の total_contribution に代入（代入することによってデータベースにも書き込まれる）．
             group.total_contribution = sum(contributions)
+
+            ## 各プレイヤーの配分額を計算し，Group の individual_share に代入．
             group.individual_share = group.total_contribution * C.MULTIPLIER / C.PLAYERS_PER_GROUP
+
+            ## 一人ずつプレイヤーの報酬額を計算し，Player の 予め用意されている変数 payoff に代入．
             for player in players:
                 player.payoff = C.ENDOWMENT - player.contribution + group.individual_share
-
-        # PAGES
-        class Contribute(Page):
-            form_model = 'player'
-            form_fields = ['contribution']
-
-        class ResultsWaitPage(WaitPage):
-            after_all_players_arrive = "set_payoffs"
-
-        class Results(Page):
-            pass
-
-        page_sequence = [Contribute, ResultsWaitPage, Results]
+                ## ↑ player.payoff に値を代入すると，勝手にoTree組み込みの通貨型に変換される．値は丸められる．
         ```
+    - `ResultsWaitPage` クラスにおいて `after_all_players_arrive = "set_payoffs"` とすると，グループの全プレイヤーの意思決定が送信されたタイミングで関数 `set_payoffs` が呼び出される．
+        - `ResultsWaitPage` クラスに以下のように記述しても良い．
+            ```python
+            @staticmethod
+            def after_all_players_arrive(group: Group):
+                set_payoffs(group)
+            ```
+- この段階で `__init__.py` の内容は以下:
+    ```python
+    from otree.api import *
+
+    doc = """
+    Your app description
+    """
+
+    class C(BaseConstants):
+        NAME_IN_URL = 'publicgoodsgame'
+        PLAYERS_PER_GROUP = 3
+        NUM_ROUNDS = 1
+        ENDOWMENT = 1000
+        MULTIPLIER = 2
+
+    class Subsession(BaseSubsession):
+        pass
+
+    class Group(BaseGroup):
+        total_contribution = models.FloatField()
+        individual_share = models.FloatField()
+
+    class Player(BasePlayer):
+        contribution = models.IntegerField()
+
+    def set_payoffs(group: Group):
+        players = group.get_players()
+        contributions = [p.contribution for p in players]
+        group.total_contribution = sum(contributions)
+        group.individual_share = group.total_contribution * C.MULTIPLIER / C.PLAYERS_PER_GROUP
+        for player in players:
+            player.payoff = C.ENDOWMENT - player.contribution + group.individual_share
+
+    # PAGES
+    class Contribute(Page):
+        form_model = 'player'
+        form_fields = ['contribution']
+
+    class ResultsWaitPage(WaitPage):
+        after_all_players_arrive = "set_payoffs"
+
+    class Results(Page):
+        pass
+
+    page_sequence = [Contribute, ResultsWaitPage, Results]
+    ```
 
 
 {% endraw %}

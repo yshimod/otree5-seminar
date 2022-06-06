@@ -1,0 +1,11 @@
+.page-toc {
+    float: none;
+}
+
+.ytubevideo {
+    padding: 10px 0 10px 20px;
+}
+
+.book .book-body .page-wrapper .page-inner {
+    max-width: 1200px !important;
+}

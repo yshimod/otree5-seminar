@@ -1,24 +1,6 @@
 # `settings.py` の書き方
 
 
-- [`settings.py` の書き方](#settingspy-の書き方)
-  - [`SESSION_CONFIGS`](#session_configs)
-  - [`SESSION_CONFIG_DEFAULTS`](#session_config_defaults)
-  - [`PARTICIPANT_FIELDS`](#participant_fields)
-  - [`SESSION_FIELDS`](#session_fields)
-  - [`LANGUAGE_CODE`](#language_code)
-  - [`REAL_WORLD_CURRENCY_CODE`](#real_world_currency_code)
-  - [`USE_POINTS`](#use_points)
-  - [`ROOMS`](#rooms)
-  - [`ADMIN_USERNAME`](#admin_username)
-  - [`ADMIN_PASSWORD`](#admin_password)
-  - [`DEMO_PAGE_INTRO_HTML`](#demo_page_intro_html)
-  - [`SECRET_KEY`](#secret_key)
-  - [`INSTALLED_APPS`](#installed_apps)
-  - [`DEBUG`](#debug)
-  - [`AUTH_LEVEL`](#auth_level)
-
-
 ## `SESSION_CONFIGS`
 - セッションの構成をdictで定義する．
     - `name`: セッションの名前

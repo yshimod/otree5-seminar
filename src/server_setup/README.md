@@ -1,19 +1,5 @@
 # UbuntuでoTreeを動かす
 
-- [UbuntuでoTreeを動かす](#ubuntuでotreeを動かす)
-  - [目的](#目的)
-      - [Linuxの使い方に慣れましょう](#linuxの使い方に慣れましょう)
-      - [屋上屋を架する愚は避ける](#屋上屋を架する愚は避ける)
-  - [参考](#参考)
-  - [Linuxマシンを用意する](#linuxマシンを用意する)
-  - [Python を pyenv (+ virtualenv) で導入 <a id="pythoninstallation"></a>](#python-を-pyenv--virtualenv-で導入-)
-  - [pipでoTreeのインストール <a id="otreeinstallation"></a>](#pipでotreeのインストール-)
-  - [本番としてoTreeを動かすために必要なこと <a id="postinstallation"></a>](#本番としてotreeを動かすために必要なこと-)
-      - [データベースサーバーソフトウェアの PostgreSQL を導入](#データベースサーバーソフトウェアの-postgresql-を導入)
-      - [Redis は不要](#redis-は不要)
-      - [環境変数の設定 <a id="envvar"></a>](#環境変数の設定-)
-      - [ネットワークの設定 <a id="webserver"></a>](#ネットワークの設定-)
-
 
 ## 目的
 - Windowsではなく，LinuxやmacOSなどのUNIX系OSでoTreeを動かしたい．Windowsがダメなのではないが......
@@ -46,7 +32,7 @@
 
 ## Python を pyenv (+ virtualenv) で導入 <a id="pythoninstallation"></a>
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/xOPHDOUsg0c?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/xOPHDOUsg0c?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 - UbuntuはシステムにデフォルトでPythonが入っているので，それを使っても良いが，おすすめしない．
 - Pythonを導入するのに pyenv + virtualenv を必ず使わなければならないわけではない．
@@ -147,7 +133,7 @@
 
 #### データベースサーバーソフトウェアの PostgreSQL を導入
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/uYNYo1IICvA?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/uYNYo1IICvA?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 - oTree公式はPostgreSQLを使うことを推奨
 - PostgreSQLを使わない場合，SQLite3を使う．

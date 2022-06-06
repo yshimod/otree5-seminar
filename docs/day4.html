@@ -16,6 +16,10 @@
     
             
                 
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-page-toc/page-toc.css">
+                
+            
+                
                 <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
                 
             
@@ -33,15 +37,7 @@
 
     
         
-    
-        
-    
-        
-    
-        
-    
-        
-    
+        <link rel="stylesheet" href="styles/website.css">
         
     
 
@@ -354,7 +350,6 @@
                                 
                                 <p>【第4回】 2022年6月2日</p>
 <h1 id="otreeプログラミングの進め方">oTreeプログラミングの進め方</h1>
-
 <ul>
 <li>今後の予定<ul>
 <li>第4回（今日）: 同時手番ゲーム（oTreeプログラミングの基礎）</li>
@@ -365,15 +360,6 @@
 <li>第回: 補遺</li>
 </ul>
 </li>
-</ul>
-<ul>
-<li><a href="#1-otreeで実験プログラムを開発する前に考えておくこと">1. oTreeで実験プログラムを開発する前に考えておくこと</a></li>
-<li><a href="#2-計画">2. 計画</a></li>
-<li><a href="#3-プロジェクトの空ファイルを作成する">3. プロジェクトの空ファイルを作成する</a></li>
-<li><a href="#4-settingspy-を書いておく">4. <code>settings.py</code> を書いておく</a></li>
-<li><a href="#5-テンプレートファイルを作成して-__init__py-の最低限の設定をする">5. テンプレートファイルを作成して <code>__init__.py</code> の最低限の設定をする</a></li>
-<li><a href="#6-テンプレートファイルを編集する">6. テンプレートファイルを編集する</a></li>
-<li><a href="#7-__init__py-を編集する">7. <code>__init__.py</code> を編集する</a></li>
 </ul>
 <h2 id="1-otreeで実験プログラムを開発する前に考えておくこと">1. oTreeで実験プログラムを開発する前に考えておくこと</h2>
 <ul>
@@ -416,7 +402,7 @@
 </ul>
 </li>
 </ul>
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/tlWHJFvWkv4?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/tlWHJFvWkv4?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 <ul>
 <li>プログラム開発を開始する前に細かく計画しておいたほうが良い．<ul>
@@ -426,7 +412,7 @@
 <li>勉強会では様々な事態に対応できるように機能を網羅しようとしますが，取捨選択してください．</li>
 </ul>
 <h2 id="2-計画">2. 計画</h2>
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/XBL7DyYMtIA?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/XBL7DyYMtIA?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 
 <ul>
@@ -457,7 +443,12 @@
 </li>
 </ul>
 <h2 id="3-プロジェクトの空ファイルを作成する">3. プロジェクトの空ファイルを作成する</h2>
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/XWCOhnx6Tvw?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<ul>
+<li>勉強のためにサンプルゲームを追加せず，ゼロの状態から始めています．</li>
+<li>実際プログラムを始めるときには，サンプルゲームや，自分（あるいは友達）が以前作ったプロジェクトを書き換えていくのが多いでしょう．</li>
+</ul>
+<h4 id="作業1">作業1</h4>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/XWCOhnx6Tvw?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 
 <ol>
@@ -468,13 +459,14 @@
 </ul>
 </li>
 </ol>
-<ul>
-<li>勉強のためにサンプルゲームを追加せず，ゼロの状態から始めています．</li>
-<li>実際プログラムを始めるときには，サンプルゲームや，自分（あるいは友達）が以前作ったプロジェクトを書き換えていくのが多いでしょう．</li>
-</ul>
 <h2 id="4-settingspy-を書いておく">4. <code>settings.py</code> を書いておく</h2>
-<p>プロジェクトのディレクトリ直下にある <code>settings.py</code> を編集して，作成したアプリ <code>publicgoodsgame</code> を起動するように設定する．</p>
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/AA-EYCAknsw?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<ul>
+<li>プロジェクトのディレクトリ直下にある <code>settings.py</code> を編集して，作成したアプリ <code>publicgoodsgame</code> を起動するように設定する．</li>
+<li>公式ドキュメントのチュートリアルでは，アプリの <code>__init__.py</code> やテンプレートファイルの編集を一通りしたあとに <code>settings.py</code> の編集をしているが，ここでは最初にやっておく．</li>
+<li>そのココロは，アプリの <code>__init__.py</code> やテンプレートファイルを編集している最中に <code>otree devserver</code> でサーバーを起動させておき，ブラウザで動作確認をするため．<code>settings.py</code> の <code>SESSION_CONFIG</code> が設定されていないとアプリを動かせない．</li>
+</ul>
+<h4 id="作業2">作業2</h4>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/AA-EYCAknsw?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 
 <ol>
@@ -500,10 +492,6 @@
 </ul>
 </li>
 </ol>
-<ul>
-<li>公式ドキュメントのチュートリアルでは，アプリの <code>__init__.py</code> やテンプレートファイルの編集を一通りしたあとに <code>settings.py</code> の編集をしているが，ここでは最初にやっておく．</li>
-<li>そのココロは，アプリの <code>__init__.py</code> やテンプレートファイルを編集している最中に <code>otree devserver</code> でサーバーを起動させておき，ブラウザで動作確認をするため．<code>settings.py</code> の <code>SESSION_CONFIG</code> が設定されていないとアプリを動かせない．</li>
-</ul>
 <h2 id="5-テンプレートファイルを作成して-initpy-の最低限の設定をする">5. テンプレートファイルを作成して <code>__init__.py</code> の最低限の設定をする</h2>
 <ul>
 <li>参加者に呈示されるページの内容は，テンプレートファイル（アプリのディレクトリにあるHTMLファイル）に記述する．</li>
@@ -527,10 +515,10 @@
 </ul>
 </li>
 </ol>
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/4h6R9dFzXKk?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h4 id="作業3">作業3</h4>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/4h6R9dFzXKk?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
-<ul>
-<li><p>作業内容:</p>
+
 <ul>
 <li>必要なテンプレートファイルは <code>Contribute.html</code>（意思決定ページ）と <code>Results.html</code>（結果表示ページ）．<code>otree startapp</code> で生成された <code>MyPage.html</code> のファイル名を <code>Contribute.html</code> に変更する．<code>Results.html</code> はそのまま．</li>
 <li>↑ のファイル名変更に対応するために，<code>__init__.py</code> で <code>MyPage</code> なるクラスの名前を <code>Contribute</code> に変更する．</li>
@@ -576,8 +564,6 @@
 </code></pre>
 </li>
 </ul>
-</li>
-</ul>
 <h2 id="6-テンプレートファイルを編集する">6. テンプレートファイルを編集する</h2>
 <ol>
 <li>タイトルブロックを編集する．<ul>
@@ -592,8 +578,8 @@
 <li><code>{{ block content }}</code> と <code>{{ endblock }}</code> に挟まれた部分を「コンテンツブロック」と呼ぶ．</li>
 <li>コンテンツブロック内に，ページの本文を，htmlタグも適宜使って記述する．</li>
 <li>oTreeサーバーはテンプレートファイルを解釈して，記述した内容を <code>&lt;body&gt;</code> 内の <code>&lt;form&gt;</code> タグの中に挿入する．</li>
-<li>説明文などの文章は <code>&lt;p&gt;</code> タグや <code>&lt;div&gt;</code> タグで記述する．<ul>
-<li>一般論として，<code>&lt;br&gt;</code> タグによる改行を多用するのではなく，段落ごと <code>&lt;p&gt;</code> タグを使うのが良い．</li>
+<li>説明文などの文章は <code>&lt;p class=&quot;ytubevideo&quot;&gt;</code> タグや <code>&lt;div&gt;</code> タグで記述する．<ul>
+<li>一般論として，<code>&lt;br&gt;</code> タグによる改行を多用するのではなく，段落ごと <code>&lt;p class=&quot;ytubevideo&quot;&gt;</code> タグを使うのが良い．</li>
 </ul>
 </li>
 </ul>
@@ -648,17 +634,18 @@
 </ul>
 </li>
 </ol>
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/udHF5mDzv94?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h4 id="作業4">作業4</h4>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/udHF5mDzv94?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
 
 <ul>
-<li>作業内容:<ul>
 <li>とりあえず <code>Contribute.html</code> に説明文と入力フォームを作る．</li>
 <li>見てくれはさておき，とにかく最低限のことだけを記述する．</li>
 <li>コンテンツブロック内でマスタッシュ記法を使わない場合:<pre><code class="lang-html">  {{ block title }}
       意思決定
   {{ endblock }}
   {{ block content }}
-      <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>以下の入力欄に貢献額を入力してください．<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ytubevideo&quot;</span>&gt;</span>以下の入力欄に貢献額を入力してください．<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;contribution&quot;</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-name">button</span>&gt;</span>次へ<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
   {{ endblock }}
@@ -668,15 +655,13 @@
       意思決定
   {{ endblock }}
   {{ block content }}
-      <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>以下の入力欄に貢献額を入力してください．<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ytubevideo&quot;</span>&gt;</span>以下の入力欄に貢献額を入力してください．<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
       {{ formfields }}
       {{ next_button }}
   {{ endblock }}
 </code></pre>
 </li>
 <li>ページ内で変数を展開する（たとえば，計算した報酬額などを <code>Results.html</code> で表示する）方法は次回に後回し．</li>
-</ul>
-</li>
 </ul>
 <h2 id="7-initpy-を編集する">7. <code>__init__.py</code> を編集する</h2>
 <ol>
@@ -729,7 +714,7 @@
 </li>
 <li>（マスタッシュ記法ではなく）タグの直打ちで入力フォームを作りながら，<code>models.*Field()</code> の引数で <code>choices</code>，<code>min</code>，<code>max</code> を設定している場合，タグの直打ちでの実装との整合性に気をつける．<ul>
 <li>タグの属性で<code>min</code>や<code>max</code>などの制約を設定しない場合（クライアントでの検証をしない場合）でも，oTreeサーバー側で検証は行われる．</li>
-<li>たとえば <code>models.*Field()</code> の引数で <code>choices = [0, 100]</code> としておきながら，タグ直打ちで <code>&lt;input type=&quot;number&quot; name=&quot;contribution&quot; required min=&quot;0&quot; max=&quot;100&quot;&gt;</code> と入力フォームを作り，参加者が「10」と回答した場合，クライアントの検証は通過するが，10が <code>[0, 100]</code> に含まれないため，oTreeの検証は通過せず，エラーが出る．</li>
+<li>たとえば <code>models.IntegerField()</code> の引数で <code>choices = [0, 100]</code> としておきながら，タグ直打ちで <code>&lt;input type=&quot;number&quot; name=&quot;contribution&quot; required min=&quot;0&quot; max=&quot;100&quot;&gt;</code> と入力フォームを作り，参加者が「10」と回答した場合，クライアントの検証は通過するが，10が <code>[0, 100]</code> に含まれないため，oTreeの検証は通過せず，エラーが出る．</li>
 </ul>
 </li>
 </ul>
@@ -758,17 +743,17 @@
 <li>たとえばラボでくじを引いて，その結果を使って報酬額を計算する，ということもできる． <a href="https://otree.readthedocs.io/en/latest/misc/rest_api.html#session-vars-endpoint" target="_blank">https://otree.readthedocs.io/en/latest/misc/rest_api.html#session-vars-endpoint</a></li>
 </ul>
 </li>
-<li>クラス <code>C</code> （かつては <code>Constants</code> ）で定数を定義する．<ul>
+<li><code>C</code> クラス （oTree3では， <code>Constants</code>）で定数を定義する．<ul>
 <li>必ず定義しなければならないもの:<ul>
 <li><code>NAME_IN_URL</code>: デフォルトではアプリ名の文字列が設定されている．任意に変えても良い．</li>
 <li><code>PLAYERS_PER_GROUP</code>: ゲーム実験の場合，各グループの人数（2以上）を設定する．グループを設定しない場合は <code>None</code> とする．</li>
 <li><code>NUM_ROUNDS</code>: アプリを繰り返す場合，繰り返す（最大）回数を設定する．繰り返さない場合は <code>1</code> とする．</li>
 </ul>
 </li>
-<li>↑ 以上の3つの変数名については小文字（<code>name_in_url</code>，<code>players_per_group</code>，<code>num_rounds</code>）でも良い．バージョン互換性対応．</li>
-<li>クラス <code>C</code> で定義する変数名は大文字にすると良い？ 自分で定義するものについては厳密に大文字小文字を区別することに注意．</li>
-<li>ゲームのパラメータもクラス <code>C</code> で設定すると良い．<ul>
-<li>しかし，トリートメントをクラス <code>C</code> で実装するべきではない．たとえば公共財ゲームの限界収益率を変えて実験を行う場合，アプリごと複製して，複製した各アプリのクラス <code>C</code> で限界収益率の値を変える，という方法でも実装は可能である．しかし，アプリごと複製する，というのは筋が悪い（DRY原則に反する）．それよりも <code>settings.py</code> の <code>SESSION_CONFIGS</code> で定数を定義し，セッションを作成する際に値を具体的に設定する方が良い．</li>
+<li>↑ 以上の3つの変数名については小文字（<code>name_in_url</code>， <code>players_per_group</code>， <code>num_rounds</code>）でも良い．バージョン互換性対応．</li>
+<li><code>C</code> クラス で定義する変数名は大文字にすると良い？ 自分で定義するものについては厳密に大文字小文字を区別することに注意．</li>
+<li>ゲームのパラメータも<code>C</code> クラス で設定すると良い．<ul>
+<li>しかし，トリートメントを<code>C</code> クラス で実装するべきではない．たとえば公共財ゲームの限界収益率を変えて実験を行う場合，アプリごと複製して，複製した各アプリの<code>C</code> クラス で限界収益率の値を変える，という方法でも実装は可能である．しかし，アプリごと複製する，というのは筋が悪い（DRY原則に反する）．それよりも <code>settings.py</code> の <code>SESSION_CONFIGS</code> で定数を定義し，セッションを作成する際に値を具体的に設定する方が良い．</li>
 <li>パラメータを（たとえば報酬額を計算する関数で）ハードコーディングしてしまうのも良くない．当座の実験計画では変更する予定のないパラメータであっても，将来的には値を変えて実験を実施する場面が訪れるかもしれない．ハードコーディングしてしまうと，パラメータの変更に漏れが生じるかもしれない．</li>
 </ul>
 </li>
@@ -788,10 +773,11 @@
 </ul>
 </li>
 </ol>
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/eUxjPHHrrTY?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h4 id="作業5">作業5</h4>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/eUxjPHHrrTY?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
 
 <ul>
-<li>作業内容:<ul>
 <li>まずはテンプレートファイルに記述した入力フォームが機能するように（フォームを送信したときにoTreeサーバーで認識できるように）設定する．<ul>
 <li><code>Player</code> クラスに <code>contribution = models.FloatField()</code> を記述する．<ul>
 <li>公式ドキュメントのチュートリアルでは <code>models.CurrencyField()</code> を使用しているが，oTreeの通貨型を理解するのが面倒なので，単純な実数型を使う．</li>
@@ -801,12 +787,9 @@
 </ul>
 </li>
 </ul>
-</li>
-</ul>
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/qsyWxGr8U-M?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/qsyWxGr8U-M?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
-<ul>
-<li><p>作業内容:</p>
+
 <ul>
 <li>利得を計算する際の途中の変数（グループでの貢献額の合計値と分配額）をグループモデルに保存するために定義する．<ul>
 <li><code>Group</code> クラスに <code>total_contribution = models.FloatField()</code> と <code>individual_share = models.FloatField()</code><ul>
@@ -905,8 +888,6 @@
 </code></pre>
 </li>
 </ul>
-</li>
-</ul>
 
                                 
                                 </section>
@@ -946,7 +927,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第4回","level":"1.1.4","depth":2,"next":{"title":"【資料編】","level":"2.1","depth":1,"ref":"","articles":[]},"previous":{"title":"第3回","level":"1.1.3","depth":2,"path":"day3.md","ref":"day3.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day4.md","mtime":"2022-06-05T10:08:00.973Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-05T10:10:12.300Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第4回","level":"1.1.4","depth":2,"next":{"title":"【資料編】","level":"2.1","depth":1,"ref":"","articles":[]},"previous":{"title":"第3回","level":"1.1.3","depth":2,"path":"day3.md","ref":"day3.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day4.md","mtime":"2022-06-06T04:53:33.334Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-06T05:17:05.930Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -998,6 +979,14 @@
     </script>
     <script src="gitbook/gitbook.js"></script>
     <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-page-toc/anchor-3.1.1.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-page-toc/page-toc.js"></script>
+        
     
         
         <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
