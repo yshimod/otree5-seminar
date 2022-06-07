@@ -2,7 +2,7 @@
 
 
 ## `SESSION_CONFIGS`
-- セッションの構成をdictで定義する．
+- セッションの構成を辞書型で定義する．
     - `name`: セッションの名前
     - `app_sequence`: アプリの順序をlistで設定
     - `num_demo_participants`: デモページでの人数
@@ -34,7 +34,7 @@
     ```
 
 ## `SESSION_CONFIG_DEFAULTS`
-- `SESSION_CONFIGS` で複数のセッションを設定している場合（つまりdictに複数の要素がある場合），すべての要素に共通して設定したい変数があれば `SESSION_CONFIG_DEFAULTS` で設定する．
+- `SESSION_CONFIGS` で複数のセッションを設定している場合，すべての要素に共通して設定したい変数があれば `SESSION_CONFIG_DEFAULTS` で設定する．
 - `SESSION_CONFIGS` に同じ変数名で定義されていれば， `SESSION_CONFIGS` の定義が優先される．
 - `real_world_currency_per_point` （実験ポイントと通貨の間のレート） と `participation_fee` （固定報酬） は `SESSION_CONFIG_DEFAULTS` か `SESSION_CONFIGS` のどちらかで必ず設定しなければならない．
     - `participation_fee` で固定報酬を設定した場合，SessionPaymentsページで表示される参加者の合計報酬額（ `participant.payoff_plus_participation_fee` ）は，どんな参加者であれ `participation_fee.payoff` が加算される．たとえばオンライン実験で実験中に脱落した場合にも固定報酬が加算されてしまう．

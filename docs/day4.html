@@ -52,6 +52,8 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
+    <link rel="next" href="day5.html" />
+    
     
     <link rel="prev" href="day3.html" />
     
@@ -141,6 +143,19 @@
             
                     
                     第4回
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.5" data-path="day5.html">
+            
+                <a href="day5.html">
+            
+                    
+                    第5回
             
                 </a>
             
@@ -349,18 +364,18 @@
                                 <section class="normal markdown-section">
                                 
                                 <p>【第4回】 2022年6月2日</p>
-<h1 id="otreeプログラミングの進め方">oTreeプログラミングの進め方</h1>
 <ul>
 <li>今後の予定<ul>
 <li>第4回（今日）: 同時手番ゲーム（oTreeプログラミングの基礎）</li>
-<li>第回: 逐次手番ゲーム（プレイヤーごと表示させるページが変わる）</li>
-<li>第回: 繰り返しゲーム（ラウンド間でプレイヤーのシャッフル）</li>
+<li>第回: 逐次手番ゲーム（参加者ごと表示させる画面を変える）</li>
+<li>第回: 繰り返しゲーム（プレイヤーのシャッフル，タイムアウト）</li>
 <li>第回: ダブルオークション（JavaScriptとライブページ，ExtraModel）</li>
-<li>第回: 質問紙調査（ページのデザイン，CSS，Bootstrap）</li>
+<li>第回: 質問紙調査（画面のデザイン，CSS，Bootstrap）</li>
 <li>第回: 補遺</li>
 </ul>
 </li>
 </ul>
+<h1 id="otreeプログラミングの進め方">oTreeプログラミングの進め方</h1>
 <h2 id="1-otreeで実験プログラムを開発する前に考えておくこと">1. oTreeで実験プログラムを開発する前に考えておくこと</h2>
 <ul>
 <li>実験セッションの流れは？<ul>
@@ -569,7 +584,7 @@
 <li>タイトルブロックを編集する．<ul>
 <li><code>{{ block title }}</code> と <code>{{ endblock }}</code> に挟まれた部分（デフォルトでは <code>Page title</code> と入っている部分）を「タイトルブロック」と呼ぶ．</li>
 <li>タイトルブロック内に，ページの冒頭で表示するタイトルを記述する．</li>
-<li>oTreeサーバーはテンプレートファイルを解釈して，記述した内容を <code>&lt;head&gt;</code> の <code>&lt;title&gt;</code> タグの中身（ブラウザウィンドウのタイトルに表示される）と，<code>&lt;body&gt;</code> の冒頭にある <code>&lt;h2&gt;</code> タグの中に挿入する．</li>
+<li>oTreeサーバーはテンプレートを解釈して，記述した内容を <code>&lt;head&gt;</code> の <code>&lt;title&gt;</code> タグの中身（ブラウザウィンドウのタイトルに表示される）と，<code>&lt;body&gt;</code> の冒頭にある <code>&lt;h2&gt;</code> タグの中に挿入する．</li>
 <li><code>&lt;h2&gt;</code> タグ内にテキストが挿入されることによって，ページ内にタイトルが大きな文字で表示される．</li>
 <li>ページ内で表示するタイトルのスタイルを変えることを目的として，タイトルブロックの中でhtmlタグを使うことができる．しかし，タイトルブロック内でhtmlタグを駆使するのではなく，CSSで <code>.otree-title</code> クラスのスタイルを指定するべき．</li>
 </ul>
@@ -577,7 +592,7 @@
 <li>コンテンツブロックを編集する．<ul>
 <li><code>{{ block content }}</code> と <code>{{ endblock }}</code> に挟まれた部分を「コンテンツブロック」と呼ぶ．</li>
 <li>コンテンツブロック内に，ページの本文を，htmlタグも適宜使って記述する．</li>
-<li>oTreeサーバーはテンプレートファイルを解釈して，記述した内容を <code>&lt;body&gt;</code> 内の <code>&lt;form&gt;</code> タグの中に挿入する．</li>
+<li>oTreeサーバーはテンプレートを解釈して，記述した内容を <code>&lt;body&gt;</code> 内の <code>&lt;form&gt;</code> タグの中に挿入する．</li>
 <li>説明文などの文章は <code>&lt;p class=&quot;ytubevideo&quot;&gt;</code> タグや <code>&lt;div&gt;</code> タグで記述する．<ul>
 <li>一般論として，<code>&lt;br&gt;</code> タグによる改行を多用するのではなく，段落ごと <code>&lt;p class=&quot;ytubevideo&quot;&gt;</code> タグを使うのが良い．</li>
 </ul>
@@ -778,7 +793,7 @@
 
 
 <ul>
-<li>まずはテンプレートファイルに記述した入力フォームが機能するように（フォームを送信したときにoTreeサーバーで認識できるように）設定する．<ul>
+<li>まずはテンプレートに記述した入力フォームが機能するように（フォームを送信したときにoTreeサーバーで認識できるように）設定する．<ul>
 <li><code>Player</code> クラスに <code>contribution = models.FloatField()</code> を記述する．<ul>
 <li>公式ドキュメントのチュートリアルでは <code>models.CurrencyField()</code> を使用しているが，oTreeの通貨型を理解するのが面倒なので，単純な実数型を使う．</li>
 </ul>
@@ -915,10 +930,14 @@
 
             
                 
-                <a href="day3.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 第3回">
+                <a href="day3.html" class="navigation navigation-prev " aria-label="Previous page: 第3回">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
+                
+                <a href="day5.html" class="navigation navigation-next " aria-label="Next page: 第5回">
+                    <i class="fa fa-angle-right"></i>
+                </a>
                 
             
         
@@ -927,7 +946,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第4回","level":"1.1.4","depth":2,"next":{"title":"【資料編】","level":"2.1","depth":1,"ref":"","articles":[]},"previous":{"title":"第3回","level":"1.1.3","depth":2,"path":"day3.md","ref":"day3.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day4.md","mtime":"2022-06-06T04:53:33.334Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-06T05:17:05.930Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第4回","level":"1.1.4","depth":2,"next":{"title":"第5回","level":"1.1.5","depth":2,"path":"day5.md","ref":"day5.md","articles":[]},"previous":{"title":"第3回","level":"1.1.3","depth":2,"path":"day3.md","ref":"day3.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day4.md","mtime":"2022-06-07T03:23:24.980Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-07T07:19:11.128Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
