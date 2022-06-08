@@ -363,7 +363,7 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <p>【第4回】 2022年6月2日</p>
+                                <p>【第4回】 2022年6月2日 （2022年6月9日に補足）</p>
 <ul>
 <li>今後の予定<ul>
 <li>第4回（今日）: 同時手番ゲーム（oTreeプログラミングの基礎）</li>
@@ -624,7 +624,7 @@
 <li>任意回答にする（空欄を許す）場合には <code>required</code> 属性を使わないことに加え，<code>__init__.py</code> でフォームを定義するときに <code>blank=True</code> とする．さもないと，フォーム送信時にoTreeサーバー側でエラーが出る．</li>
 </ul>
 </li>
-<li>マスタッシュ記法で記述すれば，↑ 以上のようにしてタグを自分で記述して入力フォームを作る作業を，oTreeサーバーがやってくれる．<ul>
+<li>テンプレートタグで記述すれば，↑ 以上のようにしてタグを自分で記述して入力フォームを作る作業を，oTreeサーバーがやってくれる．<ul>
 <li>コンテンツブロック内に <code>{{ formfields }}</code> と記述すれば，<code>&lt;input&gt;</code> タグと，その入力フォームに対応する <code>&lt;label&gt;</code> タグを生成してくれる．</li>
 <li><a href="https://otree.readthedocs.io/en/latest/forms.html" target="_blank">詳細はこちら</a></li>
 <li>同じような入力フォームがたくさんある場合（たとえば質問紙調査）はoTreeの機能を使った方が良い（DRY原則）．検証を独自に実装したい場合（たとえばJavaScriptやライブページを駆使するとき）は自分でタグを記述する．</li>
@@ -656,7 +656,7 @@
 <ul>
 <li>とりあえず <code>Contribute.html</code> に説明文と入力フォームを作る．</li>
 <li>見てくれはさておき，とにかく最低限のことだけを記述する．</li>
-<li>コンテンツブロック内でマスタッシュ記法を使わない場合:<pre><code class="lang-html">  {{ block title }}
+<li>コンテンツブロック内でテンプレートタグを使わない場合:<pre><code class="lang-html">  {{ block title }}
       意思決定
   {{ endblock }}
   {{ block content }}
@@ -666,7 +666,7 @@
   {{ endblock }}
 </code></pre>
 </li>
-<li>コンテンツブロック内でマスタッシュ記法を使う場合:<pre><code class="lang-html">  {{ block title }}
+<li>コンテンツブロック内でテンプレートタグを使う場合:<pre><code class="lang-html">  {{ block title }}
       意思決定
   {{ endblock }}
   {{ block content }}
@@ -718,7 +718,7 @@
 </li>
 <li><code>models.*Field()</code> の引数で，最大値と最小値などの検証の設定や，初期値や選択肢の設定ができる．<ul>
 <li><code>choices</code>: 選択肢（<code>[value, display]</code> を要素とする（2次元）リストで渡す）</li>
-<li><code>widget</code>: マスタッシュ記法によって入力フォームを作る場合，<code>widget = widgets.RadioSelect</code> または <code>widget = widgets.RadioSelectHorizontal</code> と設定すれば入力フォームがラジオボタンになる．<code>choices</code> も設定しておく必要がある．</li>
+<li><code>widget</code>: テンプレートタグによって入力フォームを作る場合，<code>widget = widgets.RadioSelect</code> または <code>widget = widgets.RadioSelectHorizontal</code> と設定すれば入力フォームがラジオボタンになる．<code>choices</code> も設定しておく必要がある．</li>
 <li><code>initial</code>: 初期値</li>
 <li><code>label</code>: フォームのラベル（デフォルトは変数名）</li>
 <li><code>min</code>: 最小値</li>
@@ -727,7 +727,7 @@
 <li><code>blank</code>: 回答を強制しない場合は <code>True</code> を渡す．</li>
 </ul>
 </li>
-<li>（マスタッシュ記法ではなく）タグの直打ちで入力フォームを作りながら，<code>models.*Field()</code> の引数で <code>choices</code>，<code>min</code>，<code>max</code> を設定している場合，タグの直打ちでの実装との整合性に気をつける．<ul>
+<li>（テンプレートタグではなく）タグの直打ちで入力フォームを作りながら，<code>models.*Field()</code> の引数で <code>choices</code>，<code>min</code>，<code>max</code> を設定している場合，タグの直打ちでの実装との整合性に気をつける．<ul>
 <li>タグの属性で<code>min</code>や<code>max</code>などの制約を設定しない場合（クライアントでの検証をしない場合）でも，oTreeサーバー側で検証は行われる．</li>
 <li>たとえば <code>models.IntegerField()</code> の引数で <code>choices = [0, 100]</code> としておきながら，タグ直打ちで <code>&lt;input type=&quot;number&quot; name=&quot;contribution&quot; required min=&quot;0&quot; max=&quot;100&quot;&gt;</code> と入力フォームを作り，参加者が「10」と回答した場合，クライアントの検証は通過するが，10が <code>[0, 100]</code> に含まれないため，oTreeの検証は通過せず，エラーが出る．</li>
 </ul>
@@ -903,6 +903,53 @@
 </code></pre>
 </li>
 </ul>
+<h2 id="a1-自作の関数の引数は何？">A1. 自作の関数の引数は何？</h2>
+<ul>
+<li><a href="otree_ref/init.html">__init__.py の書き方</a> 参照．</li>
+<li>チュートリアルの公共財ゲームでは，自作の関数 <code>set_payoffs()</code> を定義していたが，その引数は <code>group</code> であった．自作の関数の引数は <code>group</code> でないとだめか？</li>
+<li>どこで呼び出す関数か？<ul>
+<li>待機ページの <code>after_all_players_arrive</code> で呼び出すとき，引数は <code>group</code>． <code>wait_for_all_groups = True</code> と設定したときの引数は <code>subsession</code>．</li>
+<li>フォームが送信された後に実行される <code>before_next_page()</code> の中で使う場合， <code>before_next_page()</code> が <code>player</code> を受け取るため，そのまま <code>player</code> を自作の関数に渡しても良いし， <code>player.group</code> を渡しても良い．</li>
+</ul>
+</li>
+</ul>
+<h2 id="a2-otreeの通貨型">A2. oTreeの通貨型</h2>
+<ul>
+<li><a href="https://otree.readthedocs.io/en/latest/currency.html" target="_blank">https://otree.readthedocs.io/en/latest/currency.html</a></li>
+<li><code>cu()</code> に数値を渡すと，oTreeは数値を「通貨型」に変換する．</li>
+<li><code>REAL_WORLD_CURRENCY_CODE = &apos;USD&apos;</code> と設定したとき...<ul>
+<li>数値は小数点以下が2桁に丸められる． <code>cu(2.7182)</code> は <code>2.72</code>．</li>
+<li>テンプレートで表示すると「$2.72」．</li>
+</ul>
+</li>
+<li><code>REAL_WORLD_CURRENCY_CODE = &apos;JPY&apos;</code> と設定したとき...<ul>
+<li>数値は整数に丸められる． <code>cu(2.7182)</code> は <code>3</code>．</li>
+<li>テンプレートで表示すると「3円」（「¥3」ではない）．</li>
+</ul>
+</li>
+<li><code>USE_POINTS = True</code> と設定したとき...<ul>
+<li><code>REAL_WORLD_CURRENCY_CODE</code> によらず，数値は整数に丸められる．</li>
+<li>（ <code>LANGUAGE_CODE = &apos;ja&apos;</code> のとき）テンプレートで表示すると「3ポイント」．</li>
+</ul>
+</li>
+<li><code>to_real_world_currency()</code>: ポイントから通貨へ変換するメソッド．引数は <code>session</code>．<ul>
+<li>たとえば <code>JPY</code> で <code>USE_POINTS = True</code> のとき， <code>cu(2.7182).to_real_world_currency(player.session)</code> をテンプレートに渡せば「3円」と表示される．</li>
+</ul>
+</li>
+<li>組み込みのフィールド <code>player.payoff</code> は <code>CurrencyField</code> で定義されている．<ul>
+<li><code>player.payoff</code> に数値を代入すると，勝手に通貨型に変換される．つまり勝手に数値が丸められる．</li>
+</ul>
+</li>
+<li>数値の丸めは decimal モジュールの <a href="https://docs.python.org/ja/3/library/decimal.html#decimal.ROUND_HALF_UP" target="_blank"><code>ROUND_HALF_UP</code> モード</a>で実行されている．つまり，銀行家の丸めではなく「四捨五入」される．</li>
+<li>日本で実験をするとき，ポイント表示であれ通貨表示であれ，oTreeの通貨型を使う場合は，「数値が四捨五入で整数に丸められる」ことを意識すれば良い．<ul>
+<li>端数を切り上げる場合は，自前で丸めの処理をした後，整数を <code>player.payoff</code> などに渡せば良い．</li>
+</ul>
+</li>
+<li>通貨型と，普通の整数型や浮動小数点型の数値との間で + を作用させると，通貨型になる．<ul>
+<li>Pylance などは警告を出すが，演算は可能．</li>
+</ul>
+</li>
+</ul>
 
                                 
                                 </section>
@@ -946,7 +993,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第4回","level":"1.1.4","depth":2,"next":{"title":"第5回","level":"1.1.5","depth":2,"path":"day5.md","ref":"day5.md","articles":[]},"previous":{"title":"第3回","level":"1.1.3","depth":2,"path":"day3.md","ref":"day3.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day4.md","mtime":"2022-06-07T03:23:24.980Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-07T07:19:11.128Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第4回","level":"1.1.4","depth":2,"next":{"title":"第5回","level":"1.1.5","depth":2,"path":"day5.md","ref":"day5.md","articles":[]},"previous":{"title":"第3回","level":"1.1.3","depth":2,"path":"day3.md","ref":"day3.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day4.md","mtime":"2022-06-08T11:48:46.436Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-08T11:48:52.680Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
