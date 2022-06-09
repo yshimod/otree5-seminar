@@ -9,6 +9,7 @@
     },
     "plugins": [
         "page-toc",
+        "sitemap",
         "honkit-plugin-google-analytics"
     ],
     "pluginsConfig": {
@@ -16,6 +17,10 @@
             "selector": ".markdown-section h2, .markdown-section h3, .markdown-section h4",
             "position": "before-first",
             "showByDefault": true
+        },
+        "sitemap": {
+            "url": "https://yshimod.github.io",
+            "pathSuffix": "/otree5-seminar/"
         },
         "analytics": {
             "uid": "G-6WR8KXSQYF"
