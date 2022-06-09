@@ -10,7 +10,7 @@
     "plugins": [
         "page-toc",
         "sitemap",
-        "honkit-plugin-google-analytics"
+        "@honkit/honkit-plugin-ga"
     ],
     "pluginsConfig": {
         "page-toc": {
@@ -22,8 +22,8 @@
             "url": "https://yshimod.github.io",
             "pathSuffix": "/otree5-seminar/"
         },
-        "analytics": {
-            "uid": "G-6WR8KXSQYF"
+        "ga": {
+            "trackingID": "G-6WR8KXSQYF"
         }
     }
 }
