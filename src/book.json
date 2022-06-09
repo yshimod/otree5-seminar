@@ -8,13 +8,17 @@
         "website": "styles/website.css"
     },
     "plugins": [
-        "page-toc"
+        "page-toc",
+        "honkit-plugin-google-analytics"
     ],
     "pluginsConfig": {
         "page-toc": {
             "selector": ".markdown-section h2, .markdown-section h3, .markdown-section h4",
             "position": "before-first",
             "showByDefault": true
+        },
+        "analytics": {
+            "uid": "G-6WR8KXSQYF"
         }
     }
 }
