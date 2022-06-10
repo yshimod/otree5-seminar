@@ -13,7 +13,7 @@
 - VSCodeのチュートリアル（ドットインストール） [https://dotinstall.com/lessons/basic_vscode](https://dotinstall.com/lessons/basic_vscode)
 
 
-<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/p4NOI6n9A4s?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/p4NOI6n9A4s?rel=0&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 
 - 勉強会当日にVS Codeの拡張機能のインストールをやってみましたが，少々グダついたので，該当部分を撮り直して差し替えています．
@@ -153,13 +153,13 @@
     - `__init__.py`
     - `*.html`
 
-<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/BeNZQ3DkEfg?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/BeNZQ3DkEfg?rel=0&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 
 
 ## 3. 重要なoTree用語
 
-<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/wKQI2L8wdJQ?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/wKQI2L8wdJQ?rel=0&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 - 詳しくは [https://otree.readthedocs.io/ja/latest/conceptual_overview.html](https://otree.readthedocs.io/ja/latest/conceptual_overview.html)
 
@@ -179,4 +179,4 @@
     - Description
     - Edit
 
-<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/ltIQU9trdtg?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/ltIQU9trdtg?rel=0&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>

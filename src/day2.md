@@ -24,7 +24,7 @@
 
 ## 1. GitとGitHubを使うメリット
 
-<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/mqX7XHzyoXs?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/mqX7XHzyoXs?rel=0&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 - Gitはローカル環境においてバージョン管理を行うソフトウェア．
     - ファイルを上書き保存していくと開発の過程が記録されない．
@@ -50,7 +50,7 @@
 
 #### 初期設定
 
-<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/xnznSzfV_6g?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/xnznSzfV_6g?rel=0&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 1. Gitのインストール
     - Windowsに直接Pythonを入れてoTreeを動かす場合，Gitのインストーラーを [https://gitforwindows.org/](https://gitforwindows.org/) からダウンロードしてインストールする．
@@ -97,7 +97,7 @@
 #### 基本的な手順  
 [https://learnxinyminutes.com/docs/git/](https://learnxinyminutes.com/docs/git/)
 
-<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/LK7CFRvSTlc?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/LK7CFRvSTlc?rel=0&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 1. （初回のみ）初期化... 作業ディレクトリに移動して，そのディレクトリをGitリポジトリとして設定（`.git`ディレクトリができる）．
     ```bash
@@ -150,7 +150,7 @@
 - [詳しくはこちら](heroku/README.md)
 
 #### デプロイの方法
-<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/bfrCwKshc74?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/bfrCwKshc74?rel=0&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 #### アドオンと環境変数の設定
-<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/8rkwfkv6sTg?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/8rkwfkv6sTg?rel=0&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>

@@ -32,7 +32,7 @@
 
 ## Python を pyenv (+ virtualenv) で導入 <a id="pythoninstallation"></a>
 
-<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/xOPHDOUsg0c?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/xOPHDOUsg0c?rel=0&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 - UbuntuはシステムにデフォルトでPythonが入っているので，それを使っても良いが，おすすめしない．
 - Pythonを導入するのに pyenv + virtualenv を必ず使わなければならないわけではない．
@@ -133,7 +133,7 @@
 
 #### データベースサーバーソフトウェアの PostgreSQL を導入
 
-<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/uYNYo1IICvA?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/uYNYo1IICvA?rel=0&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 - oTree公式はPostgreSQLを使うことを推奨
 - PostgreSQLを使わない場合，SQLite3を使う．
