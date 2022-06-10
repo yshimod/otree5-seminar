@@ -5,13 +5,13 @@
 
 ## 1. oTreeに関する情報
 
-<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/pSNcDqts_Jg?rel=0&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/pSNcDqts_Jg?rel=0&enablejsapi=1&enablejsapi=1&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 - [参考文献のリスト](references/README.md)
 
 ## 2. oTreeの本番環境
 
-<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/SVMcdmlakxM?rel=0&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/SVMcdmlakxM?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 - オンプレミス（e.g., 社研サーバー），IaaS（e.g., Amazon EC2, Google Compute Engine），VPS（e.g., ConoHa）などのLinuxサーバーで動かす．  
     [UbuntuでoTreeを動かす](server_setup/README.md)
@@ -23,7 +23,7 @@
 
 ## 3. Ubuntuに慣れる
 
-<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/ys42gwdtefE?rel=0&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/ys42gwdtefE?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 - シェルBashの使い方
     - [https://learnxinyminutes.com/docs/bash/](https://learnxinyminutes.com/docs/bash/)
@@ -53,7 +53,7 @@
 
 ## 4. Pythonの導入からpipでoTreeをインストールするまで
 
-<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/AlKiPuN4gYg?rel=0&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/AlKiPuN4gYg?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 - [詳しくはこちら](server_setup/README.md#pythoninstallation)
 - 動画内で少々グダついてしまったので，補足します．  
@@ -70,7 +70,7 @@
 
 ## 5. 本番としてoTreeを動かすために必要なこと
 
-<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/oTbznkpAvjM?rel=0&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/oTbznkpAvjM?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 - [詳しくはこちら](server_setup/README.md#postinstallation)
 - 「oTree勉強会」なる催し物の第1回でやるべき内容ではなかったかもしれませんが，お付き合いください．
@@ -89,7 +89,7 @@
 
 ## 6. oTreeサーバーをインターネットにさらす方法 (の概要)
 
-<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/9Hzzzg2-xX8?rel=0&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/9Hzzzg2-xX8?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 - [詳しくはこちら](server_setup/README.md#webserver)
 - 「oTree勉強会」なる催し物の第1回でやるべき内容ではないし，Herokuで十分な人にとっても不要な内容かも分かりませんが，お付き合いください．
@@ -99,7 +99,7 @@
 
 ## 7. HerokuでoTreeを動かす方法 (さわりだけ)
 
-<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/3Dzm6s8nPDA?rel=0&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/3Dzm6s8nPDA?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 - [詳しくはこちら](heroku/README.md)
 - oTreeの著者たちにお金を払ってもよい場合はoTree HubのHeroku連携機能を使っても良いでしょう．
