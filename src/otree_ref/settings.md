@@ -161,7 +161,7 @@
     - 環境変数は `export OTREE_SECRET_KEY=1234567890` などのように設定．
 
 ## `INSTALLED_APPS`
-- デフォルトで以下が設定されているが，oTree5では不要？
+- デフォルトで以下が設定されているが， oTree 5 では不要？
     ```python
     INSTALLED_APPS = ['otree']
     ```

@@ -212,8 +212,8 @@
     - `{{ block content }}` と `{{ endblock }}` に挟まれた部分を「コンテンツブロック」と呼ぶ．
     - コンテンツブロック内に，ページの本文を，htmlタグも適宜使って記述する．
     - oTreeサーバーはテンプレートを解釈して，記述した内容を `<body>` 内の `<form>` タグの中に挿入する．
-    - 説明文などの文章は `<p class="ytubevideo">` タグや `<div>` タグで記述する．
-        - 一般論として，`<br>` タグによる改行を多用するのではなく，段落ごと `<p class="ytubevideo">` タグを使うのが良い．
+    - 説明文などの文章は `<p>` タグや `<div>` タグで記述する．
+        - 一般論として，`<br>` タグによる改行を多用するのではなく，段落ごと `<p>` タグを使うのが良い．
 3. コンテンツブロック内に入力フォームを挿入する
     - 【原理的な話】 oTreeサーバーはコンテンツブロック内の記述したものを `<body>` 内の `<form>` タグの中に挿入する．`<form>` タグに `method="post"` が設定されているため，`<form>` タグ内の `<input>` 要素等のデータがPOSTメソッドでサーバーに送信される．
         - したがって，サーバーに送信したいデータの入力フォームを作るためには，コンテンツブロック内に `<input>` タグなどを記述する．このとき `name` 属性に，記録するデータの変数名を設定する．
@@ -269,7 +269,7 @@
         意思決定
     {{ endblock }}
     {{ block content }}
-        <p class="ytubevideo">以下の入力欄に貢献額を入力してください．</p>
+        <p>以下の入力欄に貢献額を入力してください．</p>
         <input name="contribution">
         <button>次へ</button>
     {{ endblock }}
@@ -280,7 +280,7 @@
         意思決定
     {{ endblock }}
     {{ block content }}
-        <p class="ytubevideo">以下の入力欄に貢献額を入力してください．</p>
+        <p>以下の入力欄に貢献額を入力してください．</p>
         {{ formfields }}
         {{ next_button }}
     {{ endblock }}
@@ -461,7 +461,24 @@
 
 
 
-## A1. 自作の関数の引数は何？
+---
+
+【補足】 <a id="day4suppl"></a>
+
+
+## A1. 入力フォームの検証
+
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/mwSDVeIXyQs?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
+
+
+
+
+## A2. 自作の関数の引数は何？
+
+
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/LXgnO3RR5OQ?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
 
 - [\_\_init\_\_.py の書き方](otree_ref/init.md) 参照．
 - チュートリアルの公共財ゲームでは，自作の関数 `set_payoffs()` を定義していたが，その引数は `group` であった．自作の関数の引数は `group` でないとだめか？
@@ -471,7 +488,11 @@
 
 
 
-## A2. oTreeの通貨型
+## A3. oTreeの通貨型
+
+
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/TWdogNESdns?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
 
 - [https://otree.readthedocs.io/en/latest/currency.html](https://otree.readthedocs.io/en/latest/currency.html)
 - `cu()` に数値を渡すと，oTreeは数値を「通貨型」に変換する．

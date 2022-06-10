@@ -73,7 +73,7 @@
 - Heroku Postgresなるアドオンを追加してPostgreSQLを使うように設定（ブラウザ操作）．
 - ログのためにPapertrailなるアドオンを追加してもよし．
 - 環境変数の設定（ブラウザ操作）．
-    - [環境変数として設定するもの](server_setup/README.md#envvar)
+    - [環境変数として設定するもの](../server_setup/README.md#envvar)
 - データベースをリセットするときは，「Run console」から `otree resetdb`．
 - 本番では必要に応じてDyno，PostgreSQLに課金．
 

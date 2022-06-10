@@ -366,7 +366,7 @@
         - `values` はフォームの変数名をキーとする辞書で，入力された値が取り出せる．
     - 返り値: フォームの変数名をキーとする辞書型で，値は各フォームに対応するエラーメッセージの文字列．エラーが無い場合は何も返さないか，空の辞書を返す．
     - ページが進められたとき（フォームが送信されたとき），次のページを表示する前に実行され，エラーがあれば同一ページにエラーメッセージを追加したものを表示する．
-    - フォームごと個別に検証用の関数を定義することもできる．ページクラスの外側で `{field_name}_error_message()` を定義する．
+    - フォームごと個別に検証用の関数を定義することもできる．ページクラスの外側で `*_error_message()` を定義する．
 - `get_timeout_seconds()`
     - 引数: `(player: Player)`
     - 返り値: 整数で秒数を渡すと，当該ページでの時間制限を設定できる． `timeout_seconds` と同様．
@@ -456,7 +456,7 @@
 - [https://otree.readthedocs.io/en/latest/treatments.html](https://otree.readthedocs.io/en/latest/treatments.html)
 
 ### `custom_export()`
-- 引数: `(player: Player)`
+- 引数: `players` （ `player` のリスト）
 - 返り値: `yeild` で出力したいデータをリストで返す．
 - "CSV Data Export" で出力するときに実行される．
 - [https://otree.readthedocs.io/en/latest/admin.html#custom-data-exports](https://otree.readthedocs.io/en/latest/admin.html#custom-data-exports)
@@ -475,19 +475,23 @@
 - 定義する場合は，当該アプリのディレクトリに `admin_report.html` なるファイル名でテンプレートファイルを作成しておく．
 - [https://otree.readthedocs.io/en/latest/admin.html#customizing-the-admin-interface-admin-reports](https://otree.readthedocs.io/en/latest/admin.html#customizing-the-admin-interface-admin-reports)
 
-### `{field_name}_min()`
+### `*_min()`
+- `*` の部分にフィールドの変数名を入れる．
 - 引数: `(player: Player)`
 - 返り値: フィールドの最小値．
 
-### `{field_name}_max`
+### `*_max`
+- `*` の部分にフィールドの変数名を入れる．
 - 引数: `(player: Player)`
 - 返り値: フィールドの最大値．
 
-### `{field_name}_choices`
+### `*_choices`
+- `*` の部分にフィールドの変数名を入れる．
 - 引数: `(player: Player)`
 - 返り値: フィールドの選択肢のリスト．
 
-### `{field_name}_error_message`
+### `*_error_message`
+- `*` の部分にフィールドの変数名を入れる．
 - 引数: `(player: Player, value)`
     - `value` は入力されたフィールドの値．
 - 返り値: エラーメッセージの文字列．

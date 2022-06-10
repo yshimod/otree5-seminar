@@ -3,7 +3,7 @@
 <html lang="ja" >
     <head>
         <meta charset="UTF-8">
-        <title>第5回 · oTree 5 勉強会</title>
+        <title>第6回 · oTree 5 勉強会</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 3.7.1">
@@ -52,10 +52,8 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="day6.html" />
     
-    
-    <link rel="prev" href="day4.html" />
+    <link rel="prev" href="day5.html" />
     
 
     </head>
@@ -150,7 +148,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.1.5" data-path="day5.html">
+        <li class="chapter " data-level="1.1.5" data-path="day5.html">
             
                 <a href="day5.html">
             
@@ -163,7 +161,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.1.6" data-path="day6.html">
+        <li class="chapter active" data-level="1.1.6" data-path="day6.html">
             
                 <a href="day6.html">
             
@@ -374,7 +372,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >第5回</a>
+        <a href="." >第6回</a>
     </h1>
 </div>
 
@@ -389,62 +387,41 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <p>【第5回】 2022年6月9日</p>
+                                <p>【第6回】 2022年6月16日</p>
 <ul>
 <li>今後の予定<ul>
 <li>第4回: 同時手番ゲーム（oTreeプログラミングの基礎）</li>
-<li><del>第5回（今日）: 逐次手番ゲーム（参加者ごと表示させる画面を変える）</del> </li>
-<li>第5回（今日）:<ul>
-<li><a href="day4.html#day4suppl">第4回の補足</a></li>
-<li>テンプレートにおけるプログラミング</li>
+<li>第5回: テンプレートファイルの書き方</li>
+<li>第6回（今日）: <ul>
+<li>逐次手番ゲーム（参加者ごと表示させる画面を変える）</li>
+<li>繰り返しゲーム（プレイヤーのシャッフル，タイムアウト）</li>
 </ul>
 </li>
-<li>第回: 逐次手番ゲーム（参加者ごと表示させる画面を変える）</li>
-<li>第回: 繰り返しゲーム（プレイヤーのシャッフル，タイムアウト）</li>
 <li>第回: ダブルオークション（JavaScriptとライブページ，ExtraModel）</li>
 <li>第回: 質問紙調査（画面のデザイン，CSS，Bootstrap）</li>
 <li>第回: 補遺</li>
 </ul>
 </li>
 </ul>
-<h1 id="テンプレートにおけるプログラミング">テンプレートにおけるプログラミング</h1>
-<h2 id="変数とフィルター">変数とフィルター</h2>
-<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/K9BagHTRH3Y?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
-
+<h2 id="参加者ごと表示させる画面を変える">参加者ごと表示させる画面を変える</h2>
 <ul>
-<li><a href="otree_ref/templatefile.html#変数の展開">詳しくはこちら</a></li>
-</ul>
-<h2 id="if-と-for"><code>if</code> と <code>for</code></h2>
-<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/6jRM-p5tJ2s?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
-
-<ul>
-<li><a href="otree_ref/templatefile.html#テンプレートタグ">詳しくはこちら</a></li>
-</ul>
-<h2 id="その他のテンプレートタグ">その他のテンプレートタグ</h2>
-<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/FnpInHMIe1M?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
-
-<ul>
-<li><a href="otree_ref/templatefile.html#include">詳しくはこちら</a></li>
-</ul>
-<h2 id="otree3との違い">oTree3との違い</h2>
-<ul>
-<li>oTree 3 はDjangoがベースであったため，Djangoの組み込みフィルターが使えたが， oTree 5 では，Djangoの組み込みフィルターが（ほとんど）使えなくなった．oTree3から oTree 5 へ移行するときは注意．多用されていたと思われるフィルターは以下:<ul>
-<li><code>floatformat:0</code>: 整数への（銀行家の）丸め． oTree 5 では <code>to0</code> に変更されたが，切り下げとなることに注意．</li>
-<li><code>add</code>: テンプレートで変数の足し算ができた（たとえば <code>{{ x|add:&quot;1&quot; }}</code> とすれば xに1を足した数値が表示されていた）．</li>
-<li><code>date</code>: 変数が <code>datetime</code> オブジェクトであれば，日付が人間が読める書式に変換されて表示されていた．</li>
+<li>テンプレート内において変数を展開したりテンプレートタグを使って条件分岐させたりする．</li>
+<li>プレイヤーごと入力フォーム（変数名）が異なるとき，<code>__init__.py</code> のページクラスのメソッド <code>is_displayed()</code> で制御する．</li>
+<li>ライブページを使って動的に画面の中身を書き換える（サーバーとの通信あり）．<ul>
+<li>後の回で説明します．</li>
 </ul>
 </li>
-<li>テンプレートタグのデリミタが <code>{% %}</code> から <code>{{ }}</code> に変更され，テンプレートタグと変数の記述方法が縮退してしまった．<ul>
-<li>oTree 5 でも互換性のために <code>{% %}</code> は使える．ただし，<code>{%</code> と <code>{{</code>， <code>%}</code> と <code>}}</code> をそれぞれ区別しないという実装のようなので，<code>&quot;</code> と <code>&apos;</code> の関係のようにネストさせて使えるというわけではない．</li>
+<li>JavaScriptを使って動的に画面の中身を書き換える（サーバーとの通信なし）．<ul>
+<li>後の回で説明します．</li>
 </ul>
 </li>
 </ul>
-<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/3eVb6rKUtPw?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
-
-
-
-
-
+<h2 id="isdisplayed-を使ったページの制御"><code>is_displayed()</code> を使ったページの制御</h2>
+<p><a href="https://otree.readthedocs.io/en/latest/pages.html#is-displayed" target="_blank">https://otree.readthedocs.io/en/latest/pages.html#is-displayed</a></p>
+<ul>
+<li>ページクラスの中に <code>is_displayed()</code> を定義する．引数は <code>player</code> オブジェクト．返り値が <code>True</code> のとき，そのプレイヤーに表示される．</li>
+<li>公式ドキュメントのチュートリアル「信頼ゲーム」を参照．<a href="https://otree.readthedocs.io/ja/latest/tutorial/part3.html" target="_blank">https://otree.readthedocs.io/ja/latest/tutorial/part3.html</a></li>
+</ul>
 
                                 
                                 </section>
@@ -472,14 +449,10 @@
 
             
                 
-                <a href="day4.html" class="navigation navigation-prev " aria-label="Previous page: 第4回">
+                <a href="day5.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 第5回">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="day6.html" class="navigation navigation-next " aria-label="Next page: 第6回">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -488,7 +461,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第5回","level":"1.1.5","depth":2,"next":{"title":"第6回","level":"1.1.6","depth":2,"path":"day6.md","ref":"day6.md","articles":[]},"previous":{"title":"第4回","level":"1.1.4","depth":2,"path":"day4.md","ref":"day4.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day5.md","mtime":"2022-06-10T18:28:30.989Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-10T18:34:41.847Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第6回","level":"1.1.6","depth":2,"next":{"title":"【資料編】","level":"2.1","depth":1,"ref":"","articles":[]},"previous":{"title":"第5回","level":"1.1.5","depth":2,"path":"day5.md","ref":"day5.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day6.md","mtime":"2022-06-10T18:00:10.984Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-10T18:34:41.847Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

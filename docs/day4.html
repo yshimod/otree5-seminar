@@ -3,7 +3,7 @@
 <html lang="ja" >
     <head>
         <meta charset="UTF-8">
-        <title>第4回 · oTree5 勉強会</title>
+        <title>第4回 · oTree 5 勉強会</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 3.7.1">
@@ -89,7 +89,7 @@
                 <a href="./">
             
                     
-                    oTree5 勉強会
+                    oTree 5 勉強会
             
                 </a>
             
@@ -163,6 +163,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.1.6" data-path="day6.html">
+            
+                <a href="day6.html">
+            
+                    
+                    第6回
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -227,7 +240,20 @@
             
         </li>
     
-        <li class="chapter " data-level="2.5" data-path="server_setup/">
+        <li class="chapter " data-level="2.5" data-path="otree_ref/templatefile.html">
+            
+                <a href="otree_ref/templatefile.html">
+            
+                    
+                    テンプレートファイルの書き方
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" data-path="server_setup/">
             
                 <a href="server_setup/">
             
@@ -240,7 +266,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.6" data-path="heroku/">
+        <li class="chapter " data-level="2.7" data-path="heroku/">
             
                 <a href="heroku/">
             
@@ -253,7 +279,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.7" data-path="ubuntu/">
+        <li class="chapter " data-level="2.8" data-path="ubuntu/">
             
                 <a href="ubuntu/">
             
@@ -267,7 +293,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="2.7.1" data-path="ubuntu/wsl2.html">
+        <li class="chapter " data-level="2.8.1" data-path="ubuntu/wsl2.html">
             
                 <a href="ubuntu/wsl2.html">
             
@@ -280,7 +306,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.7.2" data-path="ubuntu/vagrant.html">
+        <li class="chapter " data-level="2.8.2" data-path="ubuntu/vagrant.html">
             
                 <a href="ubuntu/vagrant.html">
             
@@ -593,8 +619,8 @@
 <li><code>{{ block content }}</code> と <code>{{ endblock }}</code> に挟まれた部分を「コンテンツブロック」と呼ぶ．</li>
 <li>コンテンツブロック内に，ページの本文を，htmlタグも適宜使って記述する．</li>
 <li>oTreeサーバーはテンプレートを解釈して，記述した内容を <code>&lt;body&gt;</code> 内の <code>&lt;form&gt;</code> タグの中に挿入する．</li>
-<li>説明文などの文章は <code>&lt;p class=&quot;ytubevideo&quot;&gt;</code> タグや <code>&lt;div&gt;</code> タグで記述する．<ul>
-<li>一般論として，<code>&lt;br&gt;</code> タグによる改行を多用するのではなく，段落ごと <code>&lt;p class=&quot;ytubevideo&quot;&gt;</code> タグを使うのが良い．</li>
+<li>説明文などの文章は <code>&lt;p&gt;</code> タグや <code>&lt;div&gt;</code> タグで記述する．<ul>
+<li>一般論として，<code>&lt;br&gt;</code> タグによる改行を多用するのではなく，段落ごと <code>&lt;p&gt;</code> タグを使うのが良い．</li>
 </ul>
 </li>
 </ul>
@@ -660,7 +686,7 @@
       意思決定
   {{ endblock }}
   {{ block content }}
-      <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ytubevideo&quot;</span>&gt;</span>以下の入力欄に貢献額を入力してください．<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>以下の入力欄に貢献額を入力してください．<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;contribution&quot;</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-name">button</span>&gt;</span>次へ<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
   {{ endblock }}
@@ -670,7 +696,7 @@
       意思決定
   {{ endblock }}
   {{ block content }}
-      <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ytubevideo&quot;</span>&gt;</span>以下の入力欄に貢献額を入力してください．<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>以下の入力欄に貢献額を入力してください．<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
       {{ formfields }}
       {{ next_button }}
   {{ endblock }}
@@ -903,7 +929,19 @@
 </code></pre>
 </li>
 </ul>
-<h2 id="a1-自作の関数の引数は何？">A1. 自作の関数の引数は何？</h2>
+<hr>
+<p>【補足】 <a id="day4suppl"></a></p>
+<h2 id="a1-入力フォームの検証">A1. 入力フォームの検証</h2>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/mwSDVeIXyQs?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
+
+
+
+
+<h2 id="a2-自作の関数の引数は何？">A2. 自作の関数の引数は何？</h2>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/LXgnO3RR5OQ?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
+
 <ul>
 <li><a href="otree_ref/init.html">__init__.py の書き方</a> 参照．</li>
 <li>チュートリアルの公共財ゲームでは，自作の関数 <code>set_payoffs()</code> を定義していたが，その引数は <code>group</code> であった．自作の関数の引数は <code>group</code> でないとだめか？</li>
@@ -913,7 +951,10 @@
 </ul>
 </li>
 </ul>
-<h2 id="a2-otreeの通貨型">A2. oTreeの通貨型</h2>
+<h2 id="a3-otreeの通貨型">A3. oTreeの通貨型</h2>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/TWdogNESdns?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
+
 <ul>
 <li><a href="https://otree.readthedocs.io/en/latest/currency.html" target="_blank">https://otree.readthedocs.io/en/latest/currency.html</a></li>
 <li><code>cu()</code> に数値を渡すと，oTreeは数値を「通貨型」に変換する．</li>
@@ -993,7 +1034,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第4回","level":"1.1.4","depth":2,"next":{"title":"第5回","level":"1.1.5","depth":2,"path":"day5.md","ref":"day5.md","articles":[]},"previous":{"title":"第3回","level":"1.1.3","depth":2,"path":"day3.md","ref":"day3.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day4.md","mtime":"2022-06-08T11:48:46.436Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-09T12:36:11.475Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第4回","level":"1.1.4","depth":2,"next":{"title":"第5回","level":"1.1.5","depth":2,"path":"day5.md","ref":"day5.md","articles":[]},"previous":{"title":"第3回","level":"1.1.3","depth":2,"path":"day3.md","ref":"day3.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day4.md","mtime":"2022-06-10T18:23:01.647Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-10T18:34:41.847Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
