@@ -5,7 +5,7 @@
 
 ## 1. oTreeに関する情報
 
-<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/pSNcDqts_Jg?rel=0&enablejsapi=1&enablejsapi=1&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/pSNcDqts_Jg?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 - [参考文献のリスト](references/README.md)
 

@@ -394,6 +394,7 @@
     - `group_by_arrival_time = True` を設定している場合，全 player が当該待機ページを通るようにする． `is_displayed()` で特定の役割の player だけスキップする，というようなことをしてはいけない． `is_displayed()` で特定のラウンド以外はスキップする，という使い方はOK．
     - より細かい設定をしたい場合は， `group_by_arrival_time = True` を設定した上で，クラスの外側で `group_by_arrival_time_method()` を定義する．
     - [https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html#group-by-arrival-time](https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html#group-by-arrival-time)
+    - 待機中，参加者のウィンドウがアクティブでない場合（たとえば他のタブを開いて遊んでいる場合），ドロップアウトとみなし group に参加させない． [https://groups.google.com/g/otree/c/XsFMNoZR7PY](https://groups.google.com/g/otree/c/XsFMNoZR7PY)
 - `wait_for_all_groups`
     - `True` を渡せば，待機ページにおいて group のメンバーではなく， subsession の全メンバーを待機する．
     - `wait_for_all_groups = True` としたときは，組み込みメソッド `after_all_players_arrive()` の引数が subsession オブジェクトとなることに注意．

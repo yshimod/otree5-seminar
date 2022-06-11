@@ -471,6 +471,51 @@
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/mwSDVeIXyQs?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 
+- [https://otree.readthedocs.io/en/latest/forms.html#simple-form-field-validation](https://otree.readthedocs.io/en/latest/forms.html#simple-form-field-validation)
+- ページで入力フォームが送信されるとき（「次へ」ボタンが押されるとき）， oTree は入力された値を検証する．
+- HTMLタグでフォームの検証を実装していれば，ページで入力フォームを送信する前にブラウザでもフォームに入力された値を検証する． [https://developer.mozilla.org/ja/docs/Learn/Forms/Form_validation](https://developer.mozilla.org/ja/docs/Learn/Forms/Form_validation)
+- （例1） データモデルのクラスで `input1 = models.IntegerField()` として，テンプレートでは `<input name="input1">` とHTMLタグを直書きしている場合...  
+    - 入力フォームで「a」と入力すると，ブラウザでの検証は行われず，そのままフォームの送信は行われる．
+    - しかし， oTree サーバー側での検証において，整数型のフィールドに文字列を入れようとしていることを検出して，次のページへ遷移させず画面にエラーを表示する．
+- （例2） データモデルのクラスで `input1 = models.IntegerField(max=100)` として，テンプレートでは `<input name="input1" type="number" max="1000">` とHTMLタグを直書きしている場合...  
+    - HTMLタグでは， `type="number"` で値を整数に限定し， `max="1000"` でその最大値を1000としている．
+    - HTMLタグでは， `required` 属性をつけていないため，空欄であってもフォームの送信は行われる．しかし， oTree サーバー側の検証には引っかかり，次のページへ遷移させず画面にエラーを表示する．
+    - 入力フォームで「1001」と入力すると，ブラウザでの検証にひっかかり，フォームの送信が行われない．
+    - 入力フォームで「999」と入力すると，ブラウザでの検証は通過し，フォームの送信は行われる．しかし， oTree サーバー側の検証には引っかかり，次のページへ遷移させず画面にエラーを表示する．
+- （例3） データモデルのクラスで `input1 = models.IntegerField(max=100)` として，テンプレートでは `{{ formfields }}` とテンプレートタグ使っている場合...  
+    - 入力フォームの部分のタグは以下のように生成されている:
+        ```html
+        <label class="col-form-label" for="id_input1">Input1</label>
+        <div class="controls">
+            <input type="number" class="form-control" id="id_input1" max="100" name="input1" required value="">
+        </div>
+        ```
+    - HTMLタグで実装されている要件と oTree サーバーでの要件が一致しているため，ブラウザにおける検証に通過すれば， oTree サーバーでの検証も通過する．
+- （例4） データモデルのクラスで `input1 = models.IntegerField(max=100, blank=True)` として，テンプレートでは `{{ formfields }}` とテンプレートタグ使っている場合...  
+    - 入力フォームの部分のタグは以下のように生成されている:
+        ```html
+        <label class="col-form-label" for="id_input1">Input1</label>
+        <div class="controls">
+            <input type="number" class="form-control" id="id_input1" max="100" name="input1" value="">
+        </div>
+        ```
+    - HTMLタグでは， `required` 属性をつけられていないため，空欄であってもフォームの送信は行われる． oTree サーバー側でも空欄を許容して，次のページへの遷移が行われる．
+- （例5） データモデルのクラスで `input1 = models.IntegerField(choices=[0, 100])` としている場合...  
+    - テンプレートで `{{ formfields }}` とテンプレートタグ使っている場合，入力フォームの部分のタグは以下のように生成される:
+        ```html
+        <label class="col-form-label" for="id_input1">Input1</label>
+        <div class="controls">
+            <select class="form-select" id="id_input1" name="input1" required>
+                <option value="">--------</option>
+                <option value="0">0</option>
+                <option value="100">100</option>
+            </select>
+        </div>
+        ```
+    - もしもテンプレートで `<input name="input1" type="number" min="0" max="100">` とHTMLタグを直書きしている場合，「50」と入力したときにブラウザの検証には通過するが， oTree サーバー側の検証にはひっかかる．「0」か「100」と入力しない限り oTree サーバー側の検証にひっかかる．
+- ブラウザでの検証において表示されるメッセージ（たとえば `required` があるときに Chrome で空欄のままフォームを送信しようとすると，「！ このフィールドを入力してください。」と表示される）はブラウザごと異なる．カスタマイズするには HTML， CSS， JavaScript それぞれでコードを書く必要があって面倒だが，Bootstrap を使うと便利．
+- HTMLタグの直打ちで入力フォームを実装しているとき， oTree サーバー側での検証を経てエラーメッセージ画面に表示するには，テンプレートに `{{ formfield_errors '*' }}` タグを入れる（ `*` には変数名を入れる）．
+- oTree サーバー側検証でのエラーメッセージをカスタマイズするにはページクラスの組み込みメソッド `error_message()` を使う．
 
 
 

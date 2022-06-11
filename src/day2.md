@@ -1,6 +1,6 @@
 【第2回】 2022年5月19日
 
-# GitとGitHubの使い方・Herokuの使い方
+# GitとGitHubの使い方 ・ Herokuの使い方
 
 
 ## 0. 準備
