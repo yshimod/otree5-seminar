@@ -446,7 +446,7 @@
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/tlWHJFvWkv4?rel=0&amp;enablejsapi=1&amp;origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 <ul>
-<li>プログラム開発を開始する前に細かく計画しておいたほうが良い．<ul>
+<li>プログラム開発を開始する前に細かく計画しておいた方が良い．<ul>
 <li>一度作り始めてから仕様を変更するとき，場合によってはゼロスタートと変わらない工数を要することも．</li>
 </ul>
 </li>
@@ -520,7 +520,10 @@
  ]
 </code></pre>
 <ul>
-<li><code>name</code> は管理者画面に表示するセッション名．何でも良いが，とりあえずアプリ名にしておく．</li>
+<li><code>name</code> はセッション名．何でも良いが，とりあえずアプリ名にしておく．<ul>
+<li>管理者画面で表示する名前を <code>display_name</code> で設定しても良い．</li>
+</ul>
+</li>
 <li><code>app_sequence</code> には使うアプリの名前をリストで渡す．まだアプリは <code>publicgoodsgame</code> 一つしかないため，要素が一つだけのリスト <code>[&quot;publicgoodsgame&quot;]</code> を設定する．</li>
 <li><code>num_demo_participants</code> にはデモページでの参加者数を設定する．今作ろうとしている公共財ゲームは3人ゲームなので3の倍数を設定する．</li>
 </ul>
@@ -610,15 +613,12 @@
 <li>タイトルブロックを編集する．<ul>
 <li><code>{{ block title }}</code> と <code>{{ endblock }}</code> に挟まれた部分（デフォルトでは <code>Page title</code> と入っている部分）を「タイトルブロック」と呼ぶ．</li>
 <li>タイトルブロック内に，ページの冒頭で表示するタイトルを記述する．</li>
-<li>oTreeサーバーはテンプレートを解釈して，記述した内容を <code>&lt;head&gt;</code> の <code>&lt;title&gt;</code> タグの中身（ブラウザウィンドウのタイトルに表示される）と，<code>&lt;body&gt;</code> の冒頭にある <code>&lt;h2&gt;</code> タグの中に挿入する．</li>
-<li><code>&lt;h2&gt;</code> タグ内にテキストが挿入されることによって，ページ内にタイトルが大きな文字で表示される．</li>
-<li>ページ内で表示するタイトルのスタイルを変えることを目的として，タイトルブロックの中でhtmlタグを使うことができる．しかし，タイトルブロック内でhtmlタグを駆使するのではなく，CSSで <code>.otree-title</code> クラスのスタイルを指定するべき．</li>
+<li>ページ内で表示するタイトルのスタイルを変えることを目的として，タイトルブロックの中でHTMLタグを使うことができる．しかし，タイトルブロック内でHTMLタグを駆使するのではなく，CSSで <code>.otree-title</code> クラスのスタイルを指定するべき．</li>
 </ul>
 </li>
 <li>コンテンツブロックを編集する．<ul>
 <li><code>{{ block content }}</code> と <code>{{ endblock }}</code> に挟まれた部分を「コンテンツブロック」と呼ぶ．</li>
-<li>コンテンツブロック内に，ページの本文を，htmlタグも適宜使って記述する．</li>
-<li>oTreeサーバーはテンプレートを解釈して，記述した内容を <code>&lt;body&gt;</code> 内の <code>&lt;form&gt;</code> タグの中に挿入する．</li>
+<li>コンテンツブロック内に，ページの本文を，HTMLタグも適宜使って記述する．</li>
 <li>説明文などの文章は <code>&lt;p&gt;</code> タグや <code>&lt;div&gt;</code> タグで記述する．<ul>
 <li>一般論として，<code>&lt;br&gt;</code> タグによる改行を多用するのではなく，段落ごと <code>&lt;p&gt;</code> タグを使うのが良い．</li>
 </ul>
@@ -707,7 +707,7 @@
 <h2 id="7-initpy-を編集する">7. <code>__init__.py</code> を編集する</h2>
 <ol>
 <li>【Pageパート】 まずテンプレートファイルの存在をoTreeに知らせる<ul>
-<li>（oTree3では，<code>pages.py</code> に記述していた内容）</li>
+<li>（oTree 3 では，<code>pages.py</code> に記述していた内容）</li>
 <li>表示するページごとに <code>Page</code> クラスを継承するクラスを設定する．</li>
 <li>クラスの名前はテンプレートファイルのファイル名と同じにする．</li>
 <li>クラスの名前がURLに表示される．<ul>
@@ -723,7 +723,7 @@
 </ul>
 </li>
 <li>【Modelパート】 入力フォームの変数をデータベースのどこに保存するかを設定する<ul>
-<li>（oTree3では，<code>models.py</code> に記述していた内容）</li>
+<li>（oTree 3 では，<code>models.py</code> に記述していた内容）</li>
 <li>player，group，subsessionの各階層で保存するべきデータの変数名を <code>Player</code> クラス，<code>Group</code> クラス，<code>Subsession</code> クラスのそれぞれで定義する．<ul>
 <li>公共財ゲームなど，プレイヤーに役割の区別がなく対称的な場合，意思決定データは一つの変数名でplayerの階層に保存しておけば良い．</li>
 <li>信頼ゲームにおける提案者・応答者など，プレイヤーに役割の区別があって，かつ，グループ内で一つの役割に複数のプレイヤーが縮退しない場合，各プレイヤーの意思決定データはグループにおいてユニークなので，playerの階層に保存するよりもgroupの階層に保存する方が良い．</li>
@@ -739,7 +739,7 @@
 <li><code>models.IntegerField()</code>: 整数型</li>
 <li><code>models.FloatField()</code>: 実数型</li>
 <li><code>models.StringField()</code>: 文字列型（デフォルトで10000字まで）</li>
-<li><code>models.LongStringField()</code>: テキスト型（可変長文字列型）</li>
+<li><code>models.LongStringField()</code>: 可変長文字列型</li>
 </ul>
 </li>
 <li><code>models.*Field()</code> の引数で，最大値と最小値などの検証の設定や，初期値や選択肢の設定ができる．<ul>
@@ -784,7 +784,7 @@
 <li>たとえばラボでくじを引いて，その結果を使って報酬額を計算する，ということもできる． <a href="https://otree.readthedocs.io/en/latest/misc/rest_api.html#session-vars-endpoint" target="_blank">https://otree.readthedocs.io/en/latest/misc/rest_api.html#session-vars-endpoint</a></li>
 </ul>
 </li>
-<li><code>C</code> クラス （oTree3では， <code>Constants</code>）で定数を定義する．<ul>
+<li><code>C</code> クラス （ oTree 3 では， <code>Constants</code> ）で定数を定義する．<ul>
 <li>必ず定義しなければならないもの:<ul>
 <li><code>NAME_IN_URL</code>: デフォルトではアプリ名の文字列が設定されている．任意に変えても良い．</li>
 <li><code>PLAYERS_PER_GROUP</code>: ゲーム実験の場合，各グループの人数（2以上）を設定する．グループを設定しない場合は <code>None</code> とする．</li>
@@ -801,7 +801,7 @@
 </ul>
 </li>
 <li>報酬を計算する関数などは，<code>__init__.py</code> のどこかに記述すれば良い．<ul>
-<li>oTree3では <code>Player</code> クラスなどの中でインスタンスメソッドとして定義していた．</li>
+<li>oTree 3 では <code>Player</code> クラスなどの中でインスタンスメソッドとして定義していた．</li>
 <li>関数を呼び出す前に関数を定義する必要がある．たとえばページクラスで関数を使いたい場合はページクラスを定義している行よりも上で関数を定義しなければならない．</li>
 <li>関数の引数に注意．<ul>
 <li>待機ページで <code>after_all_players_arrive</code> として呼び出したい場合，引数は <code>group</code> （<code>Group</code> クラスのインスタンスオブジェクト）とする．このとき，各プレイヤーに個別の処理をするときにはforループを使う．</li>
@@ -1085,7 +1085,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第4回","level":"1.1.4","depth":2,"next":{"title":"第5回","level":"1.1.5","depth":2,"path":"day5.md","ref":"day5.md","articles":[]},"previous":{"title":"第3回","level":"1.1.3","depth":2,"path":"day3.md","ref":"day3.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day4.md","mtime":"2022-06-11T09:59:51.545Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-12T10:26:17.926Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第4回","level":"1.1.4","depth":2,"next":{"title":"第5回","level":"1.1.5","depth":2,"path":"day5.md","ref":"day5.md","articles":[]},"previous":{"title":"第3回","level":"1.1.3","depth":2,"path":"day3.md","ref":"day3.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day4.md","mtime":"2022-06-13T14:20:27.192Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-13T14:21:01.034Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

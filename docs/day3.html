@@ -490,7 +490,7 @@
   sentry-sdk&gt;=<span class="hljs-number">0.7</span><span class="hljs-number">.9</span>
 </code></pre>
 </li>
-<li>↑コメントアウト中にも書かれていますが，「oTree-may-overwrite-this-file」の文字列があると，oTreeが勝手に <code>requirements.txt</code> を書き換えるため，自分でライブラリのバージョンを固定したり別のライブラリを追加したりする場合は注意する．</li>
+<li>↑コメントアウト中にも書かれているとおり，「oTree-may-overwrite-this-file」の文字列があると，oTreeが勝手に <code>requirements.txt</code> を書き換えるため，自分でライブラリのバージョンを固定したり別のライブラリを追加したりする場合は注意する．</li>
 <li>他人からoTreeプロジェクトのファイルをもらったときに，その人と同じパッケージを入れるには，以下のようにpipを使う．<pre><code class="lang-bash">  pip install -r requirements.txt
 </code></pre>
 </li>
@@ -507,7 +507,9 @@
 </li>
 <li><code>_static</code> ディレクトリ<ul>
 <li>画像ファイルやcssファイル，jsファイルを置いておく．</li>
-<li>ちなみにoTree本体が用意しているstaticの中身は以下:<pre><code>  .
+<li>ちなみにoTree本体が用意しているstaticの中身は以下:  <details>
+  <pre>
+  .
   ├── bootstrap5
   │   ├── css
   │   │   ├── bootstrap.min.css
@@ -551,7 +553,8 @@
   │       ├── reconnecting-websocket-iife.min.js
   │       └── table-utils.js
   └── robots.txt
-</code></pre></li>
+  </pre>
+  </details></li>
 <li>↑これと自分が <code>_static</code> ディレクトリに置いたものでパスが重複すると，自分が置いたものが優先される？</li>
 <li>画像ファイルならともかく，cssファイル，jsファイルを上書きするのは危険かも．</li>
 </ul>
@@ -637,7 +640,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第3回","level":"1.1.3","depth":2,"next":{"title":"第4回","level":"1.1.4","depth":2,"path":"day4.md","ref":"day4.md","articles":[]},"previous":{"title":"第2回","level":"1.1.2","depth":2,"path":"day2.md","ref":"day2.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day3.md","mtime":"2022-06-11T10:04:38.651Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-12T10:26:17.926Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第3回","level":"1.1.3","depth":2,"next":{"title":"第4回","level":"1.1.4","depth":2,"path":"day4.md","ref":"day4.md","articles":[]},"previous":{"title":"第2回","level":"1.1.2","depth":2,"path":"day2.md","ref":"day2.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day3.md","mtime":"2022-06-13T09:28:29.498Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-13T14:21:01.034Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

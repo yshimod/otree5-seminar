@@ -82,7 +82,7 @@
         psycopg2>=2.8.4
         sentry-sdk>=0.7.9
         ```
-    - ↑コメントアウト中にも書かれていますが，「oTree-may-overwrite-this-file」の文字列があると，oTreeが勝手に `requirements.txt` を書き換えるため，自分でライブラリのバージョンを固定したり別のライブラリを追加したりする場合は注意する．
+    - ↑コメントアウト中にも書かれているとおり，「oTree-may-overwrite-this-file」の文字列があると，oTreeが勝手に `requirements.txt` を書き換えるため，自分でライブラリのバージョンを固定したり別のライブラリを追加したりする場合は注意する．
     - 他人からoTreeプロジェクトのファイルをもらったときに，その人と同じパッケージを入れるには，以下のようにpipを使う．
         ```bash
         pip install -r requirements.txt
@@ -99,7 +99,8 @@
 - `_static` ディレクトリ
     - 画像ファイルやcssファイル，jsファイルを置いておく．
     - ちなみにoTree本体が用意しているstaticの中身は以下:
-        ```
+        <details>
+        <pre>
         .
         ├── bootstrap5
         │   ├── css
@@ -144,7 +145,8 @@
         │       ├── reconnecting-websocket-iife.min.js
         │       └── table-utils.js
         └── robots.txt
-        ```
+        </pre>
+        </details>
     - ↑これと自分が `_static` ディレクトリに置いたものでパスが重複すると，自分が置いたものが優先される？
     - 画像ファイルならともかく，cssファイル，jsファイルを上書きするのは危険かも．
 - `_templates` ディレクトリ

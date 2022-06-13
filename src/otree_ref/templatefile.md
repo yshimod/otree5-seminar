@@ -7,16 +7,10 @@
 - タイトルブロックを編集する．
     - `{{ block title }}` と `{{ endblock }}` に挟まれた部分（デフォルトでは `Page title` と入っている部分）を「タイトルブロック」と呼ぶ．
     - タイトルブロック内に，ページの冒頭で表示するタイトルを記述する．
-    - oTreeサーバーはテンプレートを解釈して，記述した内容を `<head>` の `<title>` タグの中身（ブラウザウィンドウのタイトルに表示される）と，`<body>` の冒頭にある `<h2>` タグの中に挿入する．
-    - `<h2>` タグ内にテキストが挿入されることによって，ページ内にタイトルが大きな文字で表示される．
-    - ページ内で表示するタイトルのスタイルを変えることを目的として，タイトルブロックの中でhtmlタグを使うことができる．しかし，タイトルブロック内でhtmlタグを駆使するのではなく，CSSで `.otree-title` クラスのスタイルを指定するべき．
 - コンテンツブロックを編集する．
     - `{{ block content }}` と `{{ endblock }}` に挟まれた部分を「コンテンツブロック」と呼ぶ．
-    - コンテンツブロック内に，ページの本文を，htmlタグも適宜使って記述する．
-    - oTreeサーバーはコンテンツブロック内の記述したものを `<body>` 内の `<form>` タグの中に挿入する．`<form>` タグに `method="post"` が設定されているため，`<form>` タグ内の `<input>` 要素等のデータがPOSTメソッドでサーバーに送信される．
-    - したがって，サーバーに送信したいデータの入力フォームを作るためには，コンテンツブロック内に `<input>` タグなどを記述する．このとき `name` 属性に，記録するデータの変数名を設定する．
-    - 説明文などの文章は `<p>` タグや `<div>` タグで記述する．
-        - 一般論として，`<br>` タグによる改行を多用するのではなく，段落ごと `<p>` タグを使うのが良い．
+    - コンテンツブロック内に，ページの本文を，HTMLタグも適宜使って記述する．
+
 
 
 ## 変数の展開
@@ -26,17 +20,17 @@
     ```html
     <p>あなたの初期保有は{{ C.ENDOWMENT }}ポイントです．</p>
     ```
-    と記述したとき，クライアントがoTreeサーバーから受け取るhtmlデータは，
+    と記述したとき，クライアントがoTreeサーバーから受け取るHTMLデータは，
     ```html
     <p>あなたの初期保有は1000ポイントです．</p>
     ```
     となる．
 - 以下のインスタンスオブジェクトが使える．
-    - `player`: the player currently viewing the page
-    - `group`: the group the current player belongs to
-    - `subsession`: the subsession the current player belongs to
-    - `participant`: the participant the current player belongs to
-    - `session`: the current session
+    - `player`
+    - （当該 player の） `group`
+    - （当該 player の） `subsession`
+    - （当該 player の） `participant`
+    - （当該 player の） `session`
     - `C`
 - 変数の演算はほとんどできない．
     - たとえば `{{ C.ENDOWMENT * 10 }}` として値を10倍して表示する，という使い方はできない．
@@ -231,7 +225,7 @@
 
 ### `include`
 - テンプレート中で，別の（サブ）テンプレートファイルを読み込むことができる．
-- たとえば意思決定画面でもインストラクションを表示させたいときに，インストラクションの本文（タイトルブロックや「次へ」ボタンなどを除いた部分）だけを別のHTMLファイル（同じアプリ `publicgoodsgame` のディレクトリ内の `instr.html` ）として作っておく．作ったHTMLを以下のようにして読み込むと，読み込んだファイル全体が `{{ include ... }}` を記述した部分に展開される．
+- たとえば意思決定画面でもインストラクションを表示させたいときに，インストラクションの本文（タイトルブロックや「次へ」ボタンなどを除いた部分）だけを別のHTMLファイル（同じアプリ `publicgoodsgame` のディレクトリ内の `instr.html` ）として作っておく．作ったHTMLを以下のようにして読み込むと，読み込んだファイル全体が `{{ include "パス" }}` を記述した部分に展開される．
     ```html
     {{ include "publicgoodsgame/instr.html" }}
     ```
@@ -240,20 +234,55 @@
         ```html
         {{ include "publicgoodsgame/instr.html" with thisyear=2022 }}
         ```
-        と記述すると，`instr.html` の `{{ thisyear }}` に「2022」を展開した上で，`instr.html` 全体が `{{ include ... }}` を記述した部分に展開される．
+        と記述すると，`instr.html` の `{{ thisyear }}` に「2022」を展開した上で，`instr.html` 全体が `{{ include "パス" }}` を記述した部分に展開される．
 
 
 ### `static`
-- プロジェクトディレクトリ直下の `_static` ディレクトリに置いたものを読み込むことができる．
+- プロジェクトディレクトリ直下の `_static` ディレクトリに置いたファイルについて，開発環境でのパスとブラウザが認識できるパスは異なる．ブラウザが認識できるパスを取得するために `static` タグを使う．
+- たとえば `_static/global` ディレクトリに画像ファイル `photo.png` を置いて，それを表示させるためには，テンプレートに  
+    ```html
+    <img src="{{ static 'global/photo.png' }}"/>
+    ```
+    と記述する．これを oTree は
+    ```html
+    <img src="/static/global/photo.png">
+    ```
+    と生成する．
 
 
 ### `extends`
+- 親テンプレートファイル（たとえば `myapp` なるアプリのディレクトリに `mytemplate.html` なるファイル）を自分で作ったとき，（ページクラスの `template_name` で指定する）テンプレートファイルの冒頭で `{{ extends "myapp/mytemplate.html" }}` と記述しておけば，自分で作った親テンプレートファイルの記述を継承できる．
+- 親テンプレートファイルを作るとき，その冒頭に `{{ extends "otree/Page.html" }}` と記述する必要がある．
 
 
 ### `block`
+- タイトルブロック: `{{ block title }}` と `{{ endblock }}` に挟まれた部分．
+    - タイトルブロック内に，ページの冒頭で表示するタイトルを記述する．
+    - oTreeサーバーはテンプレートを解釈して，記述した内容を `<head>` の `<title>` タグの中身（ブラウザウィンドウのタイトルに表示される）と，`<body>` の冒頭にある `<h2>` タグの中に挿入する．
+    - `<h2>` タグ内にテキストが挿入されることによって，ページ内にタイトルが大きな文字で表示される．
+- コンテンツブロック: `{{ block content }}` と `{{ endblock }}` に挟まれた部分．
+    - コンテンツブロック内に，ページの本文を，HTMLタグも適宜使って記述する．
+    - oTreeサーバーはテンプレートを解釈して，記述した内容を `<body>` 内の `<form>` タグの中に挿入する．
+    - `<form>` タグに `method="post"` が設定されているため，`<form>` タグ内の `<input>` 要素等のデータがPOSTメソッドでサーバーに送信される．
+- テンプレートで `{{ block styles }} {{ endblock }}` のブロックを使えば，挟まれた部分が HTML の `<head>` タグ内に置かれる．
+    - `<style>` タグで直接 CSS を書ける．
+    - CSSファイルを `<link rel="stylesheet" href="ここにURL">` や `<link rel="stylesheet" href="{{ static 'パス' }}">` として読み込むのも良い．
+- テンプレートで `{{ block scripts }} {{ endblock }}` のブロックを使えば，挟まれた部分が HTML の `<body>` タグ内の一番下に置かれる．
+    - `<script type="text/javascript">` タグで直接 JavaScript を書ける．
+    - JavaScriptファイルを `<script src="ここにURL"></script>` や `<script type="text/javascript" src="{{ static 'パス' }}"></script>` として読み込むのも良い．
+    - （oTree が想定した使い方ではないが，） `<form>` タグ内に記述したくない要素を記述するのにも使えそう．
+- 自分で親テンプレートファイルを作りそこで独自のブロックを定義したとき，子テンプレートファイルで親テンプレートファイルを `extends` すれば独自のブロックが使える．
+
 
 
 ### `with`
+- テンプレートファイルにおいて変数を定義して展開できる．
+- たとえば以下のようにして使う．  
+    ```html
+    {{ with ritoku = player.payoff }}
+        <p>あなたの利得は{{ ritoku }}です．
+    {{ endwith }}
+    ```
 
 
 ### `formfield`
@@ -266,9 +295,16 @@
 
 
 ### `next_button`
+- `{{ next_button }}` と記述すれば，oTreeサーバーが以下の `<button>` タグを生成してくれる．  
+    ```html
+    <button class="otree-btn-next btn btn-primary">次へ</button>
+    ```
 
 
 ### `chat`
+- `{{ chat }}` と記述すれば，チャット機能が実装される．
+- [https://otree.readthedocs.io/en/latest/multiplayer/chat.html](https://otree.readthedocs.io/en/latest/multiplayer/chat.html)
+
 
 
 

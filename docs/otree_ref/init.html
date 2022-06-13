@@ -397,7 +397,7 @@
 <li><code>otree.api</code> のインポート<pre><code class="lang-python">  <span class="hljs-keyword">from</span> otree.api <span class="hljs-keyword">import</span> *
 </code></pre>
 <ul>
-<li>oTree3ではインポートするものを細かく指定していた． <a href="https://otree.readthedocs.io/en/latest/misc/noself.html#about-the-new-format" target="_blank">https://otree.readthedocs.io/en/latest/misc/noself.html#about-the-new-format</a></li>
+<li>oTree 3 ではインポートするものを細かく指定していた． <a href="https://otree.readthedocs.io/en/latest/misc/noself.html#about-the-new-format" target="_blank">https://otree.readthedocs.io/en/latest/misc/noself.html#about-the-new-format</a></li>
 </ul>
 </li>
 <li>他にも使いたいモジュール（<code>time</code>，<code>random</code>，<code>json</code>，<code>numpy</code>など）があれば，冒頭でインポートしておく．</li>
@@ -412,7 +412,7 @@
 </li>
 <li>公式ドキュメントには，辞書型の変数はメソッドで定義せよ，とあるが，辞書型の変数も普通に定義できそう．</li>
 <li>マナーとして変数名は大文字にしておくと良い？</li>
-<li>oTree3では <code>Constants</code> なるクラスで設定していた．</li>
+<li>oTree 3 では <code>Constants</code> なるクラスで設定していた．</li>
 </ul>
 <h3 id="nameinurl"><code>NAME_IN_URL</code></h3>
 <ul>
@@ -597,7 +597,6 @@
 <li><code>set_players(new_structure)</code><ul>
 <li>group 内の役割（ <code>id_in_group</code> ）を自分で決めて設定する．</li>
 <li>引数は player オブジェクトのリスト．自然数のリスト（たとえば <code>id_in_group</code> のリスト）ではないことに注意．</li>
-<li>組み込み関数 <code>creating_session()</code> の中で使うのが良い？</li>
 </ul>
 </li>
 <li><code>field_maybe_none()</code><ul>
@@ -682,27 +681,103 @@
 <p><a href="https://otree.readthedocs.io/en/latest/models.html#fields" target="_blank">https://otree.readthedocs.io/en/latest/models.html#fields</a></p>
 <ul>
 <li><code>models.BooleanField</code><ul>
-<li><code>choices</code></li>
-<li><code>widget</code></li>
-<li><code>initial</code></li>
-<li><code>label</code></li>
-<li><code>doc</code></li>
-<li><code>blank</code></li>
+<li>ブール型．</li>
+<li>CSVファイルを出力するときは0/1で表示される．</li>
+<li><code>choices</code><ul>
+<li><code>True</code> のラベルを「協力」とする場合は以下のように記述する．<pre><code class="lang-python">  choices = [
+      [<span class="hljs-literal">True</span>, <span class="hljs-string">&quot;協力&quot;</span>],
+      [<span class="hljs-literal">False</span>, <span class="hljs-string">&quot;非協力&quot;</span>]
+  ]
+</code></pre>
+</li>
+<li>テンプレートタグで入力フォームを作るとき，（ <code>widget = widgets.RadioSelect</code> と指定しなくても）ラジオボタンでフォームが生成され，ラベルは <code>choices</code> で設定したものが表示される．</li>
+</ul>
+</li>
+<li><code>widget</code><ul>
+<li><code>choices</code> を指定せずに <code>widget = widgets.CheckboxInput</code> と指定すると，チェックボックスでフォームが生成される．</li>
+</ul>
+</li>
+<li><code>initial</code><ul>
+<li>初期値を設定する場合は指定する．</li>
+<li><code>initial</code> を指定していないとき，タイムアウトが発生すると <code>False</code> が入る．</li>
+<li>入力する機会がなければ <code>None</code> のまま．</li>
+</ul>
+</li>
+<li><code>label</code><ul>
+<li>テンプレートタグで入力フォームを作るとき，<code>label</code> に指定した文字列が （ <code>&lt;input&gt;</code> タグに対応する） <code>&lt;label&gt;</code> タグで生成される．</li>
+<li><code>label = &quot;&quot;</code> としてあるとき，以前はもコロンだけが必ず表示されていたが，いつの間にか改善され，最新バージョンでは <code>&lt;label&gt;</code> タグ自体生成されない．</li>
+</ul>
+</li>
+<li><code>doc</code><ul>
+<li>ドキュメントを記述してもよいが，（アプリなどのドキュメントとは異なり）管理者画面で自動的にドキュメントが表示されるような仕組みは無さそう．</li>
+</ul>
+</li>
+<li><code>blank</code><ul>
+<li>強制回答にしない場合は <code>blank = True</code> とする．</li>
+</ul>
+</li>
 </ul>
 </li>
 <li><code>models.CurrencyField</code><ul>
-<li><code>choices</code></li>
-<li><code>widget</code></li>
-<li><code>initial</code></li>
+<li>通貨型．</li>
+<li>整数型や浮動小数点型の値を渡すと通貨型に変換される．</li>
+<li><code>choices</code><ul>
+<li><code>choices</code> を指定して，テンプレートタグで入力フォームを作るとき，デフォルトではドロップダウンメニューが生成される．</li>
+<li>組み込み関数 <code>currency_range(first, last, increment)</code> を使うと便利かも．<ul>
+<li><code>cu(first)</code> ポイントから（最大） <code>cu(last)</code> ポイントまで <code>cu(increment)</code> ポイント刻みの等差数列（リスト）が返ってくる．</li>
+<li>たとえば <code>choices = currency_range(0, 10, 3)</code> とすると「0ポイント」，「3ポイント」，「6ポイント」，「9ポイント」なる選択肢が生成される．</li>
+</ul>
+</li>
+<li>ラベルを設定するとき，以下のように記述できる．<pre><code class="lang-python">  choices = [
+      [cu(<span class="hljs-number">0</span>), <span class="hljs-string">&quot;利己的&quot;</span>],
+      [cu(<span class="hljs-number">300</span>), <span class="hljs-string">&quot;効率&quot;</span>],
+      [cu(<span class="hljs-number">500</span>), <span class="hljs-string">&quot;平等&quot;</span>]
+  ]
+</code></pre>
+</li>
+<li><code>choices</code> を指定した上で入力フォームを HTML タグ直打ちで実装する場合，送信される値を通貨型に変換した（丸められた）ものが <code>choices</code> で指定したリストに含まれないと oTree サーバーの検証に引っかかる．</li>
+</ul>
+</li>
+<li><code>widget</code><ul>
+<li><code>choices</code> を指定した上で <code>widget = widgets.RadioSelect</code> と指定すると，選択肢がラジオボタンで生成される．</li>
+</ul>
+</li>
+<li><code>initial</code><ul>
+<li>初期値を設定する場合は指定する．</li>
+<li><code>initial</code> を指定していないとき，タイムアウトが発生すると <code>cu(0)</code> が入る．</li>
+</ul>
+</li>
 <li><code>label</code></li>
 <li><code>doc</code></li>
-<li><code>min</code></li>
-<li><code>max</code></li>
+<li><code>min</code><ul>
+<li>最小値．</li>
+<li>通貨型の設定でポイント表示を使っているときに <code>min = 0</code> として，かつ入力フォームを HTML タグ直打ちで実装する場合，入力フォームの値が「-0.49」でも oTree サーバーの検証は通過する．ただしデータベースには「0」で記録される．</li>
+</ul>
+</li>
+<li><code>max</code><ul>
+<li>最大値．</li>
+</ul>
+</li>
 <li><code>blank</code></li>
 </ul>
 </li>
 <li><code>models.IntegerField</code><ul>
-<li><code>choices</code></li>
+<li>整数型．</li>
+<li>浮動小数点型の値を渡すとエラーとなる（入力フォームの送信時は oTree サーバーの検証に引っかかる）．</li>
+<li>テンプレートタグで自由記述の入力フォームを作るとき， <code>type=&quot;number&quot;</code> とした <code>&lt;input&gt;</code> で生成されるため，数字以外は入力できない．</li>
+<li><code>choices</code><ul>
+<li>リッカート尺度の入力フォームを実装する場合，たとえば以下のように記述する．<pre><code class="lang-python">  choices = [
+      [<span class="hljs-number">1</span>, <span class="hljs-string">&quot;全く同意できない&quot;</span>],
+      [<span class="hljs-number">2</span>, <span class="hljs-string">&quot;同意できない&quot;</span>],
+      [<span class="hljs-number">3</span>, <span class="hljs-string">&quot;どちらともいえない&quot;</span>],
+      [<span class="hljs-number">4</span>, <span class="hljs-string">&quot;同意できる&quot;</span>],
+      [<span class="hljs-number">5</span>, <span class="hljs-string">&quot;非常に同意できる&quot;</span>],
+      [<span class="hljs-number">99</span>, <span class="hljs-string">&quot;わからない&quot;</span>]
+  ]
+</code></pre>
+</li>
+</ul>
+</li>
 <li><code>widget</code></li>
 <li><code>initial</code></li>
 <li><code>label</code></li>
@@ -713,6 +788,9 @@
 </ul>
 </li>
 <li><code>models.FloatField</code><ul>
+<li>浮動小数点型．</li>
+<li>Pythonの float と同様，15桁の有効桁数までは正確に表現できる．</li>
+<li>テンプレートタグで自由記述の入力フォームを作るとき， <code>type=&quot;text&quot;</code> とした <code>&lt;input&gt;</code> で生成されるため，数字以外も入力できてしまうが，文字列が送信されると oTree サーバーの検証に引っかかる．</li>
 <li><code>choices</code></li>
 <li><code>widget</code></li>
 <li><code>initial</code></li>
@@ -724,20 +802,39 @@
 </ul>
 </li>
 <li><code>models.StringField</code><ul>
+<li>文字列型．</li>
+<li>10000字（<code>max_length</code> 字）を超えると， oTree サーバーの検証に引っかかる．</li>
+<li>テンプレートタグで自由記述の入力フォームを作るとき， <code>type=&quot;text&quot;</code> とした <code>&lt;input&gt;</code> で生成される．</li>
+<li>たとえば <code>input1 = models.StringField()</code> と定義して，入力されたものをテンプレートで展開して表示するとき， <code>{{ input1 | escape }}</code> というように <code>escape</code> フィルターを使ったほうが良い（ oTree 3 ではデフォルトでエスケープされていた）．<ul>
+<li>たとえば参加者が「<code>&lt;script&gt;alert(&apos;あなたは対策不足です！&apos;);&lt;/script&gt;</code>」と入力したとき， <code>{{ input1 }}</code> が展開されると， <code>&lt;script&gt;</code>で記述した JavaScript コードが実際に実行される（アラートが表示される）．</li>
+<li>悪用されないように対策するべき．詳しくは「クロスサイトスクリプティング」で検索．</li>
+</ul>
+</li>
 <li><code>choices</code></li>
 <li><code>widget</code></li>
 <li><code>initial</code></li>
 <li><code>label</code></li>
 <li><code>doc</code></li>
-<li><code>max_length=10000</code></li>
+<li><code>max_length</code><ul>
+<li>デフォルトは <code>max_length=10000</code>．</li>
+</ul>
+</li>
 <li><code>blank</code></li>
 </ul>
 </li>
 <li><code>models.LongStringField</code><ul>
+<li>可変長文字列型．</li>
+<li><code>models.StringField</code> と異なり，文字数制限なし．</li>
+<li>テンプレートタグで自由記述の入力フォームを作るとき， <code>&lt;textarea&gt;</code> タグで生成される．複数行入力できるが，入力された値に含まれる改行コードは空白に置換される．</li>
+<li><code>choices</code> は使用できない．</li>
+<li>以上のこと以外は <code>models.StringField</code> と同じ．</li>
 <li><code>initial</code></li>
 <li><code>label</code></li>
 <li><code>doc</code></li>
-<li><code>max_length=None</code></li>
+<li><code>max_length</code><ul>
+<li>デフォルトは <code>max_length=None</code>．</li>
+</ul>
+</li>
 <li><code>blank</code></li>
 </ul>
 </li>
@@ -745,9 +842,9 @@
 <h3 id="widget-として使えるもの">widget として使えるもの</h3>
 <p><a href="https://otree.readthedocs.io/en/latest/forms.html#widgets" target="_blank">https://otree.readthedocs.io/en/latest/forms.html#widgets</a></p>
 <ul>
-<li><code>CheckboxInput</code></li>
-<li><code>RadioSelect</code></li>
-<li><code>RadioSelectHorizontal</code></li>
+<li><code>widgets.CheckboxInput</code></li>
+<li><code>widgets.RadioSelect</code></li>
+<li><code>widgets.RadioSelectHorizontal</code></li>
 </ul>
 <h3 id="入力フォームとの対応">入力フォームとの対応</h3>
 <p><a href="https://otree.readthedocs.io/en/latest/forms.html#raw-html-widgets" target="_blank">https://otree.readthedocs.io/en/latest/forms.html#raw-html-widgets</a></p>
@@ -778,7 +875,7 @@
 </ul>
 </li>
 <li><code>form_model</code><ul>
-<li>当該ページで使う入力フォームのモデルを <code>player</code>， <code>group</code>， <code>subsession</code> から選んで文字列を渡す．</li>
+<li>当該ページで使う入力フォームのモデルを <code>&quot;player&quot;</code>， <code>&quot;group&quot;</code>， <code>&quot;subsession&quot;</code> から選んで文字列を渡す．</li>
 <li>どれか一つしか選べない．一つのページで player モデルの変数と group モデルの変数の両方の入力フォームを置くことはできない．たとえばとりあえず全部 player モデルでデータを記録しておき， oTree 内部で group モデルの変数に転記する，などで対処する．</li>
 <li>動的に変更することはできない．</li>
 </ul>
@@ -1072,7 +1169,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"__init__.py の書き方","level":"2.4","depth":1,"next":{"title":"テンプレートファイルの書き方","level":"2.5","depth":1,"path":"otree_ref/templatefile.md","ref":"otree_ref/templatefile.md","articles":[]},"previous":{"title":"settings.py の書き方","level":"2.3","depth":1,"path":"otree_ref/settings.md","ref":"otree_ref/settings.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"otree_ref/init.md","mtime":"2022-06-11T13:49:25.625Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-12T10:26:17.926Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"__init__.py の書き方","level":"2.4","depth":1,"next":{"title":"テンプレートファイルの書き方","level":"2.5","depth":1,"path":"otree_ref/templatefile.md","ref":"otree_ref/templatefile.md","articles":[]},"previous":{"title":"settings.py の書き方","level":"2.3","depth":1,"path":"otree_ref/settings.md","ref":"otree_ref/settings.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"otree_ref/init.md","mtime":"2022-06-13T12:34:27.040Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-13T14:21:01.034Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

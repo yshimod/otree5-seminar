@@ -27,6 +27,7 @@
 - 実験本番のためにサーバーを起動するコマンド．
 - 起動後（ポートを特定しなければ） `http://localhost:8000` で管理者画面にアクセスできる．
 - `devserver` コマンドとは異なり，稼働中にWebサーバーのログがシェル標準出力される．
+- `devserver` コマンドとは異なり，クライアントがブラウザーを閉じているときにタイムアウトが発生すると，クライアントの代わりに，サーバーが自分宛てにフォームを送信する．これは時間制限 + 6秒のタイミングで行われる．
 - 使い方
     - `otree prodserver`
     - `otree prodserver 8000`
@@ -40,6 +41,7 @@
 - Heroku用の `Procfile` で Worker dyno のコマンドとして設定されているが，実のところ何もしない．互換性対応で残っている．
 
 ## `remove_self`
+- [https://otree.readthedocs.io/en/latest/misc/noself.html](https://otree.readthedocs.io/en/latest/misc/noself.html)
 
 ## `resetdb`
 - データベースをリセットする．
@@ -86,6 +88,7 @@
 ## `test`
 
 ## `unzip`
+- `.otreezip` ファイルを解凍する．
 
 ## `update_my_code`
 - oTree バージョン3スタイルのコードをバージョン5のスタイルに変更するコマンド．ただし，コマンドを実行して成功したように見えても，実際のところ不備が残っているかもしれないので，確認を要する．
@@ -93,5 +96,11 @@
 - `update_my_code` の後に， `remove_self` や `upcase_constants` の実行をおすすめされる．
 
 ## `zip`
+- oTree プロジェクトのディレクトリで `otree zip` を実行すると，ディレクトリ内の `.git`， `db.sqlite3`， `.pyo`， `.pyc`， `.pyd`， `.idea`， `.DS_Store`， `.otreezip`， `venv`， `_static_root`， `staticfiles`， `__pycache__`， `.env` を除外して zipファイルに圧縮する．
+- `requirements.txt` が無い場合，エラーとなる．
+- `requirements.txt` に記述されているパッケージのバージョンが古い場合，最新バージョンを使うように書き換えるか聞いてくる．
+- `runtime.txt` が無い場合，勝手に生成して追加する．存在する場合も勝手に書き換える．
+- 圧縮されたファイルは `.otreezip` なる拡張子で保存される．解凍するには `otree unzip ファイルパス`．
 
 ## `zipserver`
+- `.otreezip` ファイルのまま，サーバーを起動できる．

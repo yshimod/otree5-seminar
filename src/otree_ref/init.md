@@ -10,7 +10,7 @@
     ```python
     from otree.api import *
     ```
-    - oTree3ではインポートするものを細かく指定していた． [https://otree.readthedocs.io/en/latest/misc/noself.html#about-the-new-format](https://otree.readthedocs.io/en/latest/misc/noself.html#about-the-new-format)
+    - oTree 3 ではインポートするものを細かく指定していた． [https://otree.readthedocs.io/en/latest/misc/noself.html#about-the-new-format](https://otree.readthedocs.io/en/latest/misc/noself.html#about-the-new-format)
 - 他にも使いたいモジュール（`time`，`random`，`json`，`numpy`など）があれば，冒頭でインポートしておく．
 
 
@@ -22,7 +22,7 @@
     - セッションごと（トリートメントごと）変化しうる変数はクラス `C` ではなく `settings.py` の `SESSION_CONFIGS` の中で定義するべき． `SESSION_CONFIGS` で定義した変数（ `session.変数` ）はCSVデータ出力に含まれる．
 - 公式ドキュメントには，辞書型の変数はメソッドで定義せよ，とあるが，辞書型の変数も普通に定義できそう．
 - マナーとして変数名は大文字にしておくと良い？
-- oTree3では `Constants` なるクラスで設定していた．
+- oTree 3 では `Constants` なるクラスで設定していた．
 
 ### `NAME_IN_URL`
 - URLにアプリ名として表示するものを設定．
@@ -166,7 +166,6 @@
 - `set_players(new_structure)`
     - group 内の役割（ `id_in_group` ）を自分で決めて設定する．
     - 引数は player オブジェクトのリスト．自然数のリスト（たとえば `id_in_group` のリスト）ではないことに注意．
-    - 組み込み関数 `creating_session()` の中で使うのが良い？
 - `field_maybe_none()`
     - 引数: フォームの変数名（文字列）．
     - 返り値: 引数の変数の値．変数の値が `None` であれば `None` がエラーを出すことなく返ってくる．
@@ -225,23 +224,76 @@
 [https://otree.readthedocs.io/en/latest/models.html#fields](https://otree.readthedocs.io/en/latest/models.html#fields)
 
 - `models.BooleanField`
+    - ブール型．
+    - CSVファイルを出力するときは0/1で表示される．
     - `choices`
+        - `True` のラベルを「協力」とする場合は以下のように記述する．
+            ```python
+            choices = [
+                [True, "協力"],
+                [False, "非協力"]
+            ]
+            ```
+        - テンプレートタグで入力フォームを作るとき，（ `widget = widgets.RadioSelect` と指定しなくても）ラジオボタンでフォームが生成され，ラベルは `choices` で設定したものが表示される．
     - `widget`
+        - `choices` を指定せずに `widget = widgets.CheckboxInput` と指定すると，チェックボックスでフォームが生成される．
     - `initial`
+        - 初期値を設定する場合は指定する．
+        - `initial` を指定していないとき，タイムアウトが発生すると `False` が入る．
+        - 入力する機会がなければ `None` のまま．
     - `label`
+        - テンプレートタグで入力フォームを作るとき，`label` に指定した文字列が （ `<input>` タグに対応する） `<label>` タグで生成される．
+        - `label = ""` としてあるとき，以前はもコロンだけが必ず表示されていたが，いつの間にか改善され，最新バージョンでは `<label>` タグ自体生成されない．
     - `doc`
+        - ドキュメントを記述してもよいが，（アプリなどのドキュメントとは異なり）管理者画面で自動的にドキュメントが表示されるような仕組みは無さそう．
     - `blank`
+        - 強制回答にしない場合は `blank = True` とする．
 - `models.CurrencyField`
+    - 通貨型．
+    - 整数型や浮動小数点型の値を渡すと通貨型に変換される．
     - `choices`
+        - `choices` を指定して，テンプレートタグで入力フォームを作るとき，デフォルトではドロップダウンメニューが生成される．
+        - 組み込み関数 `currency_range(first, last, increment)` を使うと便利かも．
+            - `cu(first)` ポイントから（最大） `cu(last)` ポイントまで `cu(increment)` ポイント刻みの等差数列（リスト）が返ってくる．
+            - たとえば `choices = currency_range(0, 10, 3)` とすると「0ポイント」，「3ポイント」，「6ポイント」，「9ポイント」なる選択肢が生成される．
+        - ラベルを設定するとき，以下のように記述できる．
+            ```python
+            choices = [
+                [cu(0), "利己的"],
+                [cu(300), "効率"],
+                [cu(500), "平等"]
+            ]
+            ```
+        - `choices` を指定した上で入力フォームを HTML タグ直打ちで実装する場合，送信される値を通貨型に変換した（丸められた）ものが `choices` で指定したリストに含まれないと oTree サーバーの検証に引っかかる．
     - `widget`
+        - `choices` を指定した上で `widget = widgets.RadioSelect` と指定すると，選択肢がラジオボタンで生成される．
     - `initial`
+        - 初期値を設定する場合は指定する．
+        - `initial` を指定していないとき，タイムアウトが発生すると `cu(0)` が入る．
     - `label`
     - `doc`
     - `min`
+        - 最小値．
+        - 通貨型の設定でポイント表示を使っているときに `min = 0` として，かつ入力フォームを HTML タグ直打ちで実装する場合，入力フォームの値が「-0.49」でも oTree サーバーの検証は通過する．ただしデータベースには「0」で記録される．
     - `max`
+        - 最大値．
     - `blank`
 - `models.IntegerField`
+    - 整数型．
+    - 浮動小数点型の値を渡すとエラーとなる（入力フォームの送信時は oTree サーバーの検証に引っかかる）．
+    - テンプレートタグで自由記述の入力フォームを作るとき， `type="number"` とした `<input>` で生成されるため，数字以外は入力できない．
     - `choices`
+        - リッカート尺度の入力フォームを実装する場合，たとえば以下のように記述する．
+            ```python
+            choices = [
+                [1, "全く同意できない"],
+                [2, "同意できない"],
+                [3, "どちらともいえない"],
+                [4, "同意できる"],
+                [5, "非常に同意できる"],
+                [99, "わからない"]
+            ]
+            ```
     - `widget`
     - `initial`
     - `label`
@@ -250,6 +302,9 @@
     - `max`
     - `blank`
 - `models.FloatField`
+    - 浮動小数点型．
+    - Pythonの float と同様，15桁の有効桁数までは正確に表現できる．
+    - テンプレートタグで自由記述の入力フォームを作るとき， `type="text"` とした `<input>` で生成されるため，数字以外も入力できてしまうが，文字列が送信されると oTree サーバーの検証に引っかかる．
     - `choices`
     - `widget`
     - `initial`
@@ -259,27 +314,40 @@
     - `max`
     - `blank`
 - `models.StringField`
+    - 文字列型．
+    - 10000字（`max_length` 字）を超えると， oTree サーバーの検証に引っかかる．
+    - テンプレートタグで自由記述の入力フォームを作るとき， `type="text"` とした `<input>` で生成される．
+    - たとえば `input1 = models.StringField()` と定義して，入力されたものをテンプレートで展開して表示するとき， `{{ input1 | escape }}` というように `escape` フィルターを使ったほうが良い（ oTree 3 ではデフォルトでエスケープされていた）．
+        - たとえば参加者が「`<script>alert('あなたは対策不足です！');</script>`」と入力したとき， `{{ input1 }}` が展開されると， `<script>`で記述した JavaScript コードが実際に実行される（アラートが表示される）．
+        - 悪用されないように対策するべき．詳しくは「クロスサイトスクリプティング」で検索．
     - `choices`
     - `widget`
     - `initial`
     - `label`
     - `doc`
-    - `max_length=10000`
+    - `max_length`
+        - デフォルトは `max_length=10000`．
     - `blank`
 - `models.LongStringField`
+    - 可変長文字列型．
+    - `models.StringField` と異なり，文字数制限なし．
+    - テンプレートタグで自由記述の入力フォームを作るとき， `<textarea>` タグで生成される．複数行入力できるが，入力された値に含まれる改行コードは空白に置換される．
+    - `choices` は使用できない．
+    - 以上のこと以外は `models.StringField` と同じ．
     - `initial`
     - `label`
     - `doc`
-    - `max_length=None`
+    - `max_length`
+        - デフォルトは `max_length=None`．
     - `blank`
 
 
 ### widget として使えるもの
 [https://otree.readthedocs.io/en/latest/forms.html#widgets](https://otree.readthedocs.io/en/latest/forms.html#widgets)
 
-- `CheckboxInput`
-- `RadioSelect`
-- `RadioSelectHorizontal`
+- `widgets.CheckboxInput`
+- `widgets.RadioSelect`
+- `widgets.RadioSelectHorizontal`
 
 
 ### 入力フォームとの対応
@@ -307,7 +375,7 @@
         - `template_name = 'app_name/MyPage.html'`
         - 同一アプリ内であれば， `template_name = __name__ + '/MyPage.html'` と書いても良い．
 - `form_model`
-    - 当該ページで使う入力フォームのモデルを `player`， `group`， `subsession` から選んで文字列を渡す．
+    - 当該ページで使う入力フォームのモデルを `"player"`， `"group"`， `"subsession"` から選んで文字列を渡す．
     - どれか一つしか選べない．一つのページで player モデルの変数と group モデルの変数の両方の入力フォームを置くことはできない．たとえばとりあえず全部 player モデルでデータを記録しておき， oTree 内部で group モデルの変数に転記する，などで対処する．
     - 動的に変更することはできない．
 - `form_fields`

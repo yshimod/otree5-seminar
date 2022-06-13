@@ -401,7 +401,7 @@
 </ul>
 </li>
 </ul>
-<p>この勉強会を始める時点で，どのレベルの知識を知っているかという前提と，何ができるようになるかという目標を明確にしていなかったため，初心者向けを装いながら，実際のところオタク向けの内容になっています．</p>
+<p>この勉強会を始める時点で，どのレベルの知識を知っているかという前提と，何ができるようになるかという目標を明確にしていなかったため，初心者向けを装いながら，これまでのところオタク向けの内容になっています．</p>
 <p><a href="day4.html">第4回</a>で，どのようにコードを書いていくのかの手順を説明したつもりではあるのですが，やはり初心者には難解ではないかと思われます．
 文字資料だけでは何をどうしたらよいか分からないという方は動画を見て勉強するのが良いでしょう．
 たとえば，<a href="https://sites.google.com/site/jonasfreysite/" target="_blank">Jonas Freyさん</a>によるoTreeチュートリアルの動画は有用です．</p>
@@ -433,10 +433,71 @@
 <li>ソースコード <a href="https://github.com/oTree-org/oTree/tree/lite/trust" target="_blank">https://github.com/oTree-org/oTree/tree/lite/trust</a></li>
 <li>デモページ <a href="https://otree-demo.herokuapp.com/demo/trust" target="_blank">https://otree-demo.herokuapp.com/demo/trust</a></li>
 </ul>
-<h3 id="isdisplayed-を使ったページの制御"><code>is_displayed()</code> を使ったページの制御</h3>
-<p><a href="https://otree.readthedocs.io/en/latest/pages.html#is-displayed" target="_blank">https://otree.readthedocs.io/en/latest/pages.html#is-displayed</a></p>
+<h3 id="意思決定データを-group-に記録する">意思決定データを Group に記録する</h3>
 <ul>
-<li>ページクラスの中に <code>is_displayed()</code> を定義する．引数は <code>player</code> オブジェクト．返り値が <code>True</code> のとき，そのプレイヤーに表示される．</li>
+<li>信頼ゲームでは役割（先手と後手）で行う意思決定が異なり，group でユニークな値である．<ul>
+<li>先手は後手に預けるポイント数 <code>sent_amount</code> を決定する．</li>
+<li>後手は先手に返すポイント数 <code>sent_back_amount</code> を決定する．</li>
+</ul>
+</li>
+<li>player の変数として定義するより，group の変数として定義した方が良い．<ul>
+<li>テンプレートで <code>sent_amount</code> を展開するとき...<ul>
+<li>group の変数であれば <code>{{ group.sent_amount }}</code>．</li>
+<li>player の変数であれば <code>vars_for_template()</code> で <code>player.group.get_player_by_id(1).sent_amount</code> を何らかの変数として渡す必要がある．<ul>
+<li>テンプレートで直接 <code>{{ group.get_player_by_id(1).sent_amount }}</code> としたいところだが，エラーとなる．</li>
+<li>先手のみに表示する部分であれば <code>{{ player.sent_amount }}</code> でよいが，後手には使えない．</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="ページ表示をスキップする">ページ表示をスキップする</h3>
+<ul>
+<li>ページクラスの組み込みメソッド <code>is_displayed()</code> を定義すれば，返り値で渡す真偽値でページを表示するか否かを設定できる．</li>
+<li>ラウンド数（ <code>player.round_number</code> ）やプレイヤーの役割（ <code>player.id_in_group</code> ）で条件分岐させることが多い．<ul>
+<li>複数ラウンドを設定していて，アプリ内にインストラクションページが含まれるとき，インストラクションは最初の1回だけ表示するには， <code>is_displayed()</code> で <code>player.round_number == 1</code> を返せばよい．</li>
+</ul>
+</li>
+<li><a href="https://otree.readthedocs.io/en/latest/pages.html#is-displayed" target="_blank">https://otree.readthedocs.io/en/latest/pages.html#is-displayed</a></li>
+<li>ページクラスの組み込みメソッド <code>app_after_this_page()</code> で返り値をアプリ名とすれば，返り値のアプリまでスキップされる．</li>
+<li>ページクラスの組み込みメソッド <code>get_timeout_seconds()</code> で返り値を <code>0</code> とすれば，0秒で自動的にページが遷移するため，ページをスキップさせる手段として使えなくもない．ただし一瞬はページが表示されることに注意．</li>
+</ul>
+<h4 id="逐次手番ゲームでの-isdisplayed-の使い方">逐次手番ゲームでの <code>is_displayed()</code> の使い方</h4>
+<ul>
+<li>信頼ゲームでは役割（先手と後手）で行う意思決定が異なる．それぞれを別のページとして実装する．<ul>
+<li>先手が後手に預けるポイント数を入力するページとして <code>Send</code>．</li>
+<li>後手が，先手から受け取ったポイント数のうち先手に返すポイント数を入力するページとして <code>SendBack</code>．</li>
+<li>ゲームの結果を表示するページとして <code>Results</code>．</li>
+</ul>
+</li>
+<li><code>is_displayed()</code> を使って，<code>Send</code> ページを先手だけに，<code>SendBack</code> ページを後手だけに表示する．<ul>
+<li><code>is_displayed()</code> の引数は <code>player</code> オブジェクト．返り値が <code>True</code> のとき，その player に表示される．</li>
+<li>group 内の役割は <code>player.id_in_group</code> の値で定義する（定数 <code>C</code> クラスで <code>*_ROLE</code> を定義して役割のラベルを設定しても良い）．<ul>
+<li><code>player.id_in_group == 1</code> なる player を先手，<code>player.id_in_group == 2</code> なる player を後手とする．</li>
+<li><code>Send</code> クラスにおいて， <code>is_displayed()</code> を定義し，返り値を <code>player.id_in_group == 1</code> （の真偽値）とする．</li>
+<li><code>SendBack</code> クラスにおいて， <code>is_displayed()</code> を定義し，返り値を <code>player.id_in_group == 2</code> （の真偽値）とする．</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>ページ順を <code>page_sequence = [Send, SendBack, Results]</code> と設定しているとき...<ul>
+<li>先手が <code>Send</code> ページで意思決定している間，後手には <code>Send</code> ページが表示されず，次の <code>SendBack</code> ページが表示されてしまう．<code>SendBack</code> ページにおいて <code>Send</code> ページにおける先手の意思決定の結果を表示させるような実装をしている場合，意図しない挙動となるかエラーが出る．</li>
+<li>後手が <code>SendBack</code> ページで意思決定している間，先手には <code>Results</code> ページが表示されてしまう．後手の意思決定が終わっていなければ，当然利得の計算もまだ行われていないため， <code>Results</code> ページで利得を表示することはできない．</li>
+</ul>
+</li>
+<li>一方のプレイヤーが意思決定している間，他方のプレイヤーは待機ページで待機する必要がある．<ul>
+<li>先手が <code>Send</code> ページで意思決定している間，後手には <code>SendBackWaitPage</code> なる待機ページを表示する．先手の意思決定が終わったタイミングで特に行うべき処理は無いため， <code>SendBackWaitPage</code> クラスは定義するだけで中身は <code>pass</code> とだけ書いておけば良い．</li>
+<li>後手が <code>SendBack</code> ページで意思決定している間，先手には <code>ResultsWaitPage</code> なる待機ページを表示する．後手の意思決定が終わったタイミングで利得を計算するため，<code>after_all_players_arrive</code> を定義する．</li>
+</ul>
+</li>
+</ul>
+<h3 id="max-で入力フォーム検証の条件を動的に設定する"><code>*_max()</code> で入力フォーム検証の条件を動的に設定する</h3>
+<ul>
+<li>信頼ゲームで後手が行う意思決定（先手に返すポイント数: <code>sent_back_amount</code>）の上限は，先手が預けたポイント数（を何倍かしたもの）．</li>
+<li>先手の意思決定によって，後手の意思決定の上限が変動する．</li>
+<li>モジュールレベルで <code>sent_back_amount_max()</code> を定義して，返り値を <code>sent_back_amount</code> の最大値とする．</li>
 </ul>
 <h2 id="有限回繰り返しゲーム（マッチングペニー）">有限回繰り返しゲーム（マッチングペニー）</h2>
 <ul>
@@ -445,13 +506,65 @@
 <li>デモページ <a href="https://otree-demo.herokuapp.com/demo/matching_pennies" target="_blank">https://otree-demo.herokuapp.com/demo/matching_pennies</a></li>
 </ul>
 <h3 id="creatingsession-を使ったプレイヤーのシャッフル"><code>creating_session()</code> を使ったプレイヤーのシャッフル</h3>
-<p><a href="https://otree.readthedocs.io/en/latest/multiplayer/groups.html#group-matching" target="_blank">https://otree.readthedocs.io/en/latest/multiplayer/groups.html#group-matching</a></p>
+<ul>
+<li>モジュールレベルで組み込み関数 <code>creating_session()</code> を定義すると，subsession の最初のページが表示されるタイミングで group の編成を定義できる．</li>
+<li>一つのアプリを何回も繰り返す設定にしている場合（<code>NUM_ROUNDS</code> が 1よりも大きい場合），繰り返す度に（つまり subsession ごとに） group 編成を変更することができる．</li>
+<li>subsession の途中で group 編成を変更することはできない．ただし，group 内での役割（<code>id_in_group</code>）は変更できる．</li>
+<li><code>creating_session()</code> はセッションを作成するタイミングで実行されるので， <code>creating_session()</code> では意思決定に応じて group 編成を変更することはできない．<ul>
+<li>（待機ページクラスで <code>group_by_arrival_time = True</code> とした上で） <code>group_by_arrival_time_method()</code> を使えば，そこで柔軟に group 編成を定義できる．</li>
+</ul>
+</li>
+<li>group の編成は subsession のメソッド <code>set_group_matrix()</code> で設定できる．引数に2次元配列で記述した新しい group 編成を渡す．<ul>
+<li>zTree とは異なり absolute stranger マッチングは実装されていないので，自分で実装する．<ul>
+<li><a href="https://www.sciencedirect.com/science/article/pii/S0165176516302324" target="_blank">https://www.sciencedirect.com/science/article/pii/S0165176516302324</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="https://otree.readthedocs.io/en/latest/treatments.html" target="_blank">https://otree.readthedocs.io/en/latest/treatments.html</a></li>
+<li><a href="https://otree.readthedocs.io/en/latest/multiplayer/groups.html#group-matching" target="_blank">https://otree.readthedocs.io/en/latest/multiplayer/groups.html#group-matching</a></li>
+</ul>
+<h3 id="意思決定画面で時間制限を設定してみる">意思決定画面で時間制限を設定してみる</h3>
+<ul>
+<li>ページクラスで変数 <code>timeout_seconds</code> に整数を定義すると，その <code>timeout_seconds</code> 秒の時間制限を設定できる．</li>
+<li>動的に時間制限を設定するには，ページクラスの組み込みメソッド <code>get_timeout_seconds()</code> を定義し，返り値を残り秒数とする．</li>
+<li>デフォルトでは，画面に「このページでの残り時間 mm:ss」と表示される．</li>
+<li>タイムアウトするとページのフォームが自動送信される．<ul>
+<li>送信されるデータは，（<code>initial</code> が設定されていなければ） <code>BooleanField</code> なら <code>False</code>， <code>IntegerField</code> や <code>FloatField</code> なら <code>0</code>， <code>StringField</code> なら <code>&quot;&quot;</code>．<ul>
+<li>この値を変更したい場合は，ページクラスの組み込みメソッド <code>before_next_page()</code> の中で <code>timeout_happened == True</code> なる player に対し処理を行う．</li>
+</ul>
+</li>
+<li><code>otree prodserver</code> でサーバーを起動している場合のみ，クライアントがブラウザーを閉じているときにタイムアウトが発生すると，クライアントの代わりに，サーバーが自分宛てにフォームを送信する．</li>
+</ul>
+</li>
+<li><a href="https://otree.readthedocs.io/en/latest/timeouts.html" target="_blank">https://otree.readthedocs.io/en/latest/timeouts.html</a></li>
+</ul>
 <h2 id="無限回繰り返しゲーム（繰り返しpd）">無限回繰り返しゲーム（繰り返しPD）</h2>
 <ul>
 <li><a href="https://github.com/snunnari/otree_repeated_prisoner" target="_blank">https://github.com/snunnari/otree_repeated_prisoner</a></li>
-<li>↑ oTree のバージョンが古い．</li>
-<li>「無限回」の実装として微妙かも．ライブページを使う実装のほうが良さそう． 
-  -<a href="https://www.otreehub.com/projects/otree-more-demos/" target="_blank"> https://www.otreehub.com/projects/otree-more-demos/</a> の「supergames_indefinite」．</li>
+<li>ただし，oTree のバージョンが古い．バージョン5の書き方に翻訳したものはこちら:<br>  <a href="https://github.com/iserExperiment/otree_repeated_prisoner/tree/yshimod/updating" target="_blank">https://github.com/iserExperiment/otree_repeated_prisoner/tree/yshimod/updating</a>．</li>
+</ul>
+<h3 id="確率的に繰り返しを終了するとき-numrounds-は最大数を設定する">確率的に繰り返しを終了するとき <code>NUM_ROUNDS</code> は最大数を設定する</h3>
+<ul>
+<li>oTree はサーバーを立ち上げる際にデータベースの列を作成している．</li>
+<li>一度データベースの枠を作っておいてから，使わずに空欄のままにしておく分にはどうとでもなる．<ul>
+<li><code>NUM_ROUNDS = 100</code> としておくと，サーバーを立ち上げたときデータベースにラウンド数分の列を生成する．</li>
+<li>subsession の途中で引き出した乱数の値によって条件分岐し，終了ラウンド以降を <code>is_displayed()</code> や <code>app_after_this_page()</code> を使ってページをスキップしてしまえば，確率的にラウンドの繰り返しを終わらせることができる．<ul>
+<li>subsession の途中でも REST を使って外部から <code>session.vars</code> に値を渡すことができるので，ラボでサイコロを振って確率的に繰り返しの終了を決めることもできる． <a href="https://otree.readthedocs.io/en/latest/misc/rest_api.html#session-vars-endpoint" target="_blank">https://otree.readthedocs.io/en/latest/misc/rest_api.html#session-vars-endpoint</a></li>
+</ul>
+</li>
+<li>途中でラウンド数を増やすことはできないため， <code>NUM_ROUNDS</code> で設定するラウンド数は大きくしないといけない．しかし， <code>NUM_ROUNDS</code> を増やすほどデータベースの列数は増え，処理に時間がかかりパフォーマンスは悪化する（？）．</li>
+</ul>
+</li>
+<li>サーバーを立ち上げる際に（定数 <code>C</code> クラスにおいて）乱数を引き出して，確率的に決定されるラウンド数を予め決定してしまう，というのも手といえば手．</li>
+<li>最大数が定義できない場合や，データベースの列数が増えることによるパフォーマンス低下を避ける場合，ライブページと ExtraModel を使って実装するのが良い．<ul>
+<li><a href="https://www.otreehub.com/projects/otree-more-demos/" target="_blank">https://www.otreehub.com/projects/otree-more-demos/</a> の「supergames_indefinite」．<ul>
+<li>ソースコード <a href="https://github.com/oTree-org/more-demos/tree/master/supergames_indefinite" target="_blank">https://github.com/oTree-org/more-demos/tree/master/supergames_indefinite</a></li>
+<li>デモページ <a href="https://otree-more-demos.herokuapp.com/demo/supergames_indefinite" target="_blank">https://otree-more-demos.herokuapp.com/demo/supergames_indefinite</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
                                 
@@ -492,7 +605,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第6回","level":"1.1.6","depth":2,"next":{"title":"【資料編】","level":"2.1","depth":1,"ref":"","articles":[]},"previous":{"title":"第5回","level":"1.1.5","depth":2,"path":"day5.md","ref":"day5.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day6.md","mtime":"2022-06-12T10:23:53.385Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-12T10:26:17.926Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第6回","level":"1.1.6","depth":2,"next":{"title":"【資料編】","level":"2.1","depth":1,"ref":"","articles":[]},"previous":{"title":"第5回","level":"1.1.5","depth":2,"path":"day5.md","ref":"day5.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day6.md","mtime":"2022-06-13T09:35:03.657Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-13T14:21:01.034Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
