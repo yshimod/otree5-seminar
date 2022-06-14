@@ -52,6 +52,8 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
+    <link rel="next" href="day7.html" />
+    
     
     <link rel="prev" href="day5.html" />
     
@@ -174,6 +176,32 @@
             
         </li>
     
+        <li class="chapter " data-level="1.1.7" data-path="day7.html">
+            
+                <a href="day7.html">
+            
+                    
+                    第7回
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.8" data-path="day8.html">
+            
+                <a href="day8.html">
+            
+                    
+                    第8回
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -191,7 +219,7 @@
                 <span>
             
                     
-                    【資料編】
+                    【資料: 開発編】
             
                 </span>
             
@@ -251,7 +279,27 @@
             
         </li>
     
-        <li class="chapter " data-level="2.6" data-path="server_setup/">
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" >
+            
+                <span>
+            
+                    
+                    【資料: デプロイ編】
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="server_setup/">
             
                 <a href="server_setup/">
             
@@ -264,7 +312,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.7" data-path="heroku/">
+        <li class="chapter " data-level="3.3" data-path="heroku/">
             
                 <a href="heroku/">
             
@@ -277,7 +325,27 @@
             
         </li>
     
-        <li class="chapter " data-level="2.8" data-path="ubuntu/">
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" >
+            
+                <span>
+            
+                    
+                    【資料: その他】
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="ubuntu/">
             
                 <a href="ubuntu/">
             
@@ -291,7 +359,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="2.8.1" data-path="ubuntu/wsl2.html">
+        <li class="chapter " data-level="4.2.1" data-path="ubuntu/wsl2.html">
             
                 <a href="ubuntu/wsl2.html">
             
@@ -304,7 +372,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.8.2" data-path="ubuntu/vagrant.html">
+        <li class="chapter " data-level="4.2.2" data-path="ubuntu/vagrant.html">
             
                 <a href="ubuntu/vagrant.html">
             
@@ -322,14 +390,7 @@
             
         </li>
     
-
-    
-        
-        <li class="divider"></li>
-        
-        
-    
-        <li class="chapter " data-level="3.1" data-path="references/">
+        <li class="chapter " data-level="4.3" data-path="references/">
             
                 <a href="references/">
             
@@ -395,8 +456,8 @@
 <li>繰り返しゲーム（プレイヤーのシャッフル，タイムアウト）</li>
 </ul>
 </li>
-<li>第回: ダブルオークション（JavaScriptとライブページ，ExtraModel）</li>
-<li>第回: 質問紙調査（画面のデザイン，CSS，Bootstrap）</li>
+<li>第回: 質問紙調査（画面のデザイン，JavaScript，CSS，Bootstrap）</li>
+<li>第回: 連続時間ダブルオークション（ライブページとExtraModel）</li>
 <li>第回: 補遺</li>
 </ul>
 </li>
@@ -415,7 +476,7 @@
 <li><a href="https://www.youtube.com/watch?v=VrPdBEghYEM&amp;list=PLBL9eqPcwzGPli11Yighw5LWwzIifEFd_&amp;index=7" target="_blank">Part 7: Deploying oTree Experiments on Heroku</a></li>
 </ul>
 <p>第4回では，ゼロからコードを書いていく方法を解説しています．
-しかし初心者には，すでに完成しているコードについて，少しいじっては動作を確認し，という試行錯誤を繰り返しながら自分が作りたいものに変えていく方法で開発しながら勉強するのが良いでしょう．</p>
+しかし初心者には，すでに完成しているコードについて，少しいじっては動作を確認し，という試行錯誤を繰り返しながら自分が作りたいものに変えていく方法で勉強するのが良いでしょう．</p>
 <p>今回は完成したコードを読み下していきながら，特に oTree の組み込み関数の使い方を勉強していきます．</p>
 <h1 id="otree-の組み込み関数の使い方">oTree の組み込み関数の使い方</h1>
 <ul>
@@ -444,7 +505,10 @@
 <li>テンプレートで <code>sent_amount</code> を展開するとき...<ul>
 <li>group の変数であれば <code>{{ group.sent_amount }}</code>．</li>
 <li>player の変数であれば <code>vars_for_template()</code> で <code>player.group.get_player_by_id(1).sent_amount</code> を何らかの変数として渡す必要がある．<ul>
-<li>テンプレートで直接 <code>{{ group.get_player_by_id(1).sent_amount }}</code> としたいところだが，エラーとなる．</li>
+<li>テンプレートで直接 <code>{{ group.get_player_by_id(1).sent_amount }}</code> としたいところだが，エラーとなる．<ul>
+<li>なぜなら，メソッド（ <code>.get_player_by_id()</code> ）を使った後に変数を呼び出すことができないため．</li>
+</ul>
+</li>
 <li>先手のみに表示する部分であれば <code>{{ player.sent_amount }}</code> でよいが，後手には使えない．</li>
 </ul>
 </li>
@@ -461,6 +525,8 @@
 </ul>
 </li>
 <li><a href="https://otree.readthedocs.io/en/latest/pages.html#is-displayed" target="_blank">https://otree.readthedocs.io/en/latest/pages.html#is-displayed</a></li>
+</ul>
+<ul>
 <li>ページクラスの組み込みメソッド <code>app_after_this_page()</code> で返り値をアプリ名とすれば，返り値のアプリまでスキップされる．</li>
 <li>ページクラスの組み込みメソッド <code>get_timeout_seconds()</code> で返り値を <code>0</code> とすれば，0秒で自動的にページが遷移するため，ページをスキップさせる手段として使えなくもない．ただし一瞬はページが表示されることに注意．</li>
 </ul>
@@ -557,6 +623,8 @@
 </ul>
 </li>
 <li>サーバーを立ち上げる際に（定数 <code>C</code> クラスにおいて）乱数を引き出して，確率的に決定されるラウンド数を予め決定してしまう，というのも手といえば手．</li>
+</ul>
+<ul>
 <li>最大数が定義できない場合や，データベースの列数が増えることによるパフォーマンス低下を避ける場合，ライブページと ExtraModel を使って実装するのが良い．<ul>
 <li><a href="https://www.otreehub.com/projects/otree-more-demos/" target="_blank">https://www.otreehub.com/projects/otree-more-demos/</a> の「supergames_indefinite」．<ul>
 <li>ソースコード <a href="https://github.com/oTree-org/more-demos/tree/master/supergames_indefinite" target="_blank">https://github.com/oTree-org/more-demos/tree/master/supergames_indefinite</a></li>
@@ -593,10 +661,14 @@
 
             
                 
-                <a href="day5.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 第5回">
+                <a href="day5.html" class="navigation navigation-prev " aria-label="Previous page: 第5回">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
+                
+                <a href="day7.html" class="navigation navigation-next " aria-label="Next page: 第7回">
+                    <i class="fa fa-angle-right"></i>
+                </a>
                 
             
         
@@ -605,7 +677,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第6回","level":"1.1.6","depth":2,"next":{"title":"【資料編】","level":"2.1","depth":1,"ref":"","articles":[]},"previous":{"title":"第5回","level":"1.1.5","depth":2,"path":"day5.md","ref":"day5.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day6.md","mtime":"2022-06-13T09:35:03.657Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-13T14:21:01.034Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第6回","level":"1.1.6","depth":2,"next":{"title":"第7回","level":"1.1.7","depth":2,"path":"day7.md","ref":"day7.md","articles":[]},"previous":{"title":"第5回","level":"1.1.5","depth":2,"path":"day5.md","ref":"day5.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day6.md","mtime":"2022-06-14T08:56:33.366Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-14T11:48:24.300Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

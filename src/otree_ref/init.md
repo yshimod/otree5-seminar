@@ -77,6 +77,7 @@
 - `get_group_matrix()`
     - 返り値: `player.id_in_subsession` （自然数）の2次元配列．
     - `get_group_matrix()[i][j]` は， `group.id_in_subsession` が `i+1` で `player.id_in_group` が `j+1` である player の `player.id_in_subsession`．
+    - 引数で `objects=True` を渡すと，返り値のリストの要素が `id_in_subsession` （自然数）ではなく `player` オブジェクトそのものになる．
 - `field_maybe_none()`
     - 引数: フォームの変数名（文字列）．
     - 返り値: 引数の変数の値．変数の値が `None` であれば `None` がエラーを出すことなく返ってくる．
@@ -218,6 +219,58 @@
 - group
 - subsession
 - session
+
+
+
+### session オブジェクトと participant オブジェクト
+- アプリをまたいで変数を受け渡したい場合，アプリ（ subsession ）よりも上位概念のオブジェクトにデータを記録する必要がある．
+- アプリの `__init__.py` で（たとえば `Player` クラスのように）クラスを定義する必要はない．というより，アプリよりも上位概念なのでアプリ内では定義できない．
+- [https://otree.readthedocs.io/en/latest/rounds.html#passing-data-between-rounds-or-apps](https://otree.readthedocs.io/en/latest/rounds.html#passing-data-between-rounds-or-apps)
+
+#### session
+- session オブジェクトは，セッションに参加している全参加者で共通の変数を記録できる．
+- 変数を定義するには， `settings.py` の `SESSION_FIELDS` に変数名の文字列をリストで渡しておく．
+- session の下位概念（ subsession， group， player ）からアクセスできる．
+    - たとえば player オブジェクトを引数で受け取る関数の中では `player.session.変数名` とする．
+- `SESSION_FIELDS` で 変数名を定義しなくても， `session.vars["変数名"]` で定義することも可能．
+- 組み込みの変数・メソッド
+    - `code`
+        - セッションで固有なID．
+        - `participant.session_id` でもアクセスできる．
+    - `num_participants`
+    - `config`
+        - `settings.py` の `SESSION_CONFIGS` （の当該セッションの要素内） と `SESSION_CONFIG_DEFAULTS` で設定した変数がdictに入っている．
+            - `config['participation_fee']`
+            - `config['real_world_currency_per_point']`
+    - `get_subsessions()`
+    - `get_participants()`
+
+
+#### participant
+- participant オブジェクトは，セッションに参加している各参加者についてユニークな変数を記録できる．
+- 変数を定義するには， `settings.py` の `PARTICIPANT_FIELDS` に変数名の文字列をリストで渡しておく．
+- participant の下位概念である player からアクセスできる．
+    - たとえば player オブジェクトを引数で受け取る関数の中では `player.participant.変数名` とする．
+- `PARTICIPANT_FIELDS` で 変数名を定義しなくても， `participant.vars["変数名"]` で定義することも可能．
+- 組み込みの変数・メソッド
+    - `session_id`
+        - セッションで固有なID．
+    - `label`
+        - ルームに名簿（ `participant_label_file` ）が設定してある場合，各参加者に対応する名簿上の文字列（ラベル）が得られる．
+        - 管理者画面で得られるセッションワイドリンクにクエリパラメータ `?participant_label=123456789` などとつけると， `participant.label` に `123456789` が入る．
+            - 参加者プール（ORSEEなど）やその他システム（Qualtricsなど）で発行されたIDを oTree に引き継ぐ場合に使うと良い．
+    - `code`
+        - oTreeが発行した，参加者で固有な（データベース内で固有な）ID．
+        - アルファベットと数字のランダム文字列．
+    - `id_in_session`
+        - oTreeが割り振った，参加者で固有な通し番号（自然数）．
+        - 管理者画面で番号は「P1」「P2」と表示される．
+        - `player.id_in_subsession` でもアクセスできる．
+    - `payoff`
+        - 各 subsession における `player.payoff` の和．
+    - `payoff_in_real_world_currency()`
+    - `payoff_plus_participation_fee()`
+
 
 
 ### フィールドの型
@@ -455,6 +508,7 @@
 ### 待機ページの変数
 - `template_name`
     - 待機ページもカスタマイズしようと思えばできる．そのときはテンプレートファイルのパスを渡す．
+    - [https://otree.readthedocs.io/en/latest/misc/advanced.html#wait-pages](https://otree.readthedocs.io/en/latest/misc/advanced.html#wait-pages)
     - 使用例: [https://www.otreehub.com/projects/otree-snippets/](https://www.otreehub.com/projects/otree-snippets/) の "wait_page_timeout"
 - `group_by_arrival_time`
     - `True` を渡せば，次のページ以降の group 分けが，当該待機ページに到達した順の group 分けになる．
@@ -481,7 +535,8 @@
 - `vars_for_template()`
     - 引数: `(player: Player)`
     - 返り値: 辞書型．
-    - `template_name` にパスを渡して独自のテンプレートファイルを使うときのみ設定する．
+    - `title_text` と `body_text` それぞれのキーで値を渡すと，待機ページで表示されるタイトルと本文をデフォルトから変更できる．
+    - `template_name` にパスを渡して独自のテンプレートファイルを使うときには，自分でキーを設定して値をテンプレートに渡せる．
 - `js_vars()`
     - 引数: `(player: Player)`
     - 返り値: 辞書型．

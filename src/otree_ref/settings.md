@@ -9,7 +9,7 @@
     - `num_demo_participants`: デモページでの人数
     - 独自のセッション変数（定数）
         - たとえば `time_pressure=True` と設定した場合，アプリのスクリプトの中では `インスタンスオブジェクト.session.config["time_pressure"]` で変数にアクセスできる（インスタンスオブジェクト ∈ { `player`, `group`, `subsession` } ）．
-        - 定数なのでアプリのスクリプトの中で（たとえば参加者の意思決定に応じて）値を更新できない．
+        - [https://otree.readthedocs.io/en/latest/treatments.html](https://otree.readthedocs.io/en/latest/treatments.html)
 - 例
     ```python
     SESSION_CONFIGS = [

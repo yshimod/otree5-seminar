@@ -6,8 +6,8 @@
     - 第6回（今日）: 
         - 逐次手番ゲーム（参加者ごと表示させる画面を変える）
         - 繰り返しゲーム（プレイヤーのシャッフル，タイムアウト）
-    - 第回: ダブルオークション（JavaScriptとライブページ，ExtraModel）
-    - 第回: 質問紙調査（画面のデザイン，CSS，Bootstrap）
+    - 第回: 質問紙調査（画面のデザイン，JavaScript，CSS，Bootstrap）
+    - 第回: 連続時間ダブルオークション（ライブページとExtraModel）
     - 第回: 補遺
 
 
@@ -25,7 +25,7 @@
 - [Part 7: Deploying oTree Experiments on Heroku](https://www.youtube.com/watch?v=VrPdBEghYEM&list=PLBL9eqPcwzGPli11Yighw5LWwzIifEFd_&index=7)
 
 第4回では，ゼロからコードを書いていく方法を解説しています．
-しかし初心者には，すでに完成しているコードについて，少しいじっては動作を確認し，という試行錯誤を繰り返しながら自分が作りたいものに変えていく方法で開発しながら勉強するのが良いでしょう．
+しかし初心者には，すでに完成しているコードについて，少しいじっては動作を確認し，という試行錯誤を繰り返しながら自分が作りたいものに変えていく方法で勉強するのが良いでしょう．
 
 今回は完成したコードを読み下していきながら，特に oTree の組み込み関数の使い方を勉強していきます．
 
@@ -58,6 +58,7 @@
         - group の変数であれば `{{ group.sent_amount }}`．
         - player の変数であれば `vars_for_template()` で `player.group.get_player_by_id(1).sent_amount` を何らかの変数として渡す必要がある．
             - テンプレートで直接 `{{ group.get_player_by_id(1).sent_amount }}` としたいところだが，エラーとなる．
+                - なぜなら，メソッド（ `.get_player_by_id()` ）を使った後に変数を呼び出すことができないため．
             - 先手のみに表示する部分であれば `{{ player.sent_amount }}` でよいが，後手には使えない．
 
 
@@ -67,6 +68,8 @@
 - ラウンド数（ `player.round_number` ）やプレイヤーの役割（ `player.id_in_group` ）で条件分岐させることが多い．
     - 複数ラウンドを設定していて，アプリ内にインストラクションページが含まれるとき，インストラクションは最初の1回だけ表示するには， `is_displayed()` で `player.round_number == 1` を返せばよい．
 - [https://otree.readthedocs.io/en/latest/pages.html#is-displayed](https://otree.readthedocs.io/en/latest/pages.html#is-displayed)
+
+
 - ページクラスの組み込みメソッド `app_after_this_page()` で返り値をアプリ名とすれば，返り値のアプリまでスキップされる．
 - ページクラスの組み込みメソッド `get_timeout_seconds()` で返り値を `0` とすれば，0秒で自動的にページが遷移するため，ページをスキップさせる手段として使えなくもない．ただし一瞬はページが表示されることに注意．
 
@@ -147,6 +150,8 @@
         -  subsession の途中でも REST を使って外部から `session.vars` に値を渡すことができるので，ラボでサイコロを振って確率的に繰り返しの終了を決めることもできる． [https://otree.readthedocs.io/en/latest/misc/rest_api.html#session-vars-endpoint](https://otree.readthedocs.io/en/latest/misc/rest_api.html#session-vars-endpoint)
     - 途中でラウンド数を増やすことはできないため， `NUM_ROUNDS` で設定するラウンド数は大きくしないといけない．しかし， `NUM_ROUNDS` を増やすほどデータベースの列数は増え，処理に時間がかかりパフォーマンスは悪化する（？）．
 - サーバーを立ち上げる際に（定数 `C` クラスにおいて）乱数を引き出して，確率的に決定されるラウンド数を予め決定してしまう，というのも手といえば手．
+
+
 - 最大数が定義できない場合や，データベースの列数が増えることによるパフォーマンス低下を避ける場合，ライブページと ExtraModel を使って実装するのが良い．
     - [https://www.otreehub.com/projects/otree-more-demos/](https://www.otreehub.com/projects/otree-more-demos/) の「supergames_indefinite」．
         -  ソースコード [https://github.com/oTree-org/more-demos/tree/master/supergames_indefinite](https://github.com/oTree-org/more-demos/tree/master/supergames_indefinite)

@@ -1,9 +1,9 @@
 【第3回】 2022年5月26日
 
-# VS Code ・ oTreeプログラミングの概要
+# VS Code の導入 ・ oTreeプログラミングの概要
 
 
-## 1. VS Codeの導入
+## VS Code の導入
 
 - VS Code (Visual Studio Code) [https://code.visualstudio.com/](https://code.visualstudio.com/)
     - Visual Studio（統合開発環境... 単なるテキストエディタではなくコンパイラ等もついている）とは異なる！
@@ -59,7 +59,7 @@
     - [Quoraトピック「Visual Studio CodeはVimやEmacs原理主義者をどのくらい滅ぼしましたか？」](https://jp.quora.com/Visual-Studio-Code%E3%81%AFVim%E3%82%84Emacs%E5%8E%9F%E7%90%86%E4%B8%BB%E7%BE%A9%E8%80%85%E3%82%92%E3%81%A9%E3%81%AE%E3%81%8F%E3%82%89%E3%81%84%E6%BB%85%E3%81%BC%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F%E3%81%8B)
 
 
-## 2. シェルで使用するoTreeサブコマンド
+## シェルで使用するoTreeサブコマンド
 
 #### サブコマンド
 - [一覧](otree_ref/cmd.md)
@@ -159,14 +159,14 @@
 
 
 
-## 3. 重要なoTree用語
+## oTree のデータモデル
 
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/wKQI2L8wdJQ?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 - 詳しくは [https://otree.readthedocs.io/ja/latest/conceptual_overview.html](https://otree.readthedocs.io/ja/latest/conceptual_overview.html)
 
 
-## 4. 管理者画面
+## 管理者画面
 
 - Demo
 - Sessions

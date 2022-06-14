@@ -52,8 +52,6 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="../server_setup/" />
-    
     
     <link rel="prev" href="init.html" />
     
@@ -176,6 +174,32 @@
             
         </li>
     
+        <li class="chapter " data-level="1.1.7" data-path="../day7.html">
+            
+                <a href="../day7.html">
+            
+                    
+                    第7回
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.8" data-path="../day8.html">
+            
+                <a href="../day8.html">
+            
+                    
+                    第8回
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -193,7 +217,7 @@
                 <span>
             
                     
-                    【資料編】
+                    【資料: 開発編】
             
                 </span>
             
@@ -253,7 +277,27 @@
             
         </li>
     
-        <li class="chapter " data-level="2.6" data-path="../server_setup/">
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" >
+            
+                <span>
+            
+                    
+                    【資料: デプロイ編】
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="../server_setup/">
             
                 <a href="../server_setup/">
             
@@ -266,7 +310,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.7" data-path="../heroku/">
+        <li class="chapter " data-level="3.3" data-path="../heroku/">
             
                 <a href="../heroku/">
             
@@ -279,7 +323,27 @@
             
         </li>
     
-        <li class="chapter " data-level="2.8" data-path="../ubuntu/">
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" >
+            
+                <span>
+            
+                    
+                    【資料: その他】
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="../ubuntu/">
             
                 <a href="../ubuntu/">
             
@@ -293,7 +357,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="2.8.1" data-path="../ubuntu/wsl2.html">
+        <li class="chapter " data-level="4.2.1" data-path="../ubuntu/wsl2.html">
             
                 <a href="../ubuntu/wsl2.html">
             
@@ -306,7 +370,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.8.2" data-path="../ubuntu/vagrant.html">
+        <li class="chapter " data-level="4.2.2" data-path="../ubuntu/vagrant.html">
             
                 <a href="../ubuntu/vagrant.html">
             
@@ -324,14 +388,7 @@
             
         </li>
     
-
-    
-        
-        <li class="divider"></li>
-        
-        
-    
-        <li class="chapter " data-level="3.1" data-path="../references/">
+        <li class="chapter " data-level="4.3" data-path="../references/">
             
                 <a href="../references/">
             
@@ -616,11 +673,11 @@
 </ul>
 <h3 id="include"><code>include</code></h3>
 <ul>
-<li>テンプレート中で，別の（サブ）テンプレートファイルを読み込むことができる．</li>
+<li>テンプレート中で，パーツとなるテンプレートファイルを読み込むことができる．</li>
 <li>たとえば意思決定画面でもインストラクションを表示させたいときに，インストラクションの本文（タイトルブロックや「次へ」ボタンなどを除いた部分）だけを別のHTMLファイル（同じアプリ <code>publicgoodsgame</code> のディレクトリ内の <code>instr.html</code> ）として作っておく．作ったHTMLを以下のようにして読み込むと，読み込んだファイル全体が <code>{{ include &quot;パス&quot; }}</code> を記述した部分に展開される．<pre><code class="lang-html">  {{ include &quot;publicgoodsgame/instr.html&quot; }}
 </code></pre>
 </li>
-<li><code>include</code> するファイルのテンプレートに変数を渡すこともできる．<ul>
+<li><code>include</code> するファイルのテンプレートに変数を（1つだけ）渡すこともできる．<ul>
 <li>たとえば <code>instr.html</code> の中で <code>{{ thisyear }}</code> と記述しておき，  <pre><code class="lang-html">  {{ include &quot;publicgoodsgame/instr.html&quot; with thisyear=2022 }}
 </code></pre>
   と記述すると，<code>instr.html</code> の <code>{{ thisyear }}</code> に「2022」を展開した上で，<code>instr.html</code> 全体が <code>{{ include &quot;パス&quot; }}</code> を記述した部分に展開される．</li>
@@ -630,6 +687,7 @@
 <h3 id="static"><code>static</code></h3>
 <ul>
 <li>プロジェクトディレクトリ直下の <code>_static</code> ディレクトリに置いたファイルについて，開発環境でのパスとブラウザが認識できるパスは異なる．ブラウザが認識できるパスを取得するために <code>static</code> タグを使う．</li>
+<li><a href="https://otree.readthedocs.io/en/latest/misc/advanced.html#static-files" target="_blank">https://otree.readthedocs.io/en/latest/misc/advanced.html#static-files</a></li>
 <li>たとえば <code>_static/global</code> ディレクトリに画像ファイル <code>photo.png</code> を置いて，それを表示させるためには，テンプレートに  <pre><code class="lang-html">  <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;{{ static &apos;global/photo.png&apos; }}&quot;</span>/&gt;</span>
 </code></pre>
   と記述する．これを oTree は<pre><code class="lang-html">  <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;/static/global/photo.png&quot;</span>&gt;</span>
@@ -676,13 +734,18 @@
   {{ endwith }}
 </code></pre>
 </li>
+<li>パーツのテンプレートファイルを <code>include</code> するときに2つ以上の変数を渡すときは，以下のようにすると良い．  <pre><code class="lang-html">  {{ with thisyear = 2022 }}{{ with thismonth = &quot;May&quot; }}
+      {{ include &quot;publicgoodsgame/instr.html&quot; }}
+  {{ endwith }}{{ endwith }}
+</code></pre>
+</li>
 </ul>
 <h3 id="formfield"><code>formfield</code></h3>
 <h3 id="formfielderrors"><code>formfield_errors</code></h3>
 <h3 id="formfields"><code>formfields</code></h3>
 <h3 id="nextbutton"><code>next_button</code></h3>
 <ul>
-<li><code>{{ next_button }}</code> と記述すれば，oTreeサーバーが以下の <code>&lt;button&gt;</code> タグを生成してくれる．  <pre><code class="lang-html">  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;otree-btn-next btn btn-primary&quot;</span>&gt;</span>次へ<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<li><code>{{ next_button }}</code> と記述すれば，oTree サーバーが以下の <code>&lt;button&gt;</code> タグを生成してくれる．  <pre><code class="lang-html">  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;otree-btn-next btn btn-primary&quot;</span>&gt;</span>次へ<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 </code></pre>
 </li>
 </ul>
@@ -734,14 +797,10 @@
 
             
                 
-                <a href="init.html" class="navigation navigation-prev " aria-label="Previous page: __init__.py の書き方">
+                <a href="init.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: __init__.py の書き方">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="../server_setup/" class="navigation navigation-next " aria-label="Next page: UbuntuでoTreeを動かす">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -750,7 +809,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"テンプレートファイルの書き方","level":"2.5","depth":1,"next":{"title":"UbuntuでoTreeを動かす","level":"2.6","depth":1,"path":"server_setup/README.md","ref":"server_setup/README.md","articles":[]},"previous":{"title":"__init__.py の書き方","level":"2.4","depth":1,"path":"otree_ref/init.md","ref":"otree_ref/init.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"otree_ref/templatefile.md","mtime":"2022-06-13T14:18:29.545Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-13T14:21:01.034Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"テンプレートファイルの書き方","level":"2.5","depth":1,"next":{"title":"【資料: デプロイ編】","level":"3.1","depth":1,"ref":"","articles":[]},"previous":{"title":"__init__.py の書き方","level":"2.4","depth":1,"path":"otree_ref/init.md","ref":"otree_ref/init.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"otree_ref/templatefile.md","mtime":"2022-06-14T07:40:51.526Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-14T11:48:24.300Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

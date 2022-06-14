@@ -1,17 +1,5 @@
 {% raw %}
-
 【第4回】 2022年6月2日 （2022年6月9日に補足）
-
-
-- 今後の予定
-    - 第4回（今日）: 同時手番ゲーム（oTreeプログラミングの基礎）
-    - 第回: 逐次手番ゲーム（参加者ごと表示させる画面を変える）
-    - 第回: 繰り返しゲーム（プレイヤーのシャッフル，タイムアウト）
-    - 第回: ダブルオークション（JavaScriptとライブページ，ExtraModel）
-    - 第回: 質問紙調査（画面のデザイン，CSS，Bootstrap）
-    - 第回: 補遺
-
-
 
 # oTreeプログラミングの進め方
 
@@ -548,6 +536,7 @@
 - `USE_POINTS = True` と設定したとき...
     - `REAL_WORLD_CURRENCY_CODE` によらず，数値は整数に丸められる．
     - （ `LANGUAGE_CODE = 'ja'` のとき）テンプレートで表示すると「3ポイント」．
+    - 単位をデフォルト（「ポイント」）から（たとえば「トークン」に）変えるときは `settings.py` で `POINTS_CUSTOM_NAME = 'トークン'` とする．
 - `to_real_world_currency()`: ポイントから通貨へ変換するメソッド．引数は `session`．
     - たとえば `JPY` で `USE_POINTS = True` のとき， `cu(2.7182).to_real_world_currency(player.session)` をテンプレートに渡せば「3円」と表示される．
 - 組み込みのフィールド `player.payoff` は `CurrencyField` で定義されている．

@@ -224,12 +224,12 @@
 
 
 ### `include`
-- テンプレート中で，別の（サブ）テンプレートファイルを読み込むことができる．
+- テンプレート中で，パーツとなるテンプレートファイルを読み込むことができる．
 - たとえば意思決定画面でもインストラクションを表示させたいときに，インストラクションの本文（タイトルブロックや「次へ」ボタンなどを除いた部分）だけを別のHTMLファイル（同じアプリ `publicgoodsgame` のディレクトリ内の `instr.html` ）として作っておく．作ったHTMLを以下のようにして読み込むと，読み込んだファイル全体が `{{ include "パス" }}` を記述した部分に展開される．
     ```html
     {{ include "publicgoodsgame/instr.html" }}
     ```
-- `include` するファイルのテンプレートに変数を渡すこともできる．
+- `include` するファイルのテンプレートに変数を（1つだけ）渡すこともできる．
     - たとえば `instr.html` の中で `{{ thisyear }}` と記述しておき，  
         ```html
         {{ include "publicgoodsgame/instr.html" with thisyear=2022 }}
@@ -239,6 +239,7 @@
 
 ### `static`
 - プロジェクトディレクトリ直下の `_static` ディレクトリに置いたファイルについて，開発環境でのパスとブラウザが認識できるパスは異なる．ブラウザが認識できるパスを取得するために `static` タグを使う．
+- [https://otree.readthedocs.io/en/latest/misc/advanced.html#static-files](https://otree.readthedocs.io/en/latest/misc/advanced.html#static-files)
 - たとえば `_static/global` ディレクトリに画像ファイル `photo.png` を置いて，それを表示させるためには，テンプレートに  
     ```html
     <img src="{{ static 'global/photo.png' }}"/>
@@ -283,6 +284,12 @@
         <p>あなたの利得は{{ ritoku }}です．
     {{ endwith }}
     ```
+- パーツのテンプレートファイルを `include` するときに2つ以上の変数を渡すときは，以下のようにすると良い．  
+    ```html
+    {{ with thisyear = 2022 }}{{ with thismonth = "May" }}
+        {{ include "publicgoodsgame/instr.html" }}
+    {{ endwith }}{{ endwith }}
+    ```
 
 
 ### `formfield`
@@ -295,7 +302,7 @@
 
 
 ### `next_button`
-- `{{ next_button }}` と記述すれば，oTreeサーバーが以下の `<button>` タグを生成してくれる．  
+- `{{ next_button }}` と記述すれば，oTree サーバーが以下の `<button>` タグを生成してくれる．  
     ```html
     <button class="otree-btn-next btn btn-primary">次へ</button>
     ```

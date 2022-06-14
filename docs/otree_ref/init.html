@@ -176,6 +176,32 @@
             
         </li>
     
+        <li class="chapter " data-level="1.1.7" data-path="../day7.html">
+            
+                <a href="../day7.html">
+            
+                    
+                    第7回
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.8" data-path="../day8.html">
+            
+                <a href="../day8.html">
+            
+                    
+                    第8回
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -193,7 +219,7 @@
                 <span>
             
                     
-                    【資料編】
+                    【資料: 開発編】
             
                 </span>
             
@@ -253,7 +279,27 @@
             
         </li>
     
-        <li class="chapter " data-level="2.6" data-path="../server_setup/">
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" >
+            
+                <span>
+            
+                    
+                    【資料: デプロイ編】
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="../server_setup/">
             
                 <a href="../server_setup/">
             
@@ -266,7 +312,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.7" data-path="../heroku/">
+        <li class="chapter " data-level="3.3" data-path="../heroku/">
             
                 <a href="../heroku/">
             
@@ -279,7 +325,27 @@
             
         </li>
     
-        <li class="chapter " data-level="2.8" data-path="../ubuntu/">
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" >
+            
+                <span>
+            
+                    
+                    【資料: その他】
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="../ubuntu/">
             
                 <a href="../ubuntu/">
             
@@ -293,7 +359,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="2.8.1" data-path="../ubuntu/wsl2.html">
+        <li class="chapter " data-level="4.2.1" data-path="../ubuntu/wsl2.html">
             
                 <a href="../ubuntu/wsl2.html">
             
@@ -306,7 +372,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.8.2" data-path="../ubuntu/vagrant.html">
+        <li class="chapter " data-level="4.2.2" data-path="../ubuntu/vagrant.html">
             
                 <a href="../ubuntu/vagrant.html">
             
@@ -324,14 +390,7 @@
             
         </li>
     
-
-    
-        
-        <li class="divider"></li>
-        
-        
-    
-        <li class="chapter " data-level="3.1" data-path="../references/">
+        <li class="chapter " data-level="4.3" data-path="../references/">
             
                 <a href="../references/">
             
@@ -479,6 +538,7 @@
 <li><code>get_group_matrix()</code><ul>
 <li>返り値: <code>player.id_in_subsession</code> （自然数）の2次元配列．</li>
 <li><code>get_group_matrix()[i][j]</code> は， <code>group.id_in_subsession</code> が <code>i+1</code> で <code>player.id_in_group</code> が <code>j+1</code> である player の <code>player.id_in_subsession</code>．</li>
+<li>引数で <code>objects=True</code> を渡すと，返り値のリストの要素が <code>id_in_subsession</code> （自然数）ではなく <code>player</code> オブジェクトそのものになる．</li>
 </ul>
 </li>
 <li><code>field_maybe_none()</code><ul>
@@ -676,6 +736,83 @@
 <li>group</li>
 <li>subsession</li>
 <li>session</li>
+</ul>
+<h3 id="session-オブジェクトと-participant-オブジェクト">session オブジェクトと participant オブジェクト</h3>
+<ul>
+<li>アプリをまたいで変数を受け渡したい場合，アプリ（ subsession ）よりも上位概念のオブジェクトにデータを記録する必要がある．</li>
+<li>アプリの <code>__init__.py</code> で（たとえば <code>Player</code> クラスのように）クラスを定義する必要はない．というより，アプリよりも上位概念なのでアプリ内では定義できない．</li>
+<li><a href="https://otree.readthedocs.io/en/latest/rounds.html#passing-data-between-rounds-or-apps" target="_blank">https://otree.readthedocs.io/en/latest/rounds.html#passing-data-between-rounds-or-apps</a></li>
+</ul>
+<h4 id="session">session</h4>
+<ul>
+<li>session オブジェクトは，セッションに参加している全参加者で共通の変数を記録できる．</li>
+<li>変数を定義するには， <code>settings.py</code> の <code>SESSION_FIELDS</code> に変数名の文字列をリストで渡しておく．</li>
+<li>session の下位概念（ subsession， group， player ）からアクセスできる．<ul>
+<li>たとえば player オブジェクトを引数で受け取る関数の中では <code>player.session.変数名</code> とする．</li>
+</ul>
+</li>
+<li><code>SESSION_FIELDS</code> で 変数名を定義しなくても， <code>session.vars[&quot;変数名&quot;]</code> で定義することも可能．</li>
+<li>組み込みの変数・メソッド<ul>
+<li><code>code</code><ul>
+<li>セッションで固有なID．</li>
+<li><code>participant.session_id</code> でもアクセスできる．</li>
+</ul>
+</li>
+<li><code>num_participants</code></li>
+<li><code>config</code><ul>
+<li><code>settings.py</code> の <code>SESSION_CONFIGS</code> （の当該セッションの要素内） と <code>SESSION_CONFIG_DEFAULTS</code> で設定した変数がdictに入っている．<ul>
+<li><code>config[&apos;participation_fee&apos;]</code></li>
+<li><code>config[&apos;real_world_currency_per_point&apos;]</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>get_subsessions()</code></li>
+<li><code>get_participants()</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="participant">participant</h4>
+<ul>
+<li>participant オブジェクトは，セッションに参加している各参加者についてユニークな変数を記録できる．</li>
+<li>変数を定義するには， <code>settings.py</code> の <code>PARTICIPANT_FIELDS</code> に変数名の文字列をリストで渡しておく．</li>
+<li>participant の下位概念である player からアクセスできる．<ul>
+<li>たとえば player オブジェクトを引数で受け取る関数の中では <code>player.participant.変数名</code> とする．</li>
+</ul>
+</li>
+<li><code>PARTICIPANT_FIELDS</code> で 変数名を定義しなくても， <code>participant.vars[&quot;変数名&quot;]</code> で定義することも可能．</li>
+<li>組み込みの変数・メソッド<ul>
+<li><code>session_id</code><ul>
+<li>セッションで固有なID．</li>
+</ul>
+</li>
+<li><code>label</code><ul>
+<li>ルームに名簿（ <code>participant_label_file</code> ）が設定してある場合，各参加者に対応する名簿上の文字列（ラベル）が得られる．</li>
+<li>管理者画面で得られるセッションワイドリンクにクエリパラメータ <code>?participant_label=123456789</code> などとつけると， <code>participant.label</code> に <code>123456789</code> が入る．<ul>
+<li>参加者プール（ORSEEなど）やその他システム（Qualtricsなど）で発行されたIDを oTree に引き継ぐ場合に使うと良い．</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>code</code><ul>
+<li>oTreeが発行した，参加者で固有な（データベース内で固有な）ID．</li>
+<li>アルファベットと数字のランダム文字列．</li>
+</ul>
+</li>
+<li><code>id_in_session</code><ul>
+<li>oTreeが割り振った，参加者で固有な通し番号（自然数）．</li>
+<li>管理者画面で番号は「P1」「P2」と表示される．</li>
+<li><code>player.id_in_subsession</code> でもアクセスできる．</li>
+</ul>
+</li>
+<li><code>payoff</code><ul>
+<li>各 subsession における <code>player.payoff</code> の和．</li>
+</ul>
+</li>
+<li><code>payoff_in_real_world_currency()</code></li>
+<li><code>payoff_plus_participation_fee()</code></li>
+</ul>
+</li>
 </ul>
 <h3 id="フィールドの型">フィールドの型</h3>
 <p><a href="https://otree.readthedocs.io/en/latest/models.html#fields" target="_blank">https://otree.readthedocs.io/en/latest/models.html#fields</a></p>
@@ -985,6 +1122,7 @@
 <ul>
 <li><code>template_name</code><ul>
 <li>待機ページもカスタマイズしようと思えばできる．そのときはテンプレートファイルのパスを渡す．</li>
+<li><a href="https://otree.readthedocs.io/en/latest/misc/advanced.html#wait-pages" target="_blank">https://otree.readthedocs.io/en/latest/misc/advanced.html#wait-pages</a></li>
 <li>使用例: <a href="https://www.otreehub.com/projects/otree-snippets/" target="_blank">https://www.otreehub.com/projects/otree-snippets/</a> の &quot;wait_page_timeout&quot;</li>
 </ul>
 </li>
@@ -1018,7 +1156,8 @@
 <li><code>vars_for_template()</code><ul>
 <li>引数: <code>(player: Player)</code></li>
 <li>返り値: 辞書型．</li>
-<li><code>template_name</code> にパスを渡して独自のテンプレートファイルを使うときのみ設定する．</li>
+<li><code>title_text</code> と <code>body_text</code> それぞれのキーで値を渡すと，待機ページで表示されるタイトルと本文をデフォルトから変更できる．</li>
+<li><code>template_name</code> にパスを渡して独自のテンプレートファイルを使うときには，自分でキーを設定して値をテンプレートに渡せる．</li>
 </ul>
 </li>
 <li><code>js_vars()</code><ul>
@@ -1169,7 +1308,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"__init__.py の書き方","level":"2.4","depth":1,"next":{"title":"テンプレートファイルの書き方","level":"2.5","depth":1,"path":"otree_ref/templatefile.md","ref":"otree_ref/templatefile.md","articles":[]},"previous":{"title":"settings.py の書き方","level":"2.3","depth":1,"path":"otree_ref/settings.md","ref":"otree_ref/settings.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"otree_ref/init.md","mtime":"2022-06-13T12:34:27.040Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-13T14:21:01.034Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"__init__.py の書き方","level":"2.4","depth":1,"next":{"title":"テンプレートファイルの書き方","level":"2.5","depth":1,"path":"otree_ref/templatefile.md","ref":"otree_ref/templatefile.md","articles":[]},"previous":{"title":"settings.py の書き方","level":"2.3","depth":1,"path":"otree_ref/settings.md","ref":"otree_ref/settings.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"otree_ref/init.md","mtime":"2022-06-14T11:46:57.479Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-14T11:48:24.300Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
