@@ -10,7 +10,7 @@
     "plugins": [
         "page-toc",
         "sitemap",
-        "@honkit/honkit-plugin-ga"
+        "add-js"
     ],
     "pluginsConfig": {
         "page-toc": {
@@ -24,6 +24,11 @@
         },
         "ga": {
             "trackingID": "G-6WR8KXSQYF"
+        },
+        "add-js": {
+            "js": [
+                "./ga.js"
+            ]
         }
     }
 }
