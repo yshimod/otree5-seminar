@@ -21,7 +21,7 @@ require(["gitbook"], function (gitbook) {
         var config = state.config.pluginsConfig
         // Always refer to the variable on window in case it gets overridden
         // elsewhere.
-        // console.log("page. change", gtag, config)
+        console.log("page. change", gtag, config)
         gtag('config', config.ga.trackingID, {
             page_title: document.title,
             page_path: location.pathname,
