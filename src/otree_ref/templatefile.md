@@ -46,25 +46,31 @@
             そしてテンプレートにおいて `{{ ENDOWMENT_times_10 }}` と記述すれば，`C.ENDOWMENT` を10倍した値が画面で表示される．
 
 
+
 ## 変数に使えるフィルター
 
 ### `default`
 - `{{ x | default("something") }}` と記述すると，変数 `x` の値が `None` のときに画面では「something」が表示される．
 - そもそも変数 `x` が定義されていないければエラーとなる．
 
+
 ### `escape`
 - `{{ x | escape }}` と記述すると，変数 `x` の文字列の中に含まれる `&`， `<`， `>`， `"`， `'` をHTMLセーフな文字列に変換する．
 - たとえば `x = "<div style='font-weight: bold;'>AAAAA</div>"` のとき， `<p>{{ x | escape }}</p>` は `<p>&lt;div style=&#x27;font-weight: bold;&#x27;&gt;AAAAA&lt;/div&gt;</p>` と展開され，画面にはHTMLタグがそのまま表示される．フィルターを使わないと，HTMLタグがそのまま展開されるので，画面では「AAAAA」が太字で表示される．
-- （公式ドキュメントの説明） If you want to escape content (e.g. displaying an untrusted string to a different player), you should use the `|escape` filter.
+    - 「`<script>alert('あなたは対策不足です！');</script>`」なる文字列が `{{ x }}` で展開されると， `<script>` タグ内で記述した JavaScript コードが実際に実行される（アラートが表示される）．
+
 
 ### `length`
 - 変数が `x = [0, 1, 2]` のとき， `{{ x | length }}` と記述すると，画面では変数 `x` の長さである3が表示される．
 
+
 ### `c` ないし `cu`
 - `{{ x | cu }}` と記述すると，変数 `x` をoTreeの通貨型に変換したもの（つまり `cu(x)` ）が画面で表示される．数値が丸められるだけでなく単位（「円」や「ポイント」）も付け加えられる．
 
+
 ### `json`
 - 変数が `x = {'key1': 10, 'key2': 20}` のような辞書型のとき， `{{ x | json }}` と記述すると，JSONにエンコードされた文字列（Pythonで `json.dumps(x)` とした返り値）が表示される．
+
 
 ### `to0`
 - `{{ x | to0 }}` と記述すると，変数 `x` の数値が切り下げられ，整数で表示される．
@@ -275,7 +281,6 @@
 - 自分で親テンプレートファイルを作りそこで独自のブロックを定義したとき，子テンプレートファイルで親テンプレートファイルを `extends` すれば独自のブロックが使える．
 
 
-
 ### `with`
 - テンプレートファイルにおいて変数を定義して展開できる．
 - たとえば以下のようにして使う．  
@@ -293,12 +298,108 @@
 
 
 ### `formfield`
+- `{{ formfield "変数名" }}` とすると，当該変数の入力フォームが以下のように展開される．
+    ```html
+    <div class="{{ classes }}">
+        {{ if is_checkbox }}
+            <!-- widget=widgets.CheckboxInput としている場合 -->
+            {{ fld }}
+            <label class="form-check-label" for="{{ fld.id }}">
+                {{ label }}
+            </label>
+        {{ else }}
+            <label class="col-form-label" for="{{ fld.id }}">
+                {{ label }}
+            </label>
+            <div class="controls">
+                {{ fld }}
+            </div>
+        {{ endif }}
+        {{ if fld.description }}
+            <!-- help_text に何か文字列を渡した場合 -->
+            <p>
+                <small>
+                    <p class="form-text text-muted">
+                        {{ fld.description }}
+                    </p>
+                </small>
+            </p>
+        {{ endif }}
+        {{ if errors }}
+            <!-- 一旦ページの入力フォームが送信されて oTree の検証に引っかかった場合 -->
+            <div class="form-control-errors">
+                {{ for error in errors }}
+                    {{ error }}<br/>
+                {{ endfor }}
+            </div>
+        {{ endif }}
+    </div>
+    ```
+    - ↑ で `{{ fld }}` となっている部分は以下のような HTML タグが生成される．
+        - チェックボックスの場合
+            ```html
+            <input type="checkbox" class="form-check-input" id="id_変数名" name="変数名" required value="y">
+            ```
+        - 記述フォームの場合
+            ```html
+            <input type="text" class="form-control" id="id_変数名" name="変数名" required value="">
+            ```
+        - `models.LongStringField` を使っている場合
+            ```html
+            <textarea class="form-control" id="id_変数名" name="変数名" required value=""></textarea>
+            ```
+        - ドロップダウンメニューの場合
+            ```html
+            <select class="form-select" id="id_変数名" name="変数名" required>
+                <option value="">--------</option>
+                <option value="1">A</option>
+                <option value="2">B</option>
+                <option value="3">C</option>
+            </select>
+            ```
+        - ラジオボタンの場合
+            ```html
+            <div id="id_変数名" required>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" id="id_変数名-0" name="変数名" required value="1">
+                    <label for="id_変数名-0">A</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" id="id_変数名-1" name="変数名" required value="2">
+                    <label for="id_変数名-1">B</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" id="id_変数名-2" name="変数名" required value="3">
+                    <label for="id_変数名-2">C</label>
+                </div>
+            </div>
+            ```
 
 
 ### `formfield_errors`
+- （ブラウザでの検証に通過した上で） oTree の検証に失敗した際にエラーメッセージを展開できる．
+- エラーメッセージを表示したい場所（入力フォームの下など）に `{{ formfield_errors "変数名" }}` を記述しておく．
+- `{{ formfield "変数名" }}` を使ってフォームを実装する場合は， `{{ formfield_errors "変数名" }}` を記述しなくてもエラーメッセージを入力フォームの下で表示してくれる（ oTree 3 ではページタイトルの下側にまとめて表示されていた）．
+- `{{ for }}` ループを使う場合は，たとえば以下のようにする．
+    ```html
+    {{ for eachfield in form }}
+        <div>
+            {{ eachfield.label }}
+            {{ formfield_errors eachfield.name }}
+        </div>
+    {{ endfor }}
+    ```
+- エラーメッセージは `error_message()` や `変数名.error_message()` 関数を使ってカスタマイズできる．
+- [https://otree.readthedocs.io/en/latest/forms.html#raw-html-widgets](https://otree.readthedocs.io/en/latest/forms.html#raw-html-widgets)
 
 
 ### `formfields`
+- `{{ formfields }}` は以下を記述することと同じ．
+    ```html
+    {{ for eachfield in form }}
+        {{ formfield eachfield.name }}
+    {{ endfor }}
+    ```
 
 
 ### `next_button`
@@ -312,6 +413,71 @@
 - `{{ chat }}` と記述すれば，チャット機能が実装される．
 - [https://otree.readthedocs.io/en/latest/multiplayer/chat.html](https://otree.readthedocs.io/en/latest/multiplayer/chat.html)
 
+
+
+## `form` オブジェクト
+- `form` 自体はテンプレートタグではなく，デフォルトでテンプレートに渡される変数（オブジェクト）．
+- ページクラスで `form_fields` に渡した変数に対応する入力フォームがすべて含まれている．
+    - `{{ form.変数名 }}` は `{{ formfield "変数名" }}` のラベルを除いた入力フォーム部分のみが展開される．
+        - HTMLタグの `name` 属性には変数名が入っている．
+        - HTMLタグの `id` 属性には `"id_変数名"` なる文字列が入っている．
+    - `{{ form.変数名.name }}` は変数名が展開される．
+    - `{{ form.変数名.id }}` は `"id_変数名"` なる文字列が展開される．
+    - `{{ form.変数名.label }}` は以下のHTMLタグが展開される．
+        ```html
+        <label for="id_変数名">データモデルで `label` に設定した文字列</label>
+        ```
+    - `{{ form.変数名.description }}` はデータモデルで `help_text` に設定した文字列が展開される．
+    - `{{ form.変数名.errors }}` は oTree の検証に引っかかったときのエラーメッセージ（文字列）がリストに入った状態で展開される．
+        - たとえば，以下のような使い方をする．
+            ```html
+            {{ if form.変数名.errors }}
+                <!-- エラーが発生した場合 -->
+                {{ form.変数名.errors.0 }}    {# ← リストの0番目にエラーメッセージ（文字列）が入っている #}
+            {{ endif }}
+            ```
+- たとえば `{{ for }}` ループを使って以下のような実装が可能．
+    ```html
+    {{ for eachfield in form }}
+        <div>
+            {{ eachfield.label }}
+            <input id="{{ eachfield.id }}" name="{{ eachfield.name }}">
+        </div>
+    {{ endfor }}
+    ```
+- 入力フォームがドロップダウンメニューの場合， `{{ form.変数名 }}` から更にパーツを取り出すことができる．
+    - たとえば
+        ```html
+        <select class="form-select" id="id_変数名" name="変数名" required>
+            {{ for eachopt in form.変数名 }}
+                {{ eachopt }}
+            {{ endfor }}
+        </select>
+        ```
+        としたとき， `{{ eachopt }}` には，たとえば以下の HTML タグが展開される．
+        ```html
+        <option value="1">A</option>
+        ```
+- 入力フォームがラジオボタンの場合， `{{ form.変数名 }}` から更にパーツを取り出すことができる．
+    - たとえば
+        ```html
+        <select class="form-select" id="id_変数名" name="変数名" required>
+            {{ for eachopt in form.変数名 }}
+                <p>
+                    {{ eachopt.label }}: {{ eachopt }}
+                </p>
+            {{ endfor }}
+        </select>
+        ```
+        としたとき， `{{ eachopt }}` には，たとえば以下の HTML タグが展開される．
+        ```html
+        <input class="form-check-input" type="radio" id="id_変数名-0" name="変数名" required value="1">
+        ```
+        `{{ eachopt.label }}` には，たとえば以下の HTML タグが展開される．
+        ```html
+        <label for="id_変数名-0">A</label>
+        ```
+    - インデックス（パーツの `id` 属性で `"id_変数名-"` のあとに入る数字）は0から始まることに注意．
 
 
 

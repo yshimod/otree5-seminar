@@ -14,7 +14,7 @@
 - 他にも使いたいモジュール（`time`，`random`，`json`，`numpy`など）があれば，冒頭でインポートしておく．
 
 
-## 定数: `C` クラス
+## 定数 `C` クラス
 [https://otree.readthedocs.io/en/latest/models.html#constants](https://otree.readthedocs.io/en/latest/models.html#constants)
 
 - アプリ内で参照する変数（定数）を定義する．
@@ -58,7 +58,7 @@
 ### `Subsession` クラス
 [https://otree.readthedocs.io/en/latest/models.html#subsession](https://otree.readthedocs.io/en/latest/models.html#subsession)
 
-#### メソッド・変数
+#### `subsession.*` （メソッド・変数）
 - `round_number`
     - （当該 player ないし group が属している） subsession のラウンド数（自然数）．
     - subsession は player， group の上位概念なので，たとえば，ある player がラウンド1にいて，もう一人の player がラウンド2にいるとき，果たして `subsession.round_number` は1と2のどちらなのか，と疑問に思うかもしれない．答えは，前者の player について， `player.subsession.round_number` は1，後者の player について， `player.subsession.round_number` は2，となる．ラウンドごとに subsession が定義されるため，2人の player が属する subsession が異なっていることに注意．
@@ -133,17 +133,28 @@
             </tr>
             </tbody>
         </table>
+    - `creating_session()` において `set_group_matrix()` を使って group 分けを設定するとき， `PLAYERS_PER_GROUP` は設定せずに `None` のままでも良い． `set_group_matrix()` の設定の方が優先される．
+    - 返り値はリストのリストであればよく，行列である必要はない．つまり， group のサイズが統一されていなくてもよい．たとえば以下のような設定も可能．
+        ```python
+        subsession.set_group_matrix(
+            [
+                [1],
+                [2, 3],
+                [4, 5, 6],
+                [7, 8, 9, 10]
+            ]
+        )
+        ```
 
-
-#### アクセスできる上層のオブジェクト
+#### subsession からアクセスできる上層のオブジェクト
 - session
 
 
 
-### クラス `Group`
+### `Group` クラス
 [https://otree.readthedocs.io/en/latest/models.html#group](https://otree.readthedocs.io/en/latest/models.html#group)
 
-#### メソッド・変数
+#### `group.*` （メソッド・変数）
 - `id_in_subsession`
     - group の番号（自然数）．
 - `round_number`
@@ -172,16 +183,16 @@
     - 返り値: 引数の変数の値．変数の値が `None` であれば `None` がエラーを出すことなく返ってくる．
     - [https://otree.readthedocs.io/en/latest/misc/tips_and_tricks.html#field-maybe-none](https://otree.readthedocs.io/en/latest/misc/tips_and_tricks.html#field-maybe-none)
 
-#### アクセスできる上層のオブジェクト
+#### group からアクセスできる上層のオブジェクト
 - subsession
 - session
 
 
 
-### クラス `Player`
+### `Player` クラス
 [https://otree.readthedocs.io/en/latest/models.html#player](https://otree.readthedocs.io/en/latest/models.html#player)
 
-
+#### `player.*` （メソッド・変数）
 - `id_in_subsession`
     - subsession でユニークな player の番号（自然数）．
     - 管理者画面で番号は 「P1」「P2」，... と表示される．
@@ -214,7 +225,7 @@
     - 返り値: 引数の変数の値．変数の値が `None` であれば `None` がエラーを出すことなく返ってくる．
     - [https://otree.readthedocs.io/en/latest/misc/tips_and_tricks.html#field-maybe-none](https://otree.readthedocs.io/en/latest/misc/tips_and_tricks.html#field-maybe-none)
 
-#### アクセスできる上層のオブジェクト
+#### player からアクセスできる上層のオブジェクト
 - participant
 - group
 - subsession
@@ -244,7 +255,6 @@
             - `config['real_world_currency_per_point']`
     - `get_subsessions()`
     - `get_participants()`
-
 
 #### participant
 - participant オブジェクトは，セッションに参加している各参加者についてユニークな変数を記録できる．
@@ -299,6 +309,10 @@
         - `label = ""` としてあるとき，以前はもコロンだけが必ず表示されていたが，いつの間にか改善され，最新バージョンでは `<label>` タグ自体生成されない．
     - `doc`
         - ドキュメントを記述してもよいが，（アプリなどのドキュメントとは異なり）管理者画面で自動的にドキュメントが表示されるような仕組みは無さそう．
+        - [https://docs.sqlalchemy.org/en/14/core/metadata.html?highlight=column#sqlalchemy.schema.Column.params.doc](https://docs.sqlalchemy.org/en/14/core/metadata.html?highlight=column#sqlalchemy.schema.Column.params.doc)
+    - `help_text`
+        - 参加者への指示などの文章を記述しておくと，テンプレートタグで入力フォームを作るときに小さい灰色の字で `help_text` に書いたものがフォームの下側に表示される．
+        - テンプレートで `{{ form.変数名.description }}` と記述すると`help_text` に書いた文字列が展開される．
     - `blank`
         - 強制回答にしない場合は `blank = True` とする．
 - `models.CurrencyField`
@@ -325,6 +339,7 @@
         - `initial` を指定していないとき，タイムアウトが発生すると `cu(0)` が入る．
     - `label`
     - `doc`
+    - `help_text`
     - `min`
         - 最小値．
         - 通貨型の設定でポイント表示を使っているときに `min = 0` として，かつ入力フォームを HTML タグ直打ちで実装する場合，入力フォームの値が「-0.49」でも oTree サーバーの検証は通過する．ただしデータベースには「0」で記録される．
@@ -351,6 +366,7 @@
     - `initial`
     - `label`
     - `doc`
+    - `help_text`
     - `min`
     - `max`
     - `blank`
@@ -363,6 +379,7 @@
     - `initial`
     - `label`
     - `doc`
+    - `help_text`
     - `min`
     - `max`
     - `blank`
@@ -372,12 +389,12 @@
     - テンプレートタグで自由記述の入力フォームを作るとき， `type="text"` とした `<input>` で生成される．
     - たとえば `input1 = models.StringField()` と定義して，入力されたものをテンプレートで展開して表示するとき， `{{ input1 | escape }}` というように `escape` フィルターを使ったほうが良い（ oTree 3 ではデフォルトでエスケープされていた）．
         - たとえば参加者が「`<script>alert('あなたは対策不足です！');</script>`」と入力したとき， `{{ input1 }}` が展開されると， `<script>`で記述した JavaScript コードが実際に実行される（アラートが表示される）．
-        - 悪用されないように対策するべき．詳しくは「クロスサイトスクリプティング」で検索．
     - `choices`
     - `widget`
     - `initial`
     - `label`
     - `doc`
+    - `help_text`
     - `max_length`
         - デフォルトは `max_length=10000`．
     - `blank`
@@ -390,6 +407,7 @@
     - `initial`
     - `label`
     - `doc`
+    - `help_text`
     - `max_length`
         - デフォルトは `max_length=None`．
     - `blank`
@@ -436,6 +454,8 @@
     - `form_model` で指定したモデルで定義していない変数を指定してはいけない．
     - `form_fields` で複数要素を指定していて，かつテンプレートタグ `{{ formfields }}` を使う場合，リストの順番通り入力フォームが作られる．
     - 動的に変更する場合には組み込みメソッド `get_form_fields()` を使う．
+        - `form_fields` で設定してあっても， `get_form_fields()` の設定の方が優先される．
+    - `form_fields` で入力フォームの変数名を渡した場合，当該変数で `blank = True` と設定しない限り，（ `initial` を設定してあっても，）ページの入力フォームから適切な値が送信されなければ次のページへ進めない．
 - `timeout_seconds`
     - 整数で秒数を渡すと，当該ページでの時間制限を設定できる．
     - 動的に変更する場合には組み込みメソッド `get_timeout_seconds()` を使う．
@@ -459,43 +479,52 @@
 - `get_form_fields()`
     - 引数: `(player: Player)`
     - 返り値: 変数名の文字列のリスト． `form_fields` と同様．
+    - [https://otree.readthedocs.io/en/latest/forms.html#determining-form-fields-dynamically](https://otree.readthedocs.io/en/latest/forms.html#determining-form-fields-dynamically)
 - `vars_for_template()`
     - 引数: `(player: Player)`
     - 返り値: 辞書型．
     - [https://otree.readthedocs.io/en/latest/pages.html#vars-for-template](https://otree.readthedocs.io/en/latest/pages.html#vars-for-template)
     - ページを読み込む度に実行される．
     - `js_vars()` よりも先に実行される．
+    - [https://otree.readthedocs.io/en/latest/pages.html#vars-for-template](https://otree.readthedocs.io/en/latest/pages.html#vars-for-template)
 - `js_vars()`
     - 引数: `(player: Player)`
     - 返り値: 辞書型．
     - [https://otree.readthedocs.io/en/latest/templates.html#passing-data-from-python-to-javascript-js-vars](https://otree.readthedocs.io/en/latest/templates.html#passing-data-from-python-to-javascript-js-vars)
     - ページを読み込む度に実行される．
     - `vars_for_template()` の後に実行される．
+    - [https://otree.readthedocs.io/en/latest/templates.html#passing-data-from-python-to-javascript-js-vars](https://otree.readthedocs.io/en/latest/templates.html#passing-data-from-python-to-javascript-js-vars)
 - `before_next_page()`
     - 引数: `(player: Player, timeout_happened)`
         - `timeout_happened` はブール値．時間制限でページが進んだ場合にフラグが立つ．
     - 返り値: 何も返してはいけない．
     - ページが進められたとき（フォームが送信されたとき），次のページを表示する前に実行される．
     - 当該ページが `is_displayed()` でスキップされていれば，実行されない．
+    - [https://otree.readthedocs.io/en/latest/pages.html#before-next-page](https://otree.readthedocs.io/en/latest/pages.html#before-next-page)
 - `is_displayed()`
     - 引数: `(player: Player)`
     - 返り値: ブール値．デフォルトでは `True` を返している．
     - ページを表示する前に実行される．
     - 返り値が `False` の場合，（ `page_sequence` で指定した順番の）次のページへスキップされる．
+    - [https://otree.readthedocs.io/en/latest/pages.html#is-displayed](https://otree.readthedocs.io/en/latest/pages.html#is-displayed)
 - `error_message()`
     - 引数: `(player: Player, values)`
         - `values` はフォームの変数名をキーとする辞書で，入力された値が取り出せる．
     - 返り値: フォームの変数名をキーとする辞書型で，値は各フォームに対応するエラーメッセージの文字列．エラーが無い場合は何も返さないか，空の辞書を返す．
     - ページが進められたとき（フォームが送信されたとき），次のページを表示する前に実行され，エラーがあれば同一ページにエラーメッセージを追加したものを表示する．
     - フォームごと個別に検証用の関数を定義することもできる．ページクラスの外側で `*_error_message()` を定義する．
+    - [https://otree.readthedocs.io/en/latest/misc/tips_and_tricks.html#avoid-duplicated-validation-methods](https://otree.readthedocs.io/en/latest/misc/tips_and_tricks.html#avoid-duplicated-validation-methods)
 - `get_timeout_seconds()`
     - 引数: `(player: Player)`
     - 返り値: 整数で秒数を渡すと，当該ページでの時間制限を設定できる． `timeout_seconds` と同様．
+    - [https://otree.readthedocs.io/en/latest/timeouts.html#get-timeout-seconds](https://otree.readthedocs.io/en/latest/timeouts.html#get-timeout-seconds)
 - `app_after_this_page()`
     - 引数: `(player: Player, upcoming_apps)`
         - `upcoming_apps` は `settings.py` で設定した `SESSION_CONFIGS.app_sequence` で，当該アプリより後のアプリ名（文字列）が並んだリスト．
     - 返り値: スキップ先のアプリ名（ `upcoming_apps` の要素である文字列）．
     - 複数のラウンドが設定してあるときも，アプリごとスキップする．同一アプリで次のラウンドの最初のページへスキップするのではない．
+    - [https://otree.readthedocs.io/en/latest/pages.html#app-after-this-page](https://otree.readthedocs.io/en/latest/pages.html#app-after-this-page)
+
 
 
 ## 待機ページ
@@ -508,15 +537,15 @@
 ### 待機ページの変数
 - `template_name`
     - 待機ページもカスタマイズしようと思えばできる．そのときはテンプレートファイルのパスを渡す．
-    - [https://otree.readthedocs.io/en/latest/misc/advanced.html#wait-pages](https://otree.readthedocs.io/en/latest/misc/advanced.html#wait-pages)
     - 使用例: [https://www.otreehub.com/projects/otree-snippets/](https://www.otreehub.com/projects/otree-snippets/) の "wait_page_timeout"
+    - [https://otree.readthedocs.io/en/latest/misc/advanced.html#wait-pages](https://otree.readthedocs.io/en/latest/misc/advanced.html#wait-pages)
 - `group_by_arrival_time`
     - `True` を渡せば，次のページ以降の group 分けが，当該待機ページに到達した順の group 分けになる．
     - 当該待機ページが `page_sequence` の先頭にある場合のみ `group_by_arrival_time = True` を設定できる．
     - `group_by_arrival_time = True` を設定している場合，全 player が当該待機ページを通るようにする． `is_displayed()` で特定の役割の player だけスキップする，というようなことをしてはいけない． `is_displayed()` で特定のラウンド以外はスキップする，という使い方はOK．
     - より細かい設定をしたい場合は， `group_by_arrival_time = True` を設定した上で，クラスの外側で `group_by_arrival_time_method()` を定義する．
-    - [https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html#group-by-arrival-time](https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html#group-by-arrival-time)
     - 待機中，参加者のウィンドウがアクティブでない場合（たとえば他のタブを開いて遊んでいる場合），ドロップアウトとみなし group に参加させない． [https://groups.google.com/g/otree/c/XsFMNoZR7PY](https://groups.google.com/g/otree/c/XsFMNoZR7PY)
+    - [https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html#group-by-arrival-time](https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html#group-by-arrival-time)
 - `wait_for_all_groups`
     - `True` を渡せば，待機ページにおいて group のメンバーではなく， subsession の全メンバーを待機する．
     - `wait_for_all_groups = True` としたときは，組み込みメソッド `after_all_players_arrive()` の引数が subsession オブジェクトとなることに注意．
@@ -576,8 +605,15 @@
 - `Subsession` クラスの下側で定義する．
 - 引数: `(subsession: Subsession)`
 - 返り値: 何も返してはいけない．
-- セッションの作成時に実行される． subsession ごと実行される．
+- セッションの作成時に実行される．
+    - 直前のアプリや直前のラウンド（ subsession ）における行動に応じた処理はできない．
+    - ↑ そのような処理をしたい場合は（想定された使い方ではないが） `group_by_arrival_time_method()` を使う．
+- subsession の数だけ（ `NUM_ROUNDS` だけ）実行される．
+    - `creating_session()` において group 分けを実装するとき， 陽に `group_randomly()` が呼び出されないとデフォルトの group 分け（ `player.id_in_subsession` の昇順で `PLAYERS_PER_GROUP` 人ずつの group ）になる．
+    - たとえば 1ラウンド目（ `if subsession.round_number == 1` ）に `group_randomly()` を使って group 分けして，以降のラウンドでは1ラウンド目の group を継承したい場合は， `if subsession.round_number > 1` なる条件において陽に `group_like_round(1)` を呼び出す必要がある．
+- [組み込み関数 `creating_session()` の中で使うメソッド](#組み込み関数-creatingsession-の中で使うメソッド)
 - [https://otree.readthedocs.io/en/latest/treatments.html](https://otree.readthedocs.io/en/latest/treatments.html)
+
 
 ### `custom_export()`
 - 引数: `players` （ `player` のリスト）
@@ -585,13 +621,17 @@
 - "CSV Data Export" で出力するときに実行される．
 - [https://otree.readthedocs.io/en/latest/admin.html#custom-data-exports](https://otree.readthedocs.io/en/latest/admin.html#custom-data-exports)
 
+
 ### `group_by_arrival_time_method()`
 - `Subsession` クラスの下側で定義する．
 - 引数: `(subsession: Subsession, waiting_players)`
     - `waiting_players` 到達して待機中の player オブジェクトが入ったリスト．
 - 返り値: player オブジェクトが入ったリスト．リストの要素のメンバーで group となる．
 - 待機ページにプレイヤーが到達する度に実行される．
+    - `page_sequence` の先頭に置かれた待機ページのクラスで `group_by_arrival_time = True` が設定されている場合にのみ呼び出される．
+    - `creating_session()` と同様の用途で使える． `creating_session()` とは異なり，直前のアプリや直前のラウンド（ subsession ）における行動に応じた処理を実装できる．
 - [https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html#group-by-arrival-time-method](https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html#group-by-arrival-time-method)
+
 
 ### `vars_for_admin_report()`
 - 引数: `(subsession: Subsession)`
@@ -599,26 +639,35 @@
 - 定義する場合は，当該アプリのディレクトリに `admin_report.html` なるファイル名でテンプレートファイルを作成しておく．
 - [https://otree.readthedocs.io/en/latest/admin.html#customizing-the-admin-interface-admin-reports](https://otree.readthedocs.io/en/latest/admin.html#customizing-the-admin-interface-admin-reports)
 
+
 ### `*_min()`
 - `*` の部分にフィールドの変数名を入れる．
 - 引数: `(player: Player)`
 - 返り値: フィールドの最小値．
+- [https://otree.readthedocs.io/en/latest/forms.html#field-name-max](https://otree.readthedocs.io/en/latest/forms.html#field-name-max)
+
 
 ### `*_max`
 - `*` の部分にフィールドの変数名を入れる．
 - 引数: `(player: Player)`
 - 返り値: フィールドの最大値．
+- [https://otree.readthedocs.io/en/latest/forms.html#field-name-max](https://otree.readthedocs.io/en/latest/forms.html#field-name-max)
+
 
 ### `*_choices`
 - `*` の部分にフィールドの変数名を入れる．
 - 引数: `(player: Player)`
 - 返り値: フィールドの選択肢のリスト．
+- [https://otree.readthedocs.io/en/latest/forms.html#field-name-choices](https://otree.readthedocs.io/en/latest/forms.html#field-name-choices)
+
 
 ### `*_error_message`
 - `*` の部分にフィールドの変数名を入れる．
 - 引数: `(player: Player, value)`
     - `value` は入力されたフィールドの値．
 - 返り値: エラーメッセージの文字列．
+- [https://otree.readthedocs.io/en/latest/forms.html#field-name-error-message](https://otree.readthedocs.io/en/latest/forms.html#field-name-error-message)
+
 
 
 ## 自作の関数
@@ -626,6 +675,8 @@
 - モジュールレベルやクラスの中で自分で関数を定義して使える．
 - 自作の関数なので当然自分で引数を設定して良いが，呼び出す場所次第では引数の指定がある．たとえば， `after_all_players_arrive` に自作の関数を渡すときに引数は `group` （または `subsession` ）となる．
 - 当然のこととして，自作の関数は陽に呼び出さないと実行されない．
+- [https://otree.readthedocs.io/en/latest/misc/tips_and_tricks.html#avoid-duplicated-page-functions](https://otree.readthedocs.io/en/latest/misc/tips_and_tricks.html#avoid-duplicated-page-functions)
+
 
 
 ## `page_sequence`

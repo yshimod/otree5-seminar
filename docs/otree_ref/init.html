@@ -461,7 +461,7 @@
 </li>
 <li>他にも使いたいモジュール（<code>time</code>，<code>random</code>，<code>json</code>，<code>numpy</code>など）があれば，冒頭でインポートしておく．</li>
 </ul>
-<h2 id="定数-c-クラス">定数: <code>C</code> クラス</h2>
+<h2 id="定数-c-クラス">定数 <code>C</code> クラス</h2>
 <p><a href="https://otree.readthedocs.io/en/latest/models.html#constants" target="_blank">https://otree.readthedocs.io/en/latest/models.html#constants</a></p>
 <ul>
 <li>アプリ内で参照する変数（定数）を定義する．</li>
@@ -504,7 +504,7 @@
 <p><a href="https://otree.readthedocs.io/en/latest/models.html" target="_blank">https://otree.readthedocs.io/en/latest/models.html</a></p>
 <h3 id="subsession-クラス"><code>Subsession</code> クラス</h3>
 <p><a href="https://otree.readthedocs.io/en/latest/models.html#subsession" target="_blank">https://otree.readthedocs.io/en/latest/models.html#subsession</a></p>
-<h4 id="メソッド・変数">メソッド・変数</h4>
+<h4 id="subsession-（メソッド・変数）"><code>subsession.*</code> （メソッド・変数）</h4>
 <ul>
 <li><code>round_number</code><ul>
 <li>（当該 player ないし group が属している） subsession のラウンド数（自然数）．</li>
@@ -601,20 +601,28 @@
       <td>6</td>
       </tr>
       </tbody>
-  </table>
-
-
+  </table></li>
+<li><code>creating_session()</code> において <code>set_group_matrix()</code> を使って group 分けを設定するとき， <code>PLAYERS_PER_GROUP</code> は設定せずに <code>None</code> のままでも良い． <code>set_group_matrix()</code> の設定の方が優先される．</li>
+<li>返り値はリストのリストであればよく，行列である必要はない．つまり， group のサイズが統一されていなくてもよい．たとえば以下のような設定も可能．<pre><code class="lang-python">  subsession.set_group_matrix(
+      [
+          [<span class="hljs-number">1</span>],
+          [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>],
+          [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>],
+          [<span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span>]
+      ]
+  )
+</code></pre>
 </li>
 </ul>
 </li>
 </ul>
-<h4 id="アクセスできる上層のオブジェクト">アクセスできる上層のオブジェクト</h4>
+<h4 id="subsession-からアクセスできる上層のオブジェクト">subsession からアクセスできる上層のオブジェクト</h4>
 <ul>
 <li>session</li>
 </ul>
-<h3 id="クラス-group">クラス <code>Group</code></h3>
+<h3 id="group-クラス"><code>Group</code> クラス</h3>
 <p><a href="https://otree.readthedocs.io/en/latest/models.html#group" target="_blank">https://otree.readthedocs.io/en/latest/models.html#group</a></p>
-<h4 id="メソッド・変数">メソッド・変数</h4>
+<h4 id="group-（メソッド・変数）"><code>group.*</code> （メソッド・変数）</h4>
 <ul>
 <li><code>id_in_subsession</code><ul>
 <li>group の番号（自然数）．</li>
@@ -666,13 +674,14 @@
 </ul>
 </li>
 </ul>
-<h4 id="アクセスできる上層のオブジェクト">アクセスできる上層のオブジェクト</h4>
+<h4 id="group-からアクセスできる上層のオブジェクト">group からアクセスできる上層のオブジェクト</h4>
 <ul>
 <li>subsession</li>
 <li>session</li>
 </ul>
-<h3 id="クラス-player">クラス <code>Player</code></h3>
+<h3 id="player-クラス"><code>Player</code> クラス</h3>
 <p><a href="https://otree.readthedocs.io/en/latest/models.html#player" target="_blank">https://otree.readthedocs.io/en/latest/models.html#player</a></p>
+<h4 id="player-（メソッド・変数）"><code>player.*</code> （メソッド・変数）</h4>
 <ul>
 <li><code>id_in_subsession</code><ul>
 <li>subsession でユニークな player の番号（自然数）．</li>
@@ -730,7 +739,7 @@
 </ul>
 </li>
 </ul>
-<h4 id="アクセスできる上層のオブジェクト">アクセスできる上層のオブジェクト</h4>
+<h4 id="player-からアクセスできる上層のオブジェクト">player からアクセスできる上層のオブジェクト</h4>
 <ul>
 <li>participant</li>
 <li>group</li>
@@ -847,6 +856,12 @@
 </li>
 <li><code>doc</code><ul>
 <li>ドキュメントを記述してもよいが，（アプリなどのドキュメントとは異なり）管理者画面で自動的にドキュメントが表示されるような仕組みは無さそう．</li>
+<li><a href="https://docs.sqlalchemy.org/en/14/core/metadata.html?highlight=column#sqlalchemy.schema.Column.params.doc" target="_blank">https://docs.sqlalchemy.org/en/14/core/metadata.html?highlight=column#sqlalchemy.schema.Column.params.doc</a></li>
+</ul>
+</li>
+<li><code>help_text</code><ul>
+<li>参加者への指示などの文章を記述しておくと，テンプレートタグで入力フォームを作るときに小さい灰色の字で <code>help_text</code> に書いたものがフォームの下側に表示される．</li>
+<li>テンプレートで <code>{{ form.変数名.description }}</code> と記述すると<code>help_text</code> に書いた文字列が展開される．</li>
 </ul>
 </li>
 <li><code>blank</code><ul>
@@ -886,6 +901,7 @@
 </li>
 <li><code>label</code></li>
 <li><code>doc</code></li>
+<li><code>help_text</code></li>
 <li><code>min</code><ul>
 <li>最小値．</li>
 <li>通貨型の設定でポイント表示を使っているときに <code>min = 0</code> として，かつ入力フォームを HTML タグ直打ちで実装する場合，入力フォームの値が「-0.49」でも oTree サーバーの検証は通過する．ただしデータベースには「0」で記録される．</li>
@@ -919,6 +935,7 @@
 <li><code>initial</code></li>
 <li><code>label</code></li>
 <li><code>doc</code></li>
+<li><code>help_text</code></li>
 <li><code>min</code></li>
 <li><code>max</code></li>
 <li><code>blank</code></li>
@@ -933,6 +950,7 @@
 <li><code>initial</code></li>
 <li><code>label</code></li>
 <li><code>doc</code></li>
+<li><code>help_text</code></li>
 <li><code>min</code></li>
 <li><code>max</code></li>
 <li><code>blank</code></li>
@@ -944,7 +962,6 @@
 <li>テンプレートタグで自由記述の入力フォームを作るとき， <code>type=&quot;text&quot;</code> とした <code>&lt;input&gt;</code> で生成される．</li>
 <li>たとえば <code>input1 = models.StringField()</code> と定義して，入力されたものをテンプレートで展開して表示するとき， <code>{{ input1 | escape }}</code> というように <code>escape</code> フィルターを使ったほうが良い（ oTree 3 ではデフォルトでエスケープされていた）．<ul>
 <li>たとえば参加者が「<code>&lt;script&gt;alert(&apos;あなたは対策不足です！&apos;);&lt;/script&gt;</code>」と入力したとき， <code>{{ input1 }}</code> が展開されると， <code>&lt;script&gt;</code>で記述した JavaScript コードが実際に実行される（アラートが表示される）．</li>
-<li>悪用されないように対策するべき．詳しくは「クロスサイトスクリプティング」で検索．</li>
 </ul>
 </li>
 <li><code>choices</code></li>
@@ -952,6 +969,7 @@
 <li><code>initial</code></li>
 <li><code>label</code></li>
 <li><code>doc</code></li>
+<li><code>help_text</code></li>
 <li><code>max_length</code><ul>
 <li>デフォルトは <code>max_length=10000</code>．</li>
 </ul>
@@ -968,6 +986,7 @@
 <li><code>initial</code></li>
 <li><code>label</code></li>
 <li><code>doc</code></li>
+<li><code>help_text</code></li>
 <li><code>max_length</code><ul>
 <li>デフォルトは <code>max_length=None</code>．</li>
 </ul>
@@ -1021,7 +1040,11 @@
 <li>当該ページで入力フォームの変数名の文字列をリストで渡す．</li>
 <li><code>form_model</code> で指定したモデルで定義していない変数を指定してはいけない．</li>
 <li><code>form_fields</code> で複数要素を指定していて，かつテンプレートタグ <code>{{ formfields }}</code> を使う場合，リストの順番通り入力フォームが作られる．</li>
-<li>動的に変更する場合には組み込みメソッド <code>get_form_fields()</code> を使う．</li>
+<li>動的に変更する場合には組み込みメソッド <code>get_form_fields()</code> を使う．<ul>
+<li><code>form_fields</code> で設定してあっても， <code>get_form_fields()</code> の設定の方が優先される．</li>
+</ul>
+</li>
+<li><code>form_fields</code> で入力フォームの変数名を渡した場合，当該変数で <code>blank = True</code> と設定しない限り，（ <code>initial</code> を設定してあっても，）ページの入力フォームから適切な値が送信されなければ次のページへ進めない．</li>
 </ul>
 </li>
 <li><code>timeout_seconds</code><ul>
@@ -1052,6 +1075,7 @@
 <li><code>get_form_fields()</code><ul>
 <li>引数: <code>(player: Player)</code></li>
 <li>返り値: 変数名の文字列のリスト． <code>form_fields</code> と同様．</li>
+<li><a href="https://otree.readthedocs.io/en/latest/forms.html#determining-form-fields-dynamically" target="_blank">https://otree.readthedocs.io/en/latest/forms.html#determining-form-fields-dynamically</a></li>
 </ul>
 </li>
 <li><code>vars_for_template()</code><ul>
@@ -1060,6 +1084,7 @@
 <li><a href="https://otree.readthedocs.io/en/latest/pages.html#vars-for-template" target="_blank">https://otree.readthedocs.io/en/latest/pages.html#vars-for-template</a></li>
 <li>ページを読み込む度に実行される．</li>
 <li><code>js_vars()</code> よりも先に実行される．</li>
+<li><a href="https://otree.readthedocs.io/en/latest/pages.html#vars-for-template" target="_blank">https://otree.readthedocs.io/en/latest/pages.html#vars-for-template</a></li>
 </ul>
 </li>
 <li><code>js_vars()</code><ul>
@@ -1068,6 +1093,7 @@
 <li><a href="https://otree.readthedocs.io/en/latest/templates.html#passing-data-from-python-to-javascript-js-vars" target="_blank">https://otree.readthedocs.io/en/latest/templates.html#passing-data-from-python-to-javascript-js-vars</a></li>
 <li>ページを読み込む度に実行される．</li>
 <li><code>vars_for_template()</code> の後に実行される．</li>
+<li><a href="https://otree.readthedocs.io/en/latest/templates.html#passing-data-from-python-to-javascript-js-vars" target="_blank">https://otree.readthedocs.io/en/latest/templates.html#passing-data-from-python-to-javascript-js-vars</a></li>
 </ul>
 </li>
 <li><code>before_next_page()</code><ul>
@@ -1078,6 +1104,7 @@
 <li>返り値: 何も返してはいけない．</li>
 <li>ページが進められたとき（フォームが送信されたとき），次のページを表示する前に実行される．</li>
 <li>当該ページが <code>is_displayed()</code> でスキップされていれば，実行されない．</li>
+<li><a href="https://otree.readthedocs.io/en/latest/pages.html#before-next-page" target="_blank">https://otree.readthedocs.io/en/latest/pages.html#before-next-page</a></li>
 </ul>
 </li>
 <li><code>is_displayed()</code><ul>
@@ -1085,6 +1112,7 @@
 <li>返り値: ブール値．デフォルトでは <code>True</code> を返している．</li>
 <li>ページを表示する前に実行される．</li>
 <li>返り値が <code>False</code> の場合，（ <code>page_sequence</code> で指定した順番の）次のページへスキップされる．</li>
+<li><a href="https://otree.readthedocs.io/en/latest/pages.html#is-displayed" target="_blank">https://otree.readthedocs.io/en/latest/pages.html#is-displayed</a></li>
 </ul>
 </li>
 <li><code>error_message()</code><ul>
@@ -1095,11 +1123,13 @@
 <li>返り値: フォームの変数名をキーとする辞書型で，値は各フォームに対応するエラーメッセージの文字列．エラーが無い場合は何も返さないか，空の辞書を返す．</li>
 <li>ページが進められたとき（フォームが送信されたとき），次のページを表示する前に実行され，エラーがあれば同一ページにエラーメッセージを追加したものを表示する．</li>
 <li>フォームごと個別に検証用の関数を定義することもできる．ページクラスの外側で <code>*_error_message()</code> を定義する．</li>
+<li><a href="https://otree.readthedocs.io/en/latest/misc/tips_and_tricks.html#avoid-duplicated-validation-methods" target="_blank">https://otree.readthedocs.io/en/latest/misc/tips_and_tricks.html#avoid-duplicated-validation-methods</a></li>
 </ul>
 </li>
 <li><code>get_timeout_seconds()</code><ul>
 <li>引数: <code>(player: Player)</code></li>
 <li>返り値: 整数で秒数を渡すと，当該ページでの時間制限を設定できる． <code>timeout_seconds</code> と同様．</li>
+<li><a href="https://otree.readthedocs.io/en/latest/timeouts.html#get-timeout-seconds" target="_blank">https://otree.readthedocs.io/en/latest/timeouts.html#get-timeout-seconds</a></li>
 </ul>
 </li>
 <li><code>app_after_this_page()</code><ul>
@@ -1109,6 +1139,7 @@
 </li>
 <li>返り値: スキップ先のアプリ名（ <code>upcoming_apps</code> の要素である文字列）．</li>
 <li>複数のラウンドが設定してあるときも，アプリごとスキップする．同一アプリで次のラウンドの最初のページへスキップするのではない．</li>
+<li><a href="https://otree.readthedocs.io/en/latest/pages.html#app-after-this-page" target="_blank">https://otree.readthedocs.io/en/latest/pages.html#app-after-this-page</a></li>
 </ul>
 </li>
 </ul>
@@ -1122,8 +1153,8 @@
 <ul>
 <li><code>template_name</code><ul>
 <li>待機ページもカスタマイズしようと思えばできる．そのときはテンプレートファイルのパスを渡す．</li>
-<li><a href="https://otree.readthedocs.io/en/latest/misc/advanced.html#wait-pages" target="_blank">https://otree.readthedocs.io/en/latest/misc/advanced.html#wait-pages</a></li>
 <li>使用例: <a href="https://www.otreehub.com/projects/otree-snippets/" target="_blank">https://www.otreehub.com/projects/otree-snippets/</a> の &quot;wait_page_timeout&quot;</li>
+<li><a href="https://otree.readthedocs.io/en/latest/misc/advanced.html#wait-pages" target="_blank">https://otree.readthedocs.io/en/latest/misc/advanced.html#wait-pages</a></li>
 </ul>
 </li>
 <li><code>group_by_arrival_time</code><ul>
@@ -1131,8 +1162,8 @@
 <li>当該待機ページが <code>page_sequence</code> の先頭にある場合のみ <code>group_by_arrival_time = True</code> を設定できる．</li>
 <li><code>group_by_arrival_time = True</code> を設定している場合，全 player が当該待機ページを通るようにする． <code>is_displayed()</code> で特定の役割の player だけスキップする，というようなことをしてはいけない． <code>is_displayed()</code> で特定のラウンド以外はスキップする，という使い方はOK．</li>
 <li>より細かい設定をしたい場合は， <code>group_by_arrival_time = True</code> を設定した上で，クラスの外側で <code>group_by_arrival_time_method()</code> を定義する．</li>
-<li><a href="https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html#group-by-arrival-time" target="_blank">https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html#group-by-arrival-time</a></li>
 <li>待機中，参加者のウィンドウがアクティブでない場合（たとえば他のタブを開いて遊んでいる場合），ドロップアウトとみなし group に参加させない． <a href="https://groups.google.com/g/otree/c/XsFMNoZR7PY" target="_blank">https://groups.google.com/g/otree/c/XsFMNoZR7PY</a></li>
+<li><a href="https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html#group-by-arrival-time" target="_blank">https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html#group-by-arrival-time</a></li>
 </ul>
 </li>
 <li><code>wait_for_all_groups</code><ul>
@@ -1200,7 +1231,17 @@
 <li><code>Subsession</code> クラスの下側で定義する．</li>
 <li>引数: <code>(subsession: Subsession)</code></li>
 <li>返り値: 何も返してはいけない．</li>
-<li>セッションの作成時に実行される． subsession ごと実行される．</li>
+<li>セッションの作成時に実行される．<ul>
+<li>直前のアプリや直前のラウンド（ subsession ）における行動に応じた処理はできない．</li>
+<li>↑ そのような処理をしたい場合は（想定された使い方ではないが） <code>group_by_arrival_time_method()</code> を使う．</li>
+</ul>
+</li>
+<li>subsession の数だけ（ <code>NUM_ROUNDS</code> だけ）実行される．<ul>
+<li><code>creating_session()</code> において group 分けを実装するとき， 陽に <code>group_randomly()</code> が呼び出されないとデフォルトの group 分け（ <code>player.id_in_subsession</code> の昇順で <code>PLAYERS_PER_GROUP</code> 人ずつの group ）になる．</li>
+<li>たとえば 1ラウンド目（ <code>if subsession.round_number == 1</code> ）に <code>group_randomly()</code> を使って group 分けして，以降のラウンドでは1ラウンド目の group を継承したい場合は， <code>if subsession.round_number &gt; 1</code> なる条件において陽に <code>group_like_round(1)</code> を呼び出す必要がある．</li>
+</ul>
+</li>
+<li><a href="#組み込み関数-creatingsession-の中で使うメソッド">組み込み関数 <code>creating_session()</code> の中で使うメソッド</a></li>
 <li><a href="https://otree.readthedocs.io/en/latest/treatments.html" target="_blank">https://otree.readthedocs.io/en/latest/treatments.html</a></li>
 </ul>
 <h3 id="customexport"><code>custom_export()</code></h3>
@@ -1218,7 +1259,11 @@
 </ul>
 </li>
 <li>返り値: player オブジェクトが入ったリスト．リストの要素のメンバーで group となる．</li>
-<li>待機ページにプレイヤーが到達する度に実行される．</li>
+<li>待機ページにプレイヤーが到達する度に実行される．<ul>
+<li><code>page_sequence</code> の先頭に置かれた待機ページのクラスで <code>group_by_arrival_time = True</code> が設定されている場合にのみ呼び出される．</li>
+<li><code>creating_session()</code> と同様の用途で使える． <code>creating_session()</code> とは異なり，直前のアプリや直前のラウンド（ subsession ）における行動に応じた処理を実装できる．</li>
+</ul>
+</li>
 <li><a href="https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html#group-by-arrival-time-method" target="_blank">https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html#group-by-arrival-time-method</a></li>
 </ul>
 <h3 id="varsforadminreport"><code>vars_for_admin_report()</code></h3>
@@ -1233,18 +1278,21 @@
 <li><code>*</code> の部分にフィールドの変数名を入れる．</li>
 <li>引数: <code>(player: Player)</code></li>
 <li>返り値: フィールドの最小値．</li>
+<li><a href="https://otree.readthedocs.io/en/latest/forms.html#field-name-max" target="_blank">https://otree.readthedocs.io/en/latest/forms.html#field-name-max</a></li>
 </ul>
 <h3 id="max"><code>*_max</code></h3>
 <ul>
 <li><code>*</code> の部分にフィールドの変数名を入れる．</li>
 <li>引数: <code>(player: Player)</code></li>
 <li>返り値: フィールドの最大値．</li>
+<li><a href="https://otree.readthedocs.io/en/latest/forms.html#field-name-max" target="_blank">https://otree.readthedocs.io/en/latest/forms.html#field-name-max</a></li>
 </ul>
 <h3 id="choices"><code>*_choices</code></h3>
 <ul>
 <li><code>*</code> の部分にフィールドの変数名を入れる．</li>
 <li>引数: <code>(player: Player)</code></li>
 <li>返り値: フィールドの選択肢のリスト．</li>
+<li><a href="https://otree.readthedocs.io/en/latest/forms.html#field-name-choices" target="_blank">https://otree.readthedocs.io/en/latest/forms.html#field-name-choices</a></li>
 </ul>
 <h3 id="errormessage"><code>*_error_message</code></h3>
 <ul>
@@ -1254,12 +1302,14 @@
 </ul>
 </li>
 <li>返り値: エラーメッセージの文字列．</li>
+<li><a href="https://otree.readthedocs.io/en/latest/forms.html#field-name-error-message" target="_blank">https://otree.readthedocs.io/en/latest/forms.html#field-name-error-message</a></li>
 </ul>
 <h2 id="自作の関数">自作の関数</h2>
 <ul>
 <li>モジュールレベルやクラスの中で自分で関数を定義して使える．</li>
 <li>自作の関数なので当然自分で引数を設定して良いが，呼び出す場所次第では引数の指定がある．たとえば， <code>after_all_players_arrive</code> に自作の関数を渡すときに引数は <code>group</code> （または <code>subsession</code> ）となる．</li>
 <li>当然のこととして，自作の関数は陽に呼び出さないと実行されない．</li>
+<li><a href="https://otree.readthedocs.io/en/latest/misc/tips_and_tricks.html#avoid-duplicated-page-functions" target="_blank">https://otree.readthedocs.io/en/latest/misc/tips_and_tricks.html#avoid-duplicated-page-functions</a></li>
 </ul>
 <h2 id="pagesequence"><code>page_sequence</code></h2>
 <ul>
@@ -1308,7 +1358,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"__init__.py の書き方","level":"2.4","depth":1,"next":{"title":"テンプレートファイルの書き方","level":"2.5","depth":1,"path":"otree_ref/templatefile.md","ref":"otree_ref/templatefile.md","articles":[]},"previous":{"title":"settings.py の書き方","level":"2.3","depth":1,"path":"otree_ref/settings.md","ref":"otree_ref/settings.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"otree_ref/init.md","mtime":"2022-06-14T11:46:57.479Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-14T11:48:24.300Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"__init__.py の書き方","level":"2.4","depth":1,"next":{"title":"テンプレートファイルの書き方","level":"2.5","depth":1,"path":"otree_ref/templatefile.md","ref":"otree_ref/templatefile.md","articles":[]},"previous":{"title":"settings.py の書き方","level":"2.3","depth":1,"path":"otree_ref/settings.md","ref":"otree_ref/settings.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"otree_ref/init.md","mtime":"2022-06-15T10:29:52.780Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-15T10:31:15.656Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
