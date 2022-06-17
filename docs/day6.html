@@ -454,17 +454,9 @@
                                 
                                 <p>【第6回】 2022年6月16日</p>
 <ul>
-<li>今後の予定<ul>
-<li>第6回（今日）: <ul>
 <li>逐次手番ゲーム（参加者ごと表示させる画面を変える）</li>
-<li>繰り返しゲーム（プレイヤーのシャッフル，タイムアウト）</li>
-</ul>
-</li>
-<li>第回: 質問紙調査（画面のデザイン，JavaScript，CSS，Bootstrap）</li>
-<li>第回: 連続時間ダブルオークション（ライブページとExtraModel）</li>
-<li>第回: 補遺</li>
-</ul>
-</li>
+<li>有限回繰り返しゲーム（プレイヤーのシャッフル，タイムアウト）</li>
+<li>無限回繰り返しゲーム（確率的に繰り返しを終了する）</li>
 </ul>
 <p>この勉強会を始める時点で，どのレベルの知識を知っているかという前提と，何ができるようになるかという目標を明確にしていなかったため，初心者向けを装いながら，これまでのところオタク向けの内容になっています．</p>
 <p><a href="day4.html">第4回</a>で，どのようにコードを書いていくのかの手順を説明したつもりではあるのですが，やはり初心者には難解ではないかと思われます．
@@ -1204,12 +1196,15 @@ Kurasu.testfunc2(<span class="hljs-string">&quot;かきくけこ&quot;</span>)
 <ul>
 <li><p>指定時間が来る前に設定した最大回数が終わってしまった場合，追加ラウンドを行うことはできない（急いでサーバーを立ち上げ直した後セッションをもう一度始める，で良いならそれでいいが）．</p>
 </li>
-<li><p>この作例では，指定時間を超えた場合にのみ表示させる最終ページを用意し，そのページに「次へ」ボタンを置かないことにより，そこで終了（したことに）している．</p>
+<li><p>この作例では，指定時間を超えた場合にのみ表示する最終ページ（ <code>End</code> ）を用意し，そのページに「次へ」ボタンを置かないことにより，そこで終了（したことに）している．</p>
 <ul>
 <li><code>is_displayed()</code> や <code>app_after_this_page()</code> で最終ページに飛ばしているわけではなく，あくまでラウンドの途中で「次へ」進めなくしているだけなので，うっかり「Advance slowest user(s)」ボタンを押してしまうと，続きの新たなラウンドが始まってしまう．</li>
 </ul>
 </li>
 <li><p>次のアプリに進める必要がある場合（たとえば繰り返しゲーム課題の後に質問紙調査がある場合），ちゃんと <code>is_displayed()</code> や <code>app_after_this_page()</code> を使ってページをスキップさせる必要がある．</p>
+<ul>
+<li>指定時間を超えた場合にのみ表示する最終ページで <code>app_after_this_page()</code> を定義すれば，以降の余分なラウンドを一気にスキップできる．</li>
+</ul>
 </li>
 </ul>
 </li>
@@ -1259,7 +1254,7 @@ Kurasu.testfunc2(<span class="hljs-string">&quot;かきくけこ&quot;</span>)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第6回","level":"1.1.6","depth":2,"next":{"title":"第7回","level":"1.1.7","depth":2,"path":"day7.md","ref":"day7.md","articles":[]},"previous":{"title":"第5回","level":"1.1.5","depth":2,"path":"day5.md","ref":"day5.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day6.md","mtime":"2022-06-17T16:51:25.580Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-17T16:51:57.909Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第6回","level":"1.1.6","depth":2,"next":{"title":"第7回","level":"1.1.7","depth":2,"path":"day7.md","ref":"day7.md","articles":[]},"previous":{"title":"第5回","level":"1.1.5","depth":2,"path":"day5.md","ref":"day5.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day6.md","mtime":"2022-06-17T17:31:14.359Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-17T17:32:08.322Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
