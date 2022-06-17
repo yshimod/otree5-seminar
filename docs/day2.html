@@ -20,6 +20,10 @@
                 
             
                 
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-accordion/accordion.css">
+                
+            
+                
                 <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-highlight/website.css">
                 
             
@@ -452,8 +456,7 @@
 <h1 id="gitとgithubの使い方-・-herokuの使い方">GitとGitHubの使い方 ・ Herokuの使い方</h1>
 <h2 id="0-準備">0. 準備</h2>
 <ul>
-<li><p>結局どうにかして（PostgreSQLうんぬんは無視してでも） oTree をインストールする．</p>
-<ul>
+<li>結局どうにかして（PostgreSQLうんぬんは無視してでも） oTree をインストールする．<ul>
 <li>WindowsにPythonを直接インストールして，pipで oTree を入れる．<br>  <a href="https://otree.readthedocs.io/en/latest/install-windows.html#install-windows" target="_blank">https://otree.readthedocs.io/en/latest/install-windows.html#install-windows</a>  <ul>
 <li>【フリーライド】立命館竹内研長瀬さんのチュートリアル動画が参考になります．<br>  「#2 oTree Windowsでのインストール」
   （動画リンクは竹内研Slack内を検索してください．）</li>
@@ -471,12 +474,14 @@
 </li>
 </ul>
 </li>
-<li><p>Herokuのアカウントを作成． <a href="https://signup.heroku.com/login" target="_blank">https://signup.heroku.com/login</a></p>
-</li>
+</ul>
+<ul>
+<li>Herokuのアカウントを作成． <a href="https://signup.heroku.com/login" target="_blank">https://signup.heroku.com/login</a></li>
 <li>GitHubのアカウントを作成． <a href="https://github.com/signup" target="_blank">https://github.com/signup</a></li>
 </ul>
 <h2 id="1-gitとgithubを使うメリット">1. GitとGitHubを使うメリット</h2>
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/mqX7XHzyoXs?rel=0&amp;enablejsapi=1&amp;origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
 
 <ul>
 <li>Gitはローカル環境においてバージョン管理を行うソフトウェア．<ul>
@@ -510,45 +515,60 @@
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/xnznSzfV_6g?rel=0&amp;enablejsapi=1&amp;origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 <ol>
-<li>Gitのインストール<ul>
-<li>Windowsに直接Pythonを入れて oTree を動かす場合，Gitのインストーラーを <a href="https://gitforwindows.org/" target="_blank">https://gitforwindows.org/</a> からダウンロードしてインストールする．<ul>
+<li><p>Gitのインストール</p>
+<ul>
+<li><p>Windowsに直接Pythonを入れて oTree を動かす場合，Gitのインストーラーを <a href="https://gitforwindows.org/" target="_blank">https://gitforwindows.org/</a> からダウンロードしてインストールする．</p>
+<ul>
 <li>参考 <a href="https://www.curict.com/item/60/60bfe0e.html" target="_blank">https://www.curict.com/item/60/60bfe0e.html</a></li>
 </ul>
 </li>
-<li>Ubuntuを使う場合，以下のコマンドでインストール．<pre><code class="lang-bash">  sudo apt update
-  sudo apt install git
+<li><p>Ubuntuを使う場合，以下のコマンドでインストール．</p>
+<pre><code class="lang-bash">sudo apt update
+sudo apt install git
 </code></pre>
 </li>
-<li>Macを使う場合，Xcode Command Line Toolsが導入済みならばすでに <code>git</code> コマンドは使えるはず．あるいはhomebrewで入れる．</li>
+<li><p>Macを使う場合，Xcode Command Line Toolsが導入済みならばすでに <code>git</code> コマンドは使えるはず．あるいはhomebrewで入れる．</p>
+</li>
 </ul>
 </li>
-<li>GitHubのアカウントを作る． <a href="https://github.com/signup" target="_blank">https://github.com/signup</a></li>
-<li>GitHubで登録しているユーザー名とメールアドレスをローカルで設定（コミット毎にユーザー名とメールアドレスが記録される）．<pre><code class="lang-bash"> git config --global user.email <span class="hljs-string">&quot;xxxxxxxx@example.com&quot;</span>
- git config --global user.name <span class="hljs-string">&quot;namaenamae&quot;</span>
+<li><p>GitHubのアカウントを作る． <a href="https://github.com/signup" target="_blank">https://github.com/signup</a></p>
+</li>
+<li><p>GitHubで登録しているユーザー名とメールアドレスをローカルで設定（コミット毎にユーザー名とメールアドレスが記録される）．</p>
+<pre><code class="lang-bash">git config --global user.email <span class="hljs-string">&quot;xxxxxxxx@example.com&quot;</span>
+git config --global user.name <span class="hljs-string">&quot;namaenamae&quot;</span>
 </code></pre>
 </li>
-<li>GitHubへSSHで接続できるようにする．<br> <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/about-ssh" target="_blank">https://docs.github.com/en/authentication/connecting-to-github-with-ssh/about-ssh</a><ol>
-<li>SSHの鍵を作る．オプション<code>-C</code>以下でGitHubで登録したメールアドレスを陽に指定する．<pre><code class="lang-bash"> ssh-keygen -t ed25519 -C <span class="hljs-string">&quot;xxxxxxxx@example.com&quot;</span>
+<li><p>GitHubへSSHで接続できるようにする．<br> <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/about-ssh" target="_blank">https://docs.github.com/en/authentication/connecting-to-github-with-ssh/about-ssh</a></p>
+<ol>
+<li><p>SSHの鍵を作る．オプション<code>-C</code>以下でGitHubで登録したメールアドレスを陽に指定する．</p>
+<pre><code class="lang-bash">ssh-keygen -t ed25519 -C <span class="hljs-string">&quot;xxxxxxxx@example.com&quot;</span>
 </code></pre>
 <ul>
-<li>鍵の場所は <code>~/.ssh</code> ．</li>
-<li>鍵にパスフレーズは不要（設定するなら鍵をssh-agentに登録する必要あり）．</li>
+<li><p>鍵の場所は <code>~/.ssh</code> ．</p>
+</li>
+<li><p>鍵にパスフレーズは不要（設定するなら鍵をssh-agentに登録する必要あり）．</p>
+</li>
 </ul>
 </li>
-<li>公開鍵（<code>*.pub</code>）をGitHubに登録．
- <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account" target="_blank">https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account</a><ul>
-<li><code>cat ~/.ssh/鍵ファイル名.pub</code> で公開鍵の中身を表示し，コピーしておく．</li>
-<li>GitHub <a href="https://github.com/settings/keys" target="_blank">https://github.com/settings/keys</a> をブラウザで開き，「New SSH key」をクリックし，コピーした公開鍵の中身をペーストする．</li>
+<li><p>公開鍵（<code>*.pub</code>）をGitHubに登録．<br> <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account" target="_blank">https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account</a></p>
+<ul>
+<li><p><code>cat ~/.ssh/鍵ファイル名.pub</code> で公開鍵の中身を表示し，コピーしておく．</p>
+</li>
+<li><p>GitHub <a href="https://github.com/settings/keys" target="_blank">https://github.com/settings/keys</a> をブラウザで開き，「New SSH key」をクリックし，コピーした公開鍵の中身をペーストする．</p>
+</li>
 </ul>
 </li>
-<li><code>~/.ssh/config</code> にSSH鍵関係の情報を追記．<pre><code> Host github.com
+<li><p><code>~/.ssh/config</code> にSSH鍵関係の情報を追記．</p>
+<pre><code>Host github.com
      IdentityFile ~/.ssh/鍵ファイル名
      User git
 </code></pre></li>
-<li>アクセスできるか確認．<pre><code class="lang-bash"> ssh -T git@github.com
+<li><p>アクセスできるか確認．</p>
+<pre><code class="lang-bash">ssh -T git@github.com
 </code></pre>
 </li>
-<li>すでにGitHubに（プライベート）リポジトリがあればクローンしてみる．<pre><code class="lang-bash"> git <span class="hljs-built_in">clone</span> git@github.com:namaenamae/rrrrrrrrrr.git
+<li><p>すでにGitHubに（プライベート）リポジトリがあればクローンしてみる．</p>
+<pre><code class="lang-bash">git <span class="hljs-built_in">clone</span> git@github.com:namaenamae/rrrrrrrrrr.git
 </code></pre>
 </li>
 </ol>
@@ -558,46 +578,60 @@
 <p><a href="https://learnxinyminutes.com/docs/git/" target="_blank">https://learnxinyminutes.com/docs/git/</a></p>
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/LK7CFRvSTlc?rel=0&amp;enablejsapi=1&amp;origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
+
 <ol>
-<li>（初回のみ）初期化... 作業ディレクトリに移動して，そのディレクトリをGitリポジトリとして設定（<code>.git</code>ディレクトリができる）．<pre><code class="lang-bash"> git init
+<li><p>（初回のみ）初期化... 作業ディレクトリに移動して，そのディレクトリをGitリポジトリとして設定（<code>.git</code>ディレクトリができる）．</p>
+<pre><code class="lang-bash">git init
 </code></pre>
 </li>
-<li>（初回のみ）ブラウザでGitHubを開き，作業ディレクトリと同名のリポジトリを作成．リモートリポジトリを設定．<pre><code class="lang-bash"> git remote add origin git@github.com:namaenamae/rrrrrrrrrr.git
+<li><p>（初回のみ）ブラウザでGitHubを開き，作業ディレクトリと同名のリポジトリを作成．リモートリポジトリを設定．</p>
+<pre><code class="lang-bash">git remote add origin git@github.com:namaenamae/rrrrrrrrrr.git
 </code></pre>
 </li>
-<li>作成・編集したファイルをステージングエリアに追加する．たとえばディレクトリ全体なら...<pre><code class="lang-bash"> git add .
+<li><p>作成・編集したファイルをステージングエリアに追加する．たとえばディレクトリ全体なら...</p>
+<pre><code class="lang-bash">git add .
 </code></pre>
 </li>
-<li>「キリのよいところで」コミットする．<pre><code class="lang-bash"> git commit -m <span class="hljs-string">&quot;first commit&quot;</span>
+<li><p>「キリのよいところで」コミットする．</p>
+<pre><code class="lang-bash">git commit -m <span class="hljs-string">&quot;first commit&quot;</span>
 </code></pre>
 <ul>
 <li>オプション <code>-m</code> 以下を指定しない場合はVimかnanoが起動するので，それでコメントを書く．</li>
 </ul>
 </li>
-<li>ある程度コミットが溜まったら，GitHubへプッシュ（アップロード）．<pre><code class="lang-bash"> git push -u origin master
+<li><p>ある程度コミットが溜まったら，GitHubへプッシュ（アップロード）．</p>
+<pre><code class="lang-bash">git push -u origin master
 </code></pre>
 <ul>
-<li>オプション <code>-u</code> は2回目以降では不要．</li>
-<li>ブランチ名はデフォルトで <code>master</code>になっているはずだが要確認．<br>  GitHubはポリコレ的にデフォルトブランチ名を <code>main</code> に変えることを勧めている．</li>
+<li><p>オプション <code>-u</code> は2回目以降では不要．</p>
+</li>
+<li><p>ブランチ名はデフォルトで <code>master</code>になっているはずだが要確認．<br>  GitHubはポリコレ的にデフォルトブランチ名を <code>main</code> に変えることを勧めている．</p>
+</li>
 </ul>
 </li>
-<li>明くる日作業を再開するときには，それまでの（他人の）変更分をダウンロードする．<pre><code class="lang-bash"> git pull origin master
+<li><p>明くる日作業を再開するときには，それまでの（他人の）変更分をダウンロードする．</p>
+<pre><code class="lang-bash">git pull origin master
 </code></pre>
 </li>
-<li>1日の作業の流れ: <code>pull</code> -&gt; ( 編集 -&gt; <code>add</code> -&gt; <code>commit</code> ) の繰り返し -&gt; <code>push</code></li>
+<li><p>1日の作業の流れ: <code>pull</code> -&gt; ( 編集 -&gt; <code>add</code> -&gt; <code>commit</code> ) の繰り返し -&gt; <code>push</code></p>
+</li>
 </ol>
 <h4 id="ブランチの操作">ブランチの操作</h4>
 <ul>
-<li>ブランチを切る（たとえば開発用に<code>namaenamae/dev</code>なるブランチを作ってそこに切り替える）．<pre><code class="lang-bash">  git checkout -b namaenamae/dev
+<li><p>ブランチを切る（たとえば開発用に<code>namaenamae/dev</code>なるブランチを作ってそこに切り替える）．</p>
+<pre><code class="lang-bash">git checkout -b namaenamae/dev
 </code></pre>
 </li>
-<li>ブランチを切り替える（たとえば<code>master</code>に戻る）．<pre><code class="lang-bash">  git checkout master
+<li><p>ブランチを切り替える（たとえば<code>master</code>に戻る）．</p>
+<pre><code class="lang-bash">git checkout master
 </code></pre>
 </li>
-<li><code>master</code>ブランチに<code>namaenamae/dev</code>ブランチの変更分をマージするには，<code>git checkout master</code>した後，<pre><code class="lang-bash">  git merge namaenamae/dev
+<li><p><code>master</code>ブランチに<code>namaenamae/dev</code>ブランチの変更分をマージするには，<code>git checkout master</code>した後，</p>
+<pre><code class="lang-bash">git merge namaenamae/dev
 </code></pre>
 </li>
-<li>↑ のように <code>merge</code> でマージできるが，節目にはGitHubでプルリクエストしてマージ分を誰かにレビューしてもらった方が良い．</li>
+<li><p>↑ のように <code>merge</code> でマージできるが，節目にはGitHubでプルリクエストしてマージ分を誰かにレビューしてもらった方が良い．</p>
+</li>
 </ul>
 <h2 id="3-herokuの使い方">3. Herokuの使い方</h2>
 <ul>
@@ -605,6 +639,7 @@
 </ul>
 <h4 id="デプロイの方法">デプロイの方法</h4>
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/bfrCwKshc74?rel=0&amp;enablejsapi=1&amp;origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
 
 <h4 id="アドオンと環境変数の設定">アドオンと環境変数の設定</h4>
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/8rkwfkv6sTg?rel=0&amp;enablejsapi=1&amp;origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
@@ -651,7 +686,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第2回","level":"1.1.2","depth":2,"next":{"title":"第3回","level":"1.1.3","depth":2,"path":"day3.md","ref":"day3.md","articles":[]},"previous":{"title":"第1回","level":"1.1.1","depth":2,"path":"day1.md","ref":"day1.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day2.md","mtime":"2022-06-17T05:32:00.555Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-17T06:25:20.229Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第2回","level":"1.1.2","depth":2,"next":{"title":"第3回","level":"1.1.3","depth":2,"path":"day3.md","ref":"day3.md","articles":[]},"previous":{"title":"第1回","level":"1.1.1","depth":2,"path":"day1.md","ref":"day1.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day2.md","mtime":"2022-06-17T08:15:32.403Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-17T16:51:57.909Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -714,6 +749,10 @@
     
         
         <script src="gitbook/@honkit/honkit-plugin-ga/plugin.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-accordion/accordionSelector.js"></script>
         
     
         

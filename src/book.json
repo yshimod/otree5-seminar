@@ -10,7 +10,8 @@
     "plugins": [
         "page-toc",
         "sitemap",
-        "@honkit/honkit-plugin-ga"
+        "@honkit/honkit-plugin-ga",
+        "accordion"
     ],
     "pluginsConfig": {
         "page-toc": {

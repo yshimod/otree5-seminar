@@ -7,10 +7,11 @@
 - シバン（shebang... `#!/usr/bin/env python3` みたいなやつ）は不要．
 - 文字コード宣言（ `# -*- coding: utf-8 -*-` みたいなやつ）は不要（むしろ非推奨）．
 - `otree.api` のインポート
-    ```python
-    from otree.api import *
-    ```
-    - oTree 3 ではインポートするものを細かく指定していた． [https://otree.readthedocs.io/en/latest/misc/noself.html#about-the-new-format](https://otree.readthedocs.io/en/latest/misc/noself.html#about-the-new-format)
+  ```python
+  from otree.api import *
+  ```
+    - oTree 3 ではインポートするものを細かく指定していた．  
+    [https://otree.readthedocs.io/en/latest/misc/noself.html#about-the-new-format](https://otree.readthedocs.io/en/latest/misc/noself.html#about-the-new-format)
 - 他にも使いたいモジュール（`time`，`random`，`json`，`numpy`など）があれば，冒頭でインポートしておく．
 
 
@@ -42,11 +43,11 @@
 ### `*_ROLE`
 - 変数名の末尾に `_ROLE` ，または先頭に `ROLE_` をつけたものは， `player.id_in_group` のラベルとして使うことができる．
 - たとえば `PLAYERS_PER_GROUP = 2` のとき，
-    ```python
-    BUYER_ROLE = "買い手"
-    SELLER_ROLE = "売り手"
-    ```
-    とすると， `player.id_in_group == 1` のプレイヤーの `player.role` は `買い手` ， `player.id_in_group == 2` のプレイヤーの `player.role` は `売り手` となる．
+  ```python
+  BUYER_ROLE = "買い手"
+  SELLER_ROLE = "売り手"
+  ```
+  とすると， `player.id_in_group == 1` のプレイヤーの `player.role` は `買い手` ， `player.id_in_group == 2` のプレイヤーの `player.role` は `売り手` となる．
 - `player.id_in_group` のラベルとして使いたくない場合， `C` のクラス変数の名前に `_ROLE` や `ROLE_` をつけてはいけない．
 
 
@@ -97,54 +98,55 @@
     - [https://otree.readthedocs.io/en/latest/multiplayer/groups.html#group-set-players](https://otree.readthedocs.io/en/latest/multiplayer/groups.html#group-set-players)
     - 引数は `player.id_in_subsession` （自然数）の2次元リスト．
     - たとえば， `PLAYERS_PER_GROUP = 2` で，全ての player 数（ `subsession.session.num_participants` ）が6のとき，  
-        ```python
-        new_structure = [
-            [1, 3],
-            [5, 2],
-            [4, 6]
-        ]
-        subsession.set_group_matrix(new_structure)
-        ```
-        とすれば，以下のような group 分けになる．
+    ```python
+    new_structure = [
+        [1, 3],
+        [5, 2],
+        [4, 6]
+    ]
+    subsession.set_group_matrix(new_structure)
+    ```
+    とすれば，以下のような group 分けになる．
 
-        <table>
-            <thead>
-            <tr>
-            <th><code>group.id_in_subsession</code></th>
-            <th><code>player.id_in_group == 1</code></th>
-            <th><code>player.id_in_group == 2</code></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-            <td>1</td>
-            <td>1</td>
-            <td>3</td>
-            </tr>
-            <tr>
-            <td>2</td>
-            <td>5</td>
-            <td>2</td>
-            </tr>
-            <tr>
-            <td>3</td>
-            <td>4</td>
-            <td>6</td>
-            </tr>
-            </tbody>
-        </table>
+    <table>
+        <thead>
+        <tr>
+        <th><code>group.id_in_subsession</code></th>
+        <th><code>player.id_in_group == 1</code></th>
+        <th><code>player.id_in_group == 2</code></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>3</td>
+        </tr>
+        <tr>
+        <td>2</td>
+        <td>5</td>
+        <td>2</td>
+        </tr>
+        <tr>
+        <td>3</td>
+        <td>4</td>
+        <td>6</td>
+        </tr>
+        </tbody>
+    </table>
+
     - `creating_session()` において `set_group_matrix()` を使って group 分けを設定するとき， `PLAYERS_PER_GROUP` は設定せずに `None` のままでも良い． `set_group_matrix()` の設定の方が優先される．
     - 返り値はリストのリストであればよく，行列である必要はない．つまり， group のサイズが統一されていなくてもよい．たとえば以下のような設定も可能．
-        ```python
-        subsession.set_group_matrix(
-            [
-                [1],
-                [2, 3],
-                [4, 5, 6],
-                [7, 8, 9, 10]
-            ]
-        )
-        ```
+    ```python
+    subsession.set_group_matrix(
+        [
+            [1],
+            [2, 3],
+            [4, 5, 6],
+            [7, 8, 9, 10]
+        ]
+    )
+    ```
 
 #### subsession からアクセスできる上層のオブジェクト
 - session
@@ -287,16 +289,16 @@
 [https://otree.readthedocs.io/en/latest/models.html#fields](https://otree.readthedocs.io/en/latest/models.html#fields)
 
 - `models.BooleanField`
-    - ブール型．
+    - 真偽値型．
     - CSVファイルを出力するときは0/1で表示される．
     - `choices`
         - `True` のラベルを「協力」とする場合は以下のように記述する．
-            ```python
-            choices = [
-                [True, "協力"],
-                [False, "非協力"]
-            ]
-            ```
+        ```python
+        choices = [
+            [True, "協力"],
+            [False, "非協力"]
+        ]
+        ```
         - テンプレートタグで入力フォームを作るとき，（ `widget = widgets.RadioSelect` と指定しなくても）ラジオボタンでフォームが生成され，ラベルは `choices` で設定したものが表示される．
     - `widget`
         - `choices` を指定せずに `widget = widgets.CheckboxInput` と指定すると，チェックボックスでフォームが生成される．
@@ -324,13 +326,13 @@
             - `cu(first)` ポイントから（最大） `cu(last)` ポイントまで `cu(increment)` ポイント刻みの等差数列（リスト）が返ってくる．
             - たとえば `choices = currency_range(0, 10, 3)` とすると「0ポイント」，「3ポイント」，「6ポイント」，「9ポイント」なる選択肢が生成される．
         - ラベルを設定するとき，以下のように記述できる．
-            ```python
-            choices = [
-                [cu(0), "利己的"],
-                [cu(300), "効率"],
-                [cu(500), "平等"]
-            ]
-            ```
+        ```python
+        choices = [
+            [cu(0), "利己的"],
+            [cu(300), "効率"],
+            [cu(500), "平等"]
+        ]
+        ```
         - `choices` を指定した上で入力フォームを HTML タグ直打ちで実装する場合，送信される値を通貨型に変換した（丸められた）ものが `choices` で指定したリストに含まれないと oTree サーバーの検証に引っかかる．
     - `widget`
         - `choices` を指定した上で `widget = widgets.RadioSelect` と指定すると，選択肢がラジオボタンで生成される．
@@ -352,16 +354,16 @@
     - テンプレートタグで自由記述の入力フォームを作るとき， `type="number"` とした `<input>` で生成されるため，数字以外は入力できない．
     - `choices`
         - リッカート尺度の入力フォームを実装する場合，たとえば以下のように記述する．
-            ```python
-            choices = [
-                [1, "全く同意できない"],
-                [2, "同意できない"],
-                [3, "どちらともいえない"],
-                [4, "同意できる"],
-                [5, "非常に同意できる"],
-                [99, "わからない"]
-            ]
-            ```
+        ```python
+        choices = [
+            [1, "全く同意できない"],
+            [2, "同意できない"],
+            [3, "どちらともいえない"],
+            [4, "同意できる"],
+            [5, "非常に同意できる"],
+            [99, "わからない"]
+        ]
+        ```
     - `widget`
     - `initial`
     - `label`
@@ -496,14 +498,14 @@
     - [https://otree.readthedocs.io/en/latest/templates.html#passing-data-from-python-to-javascript-js-vars](https://otree.readthedocs.io/en/latest/templates.html#passing-data-from-python-to-javascript-js-vars)
 - `before_next_page()`
     - 引数: `(player: Player, timeout_happened)`
-        - `timeout_happened` はブール値．時間制限でページが進んだ場合にフラグが立つ．
+        - `timeout_happened` は真偽値．時間制限でページが進んだ場合にフラグが立つ．
     - 返り値: 何も返してはいけない．
     - ページが進められたとき（フォームが送信されたとき），次のページを表示する前に実行される．
     - 当該ページが `is_displayed()` でスキップされていれば，実行されない．
     - [https://otree.readthedocs.io/en/latest/pages.html#before-next-page](https://otree.readthedocs.io/en/latest/pages.html#before-next-page)
 - `is_displayed()`
     - 引数: `(player: Player)`
-    - 返り値: ブール値．デフォルトでは `True` を返している．
+    - 返り値: 真偽値．デフォルトでは `True` を返している．
     - ページを表示する前に実行される．
     - 返り値が `False` の場合，（ `page_sequence` で指定した順番の）次のページへスキップされる．
     - [https://otree.readthedocs.io/en/latest/pages.html#is-displayed](https://otree.readthedocs.io/en/latest/pages.html#is-displayed)
@@ -544,7 +546,8 @@
     - 当該待機ページが `page_sequence` の先頭にある場合のみ `group_by_arrival_time = True` を設定できる．
     - `group_by_arrival_time = True` を設定している場合，全 player が当該待機ページを通るようにする． `is_displayed()` で特定の役割の player だけスキップする，というようなことをしてはいけない． `is_displayed()` で特定のラウンド以外はスキップする，という使い方はOK．
     - より細かい設定をしたい場合は， `group_by_arrival_time = True` を設定した上で，クラスの外側で `group_by_arrival_time_method()` を定義する．
-    - 待機中，参加者のウィンドウがアクティブでない場合（たとえば他のタブを開いて遊んでいる場合），ドロップアウトとみなし group に参加させない． [https://groups.google.com/g/otree/c/XsFMNoZR7PY](https://groups.google.com/g/otree/c/XsFMNoZR7PY)
+    - 待機中，参加者のウィンドウがアクティブでない場合（たとえば他のタブを開いて遊んでいる場合），ドロップアウトとみなし group に参加させない．  
+    [https://groups.google.com/g/otree/c/XsFMNoZR7PY](https://groups.google.com/g/otree/c/XsFMNoZR7PY)
     - [https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html#group-by-arrival-time](https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html#group-by-arrival-time)
 - `wait_for_all_groups`
     - `True` を渡せば，待機ページにおいて group のメンバーではなく， subsession の全メンバーを待機する．
@@ -572,7 +575,7 @@
     - `template_name` にパスを渡して独自のテンプレートファイルを使うときのみ設定する．
 - `is_displayed()`
     - 引数: `(player: Player)`
-    - 返り値: ブール値．デフォルトでは `True` を返している．
+    - 返り値: 真偽値．デフォルトでは `True` を返している．
     - 逐次手番ゲームにおいて，プレイヤーの役割別に表示させるページを `is_displayed()` 制御しているとき，待機ページで `is_displayed()` を使う必要はない．
 - `app_after_this_page()`
     - 引数: `(player: Player, upcoming_apps)`
@@ -582,16 +585,16 @@
     - `wait_for_all_groups = True` とした場合の引数は `(subsession: Subsession)`．
     - 返り値: 何も返してはいけない．
     - モジュールレベルで関数（たとえば group オブジェクトを引数に取る `set_payoffs()` ）を独自に定義しておき，以下のように呼び出す設定をしても良い．引数に注意．
-        ```python
-        after_all_players_arrive = 'set_payoffs'
-        ```
-        ```python
-        after_all_players_arrive = set_payoffs
-        ```
-        ```python
-        def after_all_players_arrive(group: Group):
-            set_payoffs(group)
-        ```
+    ```python
+    after_all_players_arrive = 'set_payoffs'
+    ```
+    ```python
+    after_all_players_arrive = set_payoffs
+    ```
+    ```python
+    def after_all_players_arrive(group: Group):
+        set_payoffs(group)
+    ```
     - [https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html#after-all-players-arrive](https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html#after-all-players-arrive)
 
 

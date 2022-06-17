@@ -20,6 +20,10 @@
                 
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-accordion/accordion.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/@honkit/honkit-plugin-highlight/website.css">
                 
             
@@ -453,10 +457,10 @@
 <ul>
 <li>シバン（shebang... <code>#!/usr/bin/env python3</code> みたいなやつ）は不要．</li>
 <li>文字コード宣言（ <code># -*- coding: utf-8 -*-</code> みたいなやつ）は不要（むしろ非推奨）．</li>
-<li><code>otree.api</code> のインポート<pre><code class="lang-python">  <span class="hljs-keyword">from</span> otree.api <span class="hljs-keyword">import</span> *
+<li><code>otree.api</code> のインポート<pre><code class="lang-python"><span class="hljs-keyword">from</span> otree.api <span class="hljs-keyword">import</span> *
 </code></pre>
 <ul>
-<li>oTree 3 ではインポートするものを細かく指定していた． <a href="https://otree.readthedocs.io/en/latest/misc/noself.html#about-the-new-format" target="_blank">https://otree.readthedocs.io/en/latest/misc/noself.html#about-the-new-format</a></li>
+<li>oTree 3 ではインポートするものを細かく指定していた．<br><a href="https://otree.readthedocs.io/en/latest/misc/noself.html#about-the-new-format" target="_blank">https://otree.readthedocs.io/en/latest/misc/noself.html#about-the-new-format</a></li>
 </ul>
 </li>
 <li>他にも使いたいモジュール（<code>time</code>，<code>random</code>，<code>json</code>，<code>numpy</code>など）があれば，冒頭でインポートしておく．</li>
@@ -494,10 +498,10 @@
 <h3 id="role"><code>*_ROLE</code></h3>
 <ul>
 <li>変数名の末尾に <code>_ROLE</code> ，または先頭に <code>ROLE_</code> をつけたものは， <code>player.id_in_group</code> のラベルとして使うことができる．</li>
-<li>たとえば <code>PLAYERS_PER_GROUP = 2</code> のとき，<pre><code class="lang-python">  BUYER_ROLE = <span class="hljs-string">&quot;買い手&quot;</span>
-  SELLER_ROLE = <span class="hljs-string">&quot;売り手&quot;</span>
+<li>たとえば <code>PLAYERS_PER_GROUP = 2</code> のとき，<pre><code class="lang-python">BUYER_ROLE = <span class="hljs-string">&quot;買い手&quot;</span>
+SELLER_ROLE = <span class="hljs-string">&quot;売り手&quot;</span>
 </code></pre>
-  とすると， <code>player.id_in_group == 1</code> のプレイヤーの <code>player.role</code> は <code>買い手</code> ， <code>player.id_in_group == 2</code> のプレイヤーの <code>player.role</code> は <code>売り手</code> となる．</li>
+とすると， <code>player.id_in_group == 1</code> のプレイヤーの <code>player.role</code> は <code>買い手</code> ， <code>player.id_in_group == 2</code> のプレイヤーの <code>player.role</code> は <code>売り手</code> となる．</li>
 <li><code>player.id_in_group</code> のラベルとして使いたくない場合， <code>C</code> のクラス変数の名前に <code>_ROLE</code> や <code>ROLE_</code> をつけてはいけない．</li>
 </ul>
 <h2 id="データモデル">データモデル</h2>
@@ -568,49 +572,51 @@
 <li><a href="https://otree.readthedocs.io/en/latest/multiplayer/groups.html#group-set-players" target="_blank">https://otree.readthedocs.io/en/latest/multiplayer/groups.html#group-set-players</a></li>
 <li>引数は <code>player.id_in_subsession</code> （自然数）の2次元リスト．</li>
 <li><p>たとえば， <code>PLAYERS_PER_GROUP = 2</code> で，全ての player 数（ <code>subsession.session.num_participants</code> ）が6のとき，  </p>
-<pre><code class="lang-python">  new_structure = [
-      [<span class="hljs-number">1</span>, <span class="hljs-number">3</span>],
-      [<span class="hljs-number">5</span>, <span class="hljs-number">2</span>],
-      [<span class="hljs-number">4</span>, <span class="hljs-number">6</span>]
-  ]
-  subsession.set_group_matrix(new_structure)
+<pre><code class="lang-python">new_structure = [
+  [<span class="hljs-number">1</span>, <span class="hljs-number">3</span>],
+  [<span class="hljs-number">5</span>, <span class="hljs-number">2</span>],
+  [<span class="hljs-number">4</span>, <span class="hljs-number">6</span>]
+]
+subsession.set_group_matrix(new_structure)
 </code></pre>
-<p>  とすれば，以下のような group 分けになる．</p>
-  <table>
-      <thead>
-      <tr>
-      <th><code>group.id_in_subsession</code></th>
-      <th><code>player.id_in_group == 1</code></th>
-      <th><code>player.id_in_group == 2</code></th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-      <td>1</td>
-      <td>1</td>
-      <td>3</td>
-      </tr>
-      <tr>
-      <td>2</td>
-      <td>5</td>
-      <td>2</td>
-      </tr>
-      <tr>
-      <td>3</td>
-      <td>4</td>
-      <td>6</td>
-      </tr>
-      </tbody>
-  </table></li>
-<li><code>creating_session()</code> において <code>set_group_matrix()</code> を使って group 分けを設定するとき， <code>PLAYERS_PER_GROUP</code> は設定せずに <code>None</code> のままでも良い． <code>set_group_matrix()</code> の設定の方が優先される．</li>
-<li>返り値はリストのリストであればよく，行列である必要はない．つまり， group のサイズが統一されていなくてもよい．たとえば以下のような設定も可能．<pre><code class="lang-python">  subsession.set_group_matrix(
-      [
-          [<span class="hljs-number">1</span>],
-          [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>],
-          [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>],
-          [<span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span>]
-      ]
-  )
+<p>とすれば，以下のような group 分けになる．</p>
+<table>
+  <thead>
+  <tr>
+  <th><code>group.id_in_subsession</code></th>
+  <th><code>player.id_in_group == 1</code></th>
+  <th><code>player.id_in_group == 2</code></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+  <td>1</td>
+  <td>1</td>
+  <td>3</td>
+  </tr>
+  <tr>
+  <td>2</td>
+  <td>5</td>
+  <td>2</td>
+  </tr>
+  <tr>
+  <td>3</td>
+  <td>4</td>
+  <td>6</td>
+  </tr>
+  </tbody>
+</table>
+</li>
+<li><p><code>creating_session()</code> において <code>set_group_matrix()</code> を使って group 分けを設定するとき， <code>PLAYERS_PER_GROUP</code> は設定せずに <code>None</code> のままでも良い． <code>set_group_matrix()</code> の設定の方が優先される．</p>
+</li>
+<li>返り値はリストのリストであればよく，行列である必要はない．つまり， group のサイズが統一されていなくてもよい．たとえば以下のような設定も可能．<pre><code class="lang-python">subsession.set_group_matrix(
+  [
+      [<span class="hljs-number">1</span>],
+      [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>],
+      [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>],
+      [<span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span>]
+  ]
+)
 </code></pre>
 </li>
 </ul>
@@ -827,13 +833,13 @@
 <p><a href="https://otree.readthedocs.io/en/latest/models.html#fields" target="_blank">https://otree.readthedocs.io/en/latest/models.html#fields</a></p>
 <ul>
 <li><code>models.BooleanField</code><ul>
-<li>ブール型．</li>
+<li>真偽値型．</li>
 <li>CSVファイルを出力するときは0/1で表示される．</li>
 <li><code>choices</code><ul>
-<li><code>True</code> のラベルを「協力」とする場合は以下のように記述する．<pre><code class="lang-python">  choices = [
-      [<span class="hljs-literal">True</span>, <span class="hljs-string">&quot;協力&quot;</span>],
-      [<span class="hljs-literal">False</span>, <span class="hljs-string">&quot;非協力&quot;</span>]
-  ]
+<li><code>True</code> のラベルを「協力」とする場合は以下のように記述する．<pre><code class="lang-python">choices = [
+  [<span class="hljs-literal">True</span>, <span class="hljs-string">&quot;協力&quot;</span>],
+  [<span class="hljs-literal">False</span>, <span class="hljs-string">&quot;非協力&quot;</span>]
+]
 </code></pre>
 </li>
 <li>テンプレートタグで入力フォームを作るとき，（ <code>widget = widgets.RadioSelect</code> と指定しなくても）ラジオボタンでフォームが生成され，ラベルは <code>choices</code> で設定したものが表示される．</li>
@@ -880,11 +886,11 @@
 <li>たとえば <code>choices = currency_range(0, 10, 3)</code> とすると「0ポイント」，「3ポイント」，「6ポイント」，「9ポイント」なる選択肢が生成される．</li>
 </ul>
 </li>
-<li>ラベルを設定するとき，以下のように記述できる．<pre><code class="lang-python">  choices = [
-      [cu(<span class="hljs-number">0</span>), <span class="hljs-string">&quot;利己的&quot;</span>],
-      [cu(<span class="hljs-number">300</span>), <span class="hljs-string">&quot;効率&quot;</span>],
-      [cu(<span class="hljs-number">500</span>), <span class="hljs-string">&quot;平等&quot;</span>]
-  ]
+<li>ラベルを設定するとき，以下のように記述できる．<pre><code class="lang-python">choices = [
+  [cu(<span class="hljs-number">0</span>), <span class="hljs-string">&quot;利己的&quot;</span>],
+  [cu(<span class="hljs-number">300</span>), <span class="hljs-string">&quot;効率&quot;</span>],
+  [cu(<span class="hljs-number">500</span>), <span class="hljs-string">&quot;平等&quot;</span>]
+]
 </code></pre>
 </li>
 <li><code>choices</code> を指定した上で入力フォームを HTML タグ直打ちで実装する場合，送信される値を通貨型に変換した（丸められた）ものが <code>choices</code> で指定したリストに含まれないと oTree サーバーの検証に引っかかる．</li>
@@ -919,14 +925,14 @@
 <li>浮動小数点型の値を渡すとエラーとなる（入力フォームの送信時は oTree サーバーの検証に引っかかる）．</li>
 <li>テンプレートタグで自由記述の入力フォームを作るとき， <code>type=&quot;number&quot;</code> とした <code>&lt;input&gt;</code> で生成されるため，数字以外は入力できない．</li>
 <li><code>choices</code><ul>
-<li>リッカート尺度の入力フォームを実装する場合，たとえば以下のように記述する．<pre><code class="lang-python">  choices = [
-      [<span class="hljs-number">1</span>, <span class="hljs-string">&quot;全く同意できない&quot;</span>],
-      [<span class="hljs-number">2</span>, <span class="hljs-string">&quot;同意できない&quot;</span>],
-      [<span class="hljs-number">3</span>, <span class="hljs-string">&quot;どちらともいえない&quot;</span>],
-      [<span class="hljs-number">4</span>, <span class="hljs-string">&quot;同意できる&quot;</span>],
-      [<span class="hljs-number">5</span>, <span class="hljs-string">&quot;非常に同意できる&quot;</span>],
-      [<span class="hljs-number">99</span>, <span class="hljs-string">&quot;わからない&quot;</span>]
-  ]
+<li>リッカート尺度の入力フォームを実装する場合，たとえば以下のように記述する．<pre><code class="lang-python">choices = [
+  [<span class="hljs-number">1</span>, <span class="hljs-string">&quot;全く同意できない&quot;</span>],
+  [<span class="hljs-number">2</span>, <span class="hljs-string">&quot;同意できない&quot;</span>],
+  [<span class="hljs-number">3</span>, <span class="hljs-string">&quot;どちらともいえない&quot;</span>],
+  [<span class="hljs-number">4</span>, <span class="hljs-string">&quot;同意できる&quot;</span>],
+  [<span class="hljs-number">5</span>, <span class="hljs-string">&quot;非常に同意できる&quot;</span>],
+  [<span class="hljs-number">99</span>, <span class="hljs-string">&quot;わからない&quot;</span>]
+]
 </code></pre>
 </li>
 </ul>
@@ -1098,7 +1104,7 @@
 </li>
 <li><code>before_next_page()</code><ul>
 <li>引数: <code>(player: Player, timeout_happened)</code><ul>
-<li><code>timeout_happened</code> はブール値．時間制限でページが進んだ場合にフラグが立つ．</li>
+<li><code>timeout_happened</code> は真偽値．時間制限でページが進んだ場合にフラグが立つ．</li>
 </ul>
 </li>
 <li>返り値: 何も返してはいけない．</li>
@@ -1109,7 +1115,7 @@
 </li>
 <li><code>is_displayed()</code><ul>
 <li>引数: <code>(player: Player)</code></li>
-<li>返り値: ブール値．デフォルトでは <code>True</code> を返している．</li>
+<li>返り値: 真偽値．デフォルトでは <code>True</code> を返している．</li>
 <li>ページを表示する前に実行される．</li>
 <li>返り値が <code>False</code> の場合，（ <code>page_sequence</code> で指定した順番の）次のページへスキップされる．</li>
 <li><a href="https://otree.readthedocs.io/en/latest/pages.html#is-displayed" target="_blank">https://otree.readthedocs.io/en/latest/pages.html#is-displayed</a></li>
@@ -1162,7 +1168,7 @@
 <li>当該待機ページが <code>page_sequence</code> の先頭にある場合のみ <code>group_by_arrival_time = True</code> を設定できる．</li>
 <li><code>group_by_arrival_time = True</code> を設定している場合，全 player が当該待機ページを通るようにする． <code>is_displayed()</code> で特定の役割の player だけスキップする，というようなことをしてはいけない． <code>is_displayed()</code> で特定のラウンド以外はスキップする，という使い方はOK．</li>
 <li>より細かい設定をしたい場合は， <code>group_by_arrival_time = True</code> を設定した上で，クラスの外側で <code>group_by_arrival_time_method()</code> を定義する．</li>
-<li>待機中，参加者のウィンドウがアクティブでない場合（たとえば他のタブを開いて遊んでいる場合），ドロップアウトとみなし group に参加させない． <a href="https://groups.google.com/g/otree/c/XsFMNoZR7PY" target="_blank">https://groups.google.com/g/otree/c/XsFMNoZR7PY</a></li>
+<li>待機中，参加者のウィンドウがアクティブでない場合（たとえば他のタブを開いて遊んでいる場合），ドロップアウトとみなし group に参加させない．<br><a href="https://groups.google.com/g/otree/c/XsFMNoZR7PY" target="_blank">https://groups.google.com/g/otree/c/XsFMNoZR7PY</a></li>
 <li><a href="https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html#group-by-arrival-time" target="_blank">https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html#group-by-arrival-time</a></li>
 </ul>
 </li>
@@ -1199,7 +1205,7 @@
 </li>
 <li><code>is_displayed()</code><ul>
 <li>引数: <code>(player: Player)</code></li>
-<li>返り値: ブール値．デフォルトでは <code>True</code> を返している．</li>
+<li>返り値: 真偽値．デフォルトでは <code>True</code> を返している．</li>
 <li>逐次手番ゲームにおいて，プレイヤーの役割別に表示させるページを <code>is_displayed()</code> 制御しているとき，待機ページで <code>is_displayed()</code> を使う必要はない．</li>
 </ul>
 </li>
@@ -1212,12 +1218,12 @@
 <li>引数: <code>(group: Group)</code></li>
 <li><code>wait_for_all_groups = True</code> とした場合の引数は <code>(subsession: Subsession)</code>．</li>
 <li>返り値: 何も返してはいけない．</li>
-<li>モジュールレベルで関数（たとえば group オブジェクトを引数に取る <code>set_payoffs()</code> ）を独自に定義しておき，以下のように呼び出す設定をしても良い．引数に注意．<pre><code class="lang-python">  after_all_players_arrive = <span class="hljs-string">&apos;set_payoffs&apos;</span>
+<li>モジュールレベルで関数（たとえば group オブジェクトを引数に取る <code>set_payoffs()</code> ）を独自に定義しておき，以下のように呼び出す設定をしても良い．引数に注意．<pre><code class="lang-python">after_all_players_arrive = <span class="hljs-string">&apos;set_payoffs&apos;</span>
 </code></pre>
-<pre><code class="lang-python">  after_all_players_arrive = set_payoffs
+<pre><code class="lang-python">after_all_players_arrive = set_payoffs
 </code></pre>
-<pre><code class="lang-python">  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">after_all_players_arrive</span>(<span class="hljs-params">group: Group</span>):</span>
-      set_payoffs(group)
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">after_all_players_arrive</span>(<span class="hljs-params">group: Group</span>):</span>
+  set_payoffs(group)
 </code></pre>
 </li>
 <li><a href="https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html#after-all-players-arrive" target="_blank">https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html#after-all-players-arrive</a></li>
@@ -1358,7 +1364,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"__init__.py の書き方","level":"2.4","depth":1,"next":{"title":"テンプレートファイルの書き方","level":"2.5","depth":1,"path":"otree_ref/templatefile.md","ref":"otree_ref/templatefile.md","articles":[]},"previous":{"title":"settings.py の書き方","level":"2.3","depth":1,"path":"otree_ref/settings.md","ref":"otree_ref/settings.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"otree_ref/init.md","mtime":"2022-06-15T10:39:01.306Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-17T06:25:20.229Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"__init__.py の書き方","level":"2.4","depth":1,"next":{"title":"テンプレートファイルの書き方","level":"2.5","depth":1,"path":"otree_ref/templatefile.md","ref":"otree_ref/templatefile.md","articles":[]},"previous":{"title":"settings.py の書き方","level":"2.3","depth":1,"path":"otree_ref/settings.md","ref":"otree_ref/settings.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"otree_ref/init.md","mtime":"2022-06-17T09:35:23.368Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-17T16:51:57.909Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
@@ -1421,6 +1427,10 @@
     
         
         <script src="../gitbook/@honkit/honkit-plugin-ga/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-accordion/accordionSelector.js"></script>
         
     
         

@@ -59,101 +59,123 @@
     - [Quoraトピック「Visual Studio CodeはVimやEmacs原理主義者をどのくらい滅ぼしましたか？」](https://jp.quora.com/Visual-Studio-Code%E3%81%AFVim%E3%82%84Emacs%E5%8E%9F%E7%90%86%E4%B8%BB%E7%BE%A9%E8%80%85%E3%82%92%E3%81%A9%E3%81%AE%E3%81%8F%E3%82%89%E3%81%84%E6%BB%85%E3%81%BC%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F%E3%81%8B)
 
 
+
 ## シェルで使用する oTree サブコマンド
 
 #### サブコマンド
-- [一覧](otree_ref/cmd.md)
+
+- [シェルで使用する oTree サブコマンド](otree_ref/cmd.md)
 
 
 #### `startproject` と `startapp` コマンドで生成されるもの
 
 - `settings.py`
     - セッションの設定を記述する．
-    - [詳細](otree_ref/settings.md)
+    - [`settings.py`の書き方](otree_ref/settings.md)
+
+
 - `requirements.txt`
     - pipで導入するパッケージを列挙する．
     - Herokuを使うときに必要なファイル．
     - デフォルト（ oTree v5.8.4）の記述内容:
-        ```python
-        # oTree-may-overwrite-this-file
-        # IF YOU MODIFY THIS FILE, remove these comments.
-        # otherwise, oTree will automatically overwrite it.
-        otree==5.8.4
-        psycopg2>=2.8.4
-        sentry-sdk>=0.7.9
-        ```
-    - ↑コメントアウト中にも書かれているとおり，「oTree-may-overwrite-this-file」の文字列があると， oTree が勝手に `requirements.txt` を書き換えるため，自分でライブラリのバージョンを固定したり別のライブラリを追加したりする場合は注意する．
+
+    ```python
+    # oTree-may-overwrite-this-file
+    # IF YOU MODIFY THIS FILE, remove these comments.
+    # otherwise, oTree will automatically overwrite it.
+    otree==5.8.4
+    psycopg2>=2.8.4
+    sentry-sdk>=0.7.9
+    ```
+
+    - ↑ コメントアウト中にも書かれているとおり，「oTree-may-overwrite-this-file」の文字列があると， oTree が勝手に `requirements.txt` を書き換えるため，自分でライブラリのバージョンを固定したり別のライブラリを追加したりする場合は注意する．
     - 他人から oTree プロジェクトのファイルをもらったときに，その人と同じパッケージを入れるには，以下のようにpipを使う．
-        ```bash
-        pip install -r requirements.txt
-        ```
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+
 - `Procfile`
     - Heroku用の設定ファイル．
     - 拡張子はないが単なるテキストファイル．
     - デフォルト（ oTree v5.8.4 ）の記述内容:
-        ```
-        web: otree prodserver1of2
-        worker: otree prodserver2of2
-        ```
-    - ↑2行目のworker dynoのコマンドは不要だと思われる．
+
+    ```
+    web: otree prodserver1of2
+    worker: otree prodserver2of2
+    ```
+
+    - ↑ 2行目のworker dynoのコマンドは不要だと思われる．
+
+
 - `_static` ディレクトリ
     - 画像ファイルやcssファイル，jsファイルを置いておく．
-    - ちなみに oTree 本体が用意しているstaticの中身は以下:
-        <details>
-        <pre>
-        .
-        ├── bootstrap5
-        │   ├── css
-        │   │   ├── bootstrap.min.css
-        │   │   └── bootstrap.min.css.map
-        │   └── js
-        │       ├── bootstrap.bundle.min.js
-        │       └── bootstrap.bundle.min.js.map
-        ├── favicon.ico
-        ├── glyphicons
-        │   ├── clock.png
-        │   ├── cloud.png
-        │   ├── cogwheel.png
-        │   ├── delete.png
-        │   ├── download-alt.png
-        │   ├── eye-open.png
-        │   ├── folder-closed.png
-        │   ├── link.png
-        │   ├── list-alt.png
-        │   ├── pencil.png
-        │   ├── plus.png
-        │   ├── pushpin.png
-        │   ├── refresh.png
-        │   ├── stats.png
-        │   └── usd.png
-        ├── otree
-        │   ├── css
-        │   │   ├── table.css
-        │   │   └── theme.css
-        │   └── js
-        │       ├── common.js
-        │       ├── formInputs.js
-        │       ├── internet-explorer.js
-        │       ├── jquery-3.2.1.min.js
-        │       ├── jquery.color-2.1.2.min.js
-        │       ├── jquery.countdown.min.js
-        │       ├── jquery.timeago.en-short.js
-        │       ├── jquery.timeago.js
-        │       ├── live.js
-        │       ├── monitor2.js
-        │       ├── page-websocket-redirect.js
-        │       ├── reconnecting-websocket-iife.min.js
-        │       └── table-utils.js
-        └── robots.txt
-        </pre>
-        </details>
-    - ↑これと自分が `_static` ディレクトリに置いたものでパスが重複すると，自分が置いたものが優先される？
+
+    - ちなみに oTree 本体が用意している `_static` の中身は以下:
+
+     %accordion%`_static` の中身%accordion%
+    ```
+    .
+    ├── bootstrap5
+    │   ├── css
+    │   │   ├── bootstrap.min.css
+    │   │   └── bootstrap.min.css.map
+    │   └── js
+    │       ├── bootstrap.bundle.min.js
+    │       └── bootstrap.bundle.min.js.map
+    ├── favicon.ico
+    ├── glyphicons
+    │   ├── clock.png
+    │   ├── cloud.png
+    │   ├── cogwheel.png
+    │   ├── delete.png
+    │   ├── download-alt.png
+    │   ├── eye-open.png
+    │   ├── folder-closed.png
+    │   ├── link.png
+    │   ├── list-alt.png
+    │   ├── pencil.png
+    │   ├── plus.png
+    │   ├── pushpin.png
+    │   ├── refresh.png
+    │   ├── stats.png
+    │   └── usd.png
+    ├── otree
+    │   ├── css
+    │   │   ├── table.css
+    │   │   └── theme.css
+    │   └── js
+    │       ├── common.js
+    │       ├── formInputs.js
+    │       ├── internet-explorer.js
+    │       ├── jquery-3.2.1.min.js
+    │       ├── jquery.color-2.1.2.min.js
+    │       ├── jquery.countdown.min.js
+    │       ├── jquery.timeago.en-short.js
+    │       ├── jquery.timeago.js
+    │       ├── live.js
+    │       ├── monitor2.js
+    │       ├── page-websocket-redirect.js
+    │       ├── reconnecting-websocket-iife.min.js
+    │       └── table-utils.js
+    └── robots.txt
+   ```
+    %/accordion%
+
+    - ↑ これと自分が `_static` ディレクトリに置いたものでパスが重複すると，自分が置いたものが優先される？
+
     - 画像ファイルならともかく，cssファイル，jsファイルを上書きするのは危険かも．
+
+
 - `_templates` ディレクトリ
     - 複数アプリ使い回すHTMLテンプレートを置いておく．
+
+
 - 各アプリのディレクトリ
     - `__init__.py`
     - `*.html`
+
 
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/BeNZQ3DkEfg?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
@@ -162,6 +184,7 @@
 ## oTree のデータモデル
 
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/wKQI2L8wdJQ?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
 
 - 詳しくは [https://otree.readthedocs.io/ja/latest/conceptual_overview.html](https://otree.readthedocs.io/ja/latest/conceptual_overview.html)
 
@@ -180,5 +203,6 @@
     - Payments
     - Description
     - Edit
+
 
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/ltIQU9trdtg?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>

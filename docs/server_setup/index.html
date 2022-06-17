@@ -20,6 +20,10 @@
                 
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-accordion/accordion.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/@honkit/honkit-plugin-highlight/website.css">
                 
             
@@ -499,37 +503,37 @@
 </li>
 </ul>
 <ol>
-<li>Pythonのビルド環境（build-essential等）をaptでインストール<br> <a href="https://github.com/pyenv/pyenv/wiki" target="_blank">https://github.com/pyenv/pyenv/wiki</a><pre><code class="lang-bash"> sudo apt-get update
- sudo apt-get install make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+<li>Pythonのビルド環境（build-essential等）をaptでインストール<br><a href="https://github.com/pyenv/pyenv/wiki" target="_blank">https://github.com/pyenv/pyenv/wiki</a><pre><code class="lang-bash">sudo apt-get update
+sudo apt-get install make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
 </code></pre>
 </li>
-<li>pyenvを導入<br> <a href="https://github.com/pyenv/pyenv" target="_blank">https://github.com/pyenv/pyenv</a><pre><code class="lang-bash"> git <span class="hljs-built_in">clone</span> https://github.com/pyenv/pyenv.git ~/.pyenv
- <span class="hljs-built_in">cd</span> ~/.pyenv &amp;&amp; src/configure &amp;&amp; make -C src
- <span class="hljs-built_in">echo</span> <span class="hljs-string">&apos;export PYENV_ROOT=&quot;$HOME/.pyenv&quot;&apos;</span> &gt;&gt; ~/.bashrc
- <span class="hljs-built_in">echo</span> <span class="hljs-string">&apos;command -v pyenv &gt;/dev/null || export PATH=&quot;$PYENV_ROOT/bin:$PATH&quot;&apos;</span> &gt;&gt; ~/.bashrc
- <span class="hljs-built_in">echo</span> <span class="hljs-string">&apos;eval &quot;$(pyenv init -)&quot;&apos;</span> &gt;&gt; ~/.bashrc
- <span class="hljs-built_in">echo</span> <span class="hljs-string">&apos;export PYENV_ROOT=&quot;$HOME/.pyenv&quot;&apos;</span> &gt;&gt; ~/.profile
- <span class="hljs-built_in">echo</span> <span class="hljs-string">&apos;command -v pyenv &gt;/dev/null || export PATH=&quot;$PYENV_ROOT/bin:$PATH&quot;&apos;</span> &gt;&gt; ~/.profile
- <span class="hljs-built_in">echo</span> <span class="hljs-string">&apos;eval &quot;$(pyenv init -)&quot;&apos;</span> &gt;&gt; ~/.profile
-</code></pre>
-<ul>
-<li>導入が終わったら，いったんシェルを開き直す．</li>
-</ul>
-</li>
-<li>pyenvのプラグインpyenv-virtualenvを導入<br> <a href="https://github.com/pyenv/pyenv-virtualenv" target="_blank">https://github.com/pyenv/pyenv-virtualenv</a><pre><code class="lang-bash"> git <span class="hljs-built_in">clone</span> https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
- <span class="hljs-built_in">echo</span> <span class="hljs-string">&apos;eval &quot;$(pyenv virtualenv-init -)&quot;&apos;</span> &gt;&gt; ~/.bashrc
+<li>pyenvを導入<br><a href="https://github.com/pyenv/pyenv" target="_blank">https://github.com/pyenv/pyenv</a><pre><code class="lang-bash">git <span class="hljs-built_in">clone</span> https://github.com/pyenv/pyenv.git ~/.pyenv
+<span class="hljs-built_in">cd</span> ~/.pyenv &amp;&amp; src/configure &amp;&amp; make -C src
+<span class="hljs-built_in">echo</span> <span class="hljs-string">&apos;export PYENV_ROOT=&quot;$HOME/.pyenv&quot;&apos;</span> &gt;&gt; ~/.bashrc
+<span class="hljs-built_in">echo</span> <span class="hljs-string">&apos;command -v pyenv &gt;/dev/null || export PATH=&quot;$PYENV_ROOT/bin:$PATH&quot;&apos;</span> &gt;&gt; ~/.bashrc
+<span class="hljs-built_in">echo</span> <span class="hljs-string">&apos;eval &quot;$(pyenv init -)&quot;&apos;</span> &gt;&gt; ~/.bashrc
+<span class="hljs-built_in">echo</span> <span class="hljs-string">&apos;export PYENV_ROOT=&quot;$HOME/.pyenv&quot;&apos;</span> &gt;&gt; ~/.profile
+<span class="hljs-built_in">echo</span> <span class="hljs-string">&apos;command -v pyenv &gt;/dev/null || export PATH=&quot;$PYENV_ROOT/bin:$PATH&quot;&apos;</span> &gt;&gt; ~/.profile
+<span class="hljs-built_in">echo</span> <span class="hljs-string">&apos;eval &quot;$(pyenv init -)&quot;&apos;</span> &gt;&gt; ~/.profile
 </code></pre>
 <ul>
 <li>導入が終わったら，いったんシェルを開き直す．</li>
 </ul>
 </li>
-<li>pyenvでPythonをインストール<pre><code class="lang-bash"> pyenv install 3.9.11
+<li>pyenvのプラグインpyenv-virtualenvを導入<br><a href="https://github.com/pyenv/pyenv-virtualenv" target="_blank">https://github.com/pyenv/pyenv-virtualenv</a><pre><code class="lang-bash">git <span class="hljs-built_in">clone</span> https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
+<span class="hljs-built_in">echo</span> <span class="hljs-string">&apos;eval &quot;$(pyenv virtualenv-init -)&quot;&apos;</span> &gt;&gt; ~/.bashrc
+</code></pre>
+<ul>
+<li>導入が終わったら，いったんシェルを開き直す．</li>
+</ul>
+</li>
+<li>pyenvでPythonをインストール<pre><code class="lang-bash">pyenv install 3.9.11
 </code></pre>
 </li>
-<li>pyenv-virtualenvでoTree専用の環境（myotree5と名付ける）を作成<pre><code class="lang-bash"> pyenv virtualenv 3.9.11 myotree5
+<li>pyenv-virtualenvでoTree専用の環境（myotree5と名付ける）を作成<pre><code class="lang-bash">pyenv virtualenv 3.9.11 myotree5
 </code></pre>
 </li>
-<li>用意した環境myotree5を使うように切り替える<pre><code class="lang-bash"> pyenv global myotree5
+<li>用意した環境myotree5を使うように切り替える<pre><code class="lang-bash">pyenv global myotree5
 </code></pre>
 <ul>
 <li><code>python -V</code> でインストールしたバージョン（3.9.11）が表示されたら，ちゃんと設定できている．</li>
@@ -538,10 +542,10 @@
 </ol>
 <h2 id="pipで-otree-のインストール-">pipで oTree のインストール <a id="otreeinstallation"></a></h2>
 <ol>
-<li>（PostgreSQLが必要な場合）パッケージpsycopg2を入れるために必要なライブラリlibpq-devをインストール<br> <a href="https://www.psycopg.org/docs/" target="_blank">https://www.psycopg.org/docs/</a><pre><code class="lang-bash"> sudo apt-get install libpq-dev
+<li>（PostgreSQLが必要な場合）パッケージpsycopg2を入れるために必要なライブラリlibpq-devをインストール<br><a href="https://www.psycopg.org/docs/" target="_blank">https://www.psycopg.org/docs/</a><pre><code class="lang-bash">sudo apt-get install libpq-dev
 </code></pre>
 </li>
-<li>pipで oTree （とpsycopg2）をインストール<pre><code class="lang-bash"> pip install otree psycopg2
+<li>pipで oTree （とpsycopg2）をインストール<pre><code class="lang-bash">pip install otree psycopg2
 </code></pre>
 <ul>
 <li>パッケージのバージョンを特定する場合は <code>otree==5.8.1</code> などとする．</li>
@@ -555,22 +559,22 @@
 </ul>
 </li>
 <li>oTree を動かしてみる<ul>
-<li>まずはシェルでoTreeのバージョンを確認．<pre><code class="lang-bash">  otree --version
+<li>まずはシェルでoTreeのバージョンを確認．<pre><code class="lang-bash">otree --version
 </code></pre>
 </li>
-<li>試しに新規プロジェクトの作成（たとえば新規プロジェクトの名前を <code>my_oTree</code> とする）．<pre><code class="lang-bash">  otree startproject my_oTree
+<li>試しに新規プロジェクトの作成（たとえば新規プロジェクトの名前を <code>my_oTree</code> とする）．<pre><code class="lang-bash">otree startproject my_oTree
 </code></pre>
 <ul>
 <li>とりあえずサンプルゲームも入れる（「Include sample games?」聞かれたら <code>y</code> と答える）．</li>
 </ul>
 </li>
-<li><code>my_oTree</code> なるディレクトリが作成されるので，その中に入る．<pre><code class="lang-bash">  <span class="hljs-comment"># my_oTree に入る</span>
-  <span class="hljs-built_in">cd</span> my_oTree
-  <span class="hljs-comment"># my_oTreeの中身を確認する</span>
-  ls -la
+<li><code>my_oTree</code> なるディレクトリが作成されるので，その中に入る．<pre><code class="lang-bash"><span class="hljs-comment"># my_oTree に入る</span>
+<span class="hljs-built_in">cd</span> my_oTree
+<span class="hljs-comment"># my_oTreeの中身を確認する</span>
+ls -la
 </code></pre>
 </li>
-<li>oTreeがサーバーとして動くのか確認．<pre><code class="lang-bash">  otree prodserver
+<li>oTreeがサーバーとして動くのか確認．<pre><code class="lang-bash">otree prodserver
 </code></pre>
 <ul>
 <li>ブラウザで <code>http://localhost:8000</code> にアクセスできるか？<ul>
@@ -600,26 +604,26 @@
 <h4 id="環境変数の設定-">環境変数の設定 <a id="envvar"></a></h4>
 <ul>
 <li><p>（Bashを使っている場合は）.bashrcに環境変数を設定．</p>
-<pre><code class="lang-bash">  <span class="hljs-comment"># oTree実験者画面へのパスワードをたとえば000999にしてみる．本当はもっと複雑なものにする．</span>
-  <span class="hljs-comment"># ユーザー名のデフォルトは admin</span>
-  <span class="hljs-built_in">export</span> OTREE_ADMIN_PASSWORD=000999
+<pre><code class="lang-bash"><span class="hljs-comment"># oTree実験者画面へのパスワードをたとえば000999にしてみる．本当はもっと複雑なものにする．</span>
+<span class="hljs-comment"># ユーザー名のデフォルトは admin</span>
+<span class="hljs-built_in">export</span> OTREE_ADMIN_PASSWORD=000999
 
-  <span class="hljs-comment"># OTREE_AUTH_LEVEL=STUDY とするとパスワード保護が有効になる．</span>
-  <span class="hljs-comment"># パスワードをOTREE_ADMIN_PASSWORDで設定していないのにOTREE_AUTH_LEVEL=STUDYとするとログインできなくなる．</span>
-  <span class="hljs-built_in">export</span> OTREE_AUTH_LEVEL=STUDY
+<span class="hljs-comment"># OTREE_AUTH_LEVEL=STUDY とするとパスワード保護が有効になる．</span>
+<span class="hljs-comment"># パスワードをOTREE_ADMIN_PASSWORDで設定していないのにOTREE_AUTH_LEVEL=STUDYとするとログインできなくなる．</span>
+<span class="hljs-built_in">export</span> OTREE_AUTH_LEVEL=STUDY
 
-  <span class="hljs-comment"># OTREE_PRODUCTIONが未定義であったり値が0であったりするとDEBUGモードになり，デバッグ用の情報が表示される．</span>
-  <span class="hljs-comment"># OTREE_PRODUCTION=1 とすることでデバッグ用の情報を非表示にする．</span>
-  <span class="hljs-built_in">export</span> OTREE_PRODUCTION=1
+<span class="hljs-comment"># OTREE_PRODUCTIONが未定義であったり値が0であったりするとDEBUGモードになり，デバッグ用の情報が表示される．</span>
+<span class="hljs-comment"># OTREE_PRODUCTION=1 とすることでデバッグ用の情報を非表示にする．</span>
+<span class="hljs-built_in">export</span> OTREE_PRODUCTION=1
 
-  <span class="hljs-comment"># PostgreSQL が設定済みであれば，</span>
-  <span class="hljs-comment">#    データベースにアクセスするロール名（たとえばuser01）</span>
-  <span class="hljs-comment">#    パスワード（たとえば0099）</span>
-  <span class="hljs-comment">#    アドレス（oTreeと同じマシンで動かす場合はlocalhost）</span>
-  <span class="hljs-comment">#    データベース名（たとえばotreedb）</span>
-  <span class="hljs-comment"># を oTree に環境変数DATABASE_URLで教える．</span>
-  <span class="hljs-built_in">export</span> DATABASE_URL=postgres://user01:0099@localhost/otreedb
-  <span class="hljs-comment"># DATABASE_URLを設定しなければ oTree はSQLiteを使う．</span>
+<span class="hljs-comment"># PostgreSQL が設定済みであれば，</span>
+<span class="hljs-comment">#    データベースにアクセスするロール名（たとえばuser01）</span>
+<span class="hljs-comment">#    パスワード（たとえば0099）</span>
+<span class="hljs-comment">#    アドレス（oTreeと同じマシンで動かす場合はlocalhost）</span>
+<span class="hljs-comment">#    データベース名（たとえばotreedb）</span>
+<span class="hljs-comment"># を oTree に環境変数DATABASE_URLで教える．</span>
+<span class="hljs-built_in">export</span> DATABASE_URL=postgres://user01:0099@localhost/otreedb
+<span class="hljs-comment"># DATABASE_URLを設定しなければ oTree はSQLiteを使う．</span>
 </code></pre>
 <ul>
 <li>Vim（vi）を使って.bashrcを編集できるようにしておいた方が良い．nanoでも良いが．</li>
@@ -693,7 +697,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Ubuntuで oTree を動かす","level":"3.2","depth":1,"next":{"title":"Herokuで oTree を動かす","level":"3.3","depth":1,"path":"heroku/README.md","ref":"heroku/README.md","articles":[]},"previous":{"title":"【資料: デプロイ編】","level":"3.1","depth":1,"ref":"","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"server_setup/README.md","mtime":"2022-06-17T05:35:14.977Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-17T06:25:20.229Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Ubuntuで oTree を動かす","level":"3.2","depth":1,"next":{"title":"Herokuで oTree を動かす","level":"3.3","depth":1,"path":"heroku/README.md","ref":"heroku/README.md","articles":[]},"previous":{"title":"【資料: デプロイ編】","level":"3.1","depth":1,"ref":"","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"server_setup/README.md","mtime":"2022-06-17T09:23:56.653Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-17T16:51:57.909Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
@@ -756,6 +760,10 @@
     
         
         <script src="../gitbook/@honkit/honkit-plugin-ga/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-accordion/accordionSelector.js"></script>
         
     
         

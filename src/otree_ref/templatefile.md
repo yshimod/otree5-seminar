@@ -17,14 +17,14 @@
 
 - テンプレート内に `{{ 変数名 }}` と記述すると， oTree サーバーはその箇所に変数を展開し，参加者には具体的な変数の中身が代入されて表示される．
 - たとえば，`C.ENDOWMENT` の値が `1000` であるとして，テンプレートに  
-    ```html
-    <p>あなたの初期保有は{{ C.ENDOWMENT }}ポイントです．</p>
-    ```
-    と記述したとき，クライアントが oTree サーバーから受け取るHTMLデータは，
-    ```html
-    <p>あなたの初期保有は1000ポイントです．</p>
-    ```
-    となる．
+  ```html
+  <p>あなたの初期保有は{{ C.ENDOWMENT }}ポイントです．</p>
+  ```
+と記述したとき，クライアントが oTree サーバーから受け取るHTMLデータは，
+  ```html
+  <p>あなたの初期保有は1000ポイントです．</p>
+  ```
+となる．
 - 以下のインスタンスオブジェクトが使える．
     - `player`
     - （当該 player の） `group`
@@ -36,14 +36,14 @@
     - たとえば `{{ C.ENDOWMENT * 10 }}` として値を10倍して表示する，という使い方はできない．
     - データベースに保存していない変数で表示したいものは，ページクラスで定義した `vars_for_template()` の中で変数を定義してテンプレートに変数を渡す必要がある．
         - たとえば，変数を使いたい画面のページクラスに以下のように記述する．  
-            ```python
-            @staticmethod
-            def vars_for_template(player: Player):
-                return dict(
-                    ENDOWMENT_times_10 = C.ENDOWMENT * 10
-                )
-            ```
-            そしてテンプレートにおいて `{{ ENDOWMENT_times_10 }}` と記述すれば，`C.ENDOWMENT` を10倍した値が画面で表示される．
+        ```python
+        @staticmethod
+        def vars_for_template(player: Player):
+            return dict(
+                ENDOWMENT_times_10 = C.ENDOWMENT * 10
+            )
+        ```
+        そしてテンプレートにおいて `{{ ENDOWMENT_times_10 }}` と記述すれば， `C.ENDOWMENT` を10倍した値が画面で表示される．
 
 
 
@@ -83,15 +83,15 @@
 ### `if`
 - 変数の値によって条件分岐させる．
 - 書き方の例:  
-    ```html
-    {{ if player.contribution == 0 }}
-        <p>あなたは利己的な意思決定をしました．</p>
-    {{ elif player.contribution < 100 }}
-        <p>あなたは少しだけ貢献しました．</p>
-    {{ else }}
-        <p>あなたはいっぱい貢献しました．</p>
-    {{ endif }}
-    ```
+  ```html
+  {{ if player.contribution == 0 }}
+      <p>あなたは利己的な意思決定をしました．</p>
+  {{ elif player.contribution < 100 }}
+      <p>あなたは少しだけ貢献しました．</p>
+  {{ else }}
+      <p>あなたはいっぱい貢献しました．</p>
+  {{ endif }}
+  ```
 - 使える関係演算子の一覧: `==`, `!=`, `<`, `>`, `<=`, `>=`, `in`, `not in`
 - 使える論理演算子の一覧: `and`, `or`, `not`
     - `and` と `or` では `and` が優先される．
@@ -106,155 +106,155 @@
 ### `for`
 - 変数がリスト型や辞書型のとき，forループで値を一つずつ取り出して表示できる．
 - 書き方の例:  
-    ```html
-    {{ for p in player.get_others_in_subsession() }}
-        <p>プレイヤー{{ p.id_in_group }}さんの報酬は{{ p.payoff }}でした．</p>
-        {{ if p.payoff > player.payoff }}
-            <p>あなたの報酬よりも多いですね．</p>
-        {{ endif }}
-    {{ endfor }}
-    ```
+  ```html
+  {{ for p in player.get_others_in_subsession() }}
+      <p>プレイヤー{{ p.id_in_group }}さんの報酬は{{ p.payoff }}でした．</p>
+      {{ if p.payoff > player.payoff }}
+          <p>あなたの報酬よりも多いですね．</p>
+      {{ endif }}
+  {{ endfor }}
+  ```
 - 辞書型のときはキーと値を別々に取ることもできる．たとえば `mydict = {'key1': 10, 'key2': 20}` のとき，  
-    ```html
-    {{ for k, v in mydict.items() }}
-        <p>{{ k }}: {{ v }}</p>
-    {{ endfor }}
-    ```
+  ```html
+  {{ for k, v in mydict.items() }}
+      <p>{{ k }}: {{ v }}</p>
+  {{ endfor }}
+  ```
 - forループの中で変数 `forloop.counter` にはカウンター番号が入っている．インデックスを0から始める場合は `forloop.counter0`．
     - たとえばMPLを作るときに，定数に `optR = [200, 250, 300, 350, 400]` を定義して，テンプレートで  
-        ```html
-        <table>
-            <tr>
-                <th>オプションL</th>
-                <th></th>
-                <th></th>
-                <th>オプションR</th>
-            </tr>
-            {{ for v in C.optR }}
-                <tr>
-                    <td>50%の確率で650円</td>
-                    <td><input type="radio" name="mpl_{{ forloop.counter0 }}" value="L"></td>
-                    <td><input type="radio" name="mpl_{{ forloop.counter0 }}" value="R"></td>
-                    <td>100%の確率で{{v}}円</td>
-                </tr>
-            {{ endfor }}
-        </table>
-        ```
-        と記述すると，以下のような表が生成される．
-        ```html
-        <table>
-            <tr>
-                <th>オプションL</th>
-                <th></th>
-                <th></th>
-                <th>オプションR</th>
-            </tr>
-            <tr>
-                <td>50%の確率で650円</td>
-                <td><input type="radio" name="mpl_0" value="L"></td>
-                <td><input type="radio" name="mpl_0" value="R"></td>
-                <td>100%の確率で200円</td>
-            </tr>
-            <tr>
-                <td>50%の確率で650円</td>
-                <td><input type="radio" name="mpl_1" value="L"></td>
-                <td><input type="radio" name="mpl_1" value="R"></td>
-                <td>100%の確率で250円</td>
-            </tr>
-            <tr>
-                <td>50%の確率で650円</td>
-                <td><input type="radio" name="mpl_2" value="L"></td>
-                <td><input type="radio" name="mpl_2" value="R"></td>
-                <td>100%の確率で300円</td>
-            </tr>
-            <tr>
-                <td>50%の確率で650円</td>
-                <td><input type="radio" name="mpl_3" value="L"></td>
-                <td><input type="radio" name="mpl_3" value="R"></td>
-                <td>100%の確率で350円</td>
-            </tr>
-            <tr>
-                <td>50%の確率で650円</td>
-                <td><input type="radio" name="mpl_4" value="L"></td>
-                <td><input type="radio" name="mpl_4" value="R"></td>
-                <td>100%の確率で400円</td>
-            </tr>
-        </table>
-        ```
-        <table>
-            <tr>
-                <th>オプションL</th>
-                <th></th>
-                <th></th>
-                <th>オプションR</th>
-            </tr>
-            <tr>
-                <td>50%の確率で650円</td>
-                <td><input type="radio" name="mpl_0" value="L"></td>
-                <td><input type="radio" name="mpl_0" value="R"></td>
-                <td>100%の確率で200円</td>
-            </tr>
-            <tr>
-                <td>50%の確率で650円</td>
-                <td><input type="radio" name="mpl_1" value="L"></td>
-                <td><input type="radio" name="mpl_1" value="R"></td>
-                <td>100%の確率で250円</td>
-            </tr>
-            <tr>
-                <td>50%の確率で650円</td>
-                <td><input type="radio" name="mpl_2" value="L"></td>
-                <td><input type="radio" name="mpl_2" value="R"></td>
-                <td>100%の確率で300円</td>
-            </tr>
-            <tr>
-                <td>50%の確率で650円</td>
-                <td><input type="radio" name="mpl_3" value="L"></td>
-                <td><input type="radio" name="mpl_3" value="R"></td>
-                <td>100%の確率で350円</td>
-            </tr>
-            <tr>
-                <td>50%の確率で650円</td>
-                <td><input type="radio" name="mpl_4" value="L"></td>
-                <td><input type="radio" name="mpl_4" value="R"></td>
-                <td>100%の確率で400円</td>
-            </tr>
-        </table>
-- 使うリストなどが空だった場合の例外処理は `{{ empty }}` を使って記述．
     ```html
-    {{ for v in C.mylist }}
-        <p>{{ forloop.counter }}番目の要素は{{v}}．</p>
-    {{ empty }}
-        <p>このリストは空です．</p>
-    {{ endfor }}
+    <table>
+        <tr>
+            <th>オプションL</th>
+            <th></th>
+            <th></th>
+            <th>オプションR</th>
+        </tr>
+        {{ for v in C.optR }}
+            <tr>
+                <td>50%の確率で650円</td>
+                <td><input type="radio" name="mpl_{{ forloop.counter0 }}" value="L"></td>
+                <td><input type="radio" name="mpl_{{ forloop.counter0 }}" value="R"></td>
+                <td>100%の確率で{{v}}円</td>
+            </tr>
+        {{ endfor }}
+    </table>
     ```
+    と記述すると，以下のような表が生成される．
+    ```html
+    <table>
+        <tr>
+            <th>オプションL</th>
+            <th></th>
+            <th></th>
+            <th>オプションR</th>
+        </tr>
+        <tr>
+            <td>50%の確率で650円</td>
+            <td><input type="radio" name="mpl_0" value="L"></td>
+            <td><input type="radio" name="mpl_0" value="R"></td>
+            <td>100%の確率で200円</td>
+        </tr>
+        <tr>
+            <td>50%の確率で650円</td>
+            <td><input type="radio" name="mpl_1" value="L"></td>
+            <td><input type="radio" name="mpl_1" value="R"></td>
+            <td>100%の確率で250円</td>
+        </tr>
+        <tr>
+            <td>50%の確率で650円</td>
+            <td><input type="radio" name="mpl_2" value="L"></td>
+            <td><input type="radio" name="mpl_2" value="R"></td>
+            <td>100%の確率で300円</td>
+        </tr>
+        <tr>
+            <td>50%の確率で650円</td>
+            <td><input type="radio" name="mpl_3" value="L"></td>
+            <td><input type="radio" name="mpl_3" value="R"></td>
+            <td>100%の確率で350円</td>
+        </tr>
+        <tr>
+            <td>50%の確率で650円</td>
+            <td><input type="radio" name="mpl_4" value="L"></td>
+            <td><input type="radio" name="mpl_4" value="R"></td>
+            <td>100%の確率で400円</td>
+        </tr>
+    </table>
+    ```
+    <table>
+        <tr>
+            <th>オプションL</th>
+            <th></th>
+            <th></th>
+            <th>オプションR</th>
+        </tr>
+        <tr>
+            <td>50%の確率で650円</td>
+            <td><input type="radio" name="mpl_0" value="L"></td>
+            <td><input type="radio" name="mpl_0" value="R"></td>
+            <td>100%の確率で200円</td>
+        </tr>
+        <tr>
+            <td>50%の確率で650円</td>
+            <td><input type="radio" name="mpl_1" value="L"></td>
+            <td><input type="radio" name="mpl_1" value="R"></td>
+            <td>100%の確率で250円</td>
+        </tr>
+        <tr>
+            <td>50%の確率で650円</td>
+            <td><input type="radio" name="mpl_2" value="L"></td>
+            <td><input type="radio" name="mpl_2" value="R"></td>
+            <td>100%の確率で300円</td>
+        </tr>
+        <tr>
+            <td>50%の確率で650円</td>
+            <td><input type="radio" name="mpl_3" value="L"></td>
+            <td><input type="radio" name="mpl_3" value="R"></td>
+            <td>100%の確率で350円</td>
+        </tr>
+        <tr>
+            <td>50%の確率で650円</td>
+            <td><input type="radio" name="mpl_4" value="L"></td>
+            <td><input type="radio" name="mpl_4" value="R"></td>
+            <td>100%の確率で400円</td>
+        </tr>
+    </table>
+- 使うリストなどが空だった場合の例外処理は `{{ empty }}` を使って記述．
+  ```html
+  {{ for v in C.mylist }}
+      <p>{{ forloop.counter }}番目の要素は{{v}}．</p>
+  {{ empty }}
+      <p>このリストは空です．</p>
+  {{ endfor }}
+  ```
 
 
 ### `include`
 - テンプレート中で，パーツとなるテンプレートファイルを読み込むことができる．
 - たとえば意思決定画面でもインストラクションを表示させたいときに，インストラクションの本文（タイトルブロックや「次へ」ボタンなどを除いた部分）だけを別のHTMLファイル（同じアプリ `publicgoodsgame` のディレクトリ内の `instr.html` ）として作っておく．作ったHTMLを以下のようにして読み込むと，読み込んだファイル全体が `{{ include "パス" }}` を記述した部分に展開される．
-    ```html
-    {{ include "publicgoodsgame/instr.html" }}
-    ```
+  ```html
+  {{ include "publicgoodsgame/instr.html" }}
+  ```
 - `include` するファイルのテンプレートに変数を（1つだけ）渡すこともできる．
     - たとえば `instr.html` の中で `{{ thisyear }}` と記述しておき，  
-        ```html
-        {{ include "publicgoodsgame/instr.html" with thisyear=2022 }}
-        ```
-        と記述すると，`instr.html` の `{{ thisyear }}` に「2022」を展開した上で，`instr.html` 全体が `{{ include "パス" }}` を記述した部分に展開される．
+    ```html
+    {{ include "publicgoodsgame/instr.html" with thisyear=2022 }}
+    ```
+    と記述すると，`instr.html` の `{{ thisyear }}` に「2022」を展開した上で，`instr.html` 全体が `{{ include "パス" }}` を記述した部分に展開される．
 
 
 ### `static`
 - プロジェクトディレクトリ直下の `_static` ディレクトリに置いたファイルについて，開発環境でのパスとブラウザが認識できるパスは異なる．ブラウザが認識できるパスを取得するために `static` タグを使う．
 - [https://otree.readthedocs.io/en/latest/misc/advanced.html#static-files](https://otree.readthedocs.io/en/latest/misc/advanced.html#static-files)
 - たとえば `_static/global` ディレクトリに画像ファイル `photo.png` を置いて，それを表示させるためには，テンプレートに  
-    ```html
-    <img src="{{ static 'global/photo.png' }}"/>
-    ```
-    と記述する．これを oTree は
-    ```html
-    <img src="/static/global/photo.png">
-    ```
-    と生成する．
+  ```html
+  <img src="{{ static 'global/photo.png' }}"/>
+  ```
+  と記述する．これを oTree は
+  ```html
+  <img src="/static/global/photo.png">
+  ```
+  と生成する．
 
 
 ### `extends`
@@ -284,96 +284,96 @@
 ### `with`
 - テンプレートファイルにおいて変数を定義して展開できる．
 - たとえば以下のようにして使う．  
-    ```html
-    {{ with ritoku = player.payoff }}
-        <p>あなたの利得は{{ ritoku }}です．
-    {{ endwith }}
-    ```
+  ```html
+  {{ with ritoku = player.payoff }}
+      <p>あなたの利得は{{ ritoku }}です．
+  {{ endwith }}
+  ```
 - パーツのテンプレートファイルを `include` するときに2つ以上の変数を渡すときは，以下のようにすると良い．  
-    ```html
-    {{ with thisyear = 2022 }}{{ with thismonth = "May" }}
-        {{ include "publicgoodsgame/instr.html" }}
-    {{ endwith }}{{ endwith }}
-    ```
+  ```html
+  {{ with thisyear = 2022 }}{{ with thismonth = "May" }}
+      {{ include "publicgoodsgame/instr.html" }}
+  {{ endwith }}{{ endwith }}
+  ```
 
 
 ### `formfield`
 - `{{ formfield "変数名" }}` とすると，当該変数の入力フォームが以下のように展開される．
-    ```html
-    <div class="{{ classes }}">
-        {{ if is_checkbox }}
-            <!-- widget=widgets.CheckboxInput としている場合 -->
-            {{ fld }}
-            <label class="form-check-label" for="{{ fld.id }}">
-                {{ label }}
-            </label>
-        {{ else }}
-            <label class="col-form-label" for="{{ fld.id }}">
-                {{ label }}
-            </label>
-            <div class="controls">
-                {{ fld }}
-            </div>
-        {{ endif }}
-        {{ if fld.description }}
-            <!-- help_text に何か文字列を渡した場合 -->
-            <p>
-                <small>
-                    <p class="form-text text-muted">
-                        {{ fld.description }}
-                    </p>
-                </small>
-            </p>
-        {{ endif }}
-        {{ if errors }}
-            <!-- 一旦ページの入力フォームが送信されて oTree の検証に引っかかった場合 -->
-            <div class="form-control-errors">
-                {{ for error in errors }}
-                    {{ error }}<br/>
-                {{ endfor }}
-            </div>
-        {{ endif }}
-    </div>
-    ```
+  ```html
+  <div class="{{ classes }}">
+      {{ if is_checkbox }}
+          <!-- widget=widgets.CheckboxInput としている場合 -->
+          {{ fld }}
+          <label class="form-check-label" for="{{ fld.id }}">
+              {{ label }}
+          </label>
+      {{ else }}
+          <label class="col-form-label" for="{{ fld.id }}">
+              {{ label }}
+          </label>
+          <div class="controls">
+              {{ fld }}
+          </div>
+      {{ endif }}
+      {{ if fld.description }}
+          <!-- help_text に何か文字列を渡した場合 -->
+          <p>
+              <small>
+                  <p class="form-text text-muted">
+                      {{ fld.description }}
+                  </p>
+              </small>
+          </p>
+      {{ endif }}
+      {{ if errors }}
+          <!-- 一旦ページの入力フォームが送信されて oTree の検証に引っかかった場合 -->
+          <div class="form-control-errors">
+              {{ for error in errors }}
+                  {{ error }}<br/>
+              {{ endfor }}
+          </div>
+      {{ endif }}
+  </div>
+  ```
     - ↑ で `{{ fld }}` となっている部分は以下のような HTML タグが生成される．
         - チェックボックスの場合
-            ```html
-            <input type="checkbox" class="form-check-input" id="id_変数名" name="変数名" required value="y">
-            ```
+        ```html
+        <input type="checkbox" class="form-check-input" id="id_変数名" name="変数名" required value="y">
+        ```
         - 記述フォームの場合
-            ```html
-            <input type="text" class="form-control" id="id_変数名" name="変数名" required value="">
-            ```
+        ```html
+        <input type="text" class="form-control" id="id_変数名" name="変数名" required value="">
+        ```
         - `models.LongStringField` を使っている場合
-            ```html
-            <textarea class="form-control" id="id_変数名" name="変数名" required value=""></textarea>
-            ```
+        ```html
+        <textarea class="form-control" id="id_変数名" name="変数名" required value=""></textarea>
+        ```
         - ドロップダウンメニューの場合
-            ```html
-            <select class="form-select" id="id_変数名" name="変数名" required>
-                <option value="">--------</option>
-                <option value="1">A</option>
-                <option value="2">B</option>
-                <option value="3">C</option>
-            </select>
-            ```
+        ```html
+        <select class="form-select" id="id_変数名" name="変数名" required>
+            <option value="">--------</option>
+            <option value="1">A</option>
+            <option value="2">B</option>
+            <option value="3">C</option>
+        </select>
+        ```
         - ラジオボタンの場合
-            ```html
-            <div id="id_変数名" required>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" id="id_変数名-0" name="変数名" required value="1">
-                    <label for="id_変数名-0">A</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" id="id_変数名-1" name="変数名" required value="2">
-                    <label for="id_変数名-1">B</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" id="id_変数名-2" name="変数名" required value="3">
-                    <label for="id_変数名-2">C</label>
-                </div>
+        ```html
+        <div id="id_変数名" required>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="id_変数名-0" name="変数名" required value="1">
+                <label for="id_変数名-0">A</label>
             </div>
-            ```
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="id_変数名-1" name="変数名" required value="2">
+                <label for="id_変数名-1">B</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="id_変数名-2" name="変数名" required value="3">
+                <label for="id_変数名-2">C</label>
+            </div>
+        </div>
+        ```
 
 
 ### `formfield_errors`
@@ -381,32 +381,32 @@
 - エラーメッセージを表示したい場所（入力フォームの下など）に `{{ formfield_errors "変数名" }}` を記述しておく．
 - `{{ formfield "変数名" }}` を使ってフォームを実装する場合は， `{{ formfield_errors "変数名" }}` を記述しなくてもエラーメッセージを入力フォームの下で表示してくれる（ oTree 3 ではページタイトルの下側にまとめて表示されていた）．
 - `{{ for }}` ループを使う場合は，たとえば以下のようにする．
-    ```html
-    {{ for eachfield in form }}
-        <div>
-            {{ eachfield.label }}
-            {{ formfield_errors eachfield.name }}
-        </div>
-    {{ endfor }}
-    ```
+  ```html
+  {{ for eachfield in form }}
+      <div>
+          {{ eachfield.label }}
+          {{ formfield_errors eachfield.name }}
+      </div>
+  {{ endfor }}
+  ```
 - エラーメッセージは `error_message()` や `変数名.error_message()` 関数を使ってカスタマイズできる．
 - [https://otree.readthedocs.io/en/latest/forms.html#raw-html-widgets](https://otree.readthedocs.io/en/latest/forms.html#raw-html-widgets)
 
 
 ### `formfields`
 - `{{ formfields }}` は以下を記述することと同じ．
-    ```html
-    {{ for eachfield in form }}
-        {{ formfield eachfield.name }}
-    {{ endfor }}
-    ```
+  ```html
+  {{ for eachfield in form }}
+      {{ formfield eachfield.name }}
+  {{ endfor }}
+  ```
 
 
 ### `next_button`
 - `{{ next_button }}` と記述すれば， oTree サーバーが以下の `<button>` タグを生成してくれる．  
-    ```html
-    <button class="otree-btn-next btn btn-primary">次へ</button>
-    ```
+  ```html
+  <button class="otree-btn-next btn btn-primary">次へ</button>
+  ```
 
 
 ### `chat`
@@ -424,59 +424,59 @@
     - `{{ form.変数名.name }}` は変数名が展開される．
     - `{{ form.変数名.id }}` は `"id_変数名"` なる文字列が展開される．
     - `{{ form.変数名.label }}` は以下のHTMLタグが展開される．
-        ```html
-        <label for="id_変数名">データモデルで `label` に設定した文字列</label>
-        ```
+    ```html
+    <label for="id_変数名">データモデルで `label` に設定した文字列</label>
+    ```
     - `{{ form.変数名.description }}` はデータモデルで `help_text` に設定した文字列が展開される．
     - `{{ form.変数名.errors }}` は oTree の検証に引っかかったときのエラーメッセージ（文字列）がリストに入った状態で展開される．
         - たとえば，以下のような使い方をする．
-            ```html
-            {{ if form.変数名.errors }}
-                <!-- エラーが発生した場合 -->
-                {{ form.変数名.errors.0 }}    {# ← リストの0番目にエラーメッセージ（文字列）が入っている #}
-            {{ endif }}
-            ```
+        ```html
+        {{ if form.変数名.errors }}
+            <!-- エラーが発生した場合 -->
+            {{ form.変数名.errors.0 }}    {# ← リストの0番目にエラーメッセージ（文字列）が入っている #}
+        {{ endif }}
+        ```
 - たとえば `{{ for }}` ループを使って以下のような実装が可能．
-    ```html
-    {{ for eachfield in form }}
-        <div>
-            {{ eachfield.label }}
-            <input id="{{ eachfield.id }}" name="{{ eachfield.name }}">
-        </div>
-    {{ endfor }}
-    ```
+  ```html
+  {{ for eachfield in form }}
+      <div>
+          {{ eachfield.label }}
+          <input id="{{ eachfield.id }}" name="{{ eachfield.name }}">
+      </div>
+  {{ endfor }}
+  ```
 - 入力フォームがドロップダウンメニューの場合， `{{ form.変数名 }}` から更にパーツを取り出すことができる．
     - たとえば
-        ```html
-        <select class="form-select" id="id_変数名" name="変数名" required>
-            {{ for eachopt in form.変数名 }}
-                {{ eachopt }}
-            {{ endfor }}
-        </select>
-        ```
-        としたとき， `{{ eachopt }}` には，たとえば以下の HTML タグが展開される．
-        ```html
-        <option value="1">A</option>
-        ```
+    ```html
+    <select class="form-select" id="id_変数名" name="変数名" required>
+        {{ for eachopt in form.変数名 }}
+            {{ eachopt }}
+        {{ endfor }}
+    </select>
+    ```
+    としたとき， `{{ eachopt }}` には，たとえば以下の HTML タグが展開される．
+    ```html
+    <option value="1">A</option>
+    ```
 - 入力フォームがラジオボタンの場合， `{{ form.変数名 }}` から更にパーツを取り出すことができる．
     - たとえば
-        ```html
-        <select class="form-select" id="id_変数名" name="変数名" required>
-            {{ for eachopt in form.変数名 }}
-                <p>
-                    {{ eachopt.label }}: {{ eachopt }}
-                </p>
-            {{ endfor }}
-        </select>
-        ```
-        としたとき， `{{ eachopt }}` には，たとえば以下の HTML タグが展開される．
-        ```html
-        <input class="form-check-input" type="radio" id="id_変数名-0" name="変数名" required value="1">
-        ```
-        `{{ eachopt.label }}` には，たとえば以下の HTML タグが展開される．
-        ```html
-        <label for="id_変数名-0">A</label>
-        ```
+    ```html
+    <select class="form-select" id="id_変数名" name="変数名" required>
+        {{ for eachopt in form.変数名 }}
+            <p>
+                {{ eachopt.label }}: {{ eachopt }}
+            </p>
+        {{ endfor }}
+    </select>
+    ```
+    としたとき， `{{ eachopt }}` には，たとえば以下の HTML タグが展開される．
+    ```html
+    <input class="form-check-input" type="radio" id="id_変数名-0" name="変数名" required value="1">
+    ```
+    `{{ eachopt.label }}` には，たとえば以下の HTML タグが展開される．
+    ```html
+    <label for="id_変数名-0">A</label>
+    ```
     - インデックス（パーツの `id` 属性で `"id_変数名-"` のあとに入る数字）は0から始まることに注意．
 
 
@@ -485,16 +485,16 @@
 
 - テンプレート内で `{# #}` で囲った箇所はコメントとして， oTree サーバーは無視する．
     - 行の中では  
-        ```html
-        <p>初期保有は{{ C.ENDOWMENT }}です．</p> {# ← ENDOWMENTが流し込まれる． #}
-        ```
+    ```html
+    <p>初期保有は{{ C.ENDOWMENT }}です．</p> {# ← ENDOWMENTが流し込まれる． #}
+    ```
     - 複数行に渡るときは  
-        ```html
-        {#
-        <p>初期保有は{{ C.ENDOWMENT }}です．</p>
-        <p>意思決定してください．</p>
-        #}
-        ```
+    ```html
+    {#
+    <p>初期保有は{{ C.ENDOWMENT }}です．</p>
+    <p>意思決定してください．</p>
+    #}
+    ```
 - HTMLのコメント `<!-- コメント -->` については， oTree サーバーは無視せず，そのままクライアントに渡す．したがって，HTMLのコメントは画面には表示されないが，検証モードなどを使えばコメントの中身が見えてしまう．
 
 

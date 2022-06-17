@@ -49,14 +49,14 @@
 ## `startapp`
 - 既存のプロジェクトに新規のアプリを作成する．
 - このコマンドで生成されるファイル:
-    ```
-    .
-    ├── MyPage.html
-    ├── Results.html
-    ├── __init__.py
-    └── __pycache__
-        └── __init__.cpython-39.pyc
-    ```
+  ```
+  .
+  ├── MyPage.html
+  ├── Results.html
+  ├── __init__.py
+  └── __pycache__
+      └── __init__.cpython-39.pyc
+  ```
 - 使い方
     1. `cd プロジェクトのディレクトリ`
     1. `otree startapp アプリ名`
@@ -64,20 +64,20 @@
 ## `startproject`
 - プロジェクトを新規に作成する．
 - このコマンドで生成されるファイル:
-    ```
-    .
-    ├── Procfile
-    ├── __pycache__
-    │   └── settings.cpython-39.pyc
-    ├── _static
-    │   └── global
-    │       └── empty.css
-    ├── _templates
-    │   └── global
-    │       └── Page.html
-    ├── requirements.txt
-    └── settings.py
-    ```
+  ```
+  .
+  ├── Procfile
+  ├── __pycache__
+  │   └── settings.cpython-39.pyc
+  ├── _static
+  │   └── global
+  │       └── empty.css
+  ├── _templates
+  │   └── global
+  │       └── Page.html
+  ├── requirements.txt
+  └── settings.py
+  ```
 - 使い方
     - `otree startproject プロジェクト名`
 - サンプルゲームを追加する場合は `Include sample games? (y or n)` と聞かれたときに `y` と答える．

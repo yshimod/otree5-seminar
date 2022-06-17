@@ -20,6 +20,10 @@
                 
             
                 
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-accordion/accordion.css">
+                
+            
+                
                 <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-highlight/website.css">
                 
             
@@ -529,99 +533,120 @@
 <h2 id="シェルで使用する-otree-サブコマンド">シェルで使用する oTree サブコマンド</h2>
 <h4 id="サブコマンド">サブコマンド</h4>
 <ul>
-<li><a href="otree_ref/cmd.html">一覧</a></li>
+<li><a href="otree_ref/cmd.html">シェルで使用する oTree サブコマンド</a></li>
 </ul>
 <h4 id="startproject-と-startapp-コマンドで生成されるもの"><code>startproject</code> と <code>startapp</code> コマンドで生成されるもの</h4>
 <ul>
 <li><code>settings.py</code><ul>
 <li>セッションの設定を記述する．</li>
-<li><a href="otree_ref/settings.html">詳細</a></li>
+<li><a href="otree_ref/settings.html"><code>settings.py</code>の書き方</a></li>
 </ul>
 </li>
-<li><code>requirements.txt</code><ul>
+</ul>
+<ul>
+<li><p><code>requirements.txt</code></p>
+<ul>
 <li>pipで導入するパッケージを列挙する．</li>
 <li>Herokuを使うときに必要なファイル．</li>
-<li>デフォルト（ oTree v5.8.4）の記述内容:<pre><code class="lang-python">  <span class="hljs-comment"># oTree-may-overwrite-this-file</span>
-  <span class="hljs-comment"># IF YOU MODIFY THIS FILE, remove these comments.</span>
-  <span class="hljs-comment"># otherwise, oTree will automatically overwrite it.</span>
-  otree==<span class="hljs-number">5.8</span><span class="hljs-number">.4</span>
-  psycopg2&gt;=<span class="hljs-number">2.8</span><span class="hljs-number">.4</span>
-  sentry-sdk&gt;=<span class="hljs-number">0.7</span><span class="hljs-number">.9</span>
+<li><p>デフォルト（ oTree v5.8.4）の記述内容:</p>
+<pre><code class="lang-python"><span class="hljs-comment"># oTree-may-overwrite-this-file</span>
+<span class="hljs-comment"># IF YOU MODIFY THIS FILE, remove these comments.</span>
+<span class="hljs-comment"># otherwise, oTree will automatically overwrite it.</span>
+otree==<span class="hljs-number">5.8</span><span class="hljs-number">.4</span>
+psycopg2&gt;=<span class="hljs-number">2.8</span><span class="hljs-number">.4</span>
+sentry-sdk&gt;=<span class="hljs-number">0.7</span><span class="hljs-number">.9</span>
 </code></pre>
 </li>
-<li>↑コメントアウト中にも書かれているとおり，「oTree-may-overwrite-this-file」の文字列があると， oTree が勝手に <code>requirements.txt</code> を書き換えるため，自分でライブラリのバージョンを固定したり別のライブラリを追加したりする場合は注意する．</li>
-<li>他人から oTree プロジェクトのファイルをもらったときに，その人と同じパッケージを入れるには，以下のようにpipを使う．<pre><code class="lang-bash">  pip install -r requirements.txt
+<li><p>↑ コメントアウト中にも書かれているとおり，「oTree-may-overwrite-this-file」の文字列があると， oTree が勝手に <code>requirements.txt</code> を書き換えるため，自分でライブラリのバージョンを固定したり別のライブラリを追加したりする場合は注意する．</p>
+</li>
+<li><p>他人から oTree プロジェクトのファイルをもらったときに，その人と同じパッケージを入れるには，以下のようにpipを使う．</p>
+<pre><code class="lang-bash">pip install -r requirements.txt
 </code></pre>
 </li>
 </ul>
 </li>
-<li><code>Procfile</code><ul>
+</ul>
+<ul>
+<li><p><code>Procfile</code></p>
+<ul>
 <li>Heroku用の設定ファイル．</li>
 <li>拡張子はないが単なるテキストファイル．</li>
-<li>デフォルト（ oTree v5.8.4 ）の記述内容:<pre><code>  web: otree prodserver1of2
-  worker: otree prodserver2of2
+<li><p>デフォルト（ oTree v5.8.4 ）の記述内容:</p>
+<pre><code>web: otree prodserver1of2
+worker: otree prodserver2of2
 </code></pre></li>
-<li>↑2行目のworker dynoのコマンドは不要だと思われる．</li>
+<li><p>↑ 2行目のworker dynoのコマンドは不要だと思われる．</p>
+</li>
 </ul>
 </li>
-<li><code>_static</code> ディレクトリ<ul>
-<li>画像ファイルやcssファイル，jsファイルを置いておく．</li>
-<li>ちなみに oTree 本体が用意しているstaticの中身は以下:  <details>
-  <pre>
-  .
-  ├── bootstrap5
-  │   ├── css
-  │   │   ├── bootstrap.min.css
-  │   │   └── bootstrap.min.css.map
-  │   └── js
-  │       ├── bootstrap.bundle.min.js
-  │       └── bootstrap.bundle.min.js.map
-  ├── favicon.ico
-  ├── glyphicons
-  │   ├── clock.png
-  │   ├── cloud.png
-  │   ├── cogwheel.png
-  │   ├── delete.png
-  │   ├── download-alt.png
-  │   ├── eye-open.png
-  │   ├── folder-closed.png
-  │   ├── link.png
-  │   ├── list-alt.png
-  │   ├── pencil.png
-  │   ├── plus.png
-  │   ├── pushpin.png
-  │   ├── refresh.png
-  │   ├── stats.png
-  │   └── usd.png
-  ├── otree
-  │   ├── css
-  │   │   ├── table.css
-  │   │   └── theme.css
-  │   └── js
-  │       ├── common.js
-  │       ├── formInputs.js
-  │       ├── internet-explorer.js
-  │       ├── jquery-3.2.1.min.js
-  │       ├── jquery.color-2.1.2.min.js
-  │       ├── jquery.countdown.min.js
-  │       ├── jquery.timeago.en-short.js
-  │       ├── jquery.timeago.js
-  │       ├── live.js
-  │       ├── monitor2.js
-  │       ├── page-websocket-redirect.js
-  │       ├── reconnecting-websocket-iife.min.js
-  │       └── table-utils.js
-  └── robots.txt
-  </pre>
-  </details></li>
-<li>↑これと自分が <code>_static</code> ディレクトリに置いたものでパスが重複すると，自分が置いたものが優先される？</li>
-<li>画像ファイルならともかく，cssファイル，jsファイルを上書きするのは危険かも．</li>
+</ul>
+<ul>
+<li><p><code>_static</code> ディレクトリ</p>
+<ul>
+<li><p>画像ファイルやcssファイル，jsファイルを置いておく．</p>
+</li>
+<li><p>ちなみに oTree 本体が用意している <code>_static</code> の中身は以下:</p>
+<div class="accordion accordionClose"><div class="accordionButton"><div class="accordionTitle"><code>_static</code> の中身</div><div class="accordionSpinnerBox"><div class="accordionSpinner"></div></div></div><div class="accordionContent">
+<pre><code>.
+├── bootstrap5
+│   ├── css
+│   │   ├── bootstrap.min.css
+│   │   └── bootstrap.min.css.map
+│   └── js
+│       ├── bootstrap.bundle.min.js
+│       └── bootstrap.bundle.min.js.map
+├── favicon.ico
+├── glyphicons
+│   ├── clock.png
+│   ├── cloud.png
+│   ├── cogwheel.png
+│   ├── delete.png
+│   ├── download-alt.png
+│   ├── eye-open.png
+│   ├── folder-closed.png
+│   ├── link.png
+│   ├── list-alt.png
+│   ├── pencil.png
+│   ├── plus.png
+│   ├── pushpin.png
+│   ├── refresh.png
+│   ├── stats.png
+│   └── usd.png
+├── otree
+│   ├── css
+│   │   ├── table.css
+│   │   └── theme.css
+│   └── js
+│       ├── common.js
+│       ├── formInputs.js
+│       ├── internet-explorer.js
+│       ├── jquery-3.2.1.min.js
+│       ├── jquery.color-2.1.2.min.js
+│       ├── jquery.countdown.min.js
+│       ├── jquery.timeago.en-short.js
+│       ├── jquery.timeago.js
+│       ├── live.js
+│       ├── monitor2.js
+│       ├── page-websocket-redirect.js
+│       ├── reconnecting-websocket-iife.min.js
+│       └── table-utils.js
+└── robots.txt
+</code></pre></div></div>
+</li>
+<li><p>↑ これと自分が <code>_static</code> ディレクトリに置いたものでパスが重複すると，自分が置いたものが優先される？</p>
+</li>
+<li><p>画像ファイルならともかく，cssファイル，jsファイルを上書きするのは危険かも．</p>
+</li>
 </ul>
 </li>
+</ul>
+<ul>
 <li><code>_templates</code> ディレクトリ<ul>
 <li>複数アプリ使い回すHTMLテンプレートを置いておく．</li>
 </ul>
 </li>
+</ul>
+<ul>
 <li>各アプリのディレクトリ<ul>
 <li><code>__init__.py</code></li>
 <li><code>*.html</code></li>
@@ -634,6 +659,7 @@
 
 <h2 id="otree-のデータモデル">oTree のデータモデル</h2>
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/wKQI2L8wdJQ?rel=0&amp;enablejsapi=1&amp;origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
 
 <ul>
 <li>詳しくは <a href="https://otree.readthedocs.io/ja/latest/conceptual_overview.html" target="_blank">https://otree.readthedocs.io/ja/latest/conceptual_overview.html</a></li>
@@ -699,7 +725,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第3回","level":"1.1.3","depth":2,"next":{"title":"第4回","level":"1.1.4","depth":2,"path":"day4.md","ref":"day4.md","articles":[]},"previous":{"title":"第2回","level":"1.1.2","depth":2,"path":"day2.md","ref":"day2.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day3.md","mtime":"2022-06-17T05:38:59.074Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-17T06:25:20.229Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第3回","level":"1.1.3","depth":2,"next":{"title":"第4回","level":"1.1.4","depth":2,"path":"day4.md","ref":"day4.md","articles":[]},"previous":{"title":"第2回","level":"1.1.2","depth":2,"path":"day2.md","ref":"day2.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day3.md","mtime":"2022-06-17T10:42:57.096Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-17T16:51:57.909Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -762,6 +788,10 @@
     
         
         <script src="gitbook/@honkit/honkit-plugin-ga/plugin.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-accordion/accordionSelector.js"></script>
         
     
         

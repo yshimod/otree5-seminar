@@ -20,6 +20,10 @@
                 
             
                 
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-accordion/accordion.css">
+                
+            
+                
                 <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-highlight/website.css">
                 
             
@@ -480,36 +484,49 @@
 <p>今回は完成したコードを読み下していきながら，特に oTree の組み込み関数の使い方を勉強していきます．</p>
 <h1 id="otree-の組み込み関数の使い方">oTree の組み込み関数の使い方</h1>
 <ul>
-<li>oTree の組み込み関数は <a href="otree_ref/init.html"> <code>__init__.py</code> の書き方</a> で網羅しているつもりです．</li>
-<li>組み込み関数の使い方については，公式ドキュメントで関数名を検索してください．<ul>
+<li><p>oTree の組み込み関数は <a href="otree_ref/init.html"> <code>__init__.py</code> の書き方</a> で網羅しているつもりです．</p>
+</li>
+<li><p>組み込み関数の使い方については，公式ドキュメントで関数名を検索してください．</p>
+<ul>
 <li>たとえば，<a href="https://otree.readthedocs.io/en/latest/search.html?q=is_displayed" target="_blank"><code>is_displayed</code> で検索</a>．</li>
 </ul>
 </li>
-<li><a href="https://www.otreehub.com/code/" target="_blank">oTree Hub の Example code</a> で（ブラウザの検索機能を使って）検索して使用例を見るのも有用です．</li>
+<li><p><a href="https://www.otreehub.com/code/" target="_blank">oTree Hub の Example code</a> で（ブラウザの検索機能を使って）検索して使用例を見るのも有用です．</p>
+</li>
 </ul>
 <h2 id="逐次手番ゲーム（信頼ゲーム）">逐次手番ゲーム（信頼ゲーム）</h2>
 <ul>
-<li><code>otree startproject</code> コマンド実行で手に入るサンプルゲームの「trust」アプリ．</li>
-<li><a href="https://otree.readthedocs.io/ja/latest/tutorial/part3.html" target="_blank">公式ドキュメントのチュートリアル「信頼ゲーム」</a> を参照．</li>
-<li>ソースコード <a href="https://github.com/oTree-org/oTree/tree/lite/trust" target="_blank">https://github.com/oTree-org/oTree/tree/lite/trust</a></li>
-<li>デモページ <a href="https://otree-demo.herokuapp.com/demo/trust" target="_blank">https://otree-demo.herokuapp.com/demo/trust</a></li>
+<li><p><code>otree startproject</code> コマンド実行で手に入るサンプルゲームの「trust」アプリ．</p>
+</li>
+<li><p><a href="https://otree.readthedocs.io/ja/latest/tutorial/part3.html" target="_blank">公式ドキュメントのチュートリアル「信頼ゲーム」</a> を参照．</p>
+</li>
+<li><p>ソースコード <a href="https://github.com/oTree-org/oTree/tree/lite/trust" target="_blank">https://github.com/oTree-org/oTree/tree/lite/trust</a></p>
+</li>
+<li><p>デモページ <a href="https://otree-demo.herokuapp.com/demo/trust" target="_blank">https://otree-demo.herokuapp.com/demo/trust</a></p>
+</li>
 </ul>
 <h3 id="意思決定データを-group-に記録する">意思決定データを Group に記録する</h3>
 <ul>
-<li>信頼ゲームでは役割（先手と後手）で行う意思決定が異なり，group でユニークな値である．<ul>
-<li>先手は後手に預けるポイント数 <code>sent_amount</code> を決定する．</li>
-<li>後手は先手に返すポイント数 <code>sent_back_amount</code> を決定する．</li>
+<li><p>信頼ゲームでは役割（先手と後手）で行う意思決定が異なり，group でユニークな値である．</p>
+<ul>
+<li><p>先手は後手に預けるポイント数 <code>sent_amount</code> を決定する．</p>
+</li>
+<li><p>後手は先手に返すポイント数 <code>sent_back_amount</code> を決定する．</p>
+</li>
 </ul>
 </li>
-<li>player の変数として定義するより，group の変数として定義した方が良い．<ul>
-<li>テンプレートで <code>sent_amount</code> を展開するとき...<ul>
-<li>group の変数であれば <code>{{ group.sent_amount }}</code>．</li>
-<li>player の変数であれば <code>vars_for_template()</code> で <code>player.group.get_player_by_id(1).sent_amount</code> を何らかの変数として渡す必要がある．<ul>
-<li>テンプレートで直接 <code>{{ group.get_player_by_id(1).sent_amount }}</code> としたいところだが，エラーとなる．<ul>
-<li>なぜなら，メソッド（ <code>.get_player_by_id()</code> ）を使った後に変数を呼び出すことができないため．</li>
-</ul>
+<li><p>player の変数として定義するより，group の変数として定義した方が良い．</p>
+<ul>
+<li><p>テンプレートで <code>sent_amount</code> を展開するとき...</p>
+<ul>
+<li><p>group の変数であれば <code>{{ group.sent_amount }}</code>．</p>
 </li>
-<li>先手のみに表示する部分であれば <code>{{ player.sent_amount }}</code> でよいが，後手には使えない．</li>
+<li><p>player の変数であれば <code>vars_for_template()</code> で <code>player.group.get_player_by_id(1).sent_amount</code> を何らかの変数として渡す必要がある．</p>
+<ul>
+<li><p>テンプレートで直接 <code>{{ group.get_player_by_id(1).sent_amount }}</code> としたいところだが，エラーとなる．</p>
+</li>
+<li><p>先手のみに表示する部分であれば <code>{{ player.sent_amount }}</code> でよいが，後手には使えない．</p>
+</li>
 </ul>
 </li>
 </ul>
@@ -519,47 +536,312 @@
 </ul>
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/sOhoXLiNCQg?rel=0&amp;enablejsapi=1&amp;origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
+<ul>
+<li><p>あえて信頼ゲームの意思決定データを Player に保存するにはどうすれば良いか，と質問を受けました．</p>
+<ul>
+<li><p>たとえば <code>sent_amount</code> と <code>sent_back_amount</code> を <code>Player</code> クラスで定義する場合， <code>__init__.py</code> はたとえば以下のように書く．</p>
+<div class="accordion accordionClose"><div class="accordionButton"><div class="accordionTitle"><code>__init__.py</code></div><div class="accordionSpinnerBox"><div class="accordionSpinner"></div></div></div><div class="accordionContent">
+<pre><code class="lang-python"><span class="hljs-keyword">from</span> otree.api <span class="hljs-keyword">import</span> *
 
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">C</span>(<span class="hljs-params">BaseConstants</span>):</span>
+  NAME_IN_URL = <span class="hljs-string">&apos;trust&apos;</span>
+  PLAYERS_PER_GROUP = <span class="hljs-number">2</span>
+  NUM_ROUNDS = <span class="hljs-number">1</span>
+  INSTRUCTIONS_TEMPLATE = <span class="hljs-string">&apos;trust/instructions.html&apos;</span>
+  ENDOWMENT = cu(<span class="hljs-number">100</span>)
+  MULTIPLIER = <span class="hljs-number">3</span>
 
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Subsession</span>(<span class="hljs-params">BaseSubsession</span>):</span>
+  <span class="hljs-keyword">pass</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Group</span>(<span class="hljs-params">BaseGroup</span>):</span>
+  <span class="hljs-keyword">pass</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Player</span>(<span class="hljs-params">BasePlayer</span>):</span>
+  sent_amount = models.CurrencyField(
+      <span class="hljs-built_in">min</span>=<span class="hljs-number">0</span>,
+      <span class="hljs-built_in">max</span>=C.ENDOWMENT,
+      doc=<span class="hljs-string">&quot;&quot;&quot;Amount sent by P1&quot;&quot;&quot;</span>,
+      label=<span class="hljs-string">&quot;Please enter an amount from 0 to 100:&quot;</span>
+  )
+  sent_back_amount = models.CurrencyField(
+      <span class="hljs-built_in">min</span>=cu(<span class="hljs-number">0</span>),
+      doc=<span class="hljs-string">&quot;&quot;&quot;Amount sent back by P2&quot;&quot;&quot;</span>
+  )
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">sent_back_amount_max</span>(<span class="hljs-params">player: Player</span>):</span>
+  <span class="hljs-string">&quot;&quot;&quot;
+  引数が group ではなく player であることに注意！
+  &quot;&quot;&quot;</span>
+  group: Group = player.group    <span class="hljs-comment">## ← 「: Group」 は消しても良い</span>
+  <span class="hljs-keyword">return</span> group.get_player_by_id(<span class="hljs-number">1</span>).sent_amount * C.MULTIPLIER
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">set_payoffs</span>(<span class="hljs-params">group: Group</span>):</span>
+  p1: Player = group.get_player_by_id(<span class="hljs-number">1</span>)    <span class="hljs-comment">## ← 「: Player」 は消しても良い</span>
+  p2: Player = group.get_player_by_id(<span class="hljs-number">2</span>)    <span class="hljs-comment">## ← 「: Player」 は消しても良い</span>
+  p1.payoff = C.ENDOWMENT - p1.sent_amount + p2.sent_back_amount
+  p2.payoff = p1.sent_amount * C.MULTIPLIER - p2.sent_back_amount
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Introduction</span>(<span class="hljs-params">Page</span>):</span>
+  <span class="hljs-keyword">pass</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Send</span>(<span class="hljs-params">Page</span>):</span>
+  form_model = <span class="hljs-string">&apos;player&apos;</span>
+  form_fields = [<span class="hljs-string">&apos;sent_amount&apos;</span>]
+
+<span class="hljs-meta">  @staticmethod</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">is_displayed</span>(<span class="hljs-params">player: Player</span>):</span>
+      <span class="hljs-keyword">return</span> player.id_in_group == <span class="hljs-number">1</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SendBackWaitPage</span>(<span class="hljs-params">WaitPage</span>):</span>
+  <span class="hljs-keyword">pass</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SendBack</span>(<span class="hljs-params">Page</span>):</span>
+  form_model = <span class="hljs-string">&apos;player&apos;</span>
+  form_fields = [<span class="hljs-string">&apos;sent_back_amount&apos;</span>]
+
+<span class="hljs-meta">  @staticmethod</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">is_displayed</span>(<span class="hljs-params">player: Player</span>):</span>
+      <span class="hljs-keyword">return</span> player.id_in_group == <span class="hljs-number">2</span>
+
+<span class="hljs-meta">  @staticmethod</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">vars_for_template</span>(<span class="hljs-params">player: Player</span>):</span>
+      group: Group = player.group
+      p1: Player = group.get_player_by_id(<span class="hljs-number">1</span>)
+
+      tmp_sent_amount = p1.sent_amount
+
+      <span class="hljs-keyword">return</span> <span class="hljs-built_in">dict</span>(
+          tmp_sent_amount = tmp_sent_amount,    <span class="hljs-comment">## ← {{ group.sent_amount }} を {{ tmp_sent_amount }} に置換せよ</span>
+          tripled_amount = tmp_sent_amount * C.MULTIPLIER
+      )
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ResultsWaitPage</span>(<span class="hljs-params">WaitPage</span>):</span>
+  after_all_players_arrive = set_payoffs
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Results</span>(<span class="hljs-params">Page</span>):</span>
+<span class="hljs-meta">  @staticmethod</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">vars_for_template</span>(<span class="hljs-params">player: Player</span>):</span>
+      group: Group = player.group
+      p1: Player = group.get_player_by_id(<span class="hljs-number">1</span>)
+      p2: Player = group.get_player_by_id(<span class="hljs-number">2</span>)
+      <span class="hljs-comment">## ↑ group を定義せず，いちいち</span>
+      <span class="hljs-comment">## p1 = player.group.get_player_by_id(1)</span>
+      <span class="hljs-comment">## p2 = player.group.get_player_by_id(2)</span>
+      <span class="hljs-comment">## とすると，パフォーマンスが低下する．</span>
+      <span class="hljs-comment">## https://otree.readthedocs.io/en/latest/misc/tips_and_tricks.html#improving-code-performance</span>
+
+      tmp_sent_amount = p1.sent_amount
+      tmp_sent_back_amount = p2.sent_back_amount
+
+      <span class="hljs-keyword">return</span> <span class="hljs-built_in">dict</span>(
+          tmp_sent_amount = tmp_sent_amount,    <span class="hljs-comment">## ← {{ group.sent_amount }} を {{ tmp_sent_amount }} に置換せよ</span>
+          tmp_sent_back_amount = tmp_sent_back_amount,    <span class="hljs-comment">## ← {{ group.sent_back_amount }} を {{ tmp_sent_back_amount }} に置換せよ</span>
+          tripled_amount = tmp_sent_amount * C.MULTIPLIER
+      )
+
+page_sequence = [
+  Introduction,
+  Send,
+  SendBackWaitPage,
+  SendBack,
+  ResultsWaitPage,
+  Results,
+]
+</code></pre>
+</div></div>
+</li>
+<li><p>テンプレートでは，特定のプレイヤーの変数を直接展開することができないため， <code>vars_for_template()</code> を使ってテンプレートに変数を渡す必要がある．この手間がデメリットといえばデメリット．</p>
+</li>
+<li><p><code>sent_amount</code> と <code>sent_back_amount</code> を <code>Player</code> クラスで定義する場合，出力されるCSVファイルの1行（あるプレイヤーのデータ）には，先手プレイヤーの場合に <code>sent_amount</code> 列は数値が入っているが， <code>sent_asent_back_amountmount</code> 列は空欄（ <code>None</code> ）となっている．後手プレイヤーの場合には <code>sent_asent_back_amountmount</code> 列は数値が入っているが， <code>sent_amount</code> 列は空欄となっている．</p>
+<ul>
+<li>実験実施だけに注目すれば（変数を呼び出すのが少々面倒くさいだけで）問題ないが，実験データの分析のことを考慮すると，1行に当該プレイヤーの意思決定と相手プレイヤーの意思決定の両方が入っている方が便利かも．</li>
+</ul>
+</li>
+<li><p><code>Player</code> クラスの変数として入力フォームを実装し， oTree サーバー側で（たとえば <code>before_next_page()</code> を使って） <code>Group</code> クラスの変数に &quot;転記&quot; する方法も一案．</p>
+<div class="accordion accordionClose"><div class="accordionButton"><div class="accordionTitle"><code>__init__.py</code></div><div class="accordionSpinnerBox"><div class="accordionSpinner"></div></div></div><div class="accordionContent">
+<pre><code class="lang-python"><span class="hljs-keyword">from</span> otree.api <span class="hljs-keyword">import</span> *
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">C</span>(<span class="hljs-params">BaseConstants</span>):</span>
+  NAME_IN_URL = <span class="hljs-string">&apos;trust&apos;</span>
+  PLAYERS_PER_GROUP = <span class="hljs-number">2</span>
+  NUM_ROUNDS = <span class="hljs-number">1</span>
+  INSTRUCTIONS_TEMPLATE = <span class="hljs-string">&apos;trust/instructions.html&apos;</span>
+  ENDOWMENT = cu(<span class="hljs-number">100</span>)
+  MULTIPLIER = <span class="hljs-number">3</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Subsession</span>(<span class="hljs-params">BaseSubsession</span>):</span>
+  <span class="hljs-keyword">pass</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Group</span>(<span class="hljs-params">BaseGroup</span>):</span>
+  sent_amount = models.CurrencyField()
+  sent_back_amount = models.CurrencyField()
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Player</span>(<span class="hljs-params">BasePlayer</span>):</span>
+  p_sent_amount = models.CurrencyField(
+      <span class="hljs-built_in">min</span>=<span class="hljs-number">0</span>,
+      <span class="hljs-built_in">max</span>=C.ENDOWMENT,
+      doc=<span class="hljs-string">&quot;&quot;&quot;Amount sent by P1&quot;&quot;&quot;</span>,
+      label=<span class="hljs-string">&quot;Please enter an amount from 0 to 100:&quot;</span>
+  )
+  p_sent_back_amount = models.CurrencyField(
+      <span class="hljs-built_in">min</span>=cu(<span class="hljs-number">0</span>),
+      doc=<span class="hljs-string">&quot;&quot;&quot;Amount sent back by P2&quot;&quot;&quot;</span>
+  )
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">p_sent_back_amount_max</span>(<span class="hljs-params">player: Player</span>):</span>
+  <span class="hljs-string">&quot;&quot;&quot;
+  引数が group ではなく player であることに注意！
+  &quot;&quot;&quot;</span>
+  group: Group = player.group    <span class="hljs-comment">## ← 「: Group」 は消しても良い</span>
+  <span class="hljs-keyword">return</span> group.sent_amount * C.MULTIPLIER
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">set_payoffs</span>(<span class="hljs-params">group: Group</span>):</span>
+  p1: Player = group.get_player_by_id(<span class="hljs-number">1</span>)    <span class="hljs-comment">## ← 「: Player」 は消しても良い</span>
+  p2: Player = group.get_player_by_id(<span class="hljs-number">2</span>)    <span class="hljs-comment">## ← 「: Player」 は消しても良い</span>
+  p1.payoff = C.ENDOWMENT - group.sent_amount + group.sent_back_amount
+  p2.payoff = group.sent_amount * C.MULTIPLIER - group.sent_back_amount
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Introduction</span>(<span class="hljs-params">Page</span>):</span>
+  <span class="hljs-keyword">pass</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Send</span>(<span class="hljs-params">Page</span>):</span>
+  form_model = <span class="hljs-string">&apos;player&apos;</span>
+  form_fields = [<span class="hljs-string">&apos;p_sent_amount&apos;</span>]
+
+<span class="hljs-meta">  @staticmethod</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">is_displayed</span>(<span class="hljs-params">player: Player</span>):</span>
+      <span class="hljs-keyword">return</span> player.id_in_group == <span class="hljs-number">1</span>
+
+<span class="hljs-meta">  @staticmethod</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">before_next_page</span>(<span class="hljs-params">player: Player, timeout_happened</span>):</span>
+      group: Group = player.group
+
+      <span class="hljs-keyword">if</span> player.id_in_group == <span class="hljs-number">1</span>:
+          <span class="hljs-string">&quot;&quot;&quot;
+          is_displayed() によって id_in_group != 1 なるプレイヤーはスキップされ，
+          後手プレイヤーにはこの before_next_page() は実行されない．
+          したがって，このif文は必ず True で通るはずである．
+          （必ず True になるのだったら，if文を噛まさなくてもいいかも．）
+          &quot;&quot;&quot;</span>
+          group.sent_amount = player.p_sent_amount
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SendBackWaitPage</span>(<span class="hljs-params">WaitPage</span>):</span>
+  <span class="hljs-keyword">pass</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SendBack</span>(<span class="hljs-params">Page</span>):</span>
+  form_model = <span class="hljs-string">&apos;player&apos;</span>
+  form_fields = [<span class="hljs-string">&apos;p_sent_back_amount&apos;</span>]
+
+<span class="hljs-meta">  @staticmethod</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">is_displayed</span>(<span class="hljs-params">player: Player</span>):</span>
+      <span class="hljs-keyword">return</span> player.id_in_group == <span class="hljs-number">2</span>
+
+<span class="hljs-meta">  @staticmethod</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">vars_for_template</span>(<span class="hljs-params">player: Player</span>):</span>
+      group: Group = player.group
+
+      <span class="hljs-keyword">return</span> <span class="hljs-built_in">dict</span>(
+          tripled_amount = group.sent_amount * C.MULTIPLIER
+      )
+
+<span class="hljs-meta">  @staticmethod</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">before_next_page</span>(<span class="hljs-params">player: Player, timeout_happened</span>):</span>
+      group: Group = player.group
+
+      <span class="hljs-keyword">if</span> player.id_in_group == <span class="hljs-number">2</span>:
+          <span class="hljs-string">&quot;&quot;&quot;
+          is_displayed() によって id_in_group != 2 なるプレイヤーはスキップされ，
+          先手プレイヤーにはこの before_next_page() は実行されない．
+          &quot;&quot;&quot;</span>
+          group.sent_back_amount = player.p_sent_back_amount
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ResultsWaitPage</span>(<span class="hljs-params">WaitPage</span>):</span>
+  after_all_players_arrive = set_payoffs
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Results</span>(<span class="hljs-params">Page</span>):</span>
+<span class="hljs-meta">  @staticmethod</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">vars_for_template</span>(<span class="hljs-params">player: Player</span>):</span>
+      group: Group = player.group
+
+      <span class="hljs-keyword">return</span> <span class="hljs-built_in">dict</span>(
+          tripled_amount = group.sent_amount * C.MULTIPLIER
+      )
+
+page_sequence = [
+  Introduction,
+  Send,
+  SendBackWaitPage,
+  SendBack,
+  ResultsWaitPage,
+  Results,
+]
+</code></pre>
+</div></div>
+</li>
+</ul>
+</li>
+</ul>
 <h3 id="ページ表示をスキップする">ページ表示をスキップする</h3>
 <ul>
-<li>ページクラスの組み込みメソッド <code>is_displayed()</code> を定義すれば，返り値で渡す真偽値でページを表示するか否かを設定できる．</li>
-<li>ラウンド数（ <code>player.round_number</code> ）やプレイヤーの役割（ <code>player.id_in_group</code> ）で条件分岐させることが多い．<ul>
+<li><p>ページクラスの組み込みメソッド <code>is_displayed()</code> を定義すれば，返り値で渡す真偽値でページを表示するか否かを設定できる．</p>
+</li>
+<li><p>ラウンド数（ <code>player.round_number</code> ）やプレイヤーの役割（ <code>player.id_in_group</code> ）で条件分岐させることが多い．</p>
+<ul>
 <li>複数ラウンドを設定していて，アプリ内にインストラクションページが含まれるとき，インストラクションは最初の1回だけ表示するには， <code>is_displayed()</code> で <code>player.round_number == 1</code> を返せばよい．</li>
 </ul>
 </li>
-<li><a href="https://otree.readthedocs.io/en/latest/pages.html#is-displayed" target="_blank">https://otree.readthedocs.io/en/latest/pages.html#is-displayed</a></li>
+<li><p><a href="https://otree.readthedocs.io/en/latest/pages.html#is-displayed" target="_blank">https://otree.readthedocs.io/en/latest/pages.html#is-displayed</a></p>
+</li>
 </ul>
 <ul>
-<li>ページクラスの組み込みメソッド <code>app_after_this_page()</code> で返り値をアプリ名とすれば，返り値のアプリまでスキップされる．</li>
-<li>ページクラスの組み込みメソッド <code>get_timeout_seconds()</code> で返り値を <code>0</code> とすれば，0秒で自動的にページが遷移するため，ページをスキップさせる手段として使えなくもない．ただし一瞬はページが表示されることに注意．</li>
+<li><p>ページクラスの組み込みメソッド <code>app_after_this_page()</code> で返り値をアプリ名とすれば，返り値のアプリまでスキップされる．</p>
+</li>
+<li><p>ページクラスの組み込みメソッド <code>get_timeout_seconds()</code> で返り値を <code>0</code> とすれば，0秒で自動的にページが遷移するため，ページをスキップさせる手段として使えなくもない．ただし一瞬はページが表示されることに注意．</p>
+</li>
 </ul>
 <h4 id="逐次手番ゲームでの-isdisplayed-の使い方">逐次手番ゲームでの <code>is_displayed()</code> の使い方</h4>
 <ul>
-<li>信頼ゲームでは役割（先手と後手）で行う意思決定が異なる．それぞれを別のページとして実装する．<ul>
-<li>先手が後手に預けるポイント数を入力するページとして <code>Send</code>．</li>
-<li>後手が，先手から受け取ったポイント数のうち先手に返すポイント数を入力するページとして <code>SendBack</code>．</li>
-<li>ゲームの結果を表示するページとして <code>Results</code>．</li>
-</ul>
+<li><p>信頼ゲームでは役割（先手と後手）で行う意思決定が異なる．それぞれを別のページとして実装する．</p>
+<ul>
+<li><p>先手が後手に預けるポイント数を入力するページとして <code>Send</code>．</p>
 </li>
-<li><code>is_displayed()</code> を使って，<code>Send</code> ページを先手だけに，<code>SendBack</code> ページを後手だけに表示する．<ul>
-<li><code>is_displayed()</code> の引数は <code>player</code> オブジェクト．返り値が <code>True</code> のとき，その player に表示される．</li>
-<li>group 内の役割は <code>player.id_in_group</code> の値で定義する（定数 <code>C</code> クラスで <code>*_ROLE</code> を定義して役割のラベルを設定しても良い）．<ul>
-<li><code>player.id_in_group == 1</code> なる player を先手，<code>player.id_in_group == 2</code> なる player を後手とする．</li>
-<li><code>Send</code> クラスにおいて， <code>is_displayed()</code> を定義し，返り値を <code>player.id_in_group == 1</code> （の真偽値）とする．</li>
-<li><code>SendBack</code> クラスにおいて， <code>is_displayed()</code> を定義し，返り値を <code>player.id_in_group == 2</code> （の真偽値）とする．</li>
-</ul>
+<li><p>後手が，先手から受け取ったポイント数のうち先手に返すポイント数を入力するページとして <code>SendBack</code>．</p>
+</li>
+<li><p>ゲームの結果を表示するページとして <code>Results</code>．</p>
 </li>
 </ul>
 </li>
-<li>ページ順を <code>page_sequence = [Send, SendBack, Results]</code> と設定しているとき...<ul>
-<li>先手が <code>Send</code> ページで意思決定している間，後手には <code>Send</code> ページが表示されず，次の <code>SendBack</code> ページが表示されてしまう．<code>SendBack</code> ページにおいて <code>Send</code> ページにおける先手の意思決定の結果を表示させるような実装をしている場合，意図しない挙動となるかエラーが出る．</li>
-<li>後手が <code>SendBack</code> ページで意思決定している間，先手には <code>Results</code> ページが表示されてしまう．後手の意思決定が終わっていなければ，当然利得の計算もまだ行われていないため， <code>Results</code> ページで利得を表示することはできない．</li>
+<li><p><code>is_displayed()</code> を使って，<code>Send</code> ページを先手だけに，<code>SendBack</code> ページを後手だけに表示する．</p>
+<ul>
+<li><p><code>is_displayed()</code> の引数は <code>player</code> オブジェクト．返り値が <code>True</code> のとき，その player に表示される．</p>
+</li>
+<li><p>group 内の役割は <code>player.id_in_group</code> の値で定義する（定数 <code>C</code> クラスで <code>*_ROLE</code> を定義して役割のラベルを設定しても良い）．</p>
+<ul>
+<li><p><code>player.id_in_group == 1</code> なる player を先手，<code>player.id_in_group == 2</code> なる player を後手とする．</p>
+</li>
+<li><p><code>Send</code> クラスにおいて， <code>is_displayed()</code> を定義し，返り値を <code>player.id_in_group == 1</code> （の真偽値）とする．</p>
+</li>
+<li><p><code>SendBack</code> クラスにおいて， <code>is_displayed()</code> を定義し，返り値を <code>player.id_in_group == 2</code> （の真偽値）とする．</p>
+</li>
 </ul>
 </li>
-<li>一方のプレイヤーが意思決定している間，他方のプレイヤーは待機ページで待機する必要がある．<ul>
-<li>先手が <code>Send</code> ページで意思決定している間，後手には <code>SendBackWaitPage</code> なる待機ページを表示する．先手の意思決定が終わったタイミングで特に行うべき処理は無いため， <code>SendBackWaitPage</code> クラスは定義するだけで中身は <code>pass</code> とだけ書いておけば良い．</li>
-<li>後手が <code>SendBack</code> ページで意思決定している間，先手には <code>ResultsWaitPage</code> なる待機ページを表示する．後手の意思決定が終わったタイミングで利得を計算するため，<code>after_all_players_arrive</code> を定義する．</li>
+</ul>
+</li>
+<li><p>ページ順を <code>page_sequence = [Send, SendBack, Results]</code> と設定しているとき...</p>
+<ul>
+<li><p>先手が <code>Send</code> ページで意思決定している間，後手には <code>Send</code> ページが表示されず，次の <code>SendBack</code> ページが表示されてしまう．<code>SendBack</code> ページにおいて <code>Send</code> ページにおける先手の意思決定の結果を表示させるような実装をしている場合，意図しない挙動となるかエラーが出る．</p>
+</li>
+<li><p>後手が <code>SendBack</code> ページで意思決定している間，先手には <code>Results</code> ページが表示されてしまう．後手の意思決定が終わっていなければ，当然利得の計算もまだ行われていないため， <code>Results</code> ページで利得を表示することはできない．</p>
+</li>
+</ul>
+</li>
+<li><p>一方のプレイヤーが意思決定している間，他方のプレイヤーは待機ページで待機する必要がある．</p>
+<ul>
+<li><p>先手が <code>Send</code> ページで意思決定している間，後手には <code>SendBackWaitPage</code> なる待機ページを表示する．先手の意思決定が終わったタイミングで特に行うべき処理は無いため， <code>SendBackWaitPage</code> クラスは定義するだけで中身は <code>pass</code> とだけ書いておけば良い．</p>
+</li>
+<li><p>後手が <code>SendBack</code> ページで意思決定している間，先手には <code>ResultsWaitPage</code> なる待機ページを表示する．後手の意思決定が終わったタイミングで利得を計算するため，<code>after_all_players_arrive</code> を定義する．</p>
+</li>
 </ul>
 </li>
 </ul>
@@ -569,86 +851,334 @@
 
 <h3 id="max-で入力フォーム検証の条件を動的に設定する"><code>*_max()</code> で入力フォーム検証の条件を動的に設定する</h3>
 <ul>
-<li>信頼ゲームで後手が行う意思決定（先手に返すポイント数: <code>sent_back_amount</code>）の上限は，先手が預けたポイント数（を何倍かしたもの）．</li>
-<li>先手の意思決定によって，後手の意思決定の上限が変動する．</li>
-<li>モジュールレベルで <code>sent_back_amount_max()</code> を定義して，返り値を <code>sent_back_amount</code> の最大値とする．</li>
+<li><p>信頼ゲームで後手が行う意思決定（先手に返すポイント数: <code>sent_back_amount</code>）の上限は，先手が預けたポイント数（を何倍かしたもの）．</p>
+</li>
+<li><p>先手の意思決定によって，後手の意思決定の上限が変動する．</p>
+</li>
+<li><p>モジュールレベルで <code>sent_back_amount_max()</code> を定義して，返り値を <code>sent_back_amount</code> の最大値とする．</p>
+<ul>
+<li><a href="https://otree.readthedocs.io/en/latest/forms.html#field-name-max" target="_blank">https://otree.readthedocs.io/en/latest/forms.html#field-name-max</a></li>
+</ul>
+</li>
 </ul>
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/3smlOBGiRV8?rel=0&amp;enablejsapi=1&amp;origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 
 
+
 <h2 id="有限回繰り返しゲーム（マッチングペニー）">有限回繰り返しゲーム（マッチングペニー）</h2>
 <ul>
-<li><code>otree startproject</code> コマンド実行で手に入るサンプルゲームの「matching_pennies」アプリ．</li>
-<li>ソースコード <a href="https://github.com/oTree-org/oTree/tree/lite/matching_pennies" target="_blank">https://github.com/oTree-org/oTree/tree/lite/matching_pennies</a></li>
-<li>デモページ <a href="https://otree-demo.herokuapp.com/demo/matching_pennies" target="_blank">https://otree-demo.herokuapp.com/demo/matching_pennies</a></li>
+<li><p><code>otree startproject</code> コマンド実行で手に入るサンプルゲームの「matching_pennies」アプリ．</p>
+</li>
+<li><p>ソースコード <a href="https://github.com/oTree-org/oTree/tree/lite/matching_pennies" target="_blank">https://github.com/oTree-org/oTree/tree/lite/matching_pennies</a></p>
+</li>
+<li><p>デモページ <a href="https://otree-demo.herokuapp.com/demo/matching_pennies" target="_blank">https://otree-demo.herokuapp.com/demo/matching_pennies</a></p>
+</li>
 </ul>
 <h3 id="creatingsession-を使ったプレイヤーのシャッフル"><code>creating_session()</code> を使ったプレイヤーのシャッフル</h3>
 <ul>
-<li>モジュールレベルで組み込み関数 <code>creating_session()</code> を定義すると，subsession の最初のページが表示されるタイミングで group の編成を定義できる．</li>
-<li>一つのアプリを何回も繰り返す設定にしている場合（<code>NUM_ROUNDS</code> が 1よりも大きい場合），繰り返す度に（つまり subsession ごとに） group 編成を変更することができる．</li>
-<li>subsession の途中で group 編成を変更することはできない．ただし，group 内での役割（<code>id_in_group</code>）は変更できる．</li>
-<li><code>creating_session()</code> はセッションを作成するタイミングで実行されるので， <code>creating_session()</code> では意思決定に応じて group 編成を変更することはできない．<ul>
+<li><p>モジュールレベルで組み込み関数 <code>creating_session()</code> を定義すると，subsession の最初のページが表示されるタイミングで group の編成を定義できる．</p>
+</li>
+<li><p>一つのアプリを何回も繰り返す設定にしている場合（<code>NUM_ROUNDS</code> が 1よりも大きい場合），繰り返す度に（つまり subsession ごとに） group 編成を変更することができる．</p>
+</li>
+<li><p>subsession の途中で group 編成を変更することはできない．ただし，group 内での役割（<code>id_in_group</code>）は変更できる．</p>
+</li>
+<li><p><code>creating_session()</code> はセッションを作成するタイミングで実行されるので， <code>creating_session()</code> では意思決定に応じて group 編成を変更することはできない．</p>
+<ul>
 <li>（待機ページクラスで <code>group_by_arrival_time = True</code> とした上で） <code>group_by_arrival_time_method()</code> を使えば，そこで柔軟に group 編成を定義できる．</li>
 </ul>
 </li>
-<li>group の編成は subsession のメソッド <code>set_group_matrix()</code> で設定できる．引数に2次元配列で記述した新しい group 編成を渡す．<ul>
-<li>z-Tree とは異なり absolute stranger マッチングは実装されていないので，自分で実装する．<ul>
+<li><p>group の編成は subsession のメソッド <code>set_group_matrix()</code> で設定できる．引数に2次元配列で記述した新しい group 編成を渡す．</p>
+<ul>
+<li><p>z-Tree とは異なり absolute stranger マッチングは実装されていないので，自分で実装する．</p>
+<ul>
 <li><a href="https://www.sciencedirect.com/science/article/pii/S0165176516302324" target="_blank">https://www.sciencedirect.com/science/article/pii/S0165176516302324</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="https://otree.readthedocs.io/en/latest/treatments.html" target="_blank">https://otree.readthedocs.io/en/latest/treatments.html</a></li>
-<li><a href="https://otree.readthedocs.io/en/latest/multiplayer/groups.html#group-matching" target="_blank">https://otree.readthedocs.io/en/latest/multiplayer/groups.html#group-matching</a></li>
+<li><p><a href="https://otree.readthedocs.io/en/latest/treatments.html" target="_blank">https://otree.readthedocs.io/en/latest/treatments.html</a></p>
+</li>
+<li><p><a href="https://otree.readthedocs.io/en/latest/multiplayer/groups.html#group-matching" target="_blank">https://otree.readthedocs.io/en/latest/multiplayer/groups.html#group-matching</a></p>
+</li>
 </ul>
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/Bsrq7v5Lz90?rel=0&amp;enablejsapi=1&amp;origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 
+<ul>
+<li><p>（Python 標準機能としての）リストの操作は以下を参照．<br>  <a href="https://docs.python.org/3.9/library/stdtypes.html#mutable-sequence-types" target="_blank">https://docs.python.org/3.9/library/stdtypes.html#mutable-sequence-types</a></p>
+<ul>
+<li><p>作例中で使っている <code>.reverse()</code> メソッドはリスト自体を破壊的に変更（逆転）する．<code>.reverse()</code> 自体の返り値は <code>None</code> であることに注意．</p>
+</li>
+<li><p>（雑談） R と Python の挙動の違いに注意！</p>
+<ul>
+<li><p>R ではデータをいじると，勝手にコピーしたものを変えてくれる．</p>
+<pre><code class="lang-r">a &lt;- <span class="hljs-built_in">c</span>(<span class="hljs-number">0</span>:<span class="hljs-number">4</span>)
+print(a)
+<span class="hljs-comment"># [1] 0 1 2 3 4</span>
 
+b &lt;- a
+b[<span class="hljs-number">3</span>] &lt;- <span class="hljs-number">999</span>
+print(b)
+<span class="hljs-comment"># [1]   0   1 999   3   4</span>
+
+print(a)
+<span class="hljs-comment"># [1] 0 1 2 3 4</span>
+</code></pre>
+</li>
+<li><p>一方で，Pythonはコピーせず，もとのデータも変えてくれる．</p>
+<pre><code class="lang-python">a = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">range</span>(<span class="hljs-number">5</span>))
+<span class="hljs-built_in">print</span>(a)
+<span class="hljs-comment"># [0, 1, 2, 3, 4]</span>
+
+b = a
+b[<span class="hljs-number">2</span>] = <span class="hljs-number">999</span>
+<span class="hljs-built_in">print</span>(b)
+<span class="hljs-comment"># [0, 1, 999, 3, 4]</span>
+
+<span class="hljs-built_in">print</span>(a)
+<span class="hljs-comment"># [0, 1, 999, 3, 4]</span>
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="【tips】-関数内でインポートしてよいか？">【Tips】 関数内でインポートしてよいか？</h4>
+<ul>
+<li><p>oTree の公式ドキュメントでは，パッケージやモジュールをインポートするとき，関数定義の中で <code>import</code> していることが多い．</p>
+<ul>
+<li>たとえば <a href="https://otree.readthedocs.io/en/latest/treatments.html?highlight=import" target="_blank">https://otree.readthedocs.io/en/latest/treatments.html?highlight=import</a></li>
+</ul>
+</li>
+<li><p>PEP (Python Enhancement Proposal) では以下のように説明されている．</p>
+<blockquote>
+<p>Imports are always put at the top of the file, just after any module comments and docstrings, and before module globals and constants.</p>
+</blockquote>
+<ul>
+<li><p><a href="https://peps.python.org/pep-0008/#imports" target="_blank">https://peps.python.org/pep-0008/#imports</a></p>
+</li>
+<li><p>原則は <code>.py</code> ファイルの冒頭で <code>import</code> しなければならない．</p>
+</li>
+</ul>
+</li>
+<li><p>ただし，<code>otree startproject</code> で入るサンプルゲームでの実装から分かるように，関数定義の中で <code>import</code> しても（ただし関数の中でのみ）モジュールの関数が使える．</p>
+</li>
+<li><p>名前が衝突してしまう場合には，やむを得ず関数定義の中で <code>import</code> して衝突を回避する．</p>
+</li>
+<li><p>冒頭で <code>import</code> すると，具体的にどの箇所でモジュールの関数を使っているのかがわかりにくくなってしまう．だから，モジュールの関数を使いたい場所の直前で <code>import</code> したい．</p>
+<ul>
+<li>そのような動機の場合，自分でモジュールを作り（つまり，関数定義を別の <code>.py</code> ファイルに記述し），その中で <code>import</code> すれば良い．</li>
+</ul>
+</li>
+</ul>
 <h3 id="意思決定画面で時間制限を設定してみる">意思決定画面で時間制限を設定してみる</h3>
 <ul>
-<li>ページクラスで変数 <code>timeout_seconds</code> に整数を定義すると，その <code>timeout_seconds</code> 秒の時間制限を設定できる．</li>
-<li>動的に時間制限を設定するには，ページクラスの組み込みメソッド <code>get_timeout_seconds()</code> を定義し，返り値を残り秒数とする．</li>
-<li>デフォルトでは，画面に「このページでの残り時間 mm:ss」と表示される．</li>
-<li>タイムアウトするとページのフォームが自動送信される．<ul>
-<li>送信されるデータは，（<code>initial</code> が設定されていなければ） <code>BooleanField</code> なら <code>False</code>， <code>IntegerField</code> や <code>FloatField</code> なら <code>0</code>， <code>StringField</code> なら <code>&quot;&quot;</code>．<ul>
+<li><p>ページクラスで変数 <code>timeout_seconds</code> に整数を定義すると，その <code>timeout_seconds</code> 秒の時間制限を設定できる．</p>
+</li>
+<li><p>動的に時間制限を設定するには，ページクラスの組み込みメソッド <code>get_timeout_seconds()</code> を定義し，返り値を残り秒数とする．</p>
+</li>
+<li><p>デフォルトでは，画面に「このページでの残り時間 mm:ss」と表示される．</p>
+</li>
+<li><p>タイムアウトするとページのフォームが自動送信される．</p>
+<ul>
+<li><p>送信されるデータは，（<code>initial</code> が設定されていなければ） <code>BooleanField</code> なら <code>False</code>， <code>IntegerField</code> や <code>FloatField</code> なら <code>0</code>， <code>StringField</code> なら <code>&quot;&quot;</code>．</p>
+<ul>
 <li>この値を変更したい場合は，ページクラスの組み込みメソッド <code>before_next_page()</code> の中で <code>timeout_happened == True</code> なる player に対し処理を行う．</li>
 </ul>
 </li>
-<li><code>otree prodserver</code> でサーバーを起動している場合のみ，クライアントがブラウザーを閉じているときにタイムアウトが発生すると，クライアントの代わりに，サーバーが自分宛てにフォームを送信する．</li>
+<li><p><code>otree prodserver</code> でサーバーを起動している場合のみ，クライアントがブラウザーを閉じているときにタイムアウトが発生すると，クライアントの代わりに，サーバーが自分宛てにフォームを送信する．</p>
+</li>
 </ul>
 </li>
+</ul>
+<ul>
 <li><a href="https://otree.readthedocs.io/en/latest/timeouts.html" target="_blank">https://otree.readthedocs.io/en/latest/timeouts.html</a></li>
 </ul>
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/Of6yiqbz97Q?rel=0&amp;enablejsapi=1&amp;origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 
+<h4 id="【tips】-「-staticmethod-」は何か？">【Tips】 「 <code>@staticmethod</code> 」は何か？</h4>
+<ul>
+<li><p>関数デコレータで，すぐ下で定義している関数をスタティックメソッドに変換するもの．</p>
+<ul>
+<li><a href="https://docs.python.org/3.9/library/functions.html#staticmethod" target="_blank">https://docs.python.org/3.9/library/functions.html#staticmethod</a></li>
+</ul>
+</li>
+<li><p>純粋な Python の機能の説明...</p>
+<ul>
+<li><p>たとえば，以下のようなクラスが定義してあるとする．</p>
+<pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Kurasu</span>:</span>
+  mytext = <span class="hljs-string">&quot;こんにちは&quot;</span>
 
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">testfunc1</span>(<span class="hljs-params">self, nanika</span>):</span>
+      <span class="hljs-built_in">print</span>(self.mytext)
+      <span class="hljs-built_in">print</span>(nanika)
+</code></pre>
+</li>
+<li><p>関数 <code>testfunc1()</code> を <code>Kurasu</code> クラスのインスタンス（ <code>Kurasu()</code> ）のメソッドとして呼び出すとき，第1引数に自身のインスタンスオブジェクト（ <code>self</code> ）を受け取った状態の関数になっており，第2引数の <code>nanika</code> だけ渡せば良い．</p>
+<ul>
+<li><p>たとえば，</p>
+<pre><code class="lang-python">kurasu = Kurasu()
+kurasu.testfunc1(<span class="hljs-string">&quot;あいうえお&quot;</span>)
+<span class="hljs-comment"># こんにちは</span>
+<span class="hljs-comment"># あいうえお</span>
+</code></pre>
+<p>とすると，「こんにちは」と「あいうえお」が出力される．
+<code>testfunc1()</code> の引数に，自分では <code>self</code> として何のオブジェクトも渡しておらず， <code>nanika</code> だけしか渡していないのに，ちゃんと動いていることに注目されたい．</p>
+</li>
+</ul>
+</li>
+<li><p>関数 <code>testfunc1()</code> をクラスに格納されている単なる関数として呼び出すとき， <code>testfunc1()</code> の定義通り，ちゃんと第1引数に <code>self</code> として自身のインスタンスオブジェクト，第2引数に <code>nanika</code> を渡さなければならない．</p>
+<ul>
+<li><p>たとえば，先ほどと同様，引数 <code>nanika</code> だけしか渡さない場合，</p>
+<pre><code class="lang-python">Kurasu.testfunc1(<span class="hljs-string">&quot;あいうえお&quot;</span>)
+<span class="hljs-comment"># TypeError: testfunc1() missing 1 required positional argument: &apos;nanika&apos;</span>
+</code></pre>
+<p>とエラーが出る． <code>nanika</code> に渡したつもりの文字列が <code>self</code> に取られ，もう一つの引数が足らない状態である．</p>
+</li>
+<li><p>ちゃんと引数としてインスタンスオブジェクトと <code>nanika</code> の2つを渡してやると上手くいく．</p>
+<pre><code class="lang-python">kurasu = Kurasu()
+Kurasu.testfunc1(kurasu, <span class="hljs-string">&quot;あいうえお&quot;</span>)
+<span class="hljs-comment"># こんにちは</span>
+<span class="hljs-comment"># あいうえお</span>
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p><code>@staticmethod</code> がついた関数 <code>testfunc2()</code> で <code>Kurasu</code> クラスのインスタンス（ <code>Kurasu()</code> ）のメソッドとして呼び出すとき，関数の定義の通り，引数は <code>nanika</code> だけで渡せば良い．</p>
+<pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Kurasu</span>:</span>
+  mytext = <span class="hljs-string">&quot;こんにちは&quot;</span>
+
+<span class="hljs-meta">  @staticmethod</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">testfunc2</span>(<span class="hljs-params">nanika</span>):</span>
+      <span class="hljs-built_in">print</span>(nanika)
+
+kurasu = Kurasu()
+kurasu.testfunc2(<span class="hljs-string">&quot;かきくけこ&quot;</span>)
+<span class="hljs-comment"># かきくけこ</span>
+</code></pre>
+<p>とすると，「かきくけこ」が出力される．
+なお，関数の定義で <code>self</code> を引数に取っていないので， <code>testfunc2()</code> の中では <code>self</code> を使えない（ <code>self.mytext</code> で値を受け取れない）．</p>
+</li>
+<li><p>関数 <code>testfunc2()</code> の定義の直前に書いてある <code>@staticmethod</code> を消した上で， <code>testfunc2()</code> をインスタンスメソッドとして呼び出すと，エラーが出る．</p>
+<pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Kurasu</span>:</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">testfunc2</span>(<span class="hljs-params">nanika</span>):</span>
+      <span class="hljs-built_in">print</span>(nanika)
+
+kurasu = Kurasu()
+kurasu.testfunc2(<span class="hljs-string">&quot;かきくけこ&quot;</span>)
+<span class="hljs-comment"># TypeError: testfunc2() takes 1 positional argument but 2 were given</span>
+</code></pre>
+<p>曰く「<code>testfunc2()</code> は引数を1つ（ <code>nanika</code> ）しか取らない関数のはずなのに，2個渡されましたけど，どういうこと？」と．
+この場合， <code>testfunc2()</code> がインスタンスメソッドとして呼び出されているので，第1変数として暗黙のうちに <code>Kurasu()</code> が引数として渡されている．
+しかし， <code>testfunc2()</code> を定義するときに <code>nanika</code> しか受け取らない，ということにしていたので，エラーが出た．</p>
+</li>
+<li><p>関数 <code>testfunc2()</code> を単なる関数として呼び出すとき， <code>@staticmethod</code> がついているか否かによらず，（ <code>Kurasu.testfunc1()</code> の場合と同様に） <code>testfunc2()</code> の定義で記述した引数をすべて渡さなければならない．</p>
+<ul>
+<li><p><code>@staticmethod</code> がついている場合．</p>
+<pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Kurasu</span>:</span>
+<span class="hljs-meta">  @staticmethod</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">testfunc2</span>(<span class="hljs-params">nanika</span>):</span>
+      <span class="hljs-built_in">print</span>(nanika)
+
+Kurasu.testfunc2(<span class="hljs-string">&quot;かきくけこ&quot;</span>)
+<span class="hljs-comment"># かきくけこ</span>
+</code></pre>
+</li>
+<li><p><code>@staticmethod</code> がついていない場合．</p>
+<pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Kurasu</span>:</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">testfunc2</span>(<span class="hljs-params">nanika</span>):</span>
+      <span class="hljs-built_in">print</span>(nanika)
+
+Kurasu.testfunc2(<span class="hljs-string">&quot;かきくけこ&quot;</span>)
+<span class="hljs-comment"># かきくけこ</span>
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p>関数 <code>testfunc2()</code> を単なる関数として呼び出すとき， <code>@staticmethod</code> がついているか否かによらず，インスタンスメソッドとして呼び出したとき（ <code>kurasu.testfunc2()</code> のとき）と同じ挙動（引数 <code>nanika</code> だけ渡せば良い）となる．</p>
+</li>
+<li><p><strong>クラスの中で定義する関数で，自身のインスタンスオブジェクト（ <code>self</code> ）を第1引数として受け取りたくない場合， <code>@staticmethod</code> をつけなければならない</strong>．</p>
+<ul>
+<li>oTree で，たとえばページクラスの中で <code>is_displayed()</code> を定義するとき，ページクラス自身のインスタンスオブジェクトは不要であり，別クラスである <code>Player</code> の インスタンスオブジェクト <code>player</code> を引数に取る（ oTree 本体は <code>is_displayed()</code> なる関数が <code>player</code> のみを引数に取る，ということを前提としてコードが書かれている）．</li>
+<li>oTree 5 で組み込み関数（メソッド）はもはや <code>self</code> を引数にとる必要がなくなったため， <code>@staticmethod</code> をつけるべきである．</li>
+</ul>
+</li>
+<li><p><strong>ところが，実のところ oTree は，ページクラスで組み込みのメソッドを定義する際に <code>@staticmethod</code> をつけなくても，エラーは出ず普通に動いてしまう．なぜ？</strong></p>
+<ul>
+<li><p>oTree 本体は，たとえば <code>MyPage</code> クラスで定義した <code>is_displayed()</code> を呼び出すとき，</p>
+<pre><code class="lang-python"><span class="hljs-built_in">getattr</span>(MyPage, <span class="hljs-string">&quot;is_displayed&quot;</span>)(Player())
+</code></pre>
+<p>として呼び出している．これは，</p>
+<pre><code class="lang-python">MyPage.is_displayed(Player())
+</code></pre>
+<p>と等価である．
+つまり， <code>is_displayed()</code> をインスタンスメソッドとしてではなくクラスに格納されている単なる関数として呼び出している．</p>
+</li>
+<li><p>インスタンスメソッドとして呼び出しているわけではないため，第1引数に自身のクラスのインスタンスオブジェクト（ここでは <code>MyPage()</code> ）を渡さず， <code>is_displayed()</code> を定義したときに記述した引数（ <code>player</code> ）として <code>Player</code> クラスのインスタンスオブジェクト <code>Player()</code> のみを渡している．</p>
+</li>
+</ul>
+</li>
+<li><p><strong>つまり，関数を呼び出すときに <code>@staticmethod</code> の有無で挙動が変わるような呼び出し方をしていないため， <code>@staticmethod</code> をつけなくても，エラーが出ずに動く</strong>．</p>
+</li>
+<li><p>では， <code>@staticmethod</code> はつけなくても良いか？</p>
+<ul>
+<li><p>公式ドキュメントではつけなくても良いと言っている．<br><a href="https://otree.readthedocs.io/en/latest/install-nostudio.html#about-staticmethod-etc" target="_blank">https://otree.readthedocs.io/en/latest/install-nostudio.html#about-staticmethod-etc</a></p>
+</li>
+<li><p>Python 学習者は，クラスで <code>self</code> を第1引数で受け取らない関数には <code>@staticmethod</code> をつけるクセをつけたほうが良い．</p>
+</li>
+<li><p>動けば良い，ではトラブルシューティングで苦労する．</p>
+</li>
+</ul>
+</li>
+<li><p>oTree 3 では，ページクラス自身のインスタンスオブジェクト（ <code>self</code> ）を受け取り，そこから <code>player</code> オブジェクトを取り出していた．</p>
+<ul>
+<li>oTree 5 へのアップデートで，組み込みの関数において実験データにアクセスする際にいちいち <code>self</code> から取り出す必要がなくなったことは（利点かどうかは別として）大きな特徴である．oTree の著者も， v5 のスタイルを「 no-self format 」と呼んでいる．</li>
+</ul>
+</li>
+<li><p>なお，oTree 3 のような <code>self</code> を引数に取るスタイルでの関数定義は oTree 5 でも可能といえば可能だが，スタイルを完全に oTree 3 のスタイルにしなければならない．重要な点は <code>__init__.py</code> にデータモデルのクラスとページクラスの両方を定義するのではなく， <code>models.py</code> と <code>pages.py</code> に分離して定義しなければならないところである．実のところ，「 no-self format 」か否かの判定は <code>__init__.py</code> に <code>import</code> の文字列が含まれているかどうかで，含まれていれば「 no-self format 」として処理をする． <code>@staticmethod</code> がついているかどうか，とか，関数の引数が <code>self</code> か <code>player</code> か，とかはまったく関係ない．引数に <code>self</code> と書いてあっても，「 no-self format 」の場合は容赦なく <code>player</code> オブジェクトを渡してくる．</p>
+</li>
+</ul>
+</li>
+</ul>
 <h2 id="無限回繰り返しゲーム（繰り返しpd）">無限回繰り返しゲーム（繰り返しPD）</h2>
 <ul>
-<li><a href="https://github.com/snunnari/otree_repeated_prisoner" target="_blank">https://github.com/snunnari/otree_repeated_prisoner</a></li>
-<li>ただし， oTree のバージョンが古い．バージョン5の書き方に翻訳したものはこちら:<br>  <a href="https://github.com/iserExperiment/otree_repeated_prisoner/tree/yshimod/updating" target="_blank">https://github.com/iserExperiment/otree_repeated_prisoner/tree/yshimod/updating</a>．</li>
+<li><p><a href="https://github.com/snunnari/otree_repeated_prisoner" target="_blank">https://github.com/snunnari/otree_repeated_prisoner</a></p>
+</li>
+<li><p>ただし， oTree のバージョンが古い．バージョン5の書き方に翻訳したものはこちら:<br><a href="https://github.com/iserExperiment/otree_repeated_prisoner/tree/yshimod/updating" target="_blank">https://github.com/iserExperiment/otree_repeated_prisoner/tree/yshimod/updating</a>．</p>
+</li>
 </ul>
 <h3 id="確率的に繰り返しを終了するとき-numrounds-は最大数を設定する">確率的に繰り返しを終了するとき <code>NUM_ROUNDS</code> は最大数を設定する</h3>
 <ul>
-<li>oTree はサーバーを立ち上げる際にデータベースの列を作成している．</li>
-<li>一度データベースの枠を作っておいてから，使わずに空欄のままにしておく分にはどうとでもなる．<ul>
-<li><code>NUM_ROUNDS = 100</code> としておくと，サーバーを立ち上げたときデータベースにラウンド数分の列を生成する．</li>
-<li>subsession の途中で引き出した乱数の値によって条件分岐し，終了ラウンド以降を <code>is_displayed()</code> や <code>app_after_this_page()</code> を使ってページをスキップしてしまえば，確率的にラウンドの繰り返しを終わらせることができる．<ul>
-<li>subsession の途中でも REST を使って外部から <code>session.vars</code> に値を渡すことができるので，ラボでサイコロを振って確率的に繰り返しの終了を決めることもできる． <a href="https://otree.readthedocs.io/en/latest/misc/rest_api.html#session-vars-endpoint" target="_blank">https://otree.readthedocs.io/en/latest/misc/rest_api.html#session-vars-endpoint</a></li>
+<li><p>oTree はサーバーを立ち上げる際にデータベースの列を作成している．</p>
+</li>
+<li><p>一度データベースの枠を作っておいてから，使わずに空欄のままにしておく分にはどうとでもなる．</p>
+<ul>
+<li><p><code>NUM_ROUNDS = 100</code> としておくと，サーバーを立ち上げたときデータベースにラウンド数分の列を生成する．</p>
+</li>
+<li><p>subsession の途中で引き出した乱数の値によって条件分岐し，終了ラウンド以降を <code>is_displayed()</code> や <code>app_after_this_page()</code> を使ってページをスキップしてしまえば，確率的にラウンドの繰り返しを終わらせることができる．</p>
+<ul>
+<li>subsession の途中でも REST を使って外部から <code>session.vars</code> に値を渡すことができるので，ラボでサイコロを振って確率的に繰り返しの終了を決めることもできる．<br><a href="https://otree.readthedocs.io/en/latest/misc/rest_api.html#session-vars-endpoint" target="_blank">https://otree.readthedocs.io/en/latest/misc/rest_api.html#session-vars-endpoint</a></li>
 </ul>
 </li>
-<li>途中でラウンド数を増やすことはできないため， <code>NUM_ROUNDS</code> で設定するラウンド数は大きくしないといけない．しかし， <code>NUM_ROUNDS</code> を増やすほどデータベースの列数は増え，処理に時間がかかりパフォーマンスは悪化する（？）．</li>
+<li><p>途中でラウンド数を増やすことはできないため， <code>NUM_ROUNDS</code> で設定するラウンド数は大きくしないといけない．しかし， <code>NUM_ROUNDS</code> を増やすほどデータベースの列数は増え，処理に時間がかかりパフォーマンスは悪化する（？）．</p>
+</li>
 </ul>
 </li>
-<li>サーバーを立ち上げる際に（定数 <code>C</code> クラスにおいて）乱数を引き出して，確率的に決定されるラウンド数を予め決定してしまう，というのも手といえば手．</li>
+<li><p>サーバーを立ち上げる際に（定数 <code>C</code> クラスにおいて）乱数を引き出して，確率的に決定されるラウンド数を予め決定してしまう，というのも手といえば手．</p>
+</li>
 </ul>
 <ul>
-<li>最大数が定義できない場合や，データベースの列数が増えることによるパフォーマンス低下を避ける場合，ライブページと ExtraModel を使って実装するのが良い．<ul>
-<li><a href="https://www.otreehub.com/projects/otree-more-demos/" target="_blank">https://www.otreehub.com/projects/otree-more-demos/</a> の「supergames_indefinite」．<ul>
-<li>ソースコード <a href="https://github.com/oTree-org/more-demos/tree/master/supergames_indefinite" target="_blank">https://github.com/oTree-org/more-demos/tree/master/supergames_indefinite</a></li>
-<li>デモページ <a href="https://otree-more-demos.herokuapp.com/demo/supergames_indefinite" target="_blank">https://otree-more-demos.herokuapp.com/demo/supergames_indefinite</a></li>
+<li><p>最大数が定義できない場合や，データベースの列数が増えることによるパフォーマンス低下を避ける場合，ライブページと ExtraModel を使って実装するのが良い．</p>
+<ul>
+<li><p><a href="https://www.otreehub.com/projects/otree-more-demos/" target="_blank">https://www.otreehub.com/projects/otree-more-demos/</a> の「supergames_indefinite」．</p>
+<ul>
+<li><p>ソースコード <a href="https://github.com/oTree-org/more-demos/tree/master/supergames_indefinite" target="_blank">https://github.com/oTree-org/more-demos/tree/master/supergames_indefinite</a></p>
+</li>
+<li><p>デモページ <a href="https://otree-more-demos.herokuapp.com/demo/supergames_indefinite" target="_blank">https://otree-more-demos.herokuapp.com/demo/supergames_indefinite</a></p>
+</li>
 </ul>
 </li>
 </ul>
@@ -657,8 +1187,35 @@
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/NZfKz8p9iF4?rel=0&amp;enablejsapi=1&amp;origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 
-
-
+<ul>
+<li><p>この作例のポイントは...</p>
+<ul>
+<li><p>oTree サーバーを立ち上げた時点で乱数を引き，幾何分布から一つ一つのスーパーゲームの長さ（ステージゲームの回数）を決めて，定数としている点．</p>
+<ul>
+<li><p><code>C</code> クラスの中で乱数を引いた場合，サーバーを再起動しない限り，いくらセッションを作り直しても同じスーパーゲームの長さとなる．</p>
+</li>
+<li><p>スーパーゲームの長さは定数で定義されているため， group によってスーパーゲームの長さを変えたい場合には違う実装を考えなければならない．</p>
+</li>
+<li><p>Heroku を使う場合，自動的に再起動されるので（乱数のシードを設定していない限り）意図しないタイミングでスーパーゲームの長さが変わってしまうことに注意．</p>
+</li>
+</ul>
+</li>
+<li><p>スーパーゲームの回数は最大数を定数で定義して，指定時間を超えた以降のスーパーゲームは表示させない点．</p>
+<ul>
+<li><p>指定時間が来る前に設定した最大回数が終わってしまった場合，追加ラウンドを行うことはできない（急いでサーバーを立ち上げ直した後セッションをもう一度始める，で良いならそれでいいが）．</p>
+</li>
+<li><p>この作例では，指定時間を超えた場合にのみ表示させる最終ページを用意し，そのページに「次へ」ボタンを置かないことにより，そこで終了（したことに）している．</p>
+<ul>
+<li><code>is_displayed()</code> や <code>app_after_this_page()</code> で最終ページに飛ばしているわけではなく，あくまでラウンドの途中で「次へ」進めなくしているだけなので，うっかり「Advance slowest user(s)」ボタンを押してしまうと，続きの新たなラウンドが始まってしまう．</li>
+</ul>
+</li>
+<li><p>次のアプリに進める必要がある場合（たとえば繰り返しゲーム課題の後に質問紙調査がある場合），ちゃんと <code>is_displayed()</code> や <code>app_after_this_page()</code> を使ってページをスキップさせる必要がある．</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
                                 
                                 </section>
@@ -702,7 +1259,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第6回","level":"1.1.6","depth":2,"next":{"title":"第7回","level":"1.1.7","depth":2,"path":"day7.md","ref":"day7.md","articles":[]},"previous":{"title":"第5回","level":"1.1.5","depth":2,"path":"day5.md","ref":"day5.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day6.md","mtime":"2022-06-17T05:54:01.766Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-17T06:25:20.229Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第6回","level":"1.1.6","depth":2,"next":{"title":"第7回","level":"1.1.7","depth":2,"path":"day7.md","ref":"day7.md","articles":[]},"previous":{"title":"第5回","level":"1.1.5","depth":2,"path":"day5.md","ref":"day5.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day6.md","mtime":"2022-06-17T16:51:25.580Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-17T16:51:57.909Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -765,6 +1322,10 @@
     
         
         <script src="gitbook/@honkit/honkit-plugin-ga/plugin.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-accordion/accordionSelector.js"></script>
         
     
         

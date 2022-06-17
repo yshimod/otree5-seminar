@@ -45,57 +45,57 @@
 
 
 1. Pythonのビルド環境（build-essential等）をaptでインストール  
-    [https://github.com/pyenv/pyenv/wiki](https://github.com/pyenv/pyenv/wiki)
-    ```bash
-    sudo apt-get update
-    sudo apt-get install make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
-    ```
+[https://github.com/pyenv/pyenv/wiki](https://github.com/pyenv/pyenv/wiki)
+  ```bash
+  sudo apt-get update
+  sudo apt-get install make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+  ```
 1. pyenvを導入  
-    [https://github.com/pyenv/pyenv](https://github.com/pyenv/pyenv)
-    ```bash
-    git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-    cd ~/.pyenv && src/configure && make -C src
-    echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
-    echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
-    echo 'eval "$(pyenv init -)"' >> ~/.bashrc
-    echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.profile
-    echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.profile
-    echo 'eval "$(pyenv init -)"' >> ~/.profile
-    ```
+[https://github.com/pyenv/pyenv](https://github.com/pyenv/pyenv)
+  ```bash
+  git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+  cd ~/.pyenv && src/configure && make -C src
+  echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
+  echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
+  echo 'eval "$(pyenv init -)"' >> ~/.bashrc
+  echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.profile
+  echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.profile
+  echo 'eval "$(pyenv init -)"' >> ~/.profile
+  ```
     - 導入が終わったら，いったんシェルを開き直す．
 1. pyenvのプラグインpyenv-virtualenvを導入  
-    [https://github.com/pyenv/pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv)
-    ```bash
-    git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
-    echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
-    ```
+[https://github.com/pyenv/pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv)
+  ```bash
+  git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
+  echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
+  ```
     - 導入が終わったら，いったんシェルを開き直す．
 1. pyenvでPythonをインストール
-    ```bash
-    pyenv install 3.9.11
-    ```
+  ```bash
+  pyenv install 3.9.11
+  ```
 1. pyenv-virtualenvでoTree専用の環境（myotree5と名付ける）を作成
-    ```bash
-    pyenv virtualenv 3.9.11 myotree5
-    ```
+  ```bash
+  pyenv virtualenv 3.9.11 myotree5
+  ```
 1. 用意した環境myotree5を使うように切り替える
-    ```bash
-    pyenv global myotree5
-    ```
+  ```bash
+  pyenv global myotree5
+  ```
     - `python -V` でインストールしたバージョン（3.9.11）が表示されたら，ちゃんと設定できている．
 
 
 ## pipで oTree のインストール <a id="otreeinstallation"></a>
 
 1. （PostgreSQLが必要な場合）パッケージpsycopg2を入れるために必要なライブラリlibpq-devをインストール  
-    [https://www.psycopg.org/docs/](https://www.psycopg.org/docs/)
-    ```bash
-    sudo apt-get install libpq-dev
-    ```
+[https://www.psycopg.org/docs/](https://www.psycopg.org/docs/)
+  ```bash
+  sudo apt-get install libpq-dev
+  ```
 1. pipで oTree （とpsycopg2）をインストール
-    ```bash
-    pip install otree psycopg2
-    ```
+  ```bash
+  pip install otree psycopg2
+  ```
     - パッケージのバージョンを特定する場合は `otree==5.8.1` などとする．
     - `which otree` でパスが表示されたら，ちゃんとインストールできている．
     - 何か必要なものが入っていないと，あるいは依存関係の問題で，psycopg2のインストールは失敗するかも．
@@ -104,25 +104,25 @@
         - PostgreSQLを使う予定がない場合にはpsycopg2は入れる必要なし．とりあえず諦める．
 1. oTree を動かしてみる
     - まずはシェルでoTreeのバージョンを確認．
-        ```bash
-        otree --version
-        ```
+    ```bash
+    otree --version
+    ```
     - 試しに新規プロジェクトの作成（たとえば新規プロジェクトの名前を `my_oTree` とする）．
-        ```bash
-        otree startproject my_oTree
-        ```
+    ```bash
+    otree startproject my_oTree
+    ```
         - とりあえずサンプルゲームも入れる（「Include sample games?」聞かれたら `y` と答える）．
     - `my_oTree` なるディレクトリが作成されるので，その中に入る．
-        ```bash
-        # my_oTree に入る
-        cd my_oTree
-        # my_oTreeの中身を確認する
-        ls -la
-        ```
+    ```bash
+    # my_oTree に入る
+    cd my_oTree
+    # my_oTreeの中身を確認する
+    ls -la
+    ```
     - oTreeがサーバーとして動くのか確認．
-        ```bash
-        otree prodserver
-        ```
+    ```bash
+    otree prodserver
+    ```
         - ブラウザで `http://localhost:8000` にアクセスできるか？
             - WSL2上で動かしている場合はlocalhostでアクセスできるはず．  
                 （何となれば... [https://docs.microsoft.com/ja-jp/windows/wsl/networking#accessing-linux-networking-apps-from-windows-localhost](https://docs.microsoft.com/ja-jp/windows/wsl/networking#accessing-linux-networking-apps-from-windows-localhost)）
@@ -149,28 +149,28 @@
 #### 環境変数の設定 <a id="envvar"></a>
 
 - （Bashを使っている場合は）.bashrcに環境変数を設定．
-    ```bash
-    # oTree実験者画面へのパスワードをたとえば000999にしてみる．本当はもっと複雑なものにする．
-    # ユーザー名のデフォルトは admin
-    export OTREE_ADMIN_PASSWORD=000999
+  ```bash
+  # oTree実験者画面へのパスワードをたとえば000999にしてみる．本当はもっと複雑なものにする．
+  # ユーザー名のデフォルトは admin
+  export OTREE_ADMIN_PASSWORD=000999
 
-    # OTREE_AUTH_LEVEL=STUDY とするとパスワード保護が有効になる．
-    # パスワードをOTREE_ADMIN_PASSWORDで設定していないのにOTREE_AUTH_LEVEL=STUDYとするとログインできなくなる．
-    export OTREE_AUTH_LEVEL=STUDY
+  # OTREE_AUTH_LEVEL=STUDY とするとパスワード保護が有効になる．
+  # パスワードをOTREE_ADMIN_PASSWORDで設定していないのにOTREE_AUTH_LEVEL=STUDYとするとログインできなくなる．
+  export OTREE_AUTH_LEVEL=STUDY
 
-    # OTREE_PRODUCTIONが未定義であったり値が0であったりするとDEBUGモードになり，デバッグ用の情報が表示される．
-    # OTREE_PRODUCTION=1 とすることでデバッグ用の情報を非表示にする．
-    export OTREE_PRODUCTION=1
+  # OTREE_PRODUCTIONが未定義であったり値が0であったりするとDEBUGモードになり，デバッグ用の情報が表示される．
+  # OTREE_PRODUCTION=1 とすることでデバッグ用の情報を非表示にする．
+  export OTREE_PRODUCTION=1
 
-    # PostgreSQL が設定済みであれば，
-    #    データベースにアクセスするロール名（たとえばuser01）
-    #    パスワード（たとえば0099）
-    #    アドレス（oTreeと同じマシンで動かす場合はlocalhost）
-    #    データベース名（たとえばotreedb）
-    # を oTree に環境変数DATABASE_URLで教える．
-    export DATABASE_URL=postgres://user01:0099@localhost/otreedb
-    # DATABASE_URLを設定しなければ oTree はSQLiteを使う．
-    ```
+  # PostgreSQL が設定済みであれば，
+  #    データベースにアクセスするロール名（たとえばuser01）
+  #    パスワード（たとえば0099）
+  #    アドレス（oTreeと同じマシンで動かす場合はlocalhost）
+  #    データベース名（たとえばotreedb）
+  # を oTree に環境変数DATABASE_URLで教える．
+  export DATABASE_URL=postgres://user01:0099@localhost/otreedb
+  # DATABASE_URLを設定しなければ oTree はSQLiteを使う．
+  ```
     - Vim（vi）を使って.bashrcを編集できるようにしておいた方が良い．nanoでも良いが．
     - PostgreSQLのURL（`DATABASE_URL`）にパスワード（例では0099）を書いても良い．そのときはPostgreSQLのパスワードファイル.pgpassが不要．
     - oTree の公式ドキュメントでは言及されていないが，settings.pyの `SECRET_KEY` も環境変数から受け取るように変えた方が良い気がする．
