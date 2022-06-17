@@ -302,7 +302,7 @@
                 <a href="../server_setup/">
             
                     
-                    UbuntuでoTreeを動かす
+                    Ubuntuで oTree を動かす
             
                 </a>
             
@@ -315,7 +315,7 @@
                 <a href="../heroku/">
             
                     
-                    HerokuでoTreeを動かす
+                    Herokuで oTree を動かす
             
                 </a>
             
@@ -462,10 +462,10 @@
 </ul>
 <h2 id="変数の展開">変数の展開</h2>
 <ul>
-<li>テンプレート内に <code>{{ 変数名 }}</code> と記述すると，oTreeサーバーはその箇所に変数を展開し，参加者には具体的な変数の中身が代入されて表示される．</li>
+<li>テンプレート内に <code>{{ 変数名 }}</code> と記述すると， oTree サーバーはその箇所に変数を展開し，参加者には具体的な変数の中身が代入されて表示される．</li>
 <li>たとえば，<code>C.ENDOWMENT</code> の値が <code>1000</code> であるとして，テンプレートに  <pre><code class="lang-html">  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>あなたの初期保有は{{ C.ENDOWMENT }}ポイントです．<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 </code></pre>
-  と記述したとき，クライアントがoTreeサーバーから受け取るHTMLデータは，<pre><code class="lang-html">  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>あなたの初期保有は1000ポイントです．<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+  と記述したとき，クライアントが oTree サーバーから受け取るHTMLデータは，<pre><code class="lang-html">  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>あなたの初期保有は1000ポイントです．<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 </code></pre>
   となる．</li>
 <li>以下のインスタンスオブジェクトが使える．<ul>
@@ -512,7 +512,7 @@
 </ul>
 <h3 id="c-ないし-cu"><code>c</code> ないし <code>cu</code></h3>
 <ul>
-<li><code>{{ x | cu }}</code> と記述すると，変数 <code>x</code> をoTreeの通貨型に変換したもの（つまり <code>cu(x)</code> ）が画面で表示される．数値が丸められるだけでなく単位（「円」や「ポイント」）も付け加えられる．</li>
+<li><code>{{ x | cu }}</code> と記述すると，変数 <code>x</code> を oTree の通貨型に変換したもの（つまり <code>cu(x)</code> ）が画面で表示される．数値が丸められるだけでなく単位（「円」や「ポイント」）も付け加えられる．</li>
 </ul>
 <h3 id="json"><code>json</code></h3>
 <ul>
@@ -705,13 +705,13 @@
 <ul>
 <li>タイトルブロック: <code>{{ block title }}</code> と <code>{{ endblock }}</code> に挟まれた部分．<ul>
 <li>タイトルブロック内に，ページの冒頭で表示するタイトルを記述する．</li>
-<li>oTreeサーバーはテンプレートを解釈して，記述した内容を <code>&lt;head&gt;</code> の <code>&lt;title&gt;</code> タグの中身（ブラウザウィンドウのタイトルに表示される）と，<code>&lt;body&gt;</code> の冒頭にある <code>&lt;h2&gt;</code> タグの中に挿入する．</li>
+<li>oTree サーバーはテンプレートを解釈して，記述した内容を <code>&lt;head&gt;</code> の <code>&lt;title&gt;</code> タグの中身（ブラウザウィンドウのタイトルに表示される）と，<code>&lt;body&gt;</code> の冒頭にある <code>&lt;h2&gt;</code> タグの中に挿入する．</li>
 <li><code>&lt;h2&gt;</code> タグ内にテキストが挿入されることによって，ページ内にタイトルが大きな文字で表示される．</li>
 </ul>
 </li>
 <li>コンテンツブロック: <code>{{ block content }}</code> と <code>{{ endblock }}</code> に挟まれた部分．<ul>
 <li>コンテンツブロック内に，ページの本文を，HTMLタグも適宜使って記述する．</li>
-<li>oTreeサーバーはテンプレートを解釈して，記述した内容を <code>&lt;body&gt;</code> 内の <code>&lt;form&gt;</code> タグの中に挿入する．</li>
+<li>oTree サーバーはテンプレートを解釈して，記述した内容を <code>&lt;body&gt;</code> 内の <code>&lt;form&gt;</code> タグの中に挿入する．</li>
 <li><code>&lt;form&gt;</code> タグに <code>method=&quot;post&quot;</code> が設定されているため，<code>&lt;form&gt;</code> タグ内の <code>&lt;input&gt;</code> 要素等のデータがPOSTメソッドでサーバーに送信される．</li>
 </ul>
 </li>
@@ -723,7 +723,7 @@
 <li>テンプレートで <code>{{ block scripts }} {{ endblock }}</code> のブロックを使えば，挟まれた部分が HTML の <code>&lt;body&gt;</code> タグ内の一番下に置かれる．<ul>
 <li><code>&lt;script type=&quot;text/javascript&quot;&gt;</code> タグで直接 JavaScript を書ける．</li>
 <li>JavaScriptファイルを <code>&lt;script src=&quot;ここにURL&quot;&gt;&lt;/script&gt;</code> や <code>&lt;script type=&quot;text/javascript&quot; src=&quot;{{ static &apos;パス&apos; }}&quot;&gt;&lt;/script&gt;</code> として読み込むのも良い．</li>
-<li>（oTree が想定した使い方ではないが，） <code>&lt;form&gt;</code> タグ内に記述したくない要素を記述するのにも使えそう．</li>
+<li>（ oTree が想定した使い方ではないが，） <code>&lt;form&gt;</code> タグ内に記述したくない要素を記述するのにも使えそう．</li>
 </ul>
 </li>
 <li>自分で親テンプレートファイルを作りそこで独自のブロックを定義したとき，子テンプレートファイルで親テンプレートファイルを <code>extends</code> すれば独自のブロックが使える．</li>
@@ -845,7 +845,7 @@
 </ul>
 <h3 id="nextbutton"><code>next_button</code></h3>
 <ul>
-<li><code>{{ next_button }}</code> と記述すれば，oTree サーバーが以下の <code>&lt;button&gt;</code> タグを生成してくれる．  <pre><code class="lang-html">  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;otree-btn-next btn btn-primary&quot;</span>&gt;</span>次へ<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<li><code>{{ next_button }}</code> と記述すれば， oTree サーバーが以下の <code>&lt;button&gt;</code> タグを生成してくれる．  <pre><code class="lang-html">  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;otree-btn-next btn btn-primary&quot;</span>&gt;</span>次へ<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 </code></pre>
 </li>
 </ul>
@@ -920,7 +920,7 @@
 </ul>
 <h2 id="コメントアウト">コメントアウト</h2>
 <ul>
-<li>テンプレート内で <code>{# #}</code> で囲った箇所はコメントとして，oTreeサーバーは無視する．<ul>
+<li>テンプレート内で <code>{# #}</code> で囲った箇所はコメントとして， oTree サーバーは無視する．<ul>
 <li>行の中では  <pre><code class="lang-html">  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>初期保有は{{ C.ENDOWMENT }}です．<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span> {# ← ENDOWMENTが流し込まれる． #}
 </code></pre>
 </li>
@@ -932,7 +932,7 @@
 </li>
 </ul>
 </li>
-<li>HTMLのコメント <code>&lt;!-- コメント --&gt;</code> については，oTreeサーバーは無視せず，そのままクライアントに渡す．したがって，HTMLのコメントは画面には表示されないが，検証モードなどを使えばコメントの中身が見えてしまう．</li>
+<li>HTMLのコメント <code>&lt;!-- コメント --&gt;</code> については， oTree サーバーは無視せず，そのままクライアントに渡す．したがって，HTMLのコメントは画面には表示されないが，検証モードなどを使えばコメントの中身が見えてしまう．</li>
 </ul>
 
                                 
@@ -973,7 +973,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"テンプレートファイルの書き方","level":"2.5","depth":1,"next":{"title":"【資料: デプロイ編】","level":"3.1","depth":1,"ref":"","articles":[]},"previous":{"title":"__init__.py の書き方","level":"2.4","depth":1,"path":"otree_ref/init.md","ref":"otree_ref/init.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"otree_ref/templatefile.md","mtime":"2022-06-15T10:31:03.949Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-15T10:31:15.656Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"テンプレートファイルの書き方","level":"2.5","depth":1,"next":{"title":"【資料: デプロイ編】","level":"3.1","depth":1,"ref":"","articles":[]},"previous":{"title":"__init__.py の書き方","level":"2.4","depth":1,"path":"otree_ref/init.md","ref":"otree_ref/init.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"otree_ref/templatefile.md","mtime":"2022-06-17T05:24:09.038Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-17T05:54:58.142Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

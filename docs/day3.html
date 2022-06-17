@@ -304,7 +304,7 @@
                 <a href="server_setup/">
             
                     
-                    UbuntuでoTreeを動かす
+                    Ubuntuで oTree を動かす
             
                 </a>
             
@@ -317,7 +317,7 @@
                 <a href="heroku/">
             
                     
-                    HerokuでoTreeを動かす
+                    Herokuで oTree を動かす
             
                 </a>
             
@@ -449,7 +449,7 @@
                                 <section class="normal markdown-section">
                                 
                                 <p>【第3回】 2022年5月26日</p>
-<h1 id="vs-code-の導入-・-otreeプログラミングの概要">VS Code の導入 ・ oTreeプログラミングの概要</h1>
+<h1 id="vs-code-の導入-・-otree-プログラミングの概要">VS Code の導入 ・ oTree プログラミングの概要</h1>
 <h2 id="vs-code-の導入">VS Code の導入</h2>
 <ul>
 <li>VS Code (Visual Studio Code) <a href="https://code.visualstudio.com/" target="_blank">https://code.visualstudio.com/</a><ul>
@@ -469,7 +469,7 @@
 <li>「VSCodeのターミナルは通常のターミナルと同じことができるのか？」という質問をいただきました．<ul>
 <li>同じシェル（たとえばWSLのUbuntuのbash）に接続している限り，VSCode内蔵のターミナルはOSのターミナルと同じことができる．</li>
 <li>接続しているシェル（WindowsならPowerShellかコマンドプロンプトかWSLのbash，Macならzshかbashか...）が異なれば，操作，挙動も変わる．</li>
-<li>自分で設定しない限り，WSLのbashにVSCode内蔵のターミナルで接続したときに <code>~/.bash_profile</code> や <code>~/.profile</code> が読み込まれない（ <code>~/.bashrc</code> は読み込まれる）．そのため，環境変数などの設定を <code>~/.bashrc</code> ではなく <code>~/.bash_profile</code> にしか書いていない場合，その設定が無いままシェルを動かしていることになるため挙動が変わる．oTreeの環境変数の設定に注意．</li>
+<li>自分で設定しない限り，WSLのbashにVSCode内蔵のターミナルで接続したときに <code>~/.bash_profile</code> や <code>~/.profile</code> が読み込まれない（ <code>~/.bashrc</code> は読み込まれる）．そのため，環境変数などの設定を <code>~/.bashrc</code> ではなく <code>~/.bash_profile</code> にしか書いていない場合，その設定が無いままシェルを動かしていることになるため挙動が変わる． oTree の環境変数の設定に注意．</li>
 <li>ターミナルの機能（フォントの設定やショートカット）は，VSCode内蔵のターミナルでは（同様の設定をしない限り）使えない．</li>
 <li>「シェル」と「ターミナル」は全く異なる概念．だが（特にWindowsの場合は一体として扱われることが多いため）混同しやすい．<ul>
 <li><a href="https://www.cc.kyoto-su.ac.jp/~hirai/text/shell.html" target="_blank">平井重行「シェル」</a></li>
@@ -486,7 +486,7 @@
 <li>私はPyCharmを使ったことがないので分かりません．</li>
 <li>Webで検索すると，賛否両論のようです．<ul>
 <li>VS Code の方が軽量？</li>
-<li>PyCharmはPython特化なのでoTreeプログラミングにおいては有用？</li>
+<li>PyCharmはPython特化なので oTree プログラミングにおいては有用？</li>
 </ul>
 </li>
 </ul>
@@ -526,7 +526,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="シェルで使用するotreeサブコマンド">シェルで使用するoTreeサブコマンド</h2>
+<h2 id="シェルで使用する-otree-サブコマンド">シェルで使用する oTree サブコマンド</h2>
 <h4 id="サブコマンド">サブコマンド</h4>
 <ul>
 <li><a href="otree_ref/cmd.html">一覧</a></li>
@@ -541,7 +541,7 @@
 <li><code>requirements.txt</code><ul>
 <li>pipで導入するパッケージを列挙する．</li>
 <li>Herokuを使うときに必要なファイル．</li>
-<li>デフォルト（oTree v5.8.4）の記述内容:<pre><code class="lang-python">  <span class="hljs-comment"># oTree-may-overwrite-this-file</span>
+<li>デフォルト（ oTree v5.8.4）の記述内容:<pre><code class="lang-python">  <span class="hljs-comment"># oTree-may-overwrite-this-file</span>
   <span class="hljs-comment"># IF YOU MODIFY THIS FILE, remove these comments.</span>
   <span class="hljs-comment"># otherwise, oTree will automatically overwrite it.</span>
   otree==<span class="hljs-number">5.8</span><span class="hljs-number">.4</span>
@@ -549,8 +549,8 @@
   sentry-sdk&gt;=<span class="hljs-number">0.7</span><span class="hljs-number">.9</span>
 </code></pre>
 </li>
-<li>↑コメントアウト中にも書かれているとおり，「oTree-may-overwrite-this-file」の文字列があると，oTreeが勝手に <code>requirements.txt</code> を書き換えるため，自分でライブラリのバージョンを固定したり別のライブラリを追加したりする場合は注意する．</li>
-<li>他人からoTreeプロジェクトのファイルをもらったときに，その人と同じパッケージを入れるには，以下のようにpipを使う．<pre><code class="lang-bash">  pip install -r requirements.txt
+<li>↑コメントアウト中にも書かれているとおり，「oTree-may-overwrite-this-file」の文字列があると， oTree が勝手に <code>requirements.txt</code> を書き換えるため，自分でライブラリのバージョンを固定したり別のライブラリを追加したりする場合は注意する．</li>
+<li>他人から oTree プロジェクトのファイルをもらったときに，その人と同じパッケージを入れるには，以下のようにpipを使う．<pre><code class="lang-bash">  pip install -r requirements.txt
 </code></pre>
 </li>
 </ul>
@@ -558,7 +558,7 @@
 <li><code>Procfile</code><ul>
 <li>Heroku用の設定ファイル．</li>
 <li>拡張子はないが単なるテキストファイル．</li>
-<li>デフォルト（oTree v5.8.4）の記述内容:<pre><code>  web: otree prodserver1of2
+<li>デフォルト（ oTree v5.8.4 ）の記述内容:<pre><code>  web: otree prodserver1of2
   worker: otree prodserver2of2
 </code></pre></li>
 <li>↑2行目のworker dynoのコマンドは不要だと思われる．</li>
@@ -566,7 +566,7 @@
 </li>
 <li><code>_static</code> ディレクトリ<ul>
 <li>画像ファイルやcssファイル，jsファイルを置いておく．</li>
-<li>ちなみにoTree本体が用意しているstaticの中身は以下:  <details>
+<li>ちなみに oTree 本体が用意しているstaticの中身は以下:  <details>
   <pre>
   .
   ├── bootstrap5
@@ -699,7 +699,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第3回","level":"1.1.3","depth":2,"next":{"title":"第4回","level":"1.1.4","depth":2,"path":"day4.md","ref":"day4.md","articles":[]},"previous":{"title":"第2回","level":"1.1.2","depth":2,"path":"day2.md","ref":"day2.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day3.md","mtime":"2022-06-15T10:26:02.952Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-15T10:31:15.656Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第3回","level":"1.1.3","depth":2,"next":{"title":"第4回","level":"1.1.4","depth":2,"path":"day4.md","ref":"day4.md","articles":[]},"previous":{"title":"第2回","level":"1.1.2","depth":2,"path":"day2.md","ref":"day2.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day3.md","mtime":"2022-06-17T05:38:59.074Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-17T05:54:58.142Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

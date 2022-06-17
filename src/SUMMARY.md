@@ -22,8 +22,8 @@
 
 * 【資料: デプロイ編】
 
-* [UbuntuでoTreeを動かす](server_setup/README.md)
-* [HerokuでoTreeを動かす](heroku/README.md)
+* [Ubuntuで oTree を動かす](server_setup/README.md)
+* [Herokuで oTree を動かす](heroku/README.md)
 
 
 * 【資料: その他】

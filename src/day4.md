@@ -1,10 +1,10 @@
 {% raw %}
 【第4回】 2022年6月2日 （2022年6月9日に補足）
 
-# oTreeプログラミングの進め方
+# oTree プログラミングの進め方
 
 
-## 1. oTreeで実験プログラムを開発する前に考えておくこと
+## 1. oTree で実験プログラムを開発する前に考えておくこと
 
 - 実験セッションの流れは？
     - たとえば...
@@ -133,7 +133,7 @@
         - デフォルトのサンプルとして挿入されているクラスの名前は `ResultsWaitPage` ．
 1. 表示するページの順番を `page_sequence` で設定する．クラス名をリストで渡す．
 1. 定数クラス `C` に必要最低限の設定をする．
-    - デフォルトで `NAME_IN_URL`，`PLAYERS_PER_GROUP`，`NUM_ROUNDS` が設定されている．単にテンプレートファイルがブラウザでどう見えるかを確認するためにoTreeサーバーを起動することが目的であれば，とりあえずデフォルトのままでも良い．
+    - デフォルトで `NAME_IN_URL`，`PLAYERS_PER_GROUP`，`NUM_ROUNDS` が設定されている．単にテンプレートファイルがブラウザでどう見えるかを確認するために oTree サーバーを起動することが目的であれば，とりあえずデフォルトのままでも良い．
 
 
 #### 作業3
@@ -201,7 +201,7 @@
     - 説明文などの文章は `<p>` タグや `<div>` タグで記述する．
         - 一般論として，`<br>` タグによる改行を多用するのではなく，段落ごと `<p>` タグを使うのが良い．
 3. コンテンツブロック内に入力フォームを挿入する
-    - 【原理的な話】 oTreeサーバーはコンテンツブロック内の記述したものを `<body>` 内の `<form>` タグの中に挿入する．`<form>` タグに `method="post"` が設定されているため，`<form>` タグ内の `<input>` 要素等のデータがPOSTメソッドでサーバーに送信される．
+    - 【原理的な話】 oTree サーバーはコンテンツブロック内の記述したものを `<body>` 内の `<form>` タグの中に挿入する．`<form>` タグに `method="post"` が設定されているため，`<form>` タグ内の `<input>` 要素等のデータがPOSTメソッドでサーバーに送信される．
         - したがって，サーバーに送信したいデータの入力フォームを作るためには，コンテンツブロック内に `<input>` タグなどを記述する．このとき `name` 属性に，記録するデータの変数名を設定する．
         - [HTMLフォーム](https://developer.mozilla.org/ja/docs/Learn/Forms)
         - [フォームデータの送信](https://developer.mozilla.org/ja/docs/Learn/Forms/Sending_and_retrieving_form_data)
@@ -209,7 +209,7 @@
             ```html
             <input name="contribution">
             ```
-        - `name` 属性が `name="contribution"` である入力フォームに「12」と入力してフォームを送信したとき（「次へ」ボタンを押したとき），HTTPリクエストの本文は `contribution=12` となる．oTreeサーバーがこのHTTPリクエストを受け取りデータベースに書き込んでくれる．
+        - `name` 属性が `name="contribution"` である入力フォームに「12」と入力してフォームを送信したとき（「次へ」ボタンを押したとき），HTTPリクエストの本文は `contribution=12` となる． oTree サーバーがこのHTTPリクエストを受け取りデータベースに書き込んでくれる．
     - `<input>` の他に `<select>` や `<textarea>` など， `<form>` の中で使えるものが同様に使える．
         - [フォームの構築方法](https://developer.mozilla.org/ja/docs/Learn/Forms/How_to_structure_a_web_form)
     - クライアント側で行う検証も設定する．
@@ -220,13 +220,13 @@
             ```html
             <input type="number" name="contribution" required min="0" max="100">
             ```
-        - 任意回答にする（空欄を許す）場合には `required` 属性を使わないことに加え，`__init__.py` でフォームを定義するときに `blank=True` とする．さもないと，フォーム送信時にoTreeサーバー側でエラーが出る．
-    - テンプレートタグで記述すれば，↑ 以上のようにしてタグを自分で記述して入力フォームを作る作業を，oTreeサーバーがやってくれる．
+        - 任意回答にする（空欄を許す）場合には `required` 属性を使わないことに加え，`__init__.py` でフォームを定義するときに `blank=True` とする．さもないと，フォーム送信時に oTree サーバー側でエラーが出る．
+    - テンプレートタグで記述すれば，↑ 以上のようにしてタグを自分で記述して入力フォームを作る作業を， oTree サーバーがやってくれる．
         - コンテンツブロック内に `{{ formfields }}` と記述すれば，`<input>` タグと，その入力フォームに対応する `<label>` タグを生成してくれる．
         - [詳細はこちら](https://otree.readthedocs.io/en/latest/forms.html)
-        - 同じような入力フォームがたくさんある場合（たとえば質問紙調査）はoTreeの機能を使った方が良い（DRY原則）．検証を独自に実装したい場合（たとえばJavaScriptやライブページを駆使するとき）は自分でタグを記述する．
+        - 同じような入力フォームがたくさんある場合（たとえば質問紙調査）は oTree の機能を使った方が良い（DRY原則）．検証を独自に実装したい場合（たとえばJavaScriptやライブページを駆使するとき）は自分でタグを記述する．
 4. コンテンツブロック内に「次へ」ボタンを挿入する
-    - 【原理的な話】 （入力フォームが何もなくても）フォームの送信をすれば，oTreeサーバーが次のページに遷移させる．
+    - 【原理的な話】 （入力フォームが何もなくても）フォームの送信をすれば， oTree サーバーが次のページに遷移させる．
         - したがって，コンテンツブロック内でフォームを送信させるボタンを作れば，それが次のページへ進ませるボタンとなる．
         - たとえば以下のどちらかをコンテンツブロック内に記述すれば良い．
             ```html
@@ -236,7 +236,7 @@
             <input type="submit" value="次へ">
             ```
         - 実は `<button>` タグで `type="submit"` と陽に指定しなくても良い．なぜならば `type` 属性のデフォルトが `submit` であるため．
-    - コンテンツブロック内に `{{ next_button }}` と記述すれば，oTreeサーバーが以下の `<button>` タグを生成してくれる．
+    - コンテンツブロック内に `{{ next_button }}` と記述すれば， oTree サーバーが以下の `<button>` タグを生成してくれる．
         ```html
         <button class="otree-btn-next btn btn-primary">次へ</button>
         ```
@@ -277,18 +277,18 @@
 
 ## 7. `__init__.py` を編集する
 
-1. 【Pageパート】 まずテンプレートファイルの存在をoTreeに知らせる
-    - （oTree 3 では，`pages.py` に記述していた内容）
+1. 【Pageパート】 まずテンプレートファイルの存在を oTree に知らせる
+    - （ oTree 3 では，`pages.py` に記述していた内容）
     - 表示するページごとに `Page` クラスを継承するクラスを設定する．
     - クラスの名前はテンプレートファイルのファイル名と同じにする．
     - クラスの名前がURLに表示される．
         - クラス変数 `template_name` にテンプレートファイルのパスを代入することによって，ページクラスとテンプレートファイルの関係を陽に記述すれば，クラス名とテンプレートファイルのファイル名を一致させる必要はない．
     - 待機ページのために `WaitPage` クラスを継承するクラスを設定する．
         - 同時手番ゲームで利得を計算するためには，グループ内の全メンバーの意思決定が完了したタイミングで利得を計算する関数を動かさなければならない．タイミングを合わせるために，先に意思決定を済ませた参加者に表示するための待機ページを用意すればよい．
-        - 待機ページのためにテンプレートファイルを作成して通常のページとして実装することも可能ではある．しかし，oTreeの機能（`WaitPage` クラス）を使うのが楽．
+        - 待機ページのためにテンプレートファイルを作成して通常のページとして実装することも可能ではある．しかし， oTree の機能（`WaitPage` クラス）を使うのが楽．
     - 各ページのクラスを設定した後，表示するページの順番を `page_sequence` で設定する．クラス名をリストで渡す．
 2. 【Modelパート】 入力フォームの変数をデータベースのどこに保存するかを設定する
-    - （oTree 3 では，`models.py` に記述していた内容）
+    - （ oTree 3 では，`models.py` に記述していた内容）
     - player，group，subsessionの各階層で保存するべきデータの変数名を `Player` クラス，`Group` クラス，`Subsession` クラスのそれぞれで定義する．
         - 公共財ゲームなど，プレイヤーに役割の区別がなく対称的な場合，意思決定データは一つの変数名でplayerの階層に保存しておけば良い．
         - 信頼ゲームにおける提案者・応答者など，プレイヤーに役割の区別があって，かつ，グループ内で一つの役割に複数のプレイヤーが縮退しない場合，各プレイヤーの意思決定データはグループにおいてユニークなので，playerの階層に保存するよりもgroupの階層に保存する方が良い．
@@ -298,7 +298,7 @@
     - `変数名 = models.*Field()` と記述して設定する．
         - `models.*Field()` で使えるものは以下:
             - `models.BooleanField()`: ブール代数型
-            - `models.CurrencyField()`: oTree組み込みの通貨型
+            - `models.CurrencyField()`: oTree 組み込みの通貨型
             - `models.IntegerField()`: 整数型
             - `models.FloatField()`: 実数型
             - `models.StringField()`: 文字列型（デフォルトで10000字まで）
@@ -313,8 +313,8 @@
             - `max_length`: 文字列の長さ
             - `blank`: 回答を強制しない場合は `True` を渡す．
         - （テンプレートタグではなく）タグの直打ちで入力フォームを作りながら，`models.*Field()` の引数で `choices`，`min`，`max` を設定している場合，タグの直打ちでの実装との整合性に気をつける．
-            - タグの属性で`min`や`max`などの制約を設定しない場合（クライアントでの検証をしない場合）でも，oTreeサーバー側で検証は行われる．
-            - たとえば `models.IntegerField()` の引数で `choices = [0, 100]` としておきながら，タグ直打ちで `<input type="number" name="contribution" required min="0" max="100">` と入力フォームを作り，参加者が「10」と回答した場合，クライアントの検証は通過するが，10が `[0, 100]` に含まれないため，oTreeの検証は通過せず，エラーが出る．
+            - タグの属性で`min`や`max`などの制約を設定しない場合（クライアントでの検証をしない場合）でも， oTree サーバー側で検証は行われる．
+            - たとえば `models.IntegerField()` の引数で `choices = [0, 100]` としておきながら，タグ直打ちで `<input type="number" name="contribution" required min="0" max="100">` と入力フォームを作り，参加者が「10」と回答した場合，クライアントの検証は通過するが，10が `[0, 100]` に含まれないため， oTree の検証は通過せず，エラーが出る．
     - データモデルを設定した後，どのページで入力フォームを使うのかを設定する．
         - 入力フォームを使うページのクラスで以下の2つを設定:
             - `form_model`: 保存したいデータのモデル（player，group，subsessionのいずれか）から一つを選んで文字列で指定する．
@@ -324,8 +324,8 @@
                 - `Player` クラスで定義した `contribution` なる変数を使う場合は `form_fields = ["contribution"]` とする．
     - ページクラスの設定とデータモデルの設定が終われば，とりあえず意思決定データを収集することはできる．質問紙調査であれば，ここまでの作業で完成．
 3. 【Constantsパート・関数パート】 定数や関数の設定をしてゲームとして成立させる
-    - oTreeで収集した意思決定データからゲームの利得（報酬額）を計算することができる．
-        - （その場で）フィードバックする必要が無ければ，必ずしもoTreeで計算しなければならないわけではない．
+    - oTree で収集した意思決定データからゲームの利得（報酬額）を計算することができる．
+        - （その場で）フィードバックする必要が無ければ，必ずしも oTree で計算しなければならないわけではない．
         - たとえばラボでくじを引いて，その結果を使って報酬額を計算する，ということもできる． [https://otree.readthedocs.io/en/latest/misc/rest_api.html#session-vars-endpoint](https://otree.readthedocs.io/en/latest/misc/rest_api.html#session-vars-endpoint)
     - `C` クラス （ oTree 3 では， `Constants` ）で定数を定義する．
         - 必ず定義しなければならないもの:
@@ -351,9 +351,9 @@
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/eUxjPHHrrTY?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 
-- まずはテンプレートに記述した入力フォームが機能するように（フォームを送信したときにoTreeサーバーで認識できるように）設定する．
+- まずはテンプレートに記述した入力フォームが機能するように（フォームを送信したときに oTree サーバーで認識できるように）設定する．
     - `Player` クラスに `contribution = models.FloatField()` を記述する．
-        - 公式ドキュメントのチュートリアルでは `models.CurrencyField()` を使用しているが，oTreeの通貨型を理解するのが面倒なので，単純な実数型を使う．
+        - 公式ドキュメントのチュートリアルでは `models.CurrencyField()` を使用しているが， oTree の通貨型を理解するのが面倒なので，単純な実数型を使う．
     - `Contribute` クラスに `form_model = "player"` と `form_fields = ["contribution"]` を記述する．
 
 
@@ -362,7 +362,7 @@
 
 - 利得を計算する際の途中の変数（グループでの貢献額の合計値と分配額）をグループモデルに保存するために定義する．
     - `Group` クラスに `total_contribution = models.FloatField()` と `individual_share = models.FloatField()`
-        - 公式ドキュメントのチュートリアルでは `models.CurrencyField()` を使用しているが，oTreeの通貨型を理解するのが面倒なので，単純な実数型を使う．
+        - 公式ドキュメントのチュートリアルでは `models.CurrencyField()` を使用しているが， oTree の通貨型を理解するのが面倒なので，単純な実数型を使う．
 - 定数を定義する．
     - 3人での公共財ゲームを作るため，`PLAYERS_PER_GROUP = 3` とする．
     - 利得を計算する際のパラメータとして， `ENDOWMENT = 1000` と `MULTIPLIER = 2` を定義する．
@@ -389,7 +389,7 @@
             ## 一人ずつプレイヤーの報酬額を計算し，Player の 予め用意されている変数 payoff に代入．
             for player in players:
                 player.payoff = C.ENDOWMENT - player.contribution + group.individual_share
-                ## ↑ player.payoff に値を代入すると，勝手にoTree組み込みの通貨型に変換される．値は丸められる．
+                ## ↑ player.payoff に値を代入すると，勝手に oTree 組み込みの通貨型に変換される．値は丸められる．
         ```
     - `ResultsWaitPage` クラスにおいて `after_all_players_arrive = "set_payoffs"` とすると，グループの全プレイヤーの意思決定が送信されたタイミングで関数 `set_payoffs` が呼び出される．
         - `ResultsWaitPage` クラスに以下のように記述しても良い．
@@ -527,14 +527,14 @@
 
 
 
-## A3. oTreeの通貨型
+## A3. oTree の通貨型
 
 
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/TWdogNESdns?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 
 - [https://otree.readthedocs.io/en/latest/currency.html](https://otree.readthedocs.io/en/latest/currency.html)
-- `cu()` に数値を渡すと，oTreeは数値を「通貨型」に変換する．
+- `cu()` に数値を渡すと， oTree は数値を「通貨型」に変換する．
 - `REAL_WORLD_CURRENCY_CODE = 'USD'` と設定したとき...
     - 数値は小数点以下が2桁に丸められる． `cu(2.7182)` は `2.72`．
     - テンプレートで表示すると「$2.72」．
@@ -550,7 +550,7 @@
 - 組み込みのフィールド `player.payoff` は `CurrencyField` で定義されている．
     - `player.payoff` に数値を代入すると，勝手に通貨型に変換される．つまり勝手に数値が丸められる．
 - 数値の丸めは decimal モジュールの [`ROUND_HALF_UP` モード](https://docs.python.org/ja/3/library/decimal.html#decimal.ROUND_HALF_UP)で実行されている．つまり，銀行家の丸めではなく「四捨五入」される．
-- 日本で実験をするとき，ポイント表示であれ通貨表示であれ，oTreeの通貨型を使う場合は，「数値が四捨五入で整数に丸められる」ことを意識すれば良い．
+- 日本で実験をするとき，ポイント表示であれ通貨表示であれ， oTree の通貨型を使う場合は，「数値が四捨五入で整数に丸められる」ことを意識すれば良い．
     - 端数を切り上げる場合は，自前で丸めの処理をした後，整数を `player.payoff` などに渡せば良い．
 - 通貨型と，普通の整数型や浮動小数点型の数値との間で + を作用させると，通貨型になる．
     - Pylance などは警告を出すが，演算は可能．

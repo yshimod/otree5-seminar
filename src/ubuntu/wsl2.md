@@ -3,7 +3,7 @@
 ## イントロ
 
 - 導入自体は簡単．
-- oTreeを本番環境として動かす段階になって，（主にネットワーク関連で）難易度が少々上がる．
+- oTree を本番環境として動かす段階になって，（主にネットワーク関連で）難易度が少々上がる．
 - ドキュメント [https://docs.microsoft.com/ja-jp/windows/wsl/](https://docs.microsoft.com/ja-jp/windows/wsl/)
 
 

@@ -1,6 +1,6 @@
 【第3回】 2022年5月26日
 
-# VS Code の導入 ・ oTreeプログラミングの概要
+# VS Code の導入 ・ oTree プログラミングの概要
 
 
 ## VS Code の導入
@@ -20,7 +20,7 @@
 - 「VSCodeのターミナルは通常のターミナルと同じことができるのか？」という質問をいただきました．
     - 同じシェル（たとえばWSLのUbuntuのbash）に接続している限り，VSCode内蔵のターミナルはOSのターミナルと同じことができる．
     - 接続しているシェル（WindowsならPowerShellかコマンドプロンプトかWSLのbash，Macならzshかbashか...）が異なれば，操作，挙動も変わる．
-    - 自分で設定しない限り，WSLのbashにVSCode内蔵のターミナルで接続したときに `~/.bash_profile` や `~/.profile` が読み込まれない（ `~/.bashrc` は読み込まれる）．そのため，環境変数などの設定を `~/.bashrc` ではなく `~/.bash_profile` にしか書いていない場合，その設定が無いままシェルを動かしていることになるため挙動が変わる．oTreeの環境変数の設定に注意．
+    - 自分で設定しない限り，WSLのbashにVSCode内蔵のターミナルで接続したときに `~/.bash_profile` や `~/.profile` が読み込まれない（ `~/.bashrc` は読み込まれる）．そのため，環境変数などの設定を `~/.bashrc` ではなく `~/.bash_profile` にしか書いていない場合，その設定が無いままシェルを動かしていることになるため挙動が変わる． oTree の環境変数の設定に注意．
     - ターミナルの機能（フォントの設定やショートカット）は，VSCode内蔵のターミナルでは（同様の設定をしない限り）使えない．
     - 「シェル」と「ターミナル」は全く異なる概念．だが（特にWindowsの場合は一体として扱われることが多いため）混同しやすい．
         - [平井重行「シェル」](https://www.cc.kyoto-su.ac.jp/~hirai/text/shell.html)
@@ -34,7 +34,7 @@
     - 私はPyCharmを使ったことがないので分かりません．
     - Webで検索すると，賛否両論のようです．
         - VS Code の方が軽量？
-        - PyCharmはPython特化なのでoTreeプログラミングにおいては有用？
+        - PyCharmはPython特化なので oTree プログラミングにおいては有用？
 - VSCodeが良いな，と思うところ... （拡張機能が豊富なおかげで）いろいろな言語での開発が便利:
     - Jupyter Notebook（ブラウザで作業するのではなく）
     - LaTeX（VSCodeで生成したPDFをプレビューできる）
@@ -59,7 +59,7 @@
     - [Quoraトピック「Visual Studio CodeはVimやEmacs原理主義者をどのくらい滅ぼしましたか？」](https://jp.quora.com/Visual-Studio-Code%E3%81%AFVim%E3%82%84Emacs%E5%8E%9F%E7%90%86%E4%B8%BB%E7%BE%A9%E8%80%85%E3%82%92%E3%81%A9%E3%81%AE%E3%81%8F%E3%82%89%E3%81%84%E6%BB%85%E3%81%BC%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F%E3%81%8B)
 
 
-## シェルで使用するoTreeサブコマンド
+## シェルで使用する oTree サブコマンド
 
 #### サブコマンド
 - [一覧](otree_ref/cmd.md)
@@ -73,7 +73,7 @@
 - `requirements.txt`
     - pipで導入するパッケージを列挙する．
     - Herokuを使うときに必要なファイル．
-    - デフォルト（oTree v5.8.4）の記述内容:
+    - デフォルト（ oTree v5.8.4）の記述内容:
         ```python
         # oTree-may-overwrite-this-file
         # IF YOU MODIFY THIS FILE, remove these comments.
@@ -82,15 +82,15 @@
         psycopg2>=2.8.4
         sentry-sdk>=0.7.9
         ```
-    - ↑コメントアウト中にも書かれているとおり，「oTree-may-overwrite-this-file」の文字列があると，oTreeが勝手に `requirements.txt` を書き換えるため，自分でライブラリのバージョンを固定したり別のライブラリを追加したりする場合は注意する．
-    - 他人からoTreeプロジェクトのファイルをもらったときに，その人と同じパッケージを入れるには，以下のようにpipを使う．
+    - ↑コメントアウト中にも書かれているとおり，「oTree-may-overwrite-this-file」の文字列があると， oTree が勝手に `requirements.txt` を書き換えるため，自分でライブラリのバージョンを固定したり別のライブラリを追加したりする場合は注意する．
+    - 他人から oTree プロジェクトのファイルをもらったときに，その人と同じパッケージを入れるには，以下のようにpipを使う．
         ```bash
         pip install -r requirements.txt
         ```
 - `Procfile`
     - Heroku用の設定ファイル．
     - 拡張子はないが単なるテキストファイル．
-    - デフォルト（oTree v5.8.4）の記述内容:
+    - デフォルト（ oTree v5.8.4 ）の記述内容:
         ```
         web: otree prodserver1of2
         worker: otree prodserver2of2
@@ -98,7 +98,7 @@
     - ↑2行目のworker dynoのコマンドは不要だと思われる．
 - `_static` ディレクトリ
     - 画像ファイルやcssファイル，jsファイルを置いておく．
-    - ちなみにoTree本体が用意しているstaticの中身は以下:
+    - ちなみに oTree 本体が用意しているstaticの中身は以下:
         <details>
         <pre>
         .

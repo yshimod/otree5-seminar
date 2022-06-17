@@ -62,6 +62,10 @@
             - 先手のみに表示する部分であれば `{{ player.sent_amount }}` でよいが，後手には使えない．
 
 
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/sOhoXLiNCQg?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
+
+
 ### ページ表示をスキップする
 
 - ページクラスの組み込みメソッド `is_displayed()` を定義すれば，返り値で渡す真偽値でページを表示するか否かを設定できる．
@@ -72,6 +76,7 @@
 
 - ページクラスの組み込みメソッド `app_after_this_page()` で返り値をアプリ名とすれば，返り値のアプリまでスキップされる．
 - ページクラスの組み込みメソッド `get_timeout_seconds()` で返り値を `0` とすれば，0秒で自動的にページが遷移するため，ページをスキップさせる手段として使えなくもない．ただし一瞬はページが表示されることに注意．
+
 
 
 #### 逐次手番ゲームでの `is_displayed()` の使い方
@@ -93,11 +98,18 @@
     - 後手が `SendBack` ページで意思決定している間，先手には `ResultsWaitPage` なる待機ページを表示する．後手の意思決定が終わったタイミングで利得を計算するため，`after_all_players_arrive` を定義する．
 
 
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/AiWlUOnbZvI?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
+
+
 ### `*_max()` で入力フォーム検証の条件を動的に設定する
 
 - 信頼ゲームで後手が行う意思決定（先手に返すポイント数: `sent_back_amount`）の上限は，先手が預けたポイント数（を何倍かしたもの）．
 - 先手の意思決定によって，後手の意思決定の上限が変動する．
 - モジュールレベルで `sent_back_amount_max()` を定義して，返り値を `sent_back_amount` の最大値とする．
+
+
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/3smlOBGiRV8?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 
 
@@ -116,10 +128,14 @@
 - `creating_session()` はセッションを作成するタイミングで実行されるので， `creating_session()` では意思決定に応じて group 編成を変更することはできない．
     - （待機ページクラスで `group_by_arrival_time = True` とした上で） `group_by_arrival_time_method()` を使えば，そこで柔軟に group 編成を定義できる．
 - group の編成は subsession のメソッド `set_group_matrix()` で設定できる．引数に2次元配列で記述した新しい group 編成を渡す．
-    - zTree とは異なり absolute stranger マッチングは実装されていないので，自分で実装する．
+    - z-Tree とは異なり absolute stranger マッチングは実装されていないので，自分で実装する．
         - [https://www.sciencedirect.com/science/article/pii/S0165176516302324](https://www.sciencedirect.com/science/article/pii/S0165176516302324)
 - [https://otree.readthedocs.io/en/latest/treatments.html](https://otree.readthedocs.io/en/latest/treatments.html)
 - [https://otree.readthedocs.io/en/latest/multiplayer/groups.html#group-matching](https://otree.readthedocs.io/en/latest/multiplayer/groups.html#group-matching)
+
+
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/Bsrq7v5Lz90?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
 
 
 ### 意思決定画面で時間制限を設定してみる
@@ -134,11 +150,14 @@
 - [https://otree.readthedocs.io/en/latest/timeouts.html](https://otree.readthedocs.io/en/latest/timeouts.html)
 
 
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/Of6yiqbz97Q?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
+
 
 ## 無限回繰り返しゲーム（繰り返しPD）
 
 - [https://github.com/snunnari/otree_repeated_prisoner](https://github.com/snunnari/otree_repeated_prisoner)
-- ただし，oTree のバージョンが古い．バージョン5の書き方に翻訳したものはこちら:  
+- ただし， oTree のバージョンが古い．バージョン5の書き方に翻訳したものはこちら:  
     [https://github.com/iserExperiment/otree_repeated_prisoner/tree/yshimod/updating](https://github.com/iserExperiment/otree_repeated_prisoner/tree/yshimod/updating)．
 
 
@@ -156,6 +175,10 @@
     - [https://www.otreehub.com/projects/otree-more-demos/](https://www.otreehub.com/projects/otree-more-demos/) の「supergames_indefinite」．
         -  ソースコード [https://github.com/oTree-org/more-demos/tree/master/supergames_indefinite](https://github.com/oTree-org/more-demos/tree/master/supergames_indefinite)
         - デモページ [https://otree-more-demos.herokuapp.com/demo/supergames_indefinite](https://otree-more-demos.herokuapp.com/demo/supergames_indefinite)
+
+
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/NZfKz8p9iF4?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
 
 
 {% endraw %}

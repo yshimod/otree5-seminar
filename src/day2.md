@@ -4,15 +4,15 @@
 
 
 ## 0. 準備
-- 結局どうにかして（PostgreSQLうんぬんは無視してでも）oTreeをインストールする．
-    - WindowsにPythonを直接インストールして，pipでoTreeを入れる．  
+- 結局どうにかして（PostgreSQLうんぬんは無視してでも） oTree をインストールする．
+    - WindowsにPythonを直接インストールして，pipで oTree を入れる．  
         [https://otree.readthedocs.io/en/latest/install-windows.html#install-windows](https://otree.readthedocs.io/en/latest/install-windows.html#install-windows)  
         - 【フリーライド】立命館竹内研長瀬さんのチュートリアル動画が参考になります．  
             「#2 oTree Windowsでのインストール」
             （動画リンクは竹内研Slack内を検索してください．）
     - 頑張ってWSL2を使い，Ubuntu環境を用意してから...  
         1. [WSL2のインストール](ubuntu/wsl2.md)
-        1. [UbuntuでoTreeを動かす](server_setup/README.md)
+        1. [Ubuntuで oTree を動かす](server_setup/README.md)
     - Macの場合はまずhomebrewをインストールしてから...
         - 【フリーライド】立命館竹内研長瀬さんのチュートリアル動画が参考になります．  
             「#2 oTree Macでのインストール」
@@ -53,7 +53,7 @@
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/xnznSzfV_6g?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 1. Gitのインストール
-    - Windowsに直接Pythonを入れてoTreeを動かす場合，Gitのインストーラーを [https://gitforwindows.org/](https://gitforwindows.org/) からダウンロードしてインストールする．
+    - Windowsに直接Pythonを入れて oTree を動かす場合，Gitのインストーラーを [https://gitforwindows.org/](https://gitforwindows.org/) からダウンロードしてインストールする．
         - 参考 [https://www.curict.com/item/60/60bfe0e.html](https://www.curict.com/item/60/60bfe0e.html)
     - Ubuntuを使う場合，以下のコマンドでインストール．
         ```bash

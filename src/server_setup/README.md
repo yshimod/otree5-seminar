@@ -1,17 +1,17 @@
-# UbuntuでoTreeを動かす
+# Ubuntuで oTree を動かす
 
 
 ## 目的
-- Windowsではなく，LinuxやmacOSなどのUNIX系OSでoTreeを動かしたい．Windowsがダメなのではないが......
+- Windowsではなく，LinuxやmacOSなどのUNIX系OSで oTree を動かしたい．Windowsがダメなのではないが......
 
 #### Linuxの使い方に慣れましょう
 - サーバ用のOSはLinuxを採用することが多い．
-- 社研ラボのoTree用サーバのOSはUbuntu（Linux OSの中で一番有名？）．
+- 社研ラボの oTree 用サーバのOSはUbuntu（Linux OSの中で一番有名？）．
 - AWSのEC2やGCPのCompute EngineのOSもたいていLinux．
 
 #### 屋上屋を架する愚は避ける
-- oTreeの使い方を解説する（初級者向け）ドキュメントはたいていWindowsを使っている．
-- Windowsに直接Python・oTreeを入れる方法は公式ドキュメント [https://otree.readthedocs.io/en/latest/install-windows.html#install-windows](https://otree.readthedocs.io/en/latest/install-windows.html#install-windows) を参照してください．
+- oTree の使い方を解説する（初級者向け）ドキュメントはたいていWindowsを使っている．
+- Windowsに直接Python・ oTree を入れる方法は公式ドキュメント [https://otree.readthedocs.io/en/latest/install-windows.html#install-windows](https://otree.readthedocs.io/en/latest/install-windows.html#install-windows) を参照してください．
 - UNIXな環境を前提としたドキュメントは少ない．公式ドキュメントでも説明が雑（MacやLinuxが使える人に詳しい説明は不要と思われている？その推論はいくらか正しいとしても......）．
 
 
@@ -40,7 +40,7 @@
         - pythonのバージョンをすぐに切り替えられる（ oTree 3 はPython3.8まででしか動かない）．
         - ホームディレクトリにPythonを入れるので，システムのデフォルトのPythonに干渉しない．
     - virtualenvを使うメリット:
-        - oTree専用（あるいは特定のプロジェクト専用）の環境を構築できる（Pythonのパッケージをいろいろ入れるとわけが分からなくなる）．
+        - oTree 専用（あるいは特定のプロジェクト専用）の環境を構築できる（Pythonのパッケージをいろいろ入れるとわけが分からなくなる）．
         - pyenv自体はPythonのバージョンの切り替えをするもの．virtualenvは同一バージョンで複数の環境を構築できる．
 
 
@@ -85,14 +85,14 @@
     - `python -V` でインストールしたバージョン（3.9.11）が表示されたら，ちゃんと設定できている．
 
 
-## pipでoTreeのインストール <a id="otreeinstallation"></a>
+## pipで oTree のインストール <a id="otreeinstallation"></a>
 
 1. （PostgreSQLが必要な場合）パッケージpsycopg2を入れるために必要なライブラリlibpq-devをインストール  
     [https://www.psycopg.org/docs/](https://www.psycopg.org/docs/)
     ```bash
     sudo apt-get install libpq-dev
     ```
-1. pipでoTree（とpsycopg2）をインストール
+1. pipで oTree （とpsycopg2）をインストール
     ```bash
     pip install otree psycopg2
     ```
@@ -102,7 +102,7 @@
         - 根気強くエラーを読んで，検索して，必要なものを入れてから再チャレンジ．
         - psycopg2のバージョンを少し古いものに固定してみる．
         - PostgreSQLを使う予定がない場合にはpsycopg2は入れる必要なし．とりあえず諦める．
-1. oTreeを動かしてみる
+1. oTree を動かしてみる
     - まずはシェルでoTreeのバージョンを確認．
         ```bash
         otree --version
@@ -167,13 +167,13 @@
     #    パスワード（たとえば0099）
     #    アドレス（oTreeと同じマシンで動かす場合はlocalhost）
     #    データベース名（たとえばotreedb）
-    # をoTreeに環境変数DATABASE_URLで教える．
+    # を oTree に環境変数DATABASE_URLで教える．
     export DATABASE_URL=postgres://user01:0099@localhost/otreedb
-    # DATABASE_URLを設定しなければoTreeはSQLiteを使う．
+    # DATABASE_URLを設定しなければ oTree はSQLiteを使う．
     ```
     - Vim（vi）を使って.bashrcを編集できるようにしておいた方が良い．nanoでも良いが．
     - PostgreSQLのURL（`DATABASE_URL`）にパスワード（例では0099）を書いても良い．そのときはPostgreSQLのパスワードファイル.pgpassが不要．
-    - oTreeの公式ドキュメントでは言及されていないが，settings.pyの `SECRET_KEY` も環境変数から受け取るように変えた方が良い気がする．
+    - oTree の公式ドキュメントでは言及されていないが，settings.pyの `SECRET_KEY` も環境変数から受け取るように変えた方が良い気がする．
 
 
 #### ネットワークの設定 <a id="webserver"></a>
@@ -184,11 +184,11 @@
 - サーバーのIPアドレスを固定する．
 - ファイアウォール（ufw）で開放するポートを設定．
     - LAN内で完結する場合（学内のラボなど）はあまり気にしなくて良い．
-    - インターネットにさらす場合は慎重に設定する．oTreeのデフォルトのポート8000は開放しない．
+    - インターネットにさらす場合は慎重に設定する． oTree のデフォルトのポート8000は開放しない．
 - インターネットにさらす場合は...
     - ドメイン取得（SSL証明書の発行のために必須）．
     - nginx（Webサーバーソフトウェア）をリバースプロキシ（インターネットからはポート443で受け入れて，それをlocalhost:8000に渡す）として設定．
     - HTTPSで通信できるようにcertbotで証明書発行．
-- oTreeサーバー稼働中のプロセス管理
+- oTree サーバー稼働中のプロセス管理
     - nohupを使うとSSHの接続が切れてもプロセスが閉じない．
     - SupervisorやCircusを使うのが良い，らしい．

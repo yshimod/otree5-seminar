@@ -309,10 +309,10 @@
         - `label = ""` としてあるとき，以前はもコロンだけが必ず表示されていたが，いつの間にか改善され，最新バージョンでは `<label>` タグ自体生成されない．
     - `doc`
         - ドキュメントを記述してもよいが，（アプリなどのドキュメントとは異なり）管理者画面で自動的にドキュメントが表示されるような仕組みは無さそう．
-        - [https://docs.sqlalchemy.org/en/14/core/metadata.html?highlight=column#sqlalchemy.schema.Column.params.doc](https://docs.sqlalchemy.org/en/14/core/metadata.html?highlight=column#sqlalchemy.schema.Column.params.doc)
+        - [https://docs.sqlalchemy.org/en/14/core/metadata.html#sqlalchemy.schema.Column.params.doc](https://docs.sqlalchemy.org/en/14/core/metadata.html#sqlalchemy.schema.Column.params.doc)
     - `help_text`
         - 参加者への指示などの文章を記述しておくと，テンプレートタグで入力フォームを作るときに小さい灰色の字で `help_text` に書いたものがフォームの下側に表示される．
-        - テンプレートで `{{ form.変数名.description }}` と記述すると`help_text` に書いた文字列が展開される．
+        - テンプレートで `{{ form.変数名.description }}` と記述すると `help_text` に書いた文字列が展開される．
     - `blank`
         - 強制回答にしない場合は `blank = True` とする．
 - `models.CurrencyField`

@@ -1,4 +1,4 @@
-# シェルで使用するoTreeサブコマンド
+# シェルで使用する oTree サブコマンド
 
 
 ## `browser_bots`
@@ -8,8 +8,8 @@
 - セッション名，人数（，ルーム）の指定しかできないため使いどころは不明．より詳細な設定でセッション作成を自動化したい場合はREST APIを使った方が良い．
 [https://otree.readthedocs.io/en/latest/misc/rest_api.html#create-sessions-endpoint](https://otree.readthedocs.io/en/latest/misc/rest_api.html#create-sessions-endpoint)
 - 使い方
-    - ` otree create_session session_config_name num_participants`
-    - ` otree create_session --room ROOM_NAME session_config_name num_participants`
+    - `otree create_session session_config_name num_participants`
+    - `otree create_session --room ROOM_NAME session_config_name num_participants`
 - `session_config_name`: `settings.py` の `SESSION_CONFIGS` で設定しているセッション名を1つ選ぶ．
 - `num_participants`: セッションの人数を設定．
 - `ROOM_NAME`: `settings.py` の `ROOMS` で設定しているルーム名を1つ選ぶ．

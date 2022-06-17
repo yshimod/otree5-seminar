@@ -1,8 +1,8 @@
 # 参考文献
 
-- oTreeのホームページ（情報量小） [https://www.otree.org/](https://www.otree.org/)
-- oTree公式ドキュメント [https://otree.readthedocs.io/en/latest/](https://otree.readthedocs.io/en/latest/)
-- PyPIのoTreeのページ [https://pypi.org/project/otree/](https://pypi.org/project/otree/)
+- oTree のホームページ（情報量小） [https://www.otree.org/](https://www.otree.org/)
+- oTree 公式ドキュメント [https://otree.readthedocs.io/en/latest/](https://otree.readthedocs.io/en/latest/)
+- PyPIの oTree のページ [https://pypi.org/project/otree/](https://pypi.org/project/otree/)
 - oTree Hub [https://www.otreehub.com/](https://www.otreehub.com/)
 - Google グループ "oTree help & discussion" [https://groups.google.com/g/otree](https://groups.google.com/g/otree)
 - 公式フォーラム（2022年5月23日スタート） [https://www.otreehub.com/forum/](https://www.otreehub.com/forum/)

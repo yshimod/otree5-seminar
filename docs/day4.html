@@ -304,7 +304,7 @@
                 <a href="server_setup/">
             
                     
-                    UbuntuでoTreeを動かす
+                    Ubuntuで oTree を動かす
             
                 </a>
             
@@ -317,7 +317,7 @@
                 <a href="heroku/">
             
                     
-                    HerokuでoTreeを動かす
+                    Herokuで oTree を動かす
             
                 </a>
             
@@ -449,8 +449,8 @@
                                 <section class="normal markdown-section">
                                 
                                 <p>【第4回】 2022年6月2日 （2022年6月9日に補足）</p>
-<h1 id="otreeプログラミングの進め方">oTreeプログラミングの進め方</h1>
-<h2 id="1-otreeで実験プログラムを開発する前に考えておくこと">1. oTreeで実験プログラムを開発する前に考えておくこと</h2>
+<h1 id="otree-プログラミングの進め方">oTree プログラミングの進め方</h1>
+<h2 id="1-otree-で実験プログラムを開発する前に考えておくこと">1. oTree で実験プログラムを開発する前に考えておくこと</h2>
 <ul>
 <li>実験セッションの流れは？<ul>
 <li>たとえば...<ol>
@@ -603,7 +603,7 @@
 </li>
 <li>表示するページの順番を <code>page_sequence</code> で設定する．クラス名をリストで渡す．</li>
 <li>定数クラス <code>C</code> に必要最低限の設定をする．<ul>
-<li>デフォルトで <code>NAME_IN_URL</code>，<code>PLAYERS_PER_GROUP</code>，<code>NUM_ROUNDS</code> が設定されている．単にテンプレートファイルがブラウザでどう見えるかを確認するためにoTreeサーバーを起動することが目的であれば，とりあえずデフォルトのままでも良い．</li>
+<li>デフォルトで <code>NAME_IN_URL</code>，<code>PLAYERS_PER_GROUP</code>，<code>NUM_ROUNDS</code> が設定されている．単にテンプレートファイルがブラウザでどう見えるかを確認するために oTree サーバーを起動することが目的であれば，とりあえずデフォルトのままでも良い．</li>
 </ul>
 </li>
 </ol>
@@ -674,14 +674,14 @@
 </ul>
 </li>
 <li>コンテンツブロック内に入力フォームを挿入する<ul>
-<li>【原理的な話】 oTreeサーバーはコンテンツブロック内の記述したものを <code>&lt;body&gt;</code> 内の <code>&lt;form&gt;</code> タグの中に挿入する．<code>&lt;form&gt;</code> タグに <code>method=&quot;post&quot;</code> が設定されているため，<code>&lt;form&gt;</code> タグ内の <code>&lt;input&gt;</code> 要素等のデータがPOSTメソッドでサーバーに送信される．<ul>
+<li>【原理的な話】 oTree サーバーはコンテンツブロック内の記述したものを <code>&lt;body&gt;</code> 内の <code>&lt;form&gt;</code> タグの中に挿入する．<code>&lt;form&gt;</code> タグに <code>method=&quot;post&quot;</code> が設定されているため，<code>&lt;form&gt;</code> タグ内の <code>&lt;input&gt;</code> 要素等のデータがPOSTメソッドでサーバーに送信される．<ul>
 <li>したがって，サーバーに送信したいデータの入力フォームを作るためには，コンテンツブロック内に <code>&lt;input&gt;</code> タグなどを記述する．このとき <code>name</code> 属性に，記録するデータの変数名を設定する．</li>
 <li><a href="https://developer.mozilla.org/ja/docs/Learn/Forms" target="_blank">HTMLフォーム</a></li>
 <li><a href="https://developer.mozilla.org/ja/docs/Learn/Forms/Sending_and_retrieving_form_data" target="_blank">フォームデータの送信</a></li>
 <li>たとえば変数名を <code>contribution</code> にするとき，以下をコンテンツブロック内に記述すれば，とりあえず入力フォームができる．<pre><code class="lang-html">  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;contribution&quot;</span>&gt;</span>
 </code></pre>
 </li>
-<li><code>name</code> 属性が <code>name=&quot;contribution&quot;</code> である入力フォームに「12」と入力してフォームを送信したとき（「次へ」ボタンを押したとき），HTTPリクエストの本文は <code>contribution=12</code> となる．oTreeサーバーがこのHTTPリクエストを受け取りデータベースに書き込んでくれる．</li>
+<li><code>name</code> 属性が <code>name=&quot;contribution&quot;</code> である入力フォームに「12」と入力してフォームを送信したとき（「次へ」ボタンを押したとき），HTTPリクエストの本文は <code>contribution=12</code> となる． oTree サーバーがこのHTTPリクエストを受け取りデータベースに書き込んでくれる．</li>
 </ul>
 </li>
 <li><code>&lt;input&gt;</code> の他に <code>&lt;select&gt;</code> や <code>&lt;textarea&gt;</code> など， <code>&lt;form&gt;</code> の中で使えるものが同様に使える．<ul>
@@ -695,19 +695,19 @@
 <li>たとえば，必須回答で数値を入力させ，かつ，最小値を0，最大値を100にするときは以下．<pre><code class="lang-html">  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;number&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;contribution&quot;</span> <span class="hljs-attr">required</span> <span class="hljs-attr">min</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">max</span>=<span class="hljs-string">&quot;100&quot;</span>&gt;</span>
 </code></pre>
 </li>
-<li>任意回答にする（空欄を許す）場合には <code>required</code> 属性を使わないことに加え，<code>__init__.py</code> でフォームを定義するときに <code>blank=True</code> とする．さもないと，フォーム送信時にoTreeサーバー側でエラーが出る．</li>
+<li>任意回答にする（空欄を許す）場合には <code>required</code> 属性を使わないことに加え，<code>__init__.py</code> でフォームを定義するときに <code>blank=True</code> とする．さもないと，フォーム送信時に oTree サーバー側でエラーが出る．</li>
 </ul>
 </li>
-<li>テンプレートタグで記述すれば，↑ 以上のようにしてタグを自分で記述して入力フォームを作る作業を，oTreeサーバーがやってくれる．<ul>
+<li>テンプレートタグで記述すれば，↑ 以上のようにしてタグを自分で記述して入力フォームを作る作業を， oTree サーバーがやってくれる．<ul>
 <li>コンテンツブロック内に <code>{{ formfields }}</code> と記述すれば，<code>&lt;input&gt;</code> タグと，その入力フォームに対応する <code>&lt;label&gt;</code> タグを生成してくれる．</li>
 <li><a href="https://otree.readthedocs.io/en/latest/forms.html" target="_blank">詳細はこちら</a></li>
-<li>同じような入力フォームがたくさんある場合（たとえば質問紙調査）はoTreeの機能を使った方が良い（DRY原則）．検証を独自に実装したい場合（たとえばJavaScriptやライブページを駆使するとき）は自分でタグを記述する．</li>
+<li>同じような入力フォームがたくさんある場合（たとえば質問紙調査）は oTree の機能を使った方が良い（DRY原則）．検証を独自に実装したい場合（たとえばJavaScriptやライブページを駆使するとき）は自分でタグを記述する．</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>コンテンツブロック内に「次へ」ボタンを挿入する<ul>
-<li>【原理的な話】 （入力フォームが何もなくても）フォームの送信をすれば，oTreeサーバーが次のページに遷移させる．<ul>
+<li>【原理的な話】 （入力フォームが何もなくても）フォームの送信をすれば， oTree サーバーが次のページに遷移させる．<ul>
 <li>したがって，コンテンツブロック内でフォームを送信させるボタンを作れば，それが次のページへ進ませるボタンとなる．</li>
 <li>たとえば以下のどちらかをコンテンツブロック内に記述すれば良い．<pre><code class="lang-html">  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span>&gt;</span>次へ<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 </code></pre>
@@ -717,7 +717,7 @@
 <li>実は <code>&lt;button&gt;</code> タグで <code>type=&quot;submit&quot;</code> と陽に指定しなくても良い．なぜならば <code>type</code> 属性のデフォルトが <code>submit</code> であるため．</li>
 </ul>
 </li>
-<li>コンテンツブロック内に <code>{{ next_button }}</code> と記述すれば，oTreeサーバーが以下の <code>&lt;button&gt;</code> タグを生成してくれる．<pre><code class="lang-html">  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;otree-btn-next btn btn-primary&quot;</span>&gt;</span>次へ<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<li>コンテンツブロック内に <code>{{ next_button }}</code> と記述すれば， oTree サーバーが以下の <code>&lt;button&gt;</code> タグを生成してくれる．<pre><code class="lang-html">  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;otree-btn-next btn btn-primary&quot;</span>&gt;</span>次へ<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 </code></pre>
 </li>
 </ul>
@@ -754,8 +754,8 @@
 </ul>
 <h2 id="7-initpy-を編集する">7. <code>__init__.py</code> を編集する</h2>
 <ol>
-<li>【Pageパート】 まずテンプレートファイルの存在をoTreeに知らせる<ul>
-<li>（oTree 3 では，<code>pages.py</code> に記述していた内容）</li>
+<li>【Pageパート】 まずテンプレートファイルの存在を oTree に知らせる<ul>
+<li>（ oTree 3 では，<code>pages.py</code> に記述していた内容）</li>
 <li>表示するページごとに <code>Page</code> クラスを継承するクラスを設定する．</li>
 <li>クラスの名前はテンプレートファイルのファイル名と同じにする．</li>
 <li>クラスの名前がURLに表示される．<ul>
@@ -764,14 +764,14 @@
 </li>
 <li>待機ページのために <code>WaitPage</code> クラスを継承するクラスを設定する．<ul>
 <li>同時手番ゲームで利得を計算するためには，グループ内の全メンバーの意思決定が完了したタイミングで利得を計算する関数を動かさなければならない．タイミングを合わせるために，先に意思決定を済ませた参加者に表示するための待機ページを用意すればよい．</li>
-<li>待機ページのためにテンプレートファイルを作成して通常のページとして実装することも可能ではある．しかし，oTreeの機能（<code>WaitPage</code> クラス）を使うのが楽．</li>
+<li>待機ページのためにテンプレートファイルを作成して通常のページとして実装することも可能ではある．しかし， oTree の機能（<code>WaitPage</code> クラス）を使うのが楽．</li>
 </ul>
 </li>
 <li>各ページのクラスを設定した後，表示するページの順番を <code>page_sequence</code> で設定する．クラス名をリストで渡す．</li>
 </ul>
 </li>
 <li>【Modelパート】 入力フォームの変数をデータベースのどこに保存するかを設定する<ul>
-<li>（oTree 3 では，<code>models.py</code> に記述していた内容）</li>
+<li>（ oTree 3 では，<code>models.py</code> に記述していた内容）</li>
 <li>player，group，subsessionの各階層で保存するべきデータの変数名を <code>Player</code> クラス，<code>Group</code> クラス，<code>Subsession</code> クラスのそれぞれで定義する．<ul>
 <li>公共財ゲームなど，プレイヤーに役割の区別がなく対称的な場合，意思決定データは一つの変数名でplayerの階層に保存しておけば良い．</li>
 <li>信頼ゲームにおける提案者・応答者など，プレイヤーに役割の区別があって，かつ，グループ内で一つの役割に複数のプレイヤーが縮退しない場合，各プレイヤーの意思決定データはグループにおいてユニークなので，playerの階層に保存するよりもgroupの階層に保存する方が良い．</li>
@@ -783,7 +783,7 @@
 <li><code>変数名 = models.*Field()</code> と記述して設定する．<ul>
 <li><code>models.*Field()</code> で使えるものは以下:<ul>
 <li><code>models.BooleanField()</code>: ブール代数型</li>
-<li><code>models.CurrencyField()</code>: oTree組み込みの通貨型</li>
+<li><code>models.CurrencyField()</code>: oTree 組み込みの通貨型</li>
 <li><code>models.IntegerField()</code>: 整数型</li>
 <li><code>models.FloatField()</code>: 実数型</li>
 <li><code>models.StringField()</code>: 文字列型（デフォルトで10000字まで）</li>
@@ -802,8 +802,8 @@
 </ul>
 </li>
 <li>（テンプレートタグではなく）タグの直打ちで入力フォームを作りながら，<code>models.*Field()</code> の引数で <code>choices</code>，<code>min</code>，<code>max</code> を設定している場合，タグの直打ちでの実装との整合性に気をつける．<ul>
-<li>タグの属性で<code>min</code>や<code>max</code>などの制約を設定しない場合（クライアントでの検証をしない場合）でも，oTreeサーバー側で検証は行われる．</li>
-<li>たとえば <code>models.IntegerField()</code> の引数で <code>choices = [0, 100]</code> としておきながら，タグ直打ちで <code>&lt;input type=&quot;number&quot; name=&quot;contribution&quot; required min=&quot;0&quot; max=&quot;100&quot;&gt;</code> と入力フォームを作り，参加者が「10」と回答した場合，クライアントの検証は通過するが，10が <code>[0, 100]</code> に含まれないため，oTreeの検証は通過せず，エラーが出る．</li>
+<li>タグの属性で<code>min</code>や<code>max</code>などの制約を設定しない場合（クライアントでの検証をしない場合）でも， oTree サーバー側で検証は行われる．</li>
+<li>たとえば <code>models.IntegerField()</code> の引数で <code>choices = [0, 100]</code> としておきながら，タグ直打ちで <code>&lt;input type=&quot;number&quot; name=&quot;contribution&quot; required min=&quot;0&quot; max=&quot;100&quot;&gt;</code> と入力フォームを作り，参加者が「10」と回答した場合，クライアントの検証は通過するが，10が <code>[0, 100]</code> に含まれないため， oTree の検証は通過せず，エラーが出る．</li>
 </ul>
 </li>
 </ul>
@@ -827,8 +827,8 @@
 </ul>
 </li>
 <li>【Constantsパート・関数パート】 定数や関数の設定をしてゲームとして成立させる<ul>
-<li>oTreeで収集した意思決定データからゲームの利得（報酬額）を計算することができる．<ul>
-<li>（その場で）フィードバックする必要が無ければ，必ずしもoTreeで計算しなければならないわけではない．</li>
+<li>oTree で収集した意思決定データからゲームの利得（報酬額）を計算することができる．<ul>
+<li>（その場で）フィードバックする必要が無ければ，必ずしも oTree で計算しなければならないわけではない．</li>
 <li>たとえばラボでくじを引いて，その結果を使って報酬額を計算する，ということもできる． <a href="https://otree.readthedocs.io/en/latest/misc/rest_api.html#session-vars-endpoint" target="_blank">https://otree.readthedocs.io/en/latest/misc/rest_api.html#session-vars-endpoint</a></li>
 </ul>
 </li>
@@ -867,9 +867,9 @@
 
 
 <ul>
-<li>まずはテンプレートに記述した入力フォームが機能するように（フォームを送信したときにoTreeサーバーで認識できるように）設定する．<ul>
+<li>まずはテンプレートに記述した入力フォームが機能するように（フォームを送信したときに oTree サーバーで認識できるように）設定する．<ul>
 <li><code>Player</code> クラスに <code>contribution = models.FloatField()</code> を記述する．<ul>
-<li>公式ドキュメントのチュートリアルでは <code>models.CurrencyField()</code> を使用しているが，oTreeの通貨型を理解するのが面倒なので，単純な実数型を使う．</li>
+<li>公式ドキュメントのチュートリアルでは <code>models.CurrencyField()</code> を使用しているが， oTree の通貨型を理解するのが面倒なので，単純な実数型を使う．</li>
 </ul>
 </li>
 <li><code>Contribute</code> クラスに <code>form_model = &quot;player&quot;</code> と <code>form_fields = [&quot;contribution&quot;]</code> を記述する．</li>
@@ -882,7 +882,7 @@
 <ul>
 <li>利得を計算する際の途中の変数（グループでの貢献額の合計値と分配額）をグループモデルに保存するために定義する．<ul>
 <li><code>Group</code> クラスに <code>total_contribution = models.FloatField()</code> と <code>individual_share = models.FloatField()</code><ul>
-<li>公式ドキュメントのチュートリアルでは <code>models.CurrencyField()</code> を使用しているが，oTreeの通貨型を理解するのが面倒なので，単純な実数型を使う．</li>
+<li>公式ドキュメントのチュートリアルでは <code>models.CurrencyField()</code> を使用しているが， oTree の通貨型を理解するのが面倒なので，単純な実数型を使う．</li>
 </ul>
 </li>
 </ul>
@@ -917,7 +917,7 @@
       <span class="hljs-comment">## 一人ずつプレイヤーの報酬額を計算し，Player の 予め用意されている変数 payoff に代入．</span>
       <span class="hljs-keyword">for</span> player <span class="hljs-keyword">in</span> players:
           player.payoff = C.ENDOWMENT - player.contribution + group.individual_share
-          <span class="hljs-comment">## ↑ player.payoff に値を代入すると，勝手にoTree組み込みの通貨型に変換される．値は丸められる．</span>
+          <span class="hljs-comment">## ↑ player.payoff に値を代入すると，勝手に oTree 組み込みの通貨型に変換される．値は丸められる．</span>
 </code></pre>
 </li>
 <li><code>ResultsWaitPage</code> クラスにおいて <code>after_all_players_arrive = &quot;set_payoffs&quot;</code> とすると，グループの全プレイヤーの意思決定が送信されたタイミングで関数 <code>set_payoffs</code> が呼び出される．<ul>
@@ -1058,13 +1058,13 @@
 </ul>
 </li>
 </ul>
-<h2 id="a3-otreeの通貨型">A3. oTreeの通貨型</h2>
+<h2 id="a3-otree-の通貨型">A3. oTree の通貨型</h2>
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/TWdogNESdns?rel=0&amp;enablejsapi=1&amp;origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 
 <ul>
 <li><a href="https://otree.readthedocs.io/en/latest/currency.html" target="_blank">https://otree.readthedocs.io/en/latest/currency.html</a></li>
-<li><code>cu()</code> に数値を渡すと，oTreeは数値を「通貨型」に変換する．</li>
+<li><code>cu()</code> に数値を渡すと， oTree は数値を「通貨型」に変換する．</li>
 <li><code>REAL_WORLD_CURRENCY_CODE = &apos;USD&apos;</code> と設定したとき...<ul>
 <li>数値は小数点以下が2桁に丸められる． <code>cu(2.7182)</code> は <code>2.72</code>．</li>
 <li>テンプレートで表示すると「$2.72」．</li>
@@ -1090,7 +1090,7 @@
 </ul>
 </li>
 <li>数値の丸めは decimal モジュールの <a href="https://docs.python.org/ja/3/library/decimal.html#decimal.ROUND_HALF_UP" target="_blank"><code>ROUND_HALF_UP</code> モード</a>で実行されている．つまり，銀行家の丸めではなく「四捨五入」される．</li>
-<li>日本で実験をするとき，ポイント表示であれ通貨表示であれ，oTreeの通貨型を使う場合は，「数値が四捨五入で整数に丸められる」ことを意識すれば良い．<ul>
+<li>日本で実験をするとき，ポイント表示であれ通貨表示であれ， oTree の通貨型を使う場合は，「数値が四捨五入で整数に丸められる」ことを意識すれば良い．<ul>
 <li>端数を切り上げる場合は，自前で丸めの処理をした後，整数を <code>player.payoff</code> などに渡せば良い．</li>
 </ul>
 </li>
@@ -1142,7 +1142,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第4回","level":"1.1.4","depth":2,"next":{"title":"第5回","level":"1.1.5","depth":2,"path":"day5.md","ref":"day5.md","articles":[]},"previous":{"title":"第3回","level":"1.1.3","depth":2,"path":"day3.md","ref":"day3.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day4.md","mtime":"2022-06-15T10:14:04.678Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-15T10:31:15.656Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第4回","level":"1.1.4","depth":2,"next":{"title":"第5回","level":"1.1.5","depth":2,"path":"day5.md","ref":"day5.md","articles":[]},"previous":{"title":"第3回","level":"1.1.3","depth":2,"path":"day3.md","ref":"day3.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day4.md","mtime":"2022-06-17T05:30:34.286Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-17T05:54:58.142Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

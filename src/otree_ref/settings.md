@@ -170,14 +170,14 @@
     ```
 
 ## `DEBUG`
-- oTree本体では `DEBUG = os.environ.get('OTREE_PRODUCTION') in [None, '', '0']`
+- oTree 本体では `DEBUG = os.environ.get('OTREE_PRODUCTION') in [None, '', '0']`
 - つまり，環境変数で `export OTREE_PRODUCTION=1` とするか `settings.py` で以下の設定をしない限りデバッグモードで起動する．
     ```python
     DEBUG = False
     ```
 
 ## `AUTH_LEVEL`
-- oTree本体では `AUTH_LEVEL = os.environ.get('OTREE_AUTH_LEVEL')`
+- oTree 本体では `AUTH_LEVEL = os.environ.get('OTREE_AUTH_LEVEL')`
 - 環境変数で `export OTREE_AUTH_LEVEL=STUDY` とするか `settings.py` で以下の設定すると本番モード（管理者画面全体がパスワード保護）で起動する．
     ```python
     OTREE_AUTH_LEVEL = "STUDY"

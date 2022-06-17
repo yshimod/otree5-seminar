@@ -1,4 +1,4 @@
-# HerokuでoTreeを動かす
+# Herokuで oTree を動かす
 
 
 ## まずはアカウントを作る
@@ -42,12 +42,12 @@
     ```bash
     heroku login
     ```
-5. まずはoTreeプロジェクトを（ローカルの）Gitで管理する（初期化する）．  
+5. まずは oTree プロジェクトを（ローカルの）Gitで管理する（初期化する）．  
     **すでにGitHubをリモートリポジトリとして使っていてる場合，ここで初期化してはいけない**．
     ```bash
     git init
     ```
-6. oTreeプロジェクトにHeroku用の設定ファイルが入っているか確認．
+6. oTree プロジェクトにHeroku用の設定ファイルが入っているか確認．
     - Procfile
     - requirements.txt （pipで入れるもののリスト）
     - Pythonのバージョンを指定する場合はruntime.txt
