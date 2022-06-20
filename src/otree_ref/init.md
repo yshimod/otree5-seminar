@@ -242,10 +242,10 @@
 
 #### session
 - session オブジェクトは，セッションに参加している全参加者で共通の変数を記録できる．
-- 変数を定義するには， `settings.py` の `SESSION_FIELDS` に変数名の文字列をリストで渡しておく．
+- 自分で変数を定義するには， `settings.py` の `SESSION_FIELDS` に変数名の文字列をリストで渡しておく．
 - session の下位概念（ subsession， group， player ）からアクセスできる．
     - たとえば player オブジェクトを引数で受け取る関数の中では `player.session.変数名` とする．
-- `SESSION_FIELDS` で 変数名を定義しなくても， `session.vars["変数名"]` で定義することも可能．
+- （All appsの）CSV出力で，自分で定義した変数と組み込みの変数も出力される．
 - 組み込みの変数・メソッド
     - `code`
         - セッションで固有なID．
@@ -257,13 +257,16 @@
             - `config['real_world_currency_per_point']`
     - `get_subsessions()`
     - `get_participants()`
+    - `vars`
+        - `SESSION_FIELDS` で変数名を定義しなくても， `session.vars["変数名"] = なにか` として記録できる．
+        - `vars` の要素として記録したものは，（ `custom_export()` を使わない限り）CSV出力で出力されない．
 
 #### participant
 - participant オブジェクトは，セッションに参加している各参加者についてユニークな変数を記録できる．
-- 変数を定義するには， `settings.py` の `PARTICIPANT_FIELDS` に変数名の文字列をリストで渡しておく．
+- 自分で変数を定義するには， `settings.py` の `PARTICIPANT_FIELDS` に変数名の文字列をリストで渡しておく．
 - participant の下位概念である player からアクセスできる．
     - たとえば player オブジェクトを引数で受け取る関数の中では `player.participant.変数名` とする．
-- `PARTICIPANT_FIELDS` で 変数名を定義しなくても， `participant.vars["変数名"]` で定義することも可能．
+- （All appsの）CSV出力で，自分で定義した変数と組み込みの変数も出力される．
 - 組み込みの変数・メソッド
     - `session_id`
         - セッションで固有なID．
@@ -282,6 +285,9 @@
         - 各 subsession における `player.payoff` の和．
     - `payoff_in_real_world_currency()`
     - `payoff_plus_participation_fee()`
+    - `vars`
+        - `PARTICIPANT_FIELDS` で変数名を定義しなくても， `participant.vars["変数名"] = なにか` として記録できる．
+        - `vars` の要素として記録したものは，（ `custom_export()` を使わない限り）CSV出力で出力されない．
 
 
 
@@ -512,7 +518,12 @@
 - `error_message()`
     - 引数: `(player: Player, values)`
         - `values` はフォームの変数名をキーとする辞書で，入力された値が取り出せる．
-    - 返り値: フォームの変数名をキーとする辞書型で，値は各フォームに対応するエラーメッセージの文字列．エラーが無い場合は何も返さないか，空の辞書を返す．
+        - 検証したいフォームが定義してあるモデルが player でなくても（当該ページのクラスで `form_model = "player"` と設定してある場合以外であっても），1つ目の引数は `player` ．
+            - ページに入力フォームが無い場合であっても， `error_message()` は使える．
+    - 返り値: フォームの変数名をキーとする辞書型で，値は各フォームに対応するエラーメッセージの文字列．
+        - エラーが無い場合は何も返さないか，空の辞書を返す．
+        - 辞書型ではなく，単なる文字列を返すとき，画面のタイトルの直下にその文字列が表示される．
+            - 作例: [https://www.otreehub.com/projects/otree-snippets/](https://www.otreehub.com/projects/otree-snippets/) の「experimenter_input」．
     - ページが進められたとき（フォームが送信されたとき），次のページを表示する前に実行され，エラーがあれば同一ページにエラーメッセージを追加したものを表示する．
     - フォームごと個別に検証用の関数を定義することもできる．ページクラスの外側で `*_error_message()` を定義する．
     - [https://otree.readthedocs.io/en/latest/misc/tips_and_tricks.html#avoid-duplicated-validation-methods](https://otree.readthedocs.io/en/latest/misc/tips_and_tricks.html#avoid-duplicated-validation-methods)
@@ -643,31 +654,36 @@
 - [https://otree.readthedocs.io/en/latest/admin.html#customizing-the-admin-interface-admin-reports](https://otree.readthedocs.io/en/latest/admin.html#customizing-the-admin-interface-admin-reports)
 
 
-### `*_min()`
+### `*_max`
 - `*` の部分にフィールドの変数名を入れる．
-- 引数: `(player: Player)`
-- 返り値: フィールドの最小値．
+- 引数: 当該変数が定義されているクラスのインスタンス．
+    - たとえば player の変数であれば，引数は `player` ．
+- 返り値: フィールドの最大値．
 - [https://otree.readthedocs.io/en/latest/forms.html#field-name-max](https://otree.readthedocs.io/en/latest/forms.html#field-name-max)
 
 
-### `*_max`
+### `*_min()`
 - `*` の部分にフィールドの変数名を入れる．
-- 引数: `(player: Player)`
-- 返り値: フィールドの最大値．
+- 引数: 当該変数が定義されているクラスのインスタンス．
+    - たとえば player の変数であれば，引数は `player` ．
+- 返り値: フィールドの最小値．
 - [https://otree.readthedocs.io/en/latest/forms.html#field-name-max](https://otree.readthedocs.io/en/latest/forms.html#field-name-max)
 
 
 ### `*_choices`
 - `*` の部分にフィールドの変数名を入れる．
-- 引数: `(player: Player)`
+- 引数: 当該変数が定義されているクラスのインスタンス．
+    - たとえば player の変数であれば，引数は `player` ．
 - 返り値: フィールドの選択肢のリスト．
 - [https://otree.readthedocs.io/en/latest/forms.html#field-name-choices](https://otree.readthedocs.io/en/latest/forms.html#field-name-choices)
 
 
 ### `*_error_message`
 - `*` の部分にフィールドの変数名を入れる．
-- 引数: `(player: Player, value)`
+- 引数: `(*, value)`
     - `value` は入力されたフィールドの値．
+    - `*` には当該変数が定義されているクラスのインスタンスを書く．
+        - たとえば player の変数であれば，引数は `player` ．
 - 返り値: エラーメッセージの文字列．
 - [https://otree.readthedocs.io/en/latest/forms.html#field-name-error-message](https://otree.readthedocs.io/en/latest/forms.html#field-name-error-message)
 

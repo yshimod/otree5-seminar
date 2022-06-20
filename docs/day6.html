@@ -458,6 +458,7 @@
 <li>有限回繰り返しゲーム（プレイヤーのシャッフル，タイムアウト）</li>
 <li>無限回繰り返しゲーム（確率的に繰り返しを終了する）</li>
 </ul>
+<hr>
 <p>この勉強会を始める時点で，どのレベルの知識を知っているかという前提と，何ができるようになるかという目標を明確にしていなかったため，初心者向けを装いながら，これまでのところオタク向けの内容になっています．</p>
 <p><a href="day4.html">第4回</a>で，どのようにコードを書いていくのかの手順を説明したつもりではあるのですが，やはり初心者には難解ではないかと思われます．
 文字資料だけでは何をどうしたらよいか分からないという方は動画を見て勉強するのが良いでしょう．
@@ -474,6 +475,7 @@
 <p>第4回では，ゼロからコードを書いていく方法を解説しています．
 しかし初心者には，すでに完成しているコードについて，少しいじっては動作を確認し，という試行錯誤を繰り返しながら自分が作りたいものに変えていく方法で勉強するのが良いでしょう．</p>
 <p>今回は完成したコードを読み下していきながら，特に oTree の組み込み関数の使い方を勉強していきます．</p>
+<hr>
 <h1 id="otree-の組み込み関数の使い方">oTree の組み込み関数の使い方</h1>
 <ul>
 <li><p>oTree の組み込み関数は <a href="otree_ref/init.html"> <code>__init__.py</code> の書き方</a> で網羅しているつもりです．</p>
@@ -873,7 +875,10 @@ page_sequence = [
 </li>
 <li><p>一つのアプリを何回も繰り返す設定にしている場合（<code>NUM_ROUNDS</code> が 1よりも大きい場合），繰り返す度に（つまり subsession ごとに） group 編成を変更することができる．</p>
 </li>
-<li><p>subsession の途中で group 編成を変更することはできない．ただし，group 内での役割（<code>id_in_group</code>）は変更できる．</p>
+<li><p>subsession の途中で group 編成を変更することはできない．</p>
+<ul>
+<li>ただし， subsession の途中でも， group 内での役割（<code>id_in_group</code>）は group の <code>set_players()</code> メソッドで変更できる．</li>
+</ul>
 </li>
 <li><p><code>creating_session()</code> はセッションを作成するタイミングで実行されるので， <code>creating_session()</code> では意思決定に応じて group 編成を変更することはできない．</p>
 <ul>
@@ -975,18 +980,27 @@ b[<span class="hljs-number">2</span>] = <span class="hljs-number">999</span>
 </li>
 <li><p>タイムアウトするとページのフォームが自動送信される．</p>
 <ul>
-<li><p>送信されるデータは，（<code>initial</code> が設定されていなければ） <code>BooleanField</code> なら <code>False</code>， <code>IntegerField</code> や <code>FloatField</code> なら <code>0</code>， <code>StringField</code> なら <code>&quot;&quot;</code>．</p>
-<ul>
-<li>この値を変更したい場合は，ページクラスの組み込みメソッド <code>before_next_page()</code> の中で <code>timeout_happened == True</code> なる player に対し処理を行う．</li>
-</ul>
+<li><p>どんな値が自動送信されても，エラーが表示されることなく次のページへ遷移する．</p>
+</li>
+<li><p>入力フォームに数値などが途中まで入力してあって放置されている状態のとき，タイムアウトの時点で入力されていた値が送信される．</p>
+</li>
+<li><p>値として適切である場合のみ（たとえば <code>models.FloatField</code> としてある入力フォームに文字列ではなく数値が入力されている場合など）ちゃんと記録される．</p>
+</li>
+<li><p>入力フォームが空の場合，あるいは値として不適切な場合，記録されるデータは，（<code>initial</code> が設定されていなければ） <code>BooleanField</code> なら <code>False</code>， <code>IntegerField</code> や <code>FloatField</code> なら <code>0</code>， <code>StringField</code> なら <code>&quot;&quot;</code>．</p>
+</li>
+<li><p>自動送信されて記録された値を変更したい場合は，ページクラスの組み込みメソッド <code>before_next_page()</code> の中で <code>timeout_happened == True</code> なる player に対し処理を行う．</p>
 </li>
 <li><p><code>otree prodserver</code> でサーバーを起動している場合のみ，クライアントがブラウザーを閉じているときにタイムアウトが発生すると，クライアントの代わりに，サーバーが自分宛てにフォームを送信する．</p>
 </li>
 </ul>
 </li>
-</ul>
+<li><p>「Advance slowest user(s)」ボタンで次のページへ遷移させた場合も，当該ページでタイムアウトしたのと同じ処理が行われる．</p>
 <ul>
-<li><a href="https://otree.readthedocs.io/en/latest/timeouts.html" target="_blank">https://otree.readthedocs.io/en/latest/timeouts.html</a></li>
+<li>ただし，サーバーが自分宛てにフォームを送信するので，クライアントで入力フォームに何か入力されていても，その値を取得することはできない．</li>
+</ul>
+</li>
+<li><p><a href="https://otree.readthedocs.io/en/latest/timeouts.html" target="_blank">https://otree.readthedocs.io/en/latest/timeouts.html</a></p>
+</li>
 </ul>
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/Of6yiqbz97Q?rel=0&amp;enablejsapi=1&amp;origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
@@ -1000,6 +1014,17 @@ b[<span class="hljs-number">2</span>] = <span class="hljs-number">999</span>
 </li>
 <li><p>純粋な Python の機能の説明...</p>
 <ul>
+<li><p>用語:</p>
+<ul>
+<li><p>「メソッド」: クラスの中で定義した関数．</p>
+</li>
+<li><p>「インスタンス（オブジェクト）」: （操作的な定義） <code>Kurasu</code> という名前のクラスが定義してあるとき， <code>Kurasu()</code> はインスタンスオブジェクト．</p>
+<ul>
+<li>oTree でよく出てくる <code>player</code> や <code>group</code> はインスタンスオブジェクトが代入されたもの．つまり <code>player = Player()</code> ， <code>group = Group()</code> ．</li>
+</ul>
+</li>
+</ul>
+</li>
 <li><p>たとえば，以下のようなクラスが定義してあるとする．</p>
 <pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Kurasu</span>:</span>
   mytext = <span class="hljs-string">&quot;こんにちは&quot;</span>
@@ -1009,7 +1034,7 @@ b[<span class="hljs-number">2</span>] = <span class="hljs-number">999</span>
       <span class="hljs-built_in">print</span>(nanika)
 </code></pre>
 </li>
-<li><p>関数 <code>testfunc1()</code> を <code>Kurasu</code> クラスのインスタンス（ <code>Kurasu()</code> ）のメソッドとして呼び出すとき，第1引数に自身のインスタンスオブジェクト（ <code>self</code> ）を受け取った状態の関数になっており，第2引数の <code>nanika</code> だけ渡せば良い．</p>
+<li><p>関数 <code>testfunc1()</code> を <code>Kurasu</code> クラスのインスタンス（ <code>Kurasu()</code> ）のメソッドとして呼び出すとき，第1引数に自身のインスタンスオブジェクト（ <code>self = Kurasu()</code> ）を受け取った状態の関数になっており，第2引数の <code>nanika</code> だけ渡せば良い．</p>
 <ul>
 <li><p>たとえば，</p>
 <pre><code class="lang-python">kurasu = Kurasu()
@@ -1022,7 +1047,7 @@ kurasu.testfunc1(<span class="hljs-string">&quot;あいうえお&quot;</span>)
 </li>
 </ul>
 </li>
-<li><p>関数 <code>testfunc1()</code> をクラスに格納されている単なる関数として呼び出すとき， <code>testfunc1()</code> の定義通り，ちゃんと第1引数に <code>self</code> として自身のインスタンスオブジェクト，第2引数に <code>nanika</code> を渡さなければならない．</p>
+<li><p>関数 <code>testfunc1()</code> をクラスから直接呼び出すとき， <code>testfunc1()</code> の定義通り，ちゃんと第1引数に <code>self</code> として自身のインスタンスオブジェクト，第2引数に <code>nanika</code> を渡さなければならない．</p>
 <ul>
 <li><p>たとえば，先ほどと同様，引数 <code>nanika</code> だけしか渡さない場合，</p>
 <pre><code class="lang-python">Kurasu.testfunc1(<span class="hljs-string">&quot;あいうえお&quot;</span>)
@@ -1067,7 +1092,7 @@ kurasu.testfunc2(<span class="hljs-string">&quot;かきくけこ&quot;</span>)
 この場合， <code>testfunc2()</code> がインスタンスメソッドとして呼び出されているので，第1変数として暗黙のうちに <code>Kurasu()</code> が引数として渡されている．
 しかし， <code>testfunc2()</code> を定義するときに <code>nanika</code> しか受け取らない，ということにしていたので，エラーが出た．</p>
 </li>
-<li><p>関数 <code>testfunc2()</code> を単なる関数として呼び出すとき， <code>@staticmethod</code> がついているか否かによらず，（ <code>Kurasu.testfunc1()</code> の場合と同様に） <code>testfunc2()</code> の定義で記述した引数をすべて渡さなければならない．</p>
+<li><p>関数 <code>testfunc2()</code> をクラスから直接呼び出すとき， <code>@staticmethod</code> がついているか否かによらず，（ <code>Kurasu.testfunc1()</code> の場合と同様に） <code>testfunc2()</code> の定義で記述した引数をすべて渡さなければならない．</p>
 <ul>
 <li><p><code>@staticmethod</code> がついている場合．</p>
 <pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Kurasu</span>:</span>
@@ -1090,12 +1115,16 @@ Kurasu.testfunc2(<span class="hljs-string">&quot;かきくけこ&quot;</span>)
 </li>
 </ul>
 </li>
-<li><p>関数 <code>testfunc2()</code> を単なる関数として呼び出すとき， <code>@staticmethod</code> がついているか否かによらず，インスタンスメソッドとして呼び出したとき（ <code>kurasu.testfunc2()</code> のとき）と同じ挙動（引数 <code>nanika</code> だけ渡せば良い）となる．</p>
+<li><p>関数 <code>testfunc2()</code> をクラスから直接呼び出すとき， <code>@staticmethod</code> がついているか否かによらず，インスタンスメソッドとして呼び出したとき（ <code>kurasu.testfunc2()</code> のとき）と同じ挙動（引数 <code>nanika</code> だけ渡せば良い）となる．</p>
+</li>
+</ul>
 </li>
 <li><p><strong>クラスの中で定義する関数で，自身のインスタンスオブジェクト（ <code>self</code> ）を第1引数として受け取りたくない場合， <code>@staticmethod</code> をつけなければならない</strong>．</p>
 <ul>
-<li>oTree で，たとえばページクラスの中で <code>is_displayed()</code> を定義するとき，ページクラス自身のインスタンスオブジェクトは不要であり，別クラスである <code>Player</code> の インスタンスオブジェクト <code>player</code> を引数に取る（ oTree 本体は <code>is_displayed()</code> なる関数が <code>player</code> のみを引数に取る，ということを前提としてコードが書かれている）．</li>
-<li>oTree 5 で組み込み関数（メソッド）はもはや <code>self</code> を引数にとる必要がなくなったため， <code>@staticmethod</code> をつけるべきである．</li>
+<li><p>oTree で，たとえばページクラスの中で <code>is_displayed()</code> を定義するとき，ページクラス自身のインスタンスオブジェクトは不要であり，別クラスである <code>Player</code> の インスタンスオブジェクト <code>player</code> を引数に取る（ oTree 本体は <code>is_displayed()</code> なる関数が <code>player</code> のみを引数に取る，ということを前提としてコードが書かれている）．</p>
+</li>
+<li><p>oTree 5 で組み込み関数（メソッド）はもはや <code>self</code> を引数にとる必要がなくなったため， <code>@staticmethod</code> をつけるべきである．</p>
+</li>
 </ul>
 </li>
 <li><p><strong>ところが，実のところ oTree は，ページクラスで組み込みのメソッドを定義する際に <code>@staticmethod</code> をつけなくても，エラーは出ず普通に動いてしまう．なぜ？</strong></p>
@@ -1107,9 +1136,11 @@ Kurasu.testfunc2(<span class="hljs-string">&quot;かきくけこ&quot;</span>)
 <pre><code class="lang-python">MyPage.is_displayed(Player())
 </code></pre>
 <p>と等価である．
-つまり， <code>is_displayed()</code> をインスタンスメソッドとしてではなくクラスに格納されている単なる関数として呼び出している．</p>
+つまり， oTree の本体は <code>is_displayed()</code> をインスタンスのメソッドとしてではなく，クラスから直接呼び出していて，引数は <code>player = Player()</code> のみを渡している．</p>
 </li>
-<li><p>インスタンスメソッドとして呼び出しているわけではないため，第1引数に自身のクラスのインスタンスオブジェクト（ここでは <code>MyPage()</code> ）を渡さず， <code>is_displayed()</code> を定義したときに記述した引数（ <code>player</code> ）として <code>Player</code> クラスのインスタンスオブジェクト <code>Player()</code> のみを渡している．</p>
+<li><p>ページクラスの中で <code>@staticmethod</code> をつけて定義した関数は，クラスから直接呼び出されても，あるいは仮にインスタンスのメソッドとして呼び出されたとしても， <code>player</code> オブジェクトだけを受け取って想定した挙動をしてくれる．</p>
+</li>
+<li><p>ページクラスの中で <code>@staticmethod</code> をつけずに定義した関数をクラスから直接呼び出すとき，通常は第1引数に当該クラスのインスタンスオブジェクト（ <code>self = MyPage()</code> ）を渡さないといけないが， oTree 本体は有無を言わさず <code>player = Player()</code> を渡す．引数に <code>self</code> を受け取って処理を行うような関数の定義をしていればエラーとなるが，公式ドキュメントの指示通り （ <code>self</code> ではなく） <code>player</code> オブジェクトを受け取るように定義していれば，想定した挙動をしてくれる．</p>
 </li>
 </ul>
 </li>
@@ -1133,20 +1164,18 @@ Kurasu.testfunc2(<span class="hljs-string">&quot;かきくけこ&quot;</span>)
 <li><p>なお，oTree 3 のような <code>self</code> を引数に取るスタイルでの関数定義は oTree 5 でも可能といえば可能だが，スタイルを完全に oTree 3 のスタイルにしなければならない．重要な点は <code>__init__.py</code> にデータモデルのクラスとページクラスの両方を定義するのではなく， <code>models.py</code> と <code>pages.py</code> に分離して定義しなければならないところである．実のところ，「 no-self format 」か否かの判定は <code>__init__.py</code> に <code>import</code> の文字列が含まれているかどうかで，含まれていれば「 no-self format 」として処理をする． <code>@staticmethod</code> がついているかどうか，とか，関数の引数が <code>self</code> か <code>player</code> か，とかはまったく関係ない．引数に <code>self</code> と書いてあっても，「 no-self format 」の場合は容赦なく <code>player</code> オブジェクトを渡してくる．</p>
 </li>
 </ul>
-</li>
-</ul>
 <h2 id="無限回繰り返しゲーム（繰り返しpd）">無限回繰り返しゲーム（繰り返しPD）</h2>
 <ul>
 <li><p><a href="https://github.com/snunnari/otree_repeated_prisoner" target="_blank">https://github.com/snunnari/otree_repeated_prisoner</a></p>
 </li>
-<li><p>ただし， oTree のバージョンが古い．バージョン5の書き方に翻訳したものはこちら:<br><a href="https://github.com/iserExperiment/otree_repeated_prisoner/tree/yshimod/updating" target="_blank">https://github.com/iserExperiment/otree_repeated_prisoner/tree/yshimod/updating</a>．</p>
+<li><p>ただし， oTree のバージョンが古い．バージョン5の書き方に翻訳したものはこちら:<br><a href="https://github.com/iserExperiment/otree_repeated_prisoner/tree/yshimod/updating" target="_blank">https://github.com/iserExperiment/otree_repeated_prisoner/tree/yshimod/updating</a></p>
 </li>
 </ul>
 <h3 id="確率的に繰り返しを終了するとき-numrounds-は最大数を設定する">確率的に繰り返しを終了するとき <code>NUM_ROUNDS</code> は最大数を設定する</h3>
 <ul>
 <li><p>oTree はサーバーを立ち上げる際にデータベースの列を作成している．</p>
 </li>
-<li><p>一度データベースの枠を作っておいてから，使わずに空欄のままにしておく分にはどうとでもなる．</p>
+<li><p>一度データベースの枠を多めに作っておいてから，使わずに空欄のままにしておく分にはどうとでもなる．</p>
 <ul>
 <li><p><code>NUM_ROUNDS = 100</code> としておくと，サーバーを立ち上げたときデータベースにラウンド数分の列を生成する．</p>
 </li>
@@ -1159,13 +1188,13 @@ Kurasu.testfunc2(<span class="hljs-string">&quot;かきくけこ&quot;</span>)
 </li>
 </ul>
 </li>
-<li><p>サーバーを立ち上げる際に（定数 <code>C</code> クラスにおいて）乱数を引き出して，確率的に決定されるラウンド数を予め決定してしまう，というのも手といえば手．</p>
+<li><p>サーバーを立ち上げる際に（定数 <code>C</code> クラスにおいて）乱数を引き出して，確率的に決定されるラウンド数を予め決定してしまう，というのも手．</p>
 </li>
 </ul>
 <ul>
 <li><p>最大数が定義できない場合や，データベースの列数が増えることによるパフォーマンス低下を避ける場合，ライブページと ExtraModel を使って実装するのが良い．</p>
 <ul>
-<li><p><a href="https://www.otreehub.com/projects/otree-more-demos/" target="_blank">https://www.otreehub.com/projects/otree-more-demos/</a> の「supergames_indefinite」．</p>
+<li><p><a href="https://www.otreehub.com/projects/otree-more-demos/" target="_blank">https://www.otreehub.com/projects/otree-more-demos/</a> の「supergames_indefinite」アプリ．</p>
 <ul>
 <li><p>ソースコード <a href="https://github.com/oTree-org/more-demos/tree/master/supergames_indefinite" target="_blank">https://github.com/oTree-org/more-demos/tree/master/supergames_indefinite</a></p>
 </li>
@@ -1198,7 +1227,7 @@ Kurasu.testfunc2(<span class="hljs-string">&quot;かきくけこ&quot;</span>)
 </li>
 <li><p>この作例では，指定時間を超えた場合にのみ表示する最終ページ（ <code>End</code> ）を用意し，そのページに「次へ」ボタンを置かないことにより，そこで終了（したことに）している．</p>
 <ul>
-<li><code>is_displayed()</code> や <code>app_after_this_page()</code> で最終ページに飛ばしているわけではなく，あくまでラウンドの途中で「次へ」進めなくしているだけなので，うっかり「Advance slowest user(s)」ボタンを押してしまうと，続きの新たなラウンドが始まってしまう．</li>
+<li>あくまでラウンド繰り返しの途中で「次へ」進めなくしているだけなので，うっかり「Advance slowest user(s)」ボタンを押してしまうと，続きの新たなラウンドが始まってしまう．</li>
 </ul>
 </li>
 <li><p>次のアプリに進める必要がある場合（たとえば繰り返しゲーム課題の後に質問紙調査がある場合），ちゃんと <code>is_displayed()</code> や <code>app_after_this_page()</code> を使ってページをスキップさせる必要がある．</p>
@@ -1254,7 +1283,7 @@ Kurasu.testfunc2(<span class="hljs-string">&quot;かきくけこ&quot;</span>)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第6回","level":"1.1.6","depth":2,"next":{"title":"第7回","level":"1.1.7","depth":2,"path":"day7.md","ref":"day7.md","articles":[]},"previous":{"title":"第5回","level":"1.1.5","depth":2,"path":"day5.md","ref":"day5.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day6.md","mtime":"2022-06-17T17:31:14.359Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-17T17:32:08.322Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第6回","level":"1.1.6","depth":2,"next":{"title":"第7回","level":"1.1.7","depth":2,"path":"day7.md","ref":"day7.md","articles":[]},"previous":{"title":"第5回","level":"1.1.5","depth":2,"path":"day5.md","ref":"day5.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day6.md","mtime":"2022-06-19T10:47:23.037Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-20T02:31:07.616Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

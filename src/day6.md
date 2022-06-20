@@ -7,6 +7,7 @@
 - 無限回繰り返しゲーム（確率的に繰り返しを終了する）
 
 
+---
 
 この勉強会を始める時点で，どのレベルの知識を知っているかという前提と，何ができるようになるかという目標を明確にしていなかったため，初心者向けを装いながら，これまでのところオタク向けの内容になっています．
 
@@ -26,6 +27,7 @@
 
 今回は完成したコードを読み下していきながら，特に oTree の組み込み関数の使い方を勉強していきます．
 
+---
 
 
 # oTree の組み込み関数の使い方
@@ -408,7 +410,9 @@
 
 - 一つのアプリを何回も繰り返す設定にしている場合（`NUM_ROUNDS` が 1よりも大きい場合），繰り返す度に（つまり subsession ごとに） group 編成を変更することができる．
 
-- subsession の途中で group 編成を変更することはできない．ただし，group 内での役割（`id_in_group`）は変更できる．
+- subsession の途中で group 編成を変更することはできない．
+
+    - ただし， subsession の途中でも， group 内での役割（`id_in_group`）は group の `set_players()` メソッドで変更できる．
 
 - `creating_session()` はセッションを作成するタイミングで実行されるので， `creating_session()` では意思決定に応じて group 編成を変更することはできない．
 
@@ -502,12 +506,21 @@
 
 - タイムアウトするとページのフォームが自動送信される．
 
-    - 送信されるデータは，（`initial` が設定されていなければ） `BooleanField` なら `False`， `IntegerField` や `FloatField` なら `0`， `StringField` なら `""`．
+    - どんな値が自動送信されても，エラーが表示されることなく次のページへ遷移する．
 
-        - この値を変更したい場合は，ページクラスの組み込みメソッド `before_next_page()` の中で `timeout_happened == True` なる player に対し処理を行う．
+    - 入力フォームに数値などが途中まで入力してあって放置されている状態のとき，タイムアウトの時点で入力されていた値が送信される．
+
+    - 値として適切である場合のみ（たとえば `models.FloatField` としてある入力フォームに文字列ではなく数値が入力されている場合など）ちゃんと記録される．
+
+    - 入力フォームが空の場合，あるいは値として不適切な場合，記録されるデータは，（`initial` が設定されていなければ） `BooleanField` なら `False`， `IntegerField` や `FloatField` なら `0`， `StringField` なら `""`．
+
+    - 自動送信されて記録された値を変更したい場合は，ページクラスの組み込みメソッド `before_next_page()` の中で `timeout_happened == True` なる player に対し処理を行う．
 
     - `otree prodserver` でサーバーを起動している場合のみ，クライアントがブラウザーを閉じているときにタイムアウトが発生すると，クライアントの代わりに，サーバーが自分宛てにフォームを送信する．
 
+- 「Advance slowest user(s)」ボタンで次のページへ遷移させた場合も，当該ページでタイムアウトしたのと同じ処理が行われる．
+
+    - ただし，サーバーが自分宛てにフォームを送信するので，クライアントで入力フォームに何か入力されていても，その値を取得することはできない．
 
 - [https://otree.readthedocs.io/en/latest/timeouts.html](https://otree.readthedocs.io/en/latest/timeouts.html)
 
@@ -523,6 +536,14 @@
 
 - 純粋な Python の機能の説明...
 
+    - 用語:
+
+        - 「メソッド」: クラスの中で定義した関数．
+
+        - 「インスタンス（オブジェクト）」: （操作的な定義） `Kurasu` という名前のクラスが定義してあるとき， `Kurasu()` はインスタンスオブジェクト．
+
+            - oTree でよく出てくる `player` や `group` はインスタンスオブジェクトが代入されたもの．つまり `player = Player()` ， `group = Group()` ．
+
     - たとえば，以下のようなクラスが定義してあるとする．
 
     ```python
@@ -534,7 +555,7 @@
             print(nanika)
     ```
 
-    - 関数 `testfunc1()` を `Kurasu` クラスのインスタンス（ `Kurasu()` ）のメソッドとして呼び出すとき，第1引数に自身のインスタンスオブジェクト（ `self` ）を受け取った状態の関数になっており，第2引数の `nanika` だけ渡せば良い．
+    - 関数 `testfunc1()` を `Kurasu` クラスのインスタンス（ `Kurasu()` ）のメソッドとして呼び出すとき，第1引数に自身のインスタンスオブジェクト（ `self = Kurasu()` ）を受け取った状態の関数になっており，第2引数の `nanika` だけ渡せば良い．
 
         - たとえば，
 
@@ -548,7 +569,7 @@
         とすると，「こんにちは」と「あいうえお」が出力される．
         `testfunc1()` の引数に，自分では `self` として何のオブジェクトも渡しておらず， `nanika` だけしか渡していないのに，ちゃんと動いていることに注目されたい．
 
-    - 関数 `testfunc1()` をクラスに格納されている単なる関数として呼び出すとき， `testfunc1()` の定義通り，ちゃんと第1引数に `self` として自身のインスタンスオブジェクト，第2引数に `nanika` を渡さなければならない．
+    - 関数 `testfunc1()` をクラスから直接呼び出すとき， `testfunc1()` の定義通り，ちゃんと第1引数に `self` として自身のインスタンスオブジェクト，第2引数に `nanika` を渡さなければならない．
 
         - たとえば，先ほどと同様，引数 `nanika` だけしか渡さない場合，
 
@@ -602,7 +623,7 @@
     この場合， `testfunc2()` がインスタンスメソッドとして呼び出されているので，第1変数として暗黙のうちに `Kurasu()` が引数として渡されている．
     しかし， `testfunc2()` を定義するときに `nanika` しか受け取らない，ということにしていたので，エラーが出た．
 
-    - 関数 `testfunc2()` を単なる関数として呼び出すとき， `@staticmethod` がついているか否かによらず，（ `Kurasu.testfunc1()` の場合と同様に） `testfunc2()` の定義で記述した引数をすべて渡さなければならない．
+    - 関数 `testfunc2()` をクラスから直接呼び出すとき， `@staticmethod` がついているか否かによらず，（ `Kurasu.testfunc1()` の場合と同様に） `testfunc2()` の定義で記述した引数をすべて渡さなければならない．
 
         - `@staticmethod` がついている場合．
 
@@ -627,48 +648,51 @@
         # かきくけこ
         ```
 
-    - 関数 `testfunc2()` を単なる関数として呼び出すとき， `@staticmethod` がついているか否かによらず，インスタンスメソッドとして呼び出したとき（ `kurasu.testfunc2()` のとき）と同じ挙動（引数 `nanika` だけ渡せば良い）となる．
+    - 関数 `testfunc2()` をクラスから直接呼び出すとき， `@staticmethod` がついているか否かによらず，インスタンスメソッドとして呼び出したとき（ `kurasu.testfunc2()` のとき）と同じ挙動（引数 `nanika` だけ渡せば良い）となる．
 
-    - **クラスの中で定義する関数で，自身のインスタンスオブジェクト（ `self` ）を第1引数として受け取りたくない場合， `@staticmethod` をつけなければならない**．
+- **クラスの中で定義する関数で，自身のインスタンスオブジェクト（ `self` ）を第1引数として受け取りたくない場合， `@staticmethod` をつけなければならない**．
 
-        - oTree で，たとえばページクラスの中で `is_displayed()` を定義するとき，ページクラス自身のインスタンスオブジェクトは不要であり，別クラスである `Player` の インスタンスオブジェクト `player` を引数に取る（ oTree 本体は `is_displayed()` なる関数が `player` のみを引数に取る，ということを前提としてコードが書かれている）．
-        - oTree 5 で組み込み関数（メソッド）はもはや `self` を引数にとる必要がなくなったため， `@staticmethod` をつけるべきである．
+    - oTree で，たとえばページクラスの中で `is_displayed()` を定義するとき，ページクラス自身のインスタンスオブジェクトは不要であり，別クラスである `Player` の インスタンスオブジェクト `player` を引数に取る（ oTree 本体は `is_displayed()` なる関数が `player` のみを引数に取る，ということを前提としてコードが書かれている）．
 
-    - **ところが，実のところ oTree は，ページクラスで組み込みのメソッドを定義する際に `@staticmethod` をつけなくても，エラーは出ず普通に動いてしまう．なぜ？**
+    - oTree 5 で組み込み関数（メソッド）はもはや `self` を引数にとる必要がなくなったため， `@staticmethod` をつけるべきである．
 
-        - oTree 本体は，たとえば `MyPage` クラスで定義した `is_displayed()` を呼び出すとき，
+- **ところが，実のところ oTree は，ページクラスで組み込みのメソッドを定義する際に `@staticmethod` をつけなくても，エラーは出ず普通に動いてしまう．なぜ？**
 
-        ```python
-        getattr(MyPage, "is_displayed")(Player())
-        ```
+    - oTree 本体は，たとえば `MyPage` クラスで定義した `is_displayed()` を呼び出すとき，
 
-        として呼び出している．これは，
+    ```python
+    getattr(MyPage, "is_displayed")(Player())
+    ```
 
-        ```python
-        MyPage.is_displayed(Player())
-        ```
+    として呼び出している．これは，
 
-        と等価である．
-        つまり， `is_displayed()` をインスタンスメソッドとしてではなくクラスに格納されている単なる関数として呼び出している．
+    ```python
+    MyPage.is_displayed(Player())
+    ```
 
-        - インスタンスメソッドとして呼び出しているわけではないため，第1引数に自身のクラスのインスタンスオブジェクト（ここでは `MyPage()` ）を渡さず， `is_displayed()` を定義したときに記述した引数（ `player` ）として `Player` クラスのインスタンスオブジェクト `Player()` のみを渡している．
+    と等価である．
+    つまり， oTree の本体は `is_displayed()` をインスタンスのメソッドとしてではなく，クラスから直接呼び出していて，引数は `player = Player()` のみを渡している．
 
-    - **つまり，関数を呼び出すときに `@staticmethod` の有無で挙動が変わるような呼び出し方をしていないため， `@staticmethod` をつけなくても，エラーが出ずに動く**．
+    - ページクラスの中で `@staticmethod` をつけて定義した関数は，クラスから直接呼び出されても，あるいは仮にインスタンスのメソッドとして呼び出されたとしても， `player` オブジェクトだけを受け取って想定した挙動をしてくれる．
 
-    - では， `@staticmethod` はつけなくても良いか？
+    - ページクラスの中で `@staticmethod` をつけずに定義した関数をクラスから直接呼び出すとき，通常は第1引数に当該クラスのインスタンスオブジェクト（ `self = MyPage()` ）を渡さないといけないが， oTree 本体は有無を言わさず `player = Player()` を渡す．引数に `self` を受け取って処理を行うような関数の定義をしていればエラーとなるが，公式ドキュメントの指示通り （ `self` ではなく） `player` オブジェクトを受け取るように定義していれば，想定した挙動をしてくれる．
 
-        - 公式ドキュメントではつけなくても良いと言っている．  
-        [https://otree.readthedocs.io/en/latest/install-nostudio.html#about-staticmethod-etc](https://otree.readthedocs.io/en/latest/install-nostudio.html#about-staticmethod-etc)
+- **つまり，関数を呼び出すときに `@staticmethod` の有無で挙動が変わるような呼び出し方をしていないため， `@staticmethod` をつけなくても，エラーが出ずに動く**．
 
-        - Python 学習者は，クラスで `self` を第1引数で受け取らない関数には `@staticmethod` をつけるクセをつけたほうが良い．
+- では， `@staticmethod` はつけなくても良いか？
 
-        - 動けば良い，ではトラブルシューティングで苦労する．
+    - 公式ドキュメントではつけなくても良いと言っている．  
+    [https://otree.readthedocs.io/en/latest/install-nostudio.html#about-staticmethod-etc](https://otree.readthedocs.io/en/latest/install-nostudio.html#about-staticmethod-etc)
 
-    - oTree 3 では，ページクラス自身のインスタンスオブジェクト（ `self` ）を受け取り，そこから `player` オブジェクトを取り出していた．
+    - Python 学習者は，クラスで `self` を第1引数で受け取らない関数には `@staticmethod` をつけるクセをつけたほうが良い．
 
-        - oTree 5 へのアップデートで，組み込みの関数において実験データにアクセスする際にいちいち `self` から取り出す必要がなくなったことは（利点かどうかは別として）大きな特徴である．oTree の著者も， v5 のスタイルを「 no-self format 」と呼んでいる．
+    - 動けば良い，ではトラブルシューティングで苦労する．
 
-    - なお，oTree 3 のような `self` を引数に取るスタイルでの関数定義は oTree 5 でも可能といえば可能だが，スタイルを完全に oTree 3 のスタイルにしなければならない．重要な点は `__init__.py` にデータモデルのクラスとページクラスの両方を定義するのではなく， `models.py` と `pages.py` に分離して定義しなければならないところである．実のところ，「 no-self format 」か否かの判定は `__init__.py` に `import` の文字列が含まれているかどうかで，含まれていれば「 no-self format 」として処理をする． `@staticmethod` がついているかどうか，とか，関数の引数が `self` か `player` か，とかはまったく関係ない．引数に `self` と書いてあっても，「 no-self format 」の場合は容赦なく `player` オブジェクトを渡してくる．
+- oTree 3 では，ページクラス自身のインスタンスオブジェクト（ `self` ）を受け取り，そこから `player` オブジェクトを取り出していた．
+
+    - oTree 5 へのアップデートで，組み込みの関数において実験データにアクセスする際にいちいち `self` から取り出す必要がなくなったことは（利点かどうかは別として）大きな特徴である．oTree の著者も， v5 のスタイルを「 no-self format 」と呼んでいる．
+
+- なお，oTree 3 のような `self` を引数に取るスタイルでの関数定義は oTree 5 でも可能といえば可能だが，スタイルを完全に oTree 3 のスタイルにしなければならない．重要な点は `__init__.py` にデータモデルのクラスとページクラスの両方を定義するのではなく， `models.py` と `pages.py` に分離して定義しなければならないところである．実のところ，「 no-self format 」か否かの判定は `__init__.py` に `import` の文字列が含まれているかどうかで，含まれていれば「 no-self format 」として処理をする． `@staticmethod` がついているかどうか，とか，関数の引数が `self` か `player` か，とかはまったく関係ない．引数に `self` と書いてあっても，「 no-self format 」の場合は容赦なく `player` オブジェクトを渡してくる．
 
 
 ## 無限回繰り返しゲーム（繰り返しPD）
@@ -676,14 +700,14 @@
 - [https://github.com/snunnari/otree_repeated_prisoner](https://github.com/snunnari/otree_repeated_prisoner)
 
 - ただし， oTree のバージョンが古い．バージョン5の書き方に翻訳したものはこちら:  
-[https://github.com/iserExperiment/otree_repeated_prisoner/tree/yshimod/updating](https://github.com/iserExperiment/otree_repeated_prisoner/tree/yshimod/updating)．
+[https://github.com/iserExperiment/otree_repeated_prisoner/tree/yshimod/updating](https://github.com/iserExperiment/otree_repeated_prisoner/tree/yshimod/updating)
 
 
 ### 確率的に繰り返しを終了するとき `NUM_ROUNDS` は最大数を設定する
 
 - oTree はサーバーを立ち上げる際にデータベースの列を作成している．
 
-- 一度データベースの枠を作っておいてから，使わずに空欄のままにしておく分にはどうとでもなる．
+- 一度データベースの枠を多めに作っておいてから，使わずに空欄のままにしておく分にはどうとでもなる．
 
     - `NUM_ROUNDS = 100` としておくと，サーバーを立ち上げたときデータベースにラウンド数分の列を生成する．
 
@@ -694,12 +718,12 @@
 
     - 途中でラウンド数を増やすことはできないため， `NUM_ROUNDS` で設定するラウンド数は大きくしないといけない．しかし， `NUM_ROUNDS` を増やすほどデータベースの列数は増え，処理に時間がかかりパフォーマンスは悪化する（？）．
 
-- サーバーを立ち上げる際に（定数 `C` クラスにおいて）乱数を引き出して，確率的に決定されるラウンド数を予め決定してしまう，というのも手といえば手．
+- サーバーを立ち上げる際に（定数 `C` クラスにおいて）乱数を引き出して，確率的に決定されるラウンド数を予め決定してしまう，というのも手．
 
 
 - 最大数が定義できない場合や，データベースの列数が増えることによるパフォーマンス低下を避ける場合，ライブページと ExtraModel を使って実装するのが良い．
 
-    - [https://www.otreehub.com/projects/otree-more-demos/](https://www.otreehub.com/projects/otree-more-demos/) の「supergames_indefinite」．
+    - [https://www.otreehub.com/projects/otree-more-demos/](https://www.otreehub.com/projects/otree-more-demos/) の「supergames_indefinite」アプリ．
 
         -  ソースコード [https://github.com/oTree-org/more-demos/tree/master/supergames_indefinite](https://github.com/oTree-org/more-demos/tree/master/supergames_indefinite)
 
@@ -725,7 +749,7 @@
 
         - この作例では，指定時間を超えた場合にのみ表示する最終ページ（ `End` ）を用意し，そのページに「次へ」ボタンを置かないことにより，そこで終了（したことに）している．
 
-            - `is_displayed()` や `app_after_this_page()` で最終ページに飛ばしているわけではなく，あくまでラウンドの途中で「次へ」進めなくしているだけなので，うっかり「Advance slowest user(s)」ボタンを押してしまうと，続きの新たなラウンドが始まってしまう．
+            - あくまでラウンド繰り返しの途中で「次へ」進めなくしているだけなので，うっかり「Advance slowest user(s)」ボタンを押してしまうと，続きの新たなラウンドが始まってしまう．
 
         - 次のアプリに進める必要がある場合（たとえば繰り返しゲーム課題の後に質問紙調査がある場合），ちゃんと `is_displayed()` や `app_after_this_page()` を使ってページをスキップさせる必要がある．
 
