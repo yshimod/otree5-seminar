@@ -456,26 +456,684 @@
 <ul>
 <li>今後の予定<ul>
 <li>第7回: 質問紙調査（画面のデザイン，JavaScript，CSS，Bootstrap）</li>
-<li>第8回: 連続時間ダブルオークション（ライブページとExtraModel）</li>
+<li>6月30日・7月7日: 演習の時間</li>
+<li>第8回（7/14）: 連続時間ダブルオークション（ライブページとExtraModel）</li>
 <li>第回: 補遺</li>
 </ul>
 </li>
 </ul>
+<ul>
+<li><span style="color: red;">6月30日・7月7日: 演習の時間（特にマスターの学生を対象）</span><ul>
+<li>課題: 次の論文での実験を実装する<br><a href="https://www.sciencedirect.com/science/article/pii/S0167268116301366" target="_blank">https://www.sciencedirect.com/science/article/pii/S0167268116301366</a><br>Rodriguez-Lara, I. (2016). Equity and bargaining power in ultimatum games. <em>Journal of Economic Behavior &amp; Organization</em>, 130, 144-165.<ul>
+<li>エフォートタスクは実装しなくても良い．</li>
+<li>実装の優先順位は...<ol>
+<li>Ultimatum game (Scenario 1) だけでも完成させる．</li>
+<li>No-veto-cost game (Scenario 2) も完成させる．<ul>
+<li>ただし最終的な報酬までは計算しなくても良い．</li>
+<li>2つのゲームで対戦相手を変えられるように，アプリの繰り返し（ <code>NUM_ROUNDS = 2</code> ）として2つのゲームをプレイするようにする機構を実装する．</li>
+</ul>
+</li>
+<li>最終的な報酬として，2つのゲームのどちらかをランダムに選ぶ機構を実装する．</li>
+<li><code>SESSION_CONFIGS</code> で定義する変数を使って，2つのゲームの順番を変える機構を実装する．</li>
+<li>インストラクションを実装する．</li>
+<li>エフォートタスクを実装する．</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>前日までにコードを提出してもらえたら，当日，Zoomで添削しながら解説します．</li>
+<li>完成しなかった場合は，途中までで提出して，何が分からなかったのかをお知らせください．</li>
+<li>誰も提出してくれなかった場合は，当日ゼロからコードを書いていく様子をZoomでお見せすることになってしまいます．</li>
+</ul>
+</li>
+</ul>
 <h1 id="（qualtricsのような）質問紙調査を作る方法">（Qualtricsのような）質問紙調査を作る方法</h1>
+<ul>
+<li>今日のゴール<ul>
+<li>コード <a href="https://github.com/yshimod/otree_survey" target="_blank">https://github.com/yshimod/otree_survey</a></li>
+<li>デモページ <a href="https://otree-seminar-survey-sample.herokuapp.com/demo" target="_blank">https://otree-seminar-survey-sample.herokuapp.com/demo</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="定数-c-クラスに質問紙調査の「素材」を定義しておく">定数 <code>C</code> クラスに質問紙調査の「素材」を定義しておく</h2>
+<ul>
+<li><p>質問文・選択肢・正答などを1箇所にまとめて定義しておいたほうが管理しやすい．</p>
+</li>
+<li><p>辞書型で定義すると良い．</p>
+<pre><code class="lang-python"><span class="hljs-comment">## Frederick, S. (2005).</span>
+<span class="hljs-comment">## &quot;Cognitive reflection and decision making,&quot;</span>
+<span class="hljs-comment">## Journal of Economic perspectives, 19(4), 25-42.</span>
+materials_crt = {
+    <span class="hljs-string">&quot;field&quot;</span>: models.FloatField,
+    <span class="hljs-string">&quot;items&quot;</span>: {
+        <span class="hljs-string">&quot;crt1&quot;</span>: {
+            <span class="hljs-string">&quot;question&quot;</span>: <span class="hljs-string">&quot;&quot;&quot;
+                A bat and a ball cost $1.10 in total.
+                The bat costs $1.00 more than the ball.
+                How much does the ball cost?
+            &quot;&quot;&quot;</span>,
+            <span class="hljs-string">&quot;unit&quot;</span>: <span class="hljs-string">&quot;cent(s)&quot;</span>,
+            <span class="hljs-string">&quot;correct&quot;</span>: <span class="hljs-number">5.0</span>
+        },
+        <span class="hljs-string">&quot;crt2&quot;</span>: {
+            <span class="hljs-string">&quot;question&quot;</span>: <span class="hljs-string">&quot;&quot;&quot;
+                If it takes 5 machines 5 minutes to make 5 widgets,
+                how long would it take 100 machines to make 100 widgets?
+            &quot;&quot;&quot;</span>,
+            <span class="hljs-string">&quot;unit&quot;</span>: <span class="hljs-string">&quot;minute(s)&quot;</span>,
+            <span class="hljs-string">&quot;correct&quot;</span>: <span class="hljs-number">5.0</span>
+        },
+        <span class="hljs-string">&quot;crt3&quot;</span>: {
+            <span class="hljs-string">&quot;question&quot;</span>: <span class="hljs-string">&quot;&quot;&quot;
+                In a lake, there is a patch of lily pads.
+                Every day, the patch doubles in size.
+                If it takes 48 days for the patch to cover the entire lake,
+                how long would it take for the patch to cover half of the lake?
+            &quot;&quot;&quot;</span>,
+            <span class="hljs-string">&quot;unit&quot;</span>: <span class="hljs-string">&quot;day(s)&quot;</span>,
+            <span class="hljs-string">&quot;correct&quot;</span>: <span class="hljs-number">47</span>
+        }
+    }
+}
+
+<span class="hljs-comment">## Yamagishi, T. &amp; Yamagishi, M. (1994).</span>
+<span class="hljs-comment">## &quot;Trust and commitment in the United States and Japan,&quot;</span>
+<span class="hljs-comment">## Motivation and Emotion, 18, 129-166.</span>
+materials_gentrust = {
+    <span class="hljs-string">&quot;field&quot;</span>: models.IntegerField,
+    <span class="hljs-string">&quot;opts&quot;</span>: [
+        [<span class="hljs-number">1</span>, <span class="hljs-string">&quot;Strongly Disagree&quot;</span>],
+        [<span class="hljs-number">2</span>, <span class="hljs-string">&quot;Disagree&quot;</span>],
+        [<span class="hljs-number">3</span>, <span class="hljs-string">&quot;Neutral&quot;</span>],
+        [<span class="hljs-number">4</span>, <span class="hljs-string">&quot;Agree&quot;</span>],
+        [<span class="hljs-number">5</span>, <span class="hljs-string">&quot;Strongly Agree&quot;</span>]
+    ],
+    <span class="hljs-string">&quot;items&quot;</span>: {
+        <span class="hljs-string">&quot;gentrust1&quot;</span>: <span class="hljs-string">&quot;Most people are basically honest.&quot;</span>,
+        <span class="hljs-string">&quot;gentrust2&quot;</span>: <span class="hljs-string">&quot;Most people are trustworthy.&quot;</span>,
+        <span class="hljs-string">&quot;gentrust3&quot;</span>: <span class="hljs-string">&quot;Most people are basically good and kind.&quot;</span>,
+        <span class="hljs-string">&quot;gentrust4&quot;</span>: <span class="hljs-string">&quot;Most people are trustful of others.&quot;</span>,
+        <span class="hljs-string">&quot;gentrust5&quot;</span>: <span class="hljs-string">&quot;I am trustful.&quot;</span>,
+        <span class="hljs-string">&quot;gentrust6&quot;</span>: <span class="hljs-string">&quot;Most people will respond in kind when they are trusted by others.&quot;</span>
+    }
+}
+</code></pre>
+</li>
+</ul>
+<ul>
+<li><p>Python で辞書型のオブジェクトを定義するには，JSONのように <code>{ }</code> の中に <code>&quot;key&quot;: value</code> をコンマで区切って並べる．あるいは， <code>dict(key1 = value1, key2 = value2)</code> というように定義しても良い．</p>
+</li>
+<li><p>質問文など長文を定義するとき，三重引用符 <code>&quot;&quot;&quot; &quot;&quot;&quot;</code> で括れば途中に改行を入れても良い．文字列には改行文字（ <code>\n</code> ）やインデント用に入れてある空白文字がそのまま入る．ただし，その文字列がテンプレートで展開されるときには改行文字は無視される．</p>
+</li>
+</ul>
 <h2 id="データモデルでたくさんの変数を定義する">データモデルでたくさんの変数を定義する</h2>
 <ul>
-<li><a href="https://otree.readthedocs.io/en/latest/misc/tips_and_tricks.html#how-to-make-many-fields" target="_blank">https://otree.readthedocs.io/en/latest/misc/tips_and_tricks.html#how-to-make-many-fields</a></li>
-<li><code>setattr(Player, &quot;変数名&quot;, models.*Field())</code> をforループで回す．</li>
-<li><code>error_message()</code> を定義する．</li>
+<li><p><a href="https://otree.readthedocs.io/en/latest/misc/tips_and_tricks.html#how-to-make-many-fields" target="_blank">https://otree.readthedocs.io/en/latest/misc/tips_and_tricks.html#how-to-make-many-fields</a></p>
+</li>
+<li><p><code>Player</code> クラスの外側（下側）で， <code>setattr(Player, &quot;変数名&quot;, models.*Field())</code> をforループで回す．</p>
+<ul>
+<li><p><code>setattr()</code> は，第2引数の文字列の名前の変数に，第3引数の値（たとえば <code>models.IntegerField()</code> ）を代入したものを，第1引数のオブジェクト（たとえば <code>Player</code> クラス）に追加する．</p>
+<pre><code class="lang-python"><span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">in</span> C.materials_crt[<span class="hljs-string">&quot;items&quot;</span>].items():
+  <span class="hljs-built_in">setattr</span>(
+      Player,
+      k,
+      C.materials_crt[<span class="hljs-string">&quot;field&quot;</span>](
+          label = v[<span class="hljs-string">&quot;question&quot;</span>],
+          help_text = v[<span class="hljs-string">&quot;unit&quot;</span>]
+      )
+  )
+
+<span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">in</span> C.materials_gentrust[<span class="hljs-string">&quot;items&quot;</span>].items():
+  <span class="hljs-built_in">setattr</span>(
+      Player,
+      k,
+      C.materials_gentrust[<span class="hljs-string">&quot;field&quot;</span>](
+          label = v,
+          choices = C.materials_gentrust[<span class="hljs-string">&quot;opts&quot;</span>],
+          widget = widgets.RadioSelectHorizontal
+      )
+  )
+</code></pre>
+</li>
+<li><p>↑ は <code>C</code> クラスで定義しておいた辞書オブジェクト <code>materials_crt</code> の <code>items</code> なる要素について， <code>.items()</code> メソッドでキーと値をそれぞれ <code>k</code> と <code>v</code> としてforループで取り出し，ループの中で <code>setattr()</code> を使う．</p>
+</li>
+<li><p><code>setattr()</code> は <code>materials_crt</code> の <code>field</code> なる要素で定義したもの（ <code>models.FloatField</code> ）を呼び出して使っているが，これは以下の記述と等価．</p>
+<pre><code class="lang-python"><span class="hljs-built_in">setattr</span>(
+  Player,
+  k,
+  models.FloatField(
+      label = v[<span class="hljs-string">&quot;question&quot;</span>],
+      help_text = v[<span class="hljs-string">&quot;unit&quot;</span>]
+  )
+)
+</code></pre>
+</li>
 </ul>
-<h2 id="テンプレートタグで入力フォームを作る">テンプレートタグで入力フォームを作る</h2>
+</li>
+</ul>
+<h2 id="入力フォームの順番をランダム化する">入力フォームの順番をランダム化する</h2>
 <ul>
 <li><a href="https://otree.readthedocs.io/en/latest/forms.html#customizing-a-field-s-appearance" target="_blank">https://otree.readthedocs.io/en/latest/forms.html#customizing-a-field-s-appearance</a></li>
-<li><code>get_form_fields()</code> を使って入力フォームの順番をランダム化する</li>
+</ul>
+<ul>
+<li>テンプレートで <code>{{ formfields }}</code> タグなどを使って入力フォームを作るとき，入力フォームの順番は，ページクラスの <code>form_fields</code> に渡したリストの順番となる． <code>get_form_fields()</code> を定義した場合はその返り値のリストの順番が優先される．</li>
+</ul>
+<ul>
+<li><p>乱数を引く処理を行う場合，乱数は一度だけ引き，その結果を記録しておくと良い．たとえば， <code>creating_session()</code> の中でリストを並び替え，その結果を <code>json.dumps()</code> を使ってJSON文字列に変換し， player モデルの変数（ <code>order_crt = models.LongStringField()</code> と定義してある）に記録しておく．</p>
+<pre><code class="lang-python"><span class="hljs-comment"># import random</span>
+<span class="hljs-comment"># import json</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">creating_session</span>(<span class="hljs-params">subsession: Subsession</span>):</span>
+    list_crt = [k <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> C.materials_crt[<span class="hljs-string">&quot;items&quot;</span>].keys()]
+
+    <span class="hljs-comment">## 全ての player について乱数を引いて結果を保存しておく</span>
+    <span class="hljs-keyword">for</span> p <span class="hljs-keyword">in</span> subsession.get_players():
+        p.order_crt = json.dumps(
+            random.sample(list_crt, <span class="hljs-built_in">len</span>(list_crt))
+        )
+</code></pre>
+<ul>
+<li>「JSON文字列」とは， <code>&apos;[&quot;crt3&quot;, &quot;crt2&quot;, &quot;crt1&quot;]&apos;</code> のように変換された文字列．</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><code>get_form_fields()</code> において，JSON文字列として記録してある変数名のリストを <code>json.loads()</code> でパース（Pythonがリストとして扱えるように変換）してから返す．</p>
+<pre><code class="lang-python"><span class="hljs-comment"># import json</span>
+<span class="hljs-meta">@staticmethod</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_form_fields</span>(<span class="hljs-params">player: Player</span>):</span>
+    <span class="hljs-keyword">return</span> json.loads(player.order_crt)
+</code></pre>
+</li>
+</ul>
+<ul>
+<li><p>したがって，入力フォームの順番をランダム化するには， <code>get_form_fields()</code> の中で乱数を引いてリストの要素を並び替えたものを返せば良さそう．たとえば以下のような実装が考えられる（が，おすすめできない）．</p>
+<pre><code class="lang-python"><span class="hljs-comment"># import random</span>
+<span class="hljs-meta">@staticmethod</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_form_fields</span>(<span class="hljs-params">player: Player</span>):</span>
+    list_crt = [k <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> C.materials_crt[<span class="hljs-string">&quot;items&quot;</span>].keys()]    <span class="hljs-comment">## 変数名（文字列）のリスト</span>
+    new_list_crt = random.sample(list_crt, <span class="hljs-built_in">len</span>(list_crt))    <span class="hljs-comment">## 破壊的に並び替える random.shuffle() を使っても良い</span>
+
+    <span class="hljs-keyword">return</span> new_list_crt
+</code></pre>
+<ul>
+<li><code>get_form_fields()</code> はページを読み込む度に実行されるため，↑ の実装だと，画面を更新する度にフォームの順番が並び替えられてしまう．</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>セッション作成時に呼び出される <code>creating_session()</code> ではなく，どうしても <code>get_form_fields()</code> の中で乱数を引きたい場合，結果が記録されていない場合（ <code>player.field_maybe_none(&quot;order_crt&quot;) == None</code> ）にのみ乱数を引くような実装にしたほうが良い．たとえば以下のような実装．</p>
+<pre><code class="lang-python"><span class="hljs-comment"># import random</span>
+<span class="hljs-comment"># import json</span>
+<span class="hljs-meta">@staticmethod</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_form_fields</span>(<span class="hljs-params">player: Player</span>):</span>
+    <span class="hljs-keyword">if</span> player.field_maybe_none(<span class="hljs-string">&quot;order_crt&quot;</span>) == <span class="hljs-literal">None</span>:
+        list_crt = [k <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> C.materials_crt[<span class="hljs-string">&quot;items&quot;</span>].keys()]
+
+        player.order_crt = json.dumps(
+            random.sample(list_crt, <span class="hljs-built_in">len</span>(list_crt))
+        )
+
+    <span class="hljs-keyword">return</span> json.loads(player.order_crt)
+</code></pre>
+<ul>
+<li>変数が <code>None</code> か否かを判定するときに直接 <code>player.order_crt == None</code> として比較すると，（本当に <code>None</code> の場合）エラーとなるので，組み込みメソッド <code>.field_maybe_none()</code> を使う．</li>
+</ul>
+</li>
+</ul>
+<h2 id="ページの順番をランダム化する">ページの順番をランダム化する</h2>
+<ul>
+<li><p>テンプレートファイル（たとえば <code>survey_template.html</code> ）を複数ページで共通化する．必要に応じて，テンプレートの中で <code>{{ if }}</code> タグを使い，変数を使った条件分岐で中身を変える．</p>
+<ul>
+<li>とりあえず <code>survey_template.html</code> のブロックコンテンツには最低限 <code>{{ formfields }}</code> と <code>{{ next_button }}</code> だけ書いておく．</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>ページクラスで共通のテンプレートファイルを読み込むように設定する．</p>
+<pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Survey1</span>(<span class="hljs-params">Page</span>):</span>
+    template_name = __name__ + <span class="hljs-string">&quot;/survey_template.html&quot;</span>
+    form_model = <span class="hljs-string">&quot;player&quot;</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Survey2</span>(<span class="hljs-params">Page</span>):</span>
+    template_name = __name__ + <span class="hljs-string">&quot;/survey_template.html&quot;</span>
+    form_model = <span class="hljs-string">&quot;player&quot;</span>
+</code></pre>
+</li>
+</ul>
+<ul>
+<li><p>各ページのクラスで定義する <code>get_form_fields()</code> を，共通化する．</p>
+<ul>
+<li><p>ページクラスの外側で，自前の関数として以下を定義する．</p>
+<pre><code class="lang-python"><span class="hljs-comment"># import json</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">my_get_form_fields</span>(<span class="hljs-params">player: Player, idx</span>):</span>
+  <span class="hljs-keyword">if</span> json.loads(player.order_pages)[idx - <span class="hljs-number">1</span>] == <span class="hljs-string">&quot;crt&quot;</span>:
+      <span class="hljs-keyword">return</span> json.loads(player.order_crt)
+  <span class="hljs-keyword">else</span>:
+      <span class="hljs-keyword">return</span> json.loads(player.order_gentrust)
+</code></pre>
+</li>
+<li><p>各ページのクラスで，自前の関数を組み込みメソッド <code>get_form_fields()</code> の中で呼び出す．</p>
+<pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Survey1</span>(<span class="hljs-params">Page</span>):</span>
+  template_name = __name__ + <span class="hljs-string">&quot;/survey_template.html&quot;</span>
+  form_model = <span class="hljs-string">&quot;player&quot;</span>
+
+<span class="hljs-meta">  @staticmethod</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_form_fields</span>(<span class="hljs-params">player: Player</span>):</span>
+      <span class="hljs-keyword">return</span> my_get_form_fields(player, <span class="hljs-number">1</span>)
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Survey2</span>(<span class="hljs-params">Page</span>):</span>
+  template_name = __name__ + <span class="hljs-string">&quot;/survey_template.html&quot;</span>
+  form_model = <span class="hljs-string">&quot;player&quot;</span>
+
+<span class="hljs-meta">  @staticmethod</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_form_fields</span>(<span class="hljs-params">player: Player</span>):</span>
+      <span class="hljs-keyword">return</span> my_get_form_fields(player, <span class="hljs-number">2</span>)
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>ページの順番のリストを <code>creating_session()</code> の中で乱数を引いて決定する．なお，あらかじめ順番を記録しておく変数 <code>order_pages</code> と <code>order_crt</code> と <code>order_gentrust</code> を <code>models.LongStringField</code> で定義しておく．</p>
+<pre><code class="lang-python"><span class="hljs-comment"># import random</span>
+<span class="hljs-comment"># import json</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">creating_session</span>(<span class="hljs-params">subsession: Subsession</span>):</span>
+    list_crt = [k <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> C.materials_crt[<span class="hljs-string">&quot;items&quot;</span>].keys()]
+    list_gentrust = [k <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> C.materials_gentrust[<span class="hljs-string">&quot;items&quot;</span>].keys()]
+
+    <span class="hljs-comment">## 全ての player について乱数を引いて結果を保存しておく</span>
+    <span class="hljs-keyword">for</span> p <span class="hljs-keyword">in</span> subsession.get_players():
+        p.order_pages = json.dumps(
+            random.sample([<span class="hljs-string">&quot;crt&quot;</span>, <span class="hljs-string">&quot;gentrust&quot;</span>], <span class="hljs-number">2</span>)
+        )
+
+        p.order_crt = json.dumps(
+            random.sample(list_crt, <span class="hljs-built_in">len</span>(list_crt))
+        )
+
+        p.order_gentrust = json.dumps(
+            random.sample(list_gentrust, <span class="hljs-built_in">len</span>(list_gentrust))
+        )
+</code></pre>
+</li>
+</ul>
+<h2 id="css">CSS</h2>
+<ul>
+<li>テンプレートで <code>{{ formfields }}</code> タグを使って入力フォームを作ると，あまりにもデザインがダサく辟易してしまう．</li>
+</ul>
+<ul>
+<li><p>CSS を指定してスタイルを変更する．</p>
+<ul>
+<li><a href="https://otree.readthedocs.io/en/latest/templates.html#javascript-and-css" target="_blank">https://otree.readthedocs.io/en/latest/templates.html#javascript-and-css</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>CSS を指定するには，以下の3通り．</p>
+<ul>
+<li><p>テンプレートファイルの HTML タグに <code>style</code> 属性を加える．</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;font-weight: bold;&quot;</span>&gt;</span>以下の質問にご回答ください．<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+</code></pre>
+</li>
+<li><p>テンプレートファイルに <code>{{ block styles }} {{ endblock }}</code> を置き，その中に<code>&lt;style&gt;</code> タグで CSS を書く．</p>
+<pre><code class="lang-html">{{ block title }}
+  タイトル
+{{ endblock }}
+
+{{ block styles }}
+  <span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/css&quot;</span>&gt;</span><span class="css">
+      <span class="hljs-selector-class">.mypstyle</span>{
+          <span class="hljs-attribute">font-weight</span>: bold;
+      }
+  </span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
+{{ endblock }}
+
+{{ block content }}
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;mypstyle&quot;</span>&gt;</span>以下の質問にご回答ください．<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+  {{ formfields }}
+  {{ next_button }}
+{{ endblock }}
+</code></pre>
+<ul>
+<li><code>{{ block content }} {{ endblock }}</code> の中に直接 <code>&lt;style&gt;</code> タグを書いても良い．ただし読み込まれる順番が遅くなる．</li>
+</ul>
+</li>
+<li><p>CSS ファイル（ <code>mystyles.css</code> ）を作成して， <code>_static/global</code> などに入れておき，それを読み込む．</p>
+<pre><code class="lang-html">{{ block title }}
+  タイトル
+{{ endblock }}
+
+{{ block styles }}
+  <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;{{ static &apos;global/mystyles.css&apos; }}&quot;</span>&gt;</span>
+{{ endblock }}
+
+{{ block content }}
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;mypstyle&quot;</span>&gt;</span>以下の質問にご回答ください．<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+  {{ formfields }}
+  {{ next_button }}
+{{ endblock }}
+</code></pre>
+<p>CSS ファイル <code>mystyles.css</code> の中身は以下．</p>
+<pre><code class="lang-css"><span class="hljs-selector-class">.mypstyle</span>{
+  <span class="hljs-attribute">font-weight</span>: bold;
+}
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>ブラウザで HTML の要素を検証し， oTree 組み込みの CSS セレクタを見つけ，それをカスタマイズすればよい．</p>
+<ul>
+<li><p><a href="https://otree.readthedocs.io/en/latest/templates.html#customizing-the-theme" target="_blank">https://otree.readthedocs.io/en/latest/templates.html#customizing-the-theme</a></p>
+</li>
+<li><p>たとえば「次へ」ボタンを右寄せにしたい場合，以下のように CSS を設定する．</p>
+<pre><code class="lang-css"><span class="hljs-selector-class">.otree-btn-next</span> {
+  <span class="hljs-attribute">display</span>: block;
+  <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> auto;
+}
+</code></pre>
+</li>
+</ul>
+</li>
 </ul>
 <h2 id="bootstrap">Bootstrap</h2>
-<h2 id="css">CSS</h2>
+<ul>
+<li><p>oTree ではデフォルトで Bootstrap が読み込まれている．</p>
+<ul>
+<li><p><a href="https://getbootstrap.com/docs/5.0/getting-started/introduction/" target="_blank">Bootstrap のドキュメント</a></p>
+</li>
+<li><p>Bootstrap のバージョンは 5.0.1 （oTree v5.8.5 において）．</p>
+</li>
+</ul>
+</li>
+<li><p>デフォルトで読み込まれているので，自分で読み込んではいけない．異なるバージョンを使うことはできない（？）．</p>
+</li>
+<li><p>ドキュメントで使いたい機能を検索して，コードの例をコピーする．</p>
+</li>
+<li><p>たとえば（いわゆる目玉のようなラジオボタンではなく）四角のボタンでラジオボタンを実装するには以下．</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn-group&quot;</span> <span class="hljs-attr">role</span>=<span class="hljs-string">&quot;group&quot;</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">&quot;Basic radio toggle button group&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn-check&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;{{ 変数名 }}&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;{{ 変数名 }}-1&quot;</span> <span class="hljs-attr">autocomplete</span>=<span class="hljs-string">&quot;off&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-outline-primary&quot;</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;{{ 変数名 }}-1&quot;</span>&gt;</span>Radio 1<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn-check&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;{{ 変数名 }}&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;{{ 変数名 }}-2&quot;</span> <span class="hljs-attr">autocomplete</span>=<span class="hljs-string">&quot;off&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-outline-primary&quot;</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;{{ 変数名 }}-2&quot;</span>&gt;</span>Radio 2<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn-check&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;{{ 変数名 }}&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;{{ 変数名 }}-3&quot;</span> <span class="hljs-attr">autocomplete</span>=<span class="hljs-string">&quot;off&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-outline-primary&quot;</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;{{ 変数名 }}-3&quot;</span>&gt;</span>Radio 3<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</code></pre>
+<ul>
+<li><a href="https://getbootstrap.com/docs/5.0/components/button-group/#checkbox-and-radio-button-groups" target="_blank">https://getbootstrap.com/docs/5.0/components/button-group/#checkbox-and-radio-button-groups</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>要素（たとえば入力フォームと説明文と画像）を画面に敷き詰める場合， Bootstrap の Grid system が有用．</p>
+<ul>
+<li><a href="https://getbootstrap.com/docs/5.0/layout/grid/" target="_blank">https://getbootstrap.com/docs/5.0/layout/grid/</a></li>
+</ul>
+</li>
+</ul>
 <h2 id="javascript">JavaScript</h2>
+<ul>
+<li>画面の表示内容を動的に書き換えたり，入力フォームの値の検証を自前で実装したりする場合には JavaScript を使う．</li>
+</ul>
+<ul>
+<li><p>JavaScript を使うには，以下の3通り．</p>
+<ul>
+<li><p>テンプレートファイルの HTML タグにたとえば <code>onclick</code> 属性を加える．</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;alert(&apos;ボタンが押されました！&apos;);&quot;</span>&gt;</span>
+</code></pre>
+</li>
+<li><p>テンプレートファイルに <code>{{ block scripts }} {{ endblock }}</code> を置き，その中に<code>&lt;script&gt;</code> タグで JavaScript コードを書く．</p>
+<pre><code class="lang-html">{{ block title }}
+  タイトル
+{{ endblock }}
+
+{{ block content }}
+  {{ formfields }}
+  {{ next_button }}
+{{ endblock }}
+
+{{ block scripts }}
+  <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+      alert(<span class="hljs-string">&quot;Hello World!&quot;</span>);
+  </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+{{ endblock }}
+</code></pre>
+</li>
+<li><p>JS ファイル（ <code>myscripts.js</code> ）を作成して， <code>_static/global</code> などに入れておき，それを読み込む．</p>
+<pre><code class="lang-html">{{ block title }}
+  タイトル
+{{ endblock }}
+
+{{ block content }}
+  {{ formfields }}
+  {{ next_button }}
+{{ endblock }}
+
+{{ block scripts }}
+  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;{{ static &apos;global/myscripts.js&apos; }}&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+{{ endblock }}
+</code></pre>
+<p>JS ファイル <code>myscripts.js</code> の中身は以下．</p>
+<pre><code class="lang-js">alert(<span class="hljs-string">&quot;Hello World!&quot;</span>);
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>oTree サーバーから JavaScript に変数を渡すには，ページクラスの組み込みメソッド <code>js_vars()</code> を使う．</p>
+<ul>
+<li><p>たとえば</p>
+<pre><code class="lang-python"><span class="hljs-meta">@staticmethod</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">js_vars</span>(<span class="hljs-params">player: Player</span>):</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">dict</span>(
+      testlist = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, <span class="hljs-number">10</span>, <span class="hljs-number">2</span>))
+  )
+</code></pre>
+<p>としたとき，クライアントに送信される HTML （タイトルの要素の直後，コンテンツブロックの要素の直前）には自動的に</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript"><span class="hljs-keyword">var</span> js_vars = {<span class="hljs-string">&quot;testlist&quot;</span>: [<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">6</span>, <span class="hljs-number">8</span>]};</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+<p>と展開されている．渡した変数を JavaScript で使うには，たとえば以下のようにする．</p>
+<pre><code class="lang-html">{{ block scripts }}
+  <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+      <span class="hljs-keyword">const</span> testlist = js_vars.testlist;
+      testlist.forEach(<span class="hljs-function"><span class="hljs-params">el</span> =&gt;</span> {
+          <span class="hljs-built_in">console</span>.log(el);
+      })
+  </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+{{ endblock }}
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>（作例）MPLでスイッチングポイントをクリックしたときに，自動的にラジオボタンが切り替える JavaScript コード:</p>
+<ul>
+<li><p>定数に <code>optR = [200, 250, 300, 350, 400]</code> を設定しておく．</p>
+</li>
+<li><p>player モデルで <code>switching_point</code> なる変数を <code>models.IntegerField()</code> で定義しておく．MPLの1行ずつデータを取りたい場合は各行に相当する変数を定義する．</p>
+<pre><code class="lang-html">{{ block title }}
+  タイトル
+{{ endblock }}
+
+{{ block content }}
+  <span class="hljs-tag">&lt;<span class="hljs-name">table</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>オプションL<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>オプションR<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+      {{ for v in C.optR }}
+          <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+              <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>50%の確率で650円<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+              <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;mpl_{{ forloop.counter0 }}&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;L_mpl_{{ forloop.counter0 }}&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;{{ forloop.counter0 }}&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;BtnChoice BtnL&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+              <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;mpl_{{ forloop.counter0 }}&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;R_mpl_{{ forloop.counter0 }}&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;{{ forloop.counter0 }}&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;BtnChoice BtnR&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+              <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>100%の確率で{{ v }}円<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+          <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+      {{ endfor }}
+  <span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;hidden&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;switching_point&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;id_switching_point&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;&quot;</span>&gt;</span>
+
+  {{ next_button }}
+{{ endblock }}
+
+{{ block scripts }}
+  <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+      <span class="hljs-keyword">const</span> listlength = <span class="hljs-number">5</span>;    <span class="hljs-comment">// 本当は js_vars から受け取ると良い．</span>
+      <span class="hljs-keyword">const</span> btnsAll = <span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">&apos;.BtnChoice&apos;</span>);
+      btnsAll.forEach(<span class="hljs-function"><span class="hljs-params">el</span> =&gt;</span> {
+          el.addEventListener(<span class="hljs-string">&apos;click&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+              <span class="hljs-keyword">let</span> switchingPoint;
+              <span class="hljs-keyword">const</span> tmpCol = el.id.slice(<span class="hljs-number">0</span>,<span class="hljs-number">1</span>);
+              <span class="hljs-built_in">console</span>.log(tmpCol);
+              <span class="hljs-keyword">if</span> (tmpCol == <span class="hljs-string">&quot;L&quot;</span>) {
+                  switchingPoint = <span class="hljs-built_in">parseInt</span>(el.name.slice(<span class="hljs-number">4</span>), <span class="hljs-number">10</span>) + <span class="hljs-number">1</span>;
+              }
+              <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (tmpCol == <span class="hljs-string">&quot;R&quot;</span>) {
+                  switchingPoint = <span class="hljs-built_in">parseInt</span>(el.name.slice(<span class="hljs-number">4</span>), <span class="hljs-number">10</span>);
+              }
+              <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;id_switching_point&quot;</span>).value = switchingPoint;
+
+              <span class="hljs-keyword">let</span> tmpRow;
+              <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; listlength; i++) {
+                  tmpRow = <span class="hljs-string">&apos;mpl_&apos;</span> + i;
+                  <span class="hljs-keyword">if</span> (i &lt; switchingPoint) {
+                      <span class="hljs-built_in">document</span>.getElementsByName(tmpRow)[<span class="hljs-number">0</span>].checked = <span class="hljs-literal">true</span>;
+                      <span class="hljs-built_in">document</span>.getElementsByName(tmpRow)[<span class="hljs-number">1</span>].checked = <span class="hljs-literal">false</span>;
+                  } <span class="hljs-keyword">else</span> {
+                      <span class="hljs-built_in">document</span>.getElementsByName(tmpRow)[<span class="hljs-number">0</span>].checked = <span class="hljs-literal">false</span>;
+                      <span class="hljs-built_in">document</span>.getElementsByName(tmpRow)[<span class="hljs-number">1</span>].checked = <span class="hljs-literal">true</span>;
+                  }
+              }
+          }, <span class="hljs-literal">false</span>);
+      })
+  </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+{{ endblock }}
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>oTree ではデフォルトで jQuery が読み込まれている．</p>
+<ul>
+<li><p><a href="https://api.jquery.com/" target="_blank">jQuery のドキュメント</a></p>
+</li>
+<li><p>jQuery のバージョンは 3.2.1 （oTree v5.8.5 において）．</p>
+</li>
+<li><p>JavaScript コードの中で <code>jQuery()</code> や <code>$()</code> で jQuery を呼び出す．</p>
+<ul>
+<li>たとえば <code>document.getElementById(&quot;id_something&quot;)</code> は <code>$(&quot;#id_something&quot;)</code> と似た機能．ただし後者は jQuery のオブジェクトが返ってくる．</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>JavaScript のライブラリを自分で読み込んで使っても良い．</p>
+<ul>
+<li><p>ライブラリをインストールするには， CDN を使うか，ダウンロードしたライブラリのコードを <code>_static</code> ディレクトリに置いておく．</p>
+</li>
+<li><p>oTree 公式ドキュメントでは <a href="https://www.highcharts.com/demo" target="_blank">HighCharts</a> を使っている．<br><a href="https://otree.readthedocs.io/en/latest/templates.html#charts" target="_blank">https://otree.readthedocs.io/en/latest/templates.html#charts</a></p>
+</li>
+<li><p>（日本語ドキュメントが豊富な） <a href="https://www.chartjs.org/" target="_blank">Chart.js</a> も有用．</p>
+<pre><code class="lang-html">{{ block title }}
+  タイトル
+{{ endblock }}
+
+{{ block content }}
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;row align-items-center&quot;</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;col-8&quot;</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;width: 480px; max-width: 100%; margin: auto;&quot;</span>&gt;</span>
+              <span class="hljs-tag">&lt;<span class="hljs-name">canvas</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;myChart&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;height: 300px; width: 100%;&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">canvas</span>&gt;</span>
+          <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;col-2&quot;</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-danger btn-lg&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;updateFunction()&quot;</span>&gt;</span>ボタン<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+  {{ next_button }}
+{{ endblock }}
+
+{{ block scripts }}
+  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js&quot;</span> <span class="hljs-attr">integrity</span>=<span class="hljs-string">&quot;sha256-cHVO4dqZfamRhWD7s4iXyaXWVK10odD+qp4xidFzqTI=&quot;</span> <span class="hljs-attr">crossorigin</span>=<span class="hljs-string">&quot;anonymous&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+      <span class="hljs-keyword">const</span> ctx = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;myChart&quot;</span>);
+      <span class="hljs-keyword">const</span> myChart = <span class="hljs-keyword">new</span> Chart(ctx, {
+          <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;bar&apos;</span>,
+          <span class="hljs-attr">data</span>: {
+              <span class="hljs-attr">labels</span>: [<span class="hljs-string">&apos;&apos;</span>],
+              <span class="hljs-attr">datasets</span>: [
+                  {
+                      <span class="hljs-attr">label</span>: <span class="hljs-string">&apos;ド&apos;</span>,
+                      <span class="hljs-attr">data</span>: [<span class="hljs-number">20</span>],
+                      <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">&quot;#ffcf00&quot;</span>,
+                      <span class="hljs-attr">stack</span>: <span class="hljs-string">&apos;stack1&apos;</span>
+                  },
+                  {
+                      <span class="hljs-attr">label</span>: <span class="hljs-string">&apos;イ&apos;</span>,
+                      <span class="hljs-attr">data</span>: [<span class="hljs-number">30</span>],
+                      <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">&quot;#dd0000&quot;</span>,
+                      <span class="hljs-attr">stack</span>: <span class="hljs-string">&apos;stack1&apos;</span>
+                  },
+                  {
+                      <span class="hljs-attr">label</span>: <span class="hljs-string">&apos;ツ&apos;</span>,
+                      <span class="hljs-attr">data</span>: [<span class="hljs-number">50</span>],
+                      <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">&quot;#000000&quot;</span>,
+                      <span class="hljs-attr">stack</span>: <span class="hljs-string">&apos;stack1&apos;</span>
+                  }
+              ],
+          },
+          <span class="hljs-attr">options</span>: {
+              <span class="hljs-attr">plugins</span>: {
+                  <span class="hljs-attr">title</span>: {
+                      <span class="hljs-attr">display</span>: <span class="hljs-literal">true</span>,
+                      <span class="hljs-attr">text</span>: <span class="hljs-string">&apos;ドイツの割合&apos;</span>
+                  },
+                  <span class="hljs-attr">legend</span>: {
+                      <span class="hljs-attr">position</span>: <span class="hljs-string">&apos;bottom&apos;</span>,
+                      <span class="hljs-attr">onClick</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> }
+                  },
+              },
+              <span class="hljs-attr">responsive</span>: <span class="hljs-literal">true</span>,
+              <span class="hljs-attr">tooltip</span>: {
+                  <span class="hljs-attr">mode</span>: <span class="hljs-string">&apos;index&apos;</span>
+              },
+              <span class="hljs-attr">hover</span>: <span class="hljs-literal">true</span>,
+              <span class="hljs-attr">scales</span>: {
+                  <span class="hljs-attr">y</span>: {
+                      <span class="hljs-attr">stacked</span>: <span class="hljs-literal">true</span>,
+                      <span class="hljs-attr">max</span>: <span class="hljs-number">100</span>
+                  }
+              }
+          }
+      });
+
+      <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">updateFunction</span>(<span class="hljs-params"></span>) </span>{
+          <span class="hljs-keyword">const</span> yellow = <span class="hljs-built_in">Math</span>.random();
+          <span class="hljs-keyword">const</span> red = <span class="hljs-built_in">Math</span>.random();
+          <span class="hljs-keyword">const</span> black = <span class="hljs-built_in">Math</span>.random();
+          <span class="hljs-keyword">const</span> totnum = yellow + red + black;
+
+          myChart.data.datasets[<span class="hljs-number">0</span>].data[<span class="hljs-number">0</span>] = <span class="hljs-number">100</span> * yellow / totnum;
+          myChart.data.datasets[<span class="hljs-number">1</span>].data[<span class="hljs-number">0</span>] = <span class="hljs-number">100</span> * red / totnum;
+          myChart.data.datasets[<span class="hljs-number">2</span>].data[<span class="hljs-number">0</span>] = <span class="hljs-number">100</span> * black / totnum;
+          myChart.update();
+      }
+  </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+{{ endblock }}
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
 
                                 
                                 </section>
@@ -519,7 +1177,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第7回","level":"1.1.7","depth":2,"next":{"title":"第8回","level":"1.1.8","depth":2,"path":"day8.md","ref":"day8.md","articles":[]},"previous":{"title":"第6回","level":"1.1.6","depth":2,"path":"day6.md","ref":"day6.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day7.md","mtime":"2022-06-18T10:08:44.042Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-20T02:31:07.616Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第7回","level":"1.1.7","depth":2,"next":{"title":"第8回","level":"1.1.8","depth":2,"path":"day8.md","ref":"day8.md","articles":[]},"previous":{"title":"第6回","level":"1.1.6","depth":2,"path":"day6.md","ref":"day6.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day7.md","mtime":"2022-06-20T10:09:18.423Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-20T10:13:11.603Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

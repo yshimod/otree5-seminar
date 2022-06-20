@@ -487,18 +487,18 @@
 - `get_form_fields()`
     - 引数: `(player: Player)`
     - 返り値: 変数名の文字列のリスト． `form_fields` と同様．
+    - ページを読み込む度に実行される（しかも2回実行される？）．
+    - `vars_for_template()` よりも先に実行される．
     - [https://otree.readthedocs.io/en/latest/forms.html#determining-form-fields-dynamically](https://otree.readthedocs.io/en/latest/forms.html#determining-form-fields-dynamically)
 - `vars_for_template()`
     - 引数: `(player: Player)`
     - 返り値: 辞書型．
-    - [https://otree.readthedocs.io/en/latest/pages.html#vars-for-template](https://otree.readthedocs.io/en/latest/pages.html#vars-for-template)
     - ページを読み込む度に実行される．
     - `js_vars()` よりも先に実行される．
     - [https://otree.readthedocs.io/en/latest/pages.html#vars-for-template](https://otree.readthedocs.io/en/latest/pages.html#vars-for-template)
 - `js_vars()`
     - 引数: `(player: Player)`
     - 返り値: 辞書型．
-    - [https://otree.readthedocs.io/en/latest/templates.html#passing-data-from-python-to-javascript-js-vars](https://otree.readthedocs.io/en/latest/templates.html#passing-data-from-python-to-javascript-js-vars)
     - ページを読み込む度に実行される．
     - `vars_for_template()` の後に実行される．
     - [https://otree.readthedocs.io/en/latest/templates.html#passing-data-from-python-to-javascript-js-vars](https://otree.readthedocs.io/en/latest/templates.html#passing-data-from-python-to-javascript-js-vars)
