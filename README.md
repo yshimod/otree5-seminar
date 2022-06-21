@@ -1,4 +1,9 @@
-# oTree5 勉強会 資料
+#  oTree 5 勉強会 資料
+
+## デプロイ
+
+[https://yshimod.github.io/otree5-seminar/](https://yshimod.github.io/otree5-seminar/)
+
 
 ## 編集の手引
 
@@ -16,4 +21,4 @@
 ## 環境
 
 - node: v16.15.0
-- honkit: 3.7.1
+- honkit: 3.7.3
