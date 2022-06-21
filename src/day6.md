@@ -700,7 +700,7 @@
 - [https://github.com/snunnari/otree_repeated_prisoner](https://github.com/snunnari/otree_repeated_prisoner)
 
 - ただし， oTree のバージョンが古い．バージョン5の書き方に翻訳したものはこちら:  
-[https://github.com/iserExperiment/otree_repeated_prisoner/tree/yshimod/updating](https://github.com/iserExperiment/otree_repeated_prisoner/tree/yshimod/updating)
+[https://github.com/iserExperiment/otree_repeated_prisoner](https://github.com/iserExperiment/otree_repeated_prisoner)
 
 
 ### 確率的に繰り返しを終了するとき `NUM_ROUNDS` は最大数を設定する
