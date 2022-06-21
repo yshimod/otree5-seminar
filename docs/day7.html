@@ -943,7 +943,7 @@ materials_gentrust = {
       <span class="hljs-keyword">const</span> testlist = js_vars.testlist;
       testlist.forEach(<span class="hljs-function"><span class="hljs-params">el</span> =&gt;</span> {
           <span class="hljs-built_in">console</span>.log(el);
-      })
+      });
   </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 {{ endblock }}
 </code></pre>
@@ -962,21 +962,33 @@ materials_gentrust = {
 {{ endblock }}
 
 {{ block content }}
-  <span class="hljs-tag">&lt;<span class="hljs-name">table</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>オプションL<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>オプションR<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
-      {{ for v in C.optR }}
+  <span class="hljs-tag">&lt;<span class="hljs-name">table</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;table table-striped table-hover&quot;</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">thead</span>&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
-              <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>50%の確率で650円<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
-              <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;mpl_{{ forloop.counter0 }}&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;L_mpl_{{ forloop.counter0 }}&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;{{ forloop.counter0 }}&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;BtnChoice BtnL&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
-              <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;mpl_{{ forloop.counter0 }}&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;R_mpl_{{ forloop.counter0 }}&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;{{ forloop.counter0 }}&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;BtnChoice BtnR&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
-              <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>100%の確率で{{ v }}円<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+              <span class="hljs-tag">&lt;<span class="hljs-name">th</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;text-end&quot;</span>&gt;</span>オプションL<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+              <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+              <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+              <span class="hljs-tag">&lt;<span class="hljs-name">th</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;text-start&quot;</span>&gt;</span>オプションR<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
           <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
-      {{ endfor }}
+      <span class="hljs-tag">&lt;/<span class="hljs-name">thead</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">tbody</span>&gt;</span>
+          {{ for v in C.optR }}
+              <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+                  <span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;text-end&quot;</span>&gt;</span>
+                      50%の確率で650円
+                  <span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+                  <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>
+                      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;text-center BtnChoice BtnL&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;mpl_{{ forloop.counter0 }}&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;L_mpl_{{ forloop.counter0 }}&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;{{ forloop.counter0 }}&quot;</span>&gt;</span>
+                  <span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+                  <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>
+                      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;text-center BtnChoice BtnR&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;mpl_{{ forloop.counter0 }}&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;R_mpl_{{ forloop.counter0 }}&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;{{ forloop.counter0 }}&quot;</span>&gt;</span>
+                  <span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+                  <span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;text-start&quot;</span>&gt;</span>
+                      100%の確率で{{ v }}円
+                  <span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+              <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+          {{ endfor }}
+      <span class="hljs-tag">&lt;/<span class="hljs-name">tbody</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;hidden&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;switching_point&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;id_switching_point&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;&quot;</span>&gt;</span>
 
@@ -991,7 +1003,6 @@ materials_gentrust = {
           el.addEventListener(<span class="hljs-string">&apos;click&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
               <span class="hljs-keyword">let</span> switchingPoint;
               <span class="hljs-keyword">const</span> tmpCol = el.id.slice(<span class="hljs-number">0</span>,<span class="hljs-number">1</span>);
-              <span class="hljs-built_in">console</span>.log(tmpCol);
               <span class="hljs-keyword">if</span> (tmpCol == <span class="hljs-string">&quot;L&quot;</span>) {
                   switchingPoint = <span class="hljs-built_in">parseInt</span>(el.name.slice(<span class="hljs-number">4</span>), <span class="hljs-number">10</span>) + <span class="hljs-number">1</span>;
               }
@@ -1012,7 +1023,7 @@ materials_gentrust = {
                   }
               }
           }, <span class="hljs-literal">false</span>);
-      })
+      });
   </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 {{ endblock }}
 </code></pre>
@@ -1055,7 +1066,7 @@ materials_gentrust = {
           <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;col-2&quot;</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-danger btn-lg&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;updateFunction()&quot;</span>&gt;</span>ボタン<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-danger btn-lg&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;updateFunction();&quot;</span>&gt;</span>ボタン<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 
@@ -1177,7 +1188,7 @@ materials_gentrust = {
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第7回","level":"1.1.7","depth":2,"next":{"title":"第8回","level":"1.1.8","depth":2,"path":"day8.md","ref":"day8.md","articles":[]},"previous":{"title":"第6回","level":"1.1.6","depth":2,"path":"day6.md","ref":"day6.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day7.md","mtime":"2022-06-20T10:09:18.423Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-20T10:13:11.603Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第7回","level":"1.1.7","depth":2,"next":{"title":"第8回","level":"1.1.8","depth":2,"path":"day8.md","ref":"day8.md","articles":[]},"previous":{"title":"第6回","level":"1.1.6","depth":2,"path":"day6.md","ref":"day6.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day7.md","mtime":"2022-06-21T02:45:15.103Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-21T07:26:15.589Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

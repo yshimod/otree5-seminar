@@ -510,7 +510,7 @@
             const testlist = js_vars.testlist;
             testlist.forEach(el => {
                 console.log(el);
-            })
+            });
         </script>
     {{ endblock }}
     ```
@@ -528,21 +528,33 @@
     {{ endblock }}
 
     {{ block content }}
-        <table>
-            <tr>
-                <th>オプションL</th>
-                <th></th>
-                <th></th>
-                <th>オプションR</th>
-            </tr>
-            {{ for v in C.optR }}
+        <table class="table table-striped table-hover">
+            <thead>
                 <tr>
-                    <td>50%の確率で650円</td>
-                    <td><input type="radio" name="mpl_{{ forloop.counter0 }}" id="L_mpl_{{ forloop.counter0 }}" value="{{ forloop.counter0 }}" class="BtnChoice BtnL"></td>
-                    <td><input type="radio" name="mpl_{{ forloop.counter0 }}" id="R_mpl_{{ forloop.counter0 }}" value="{{ forloop.counter0 }}" class="BtnChoice BtnR"></td>
-                    <td>100%の確率で{{ v }}円</td>
+                    <th class="text-end">オプションL</th>
+                    <th></th>
+                    <th></th>
+                    <th class="text-start">オプションR</th>
                 </tr>
-            {{ endfor }}
+            </thead>
+            <tbody>
+                {{ for v in C.optR }}
+                    <tr>
+                        <td class="text-end">
+                            50%の確率で650円
+                        </td>
+                        <td>
+                            <input class="text-center BtnChoice BtnL" type="radio" name="mpl_{{ forloop.counter0 }}" id="L_mpl_{{ forloop.counter0 }}" value="{{ forloop.counter0 }}">
+                        </td>
+                        <td>
+                            <input class="text-center BtnChoice BtnR" type="radio" name="mpl_{{ forloop.counter0 }}" id="R_mpl_{{ forloop.counter0 }}" value="{{ forloop.counter0 }}">
+                        </td>
+                        <td class="text-start">
+                            100%の確率で{{ v }}円
+                        </td>
+                    </tr>
+                {{ endfor }}
+            </tbody>
         </table>
         <input type="hidden" name="switching_point" id="id_switching_point" value="">
 
@@ -557,7 +569,6 @@
                 el.addEventListener('click', function() {
                     let switchingPoint;
                     const tmpCol = el.id.slice(0,1);
-                    console.log(tmpCol);
                     if (tmpCol == "L") {
                         switchingPoint = parseInt(el.name.slice(4), 10) + 1;
                     }
@@ -578,7 +589,7 @@
                         }
                     }
                 }, false);
-            })
+            });
         </script>
     {{ endblock }}
     ```
@@ -617,7 +628,7 @@
                 </div>
             </div>
             <div class="col-2">
-                <button type="button" class="btn btn-danger btn-lg" onclick="updateFunction()">ボタン</button>
+                <button type="button" class="btn btn-danger btn-lg" onclick="updateFunction();">ボタン</button>
             </div>
         </div>
 
