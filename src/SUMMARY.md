@@ -9,6 +9,7 @@
     * [第6回](day6.md)
     * [第7回](day7.md)
     * [第8回](day8.md)
+    * [演習](exercise.md)
 
 
 

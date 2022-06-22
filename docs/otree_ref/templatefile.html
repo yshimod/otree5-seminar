@@ -204,6 +204,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.1.9" data-path="../exercise.html">
+            
+                <a href="../exercise.html">
+            
+                    
+                    演習
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -669,6 +682,29 @@
 </table></li>
 </ul>
 </li>
+<li>forループをネストさせる場合， <code>forloop.counter</code> は内側のforループのカウンター番号が展開される．外側のforループのカウンター番号を展開する場合は <code>{{ with parentloop_counter = forloop.counter }} {{ endwith }}</code> で内側のforループを挟み， 外側のカウンター番号として <code>{{ parentloop_counter }}</code> を使う．たとえば  <pre><code class="lang-html">{{ for i in &quot;ABC&quot; }}
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>{{ forloop.counter }}({{ i }})<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    {{ with parentloop_counter = forloop.counter }}
+        {{ for j in &quot;abc&quot; }}
+            <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>{{ parentloop_counter }}({{ i }}) - {{ forloop.counter }}({{ j }})<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+        {{ endfor }}
+    {{ endwith }}
+{{ endfor }}
+</code></pre>
+は<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>1(A)<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>1(A) - 1(a)<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>1(A) - 2(b)<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>1(A) - 3(c)<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>2(B)<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>2(B) - 1(a)<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>2(B) - 2(b)<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>2(B) - 3(c)<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>3(C)<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>3(C) - 1(a)<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>3(C) - 2(b)<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>3(C) - 3(c)<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+</code></pre>
+と展開される．</li>
 <li>使うリストなどが空だった場合の例外処理は <code>{{ empty }}</code> を使って記述．<pre><code class="lang-html">{{ for v in C.mylist }}
     <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>{{ forloop.counter }}番目の要素は{{v}}．<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 {{ empty }}
@@ -836,7 +872,7 @@
 {{ endfor }}
 </code></pre>
 </li>
-<li>エラーメッセージは <code>error_message()</code> や <code>変数名.error_message()</code> 関数を使ってカスタマイズできる．</li>
+<li>エラーメッセージは 組み込み関数 <code>error_message()</code> や データモデルクラスの組み込みメソッド <code>変数名_error_message()</code> を使ってカスタマイズできる．</li>
 <li><a href="https://otree.readthedocs.io/en/latest/forms.html#raw-html-widgets" target="_blank">https://otree.readthedocs.io/en/latest/forms.html#raw-html-widgets</a></li>
 </ul>
 <h3 id="formfields"><code>formfields</code></h3>
@@ -977,7 +1013,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"テンプレートファイルの書き方","level":"2.5","depth":1,"next":{"title":"【資料: デプロイ編】","level":"3.1","depth":1,"ref":"","articles":[]},"previous":{"title":"__init__.py の書き方","level":"2.4","depth":1,"path":"otree_ref/init.md","ref":"otree_ref/init.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"otree_ref/templatefile.md","mtime":"2022-06-21T08:21:26.672Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-21T08:22:17.057Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"テンプレートファイルの書き方","level":"2.5","depth":1,"next":{"title":"【資料: デプロイ編】","level":"3.1","depth":1,"ref":"","articles":[]},"previous":{"title":"__init__.py の書き方","level":"2.4","depth":1,"path":"otree_ref/init.md","ref":"otree_ref/init.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"otree_ref/templatefile.md","mtime":"2022-06-22T12:20:54.589Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-22T12:22:35.113Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

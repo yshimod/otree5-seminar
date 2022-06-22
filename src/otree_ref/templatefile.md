@@ -219,6 +219,33 @@
             <td>100%の確率で400円</td>
         </tr>
     </table>
+- forループをネストさせる場合， `forloop.counter` は内側のforループのカウンター番号が展開される．外側のforループのカウンター番号を展開する場合は `{{ with parentloop_counter = forloop.counter }} {{ endwith }}` で内側のforループを挟み， 外側のカウンター番号として `{{ parentloop_counter }}` を使う．たとえば  
+  ```html
+  {{ for i in "ABC" }}
+      <p>{{ forloop.counter }}({{ i }})</p>
+      {{ with parentloop_counter = forloop.counter }}
+          {{ for j in "abc" }}
+              <p>{{ parentloop_counter }}({{ i }}) - {{ forloop.counter }}({{ j }})</p>
+          {{ endfor }}
+      {{ endwith }}
+  {{ endfor }}
+  ```
+は
+  ```html
+  <p>1(A)</p>
+  <p>1(A) - 1(a)</p>
+  <p>1(A) - 2(b)</p>
+  <p>1(A) - 3(c)</p>
+  <p>2(B)</p>
+  <p>2(B) - 1(a)</p>
+  <p>2(B) - 2(b)</p>
+  <p>2(B) - 3(c)</p>
+  <p>3(C)</p>
+  <p>3(C) - 1(a)</p>
+  <p>3(C) - 2(b)</p>
+  <p>3(C) - 3(c)</p>
+  ```
+と展開される．
 - 使うリストなどが空だった場合の例外処理は `{{ empty }}` を使って記述．
   ```html
   {{ for v in C.mylist }}
@@ -389,7 +416,7 @@
       </div>
   {{ endfor }}
   ```
-- エラーメッセージは `error_message()` や `変数名.error_message()` 関数を使ってカスタマイズできる．
+- エラーメッセージは 組み込み関数 `error_message()` や データモデルクラスの組み込みメソッド `変数名_error_message()` を使ってカスタマイズできる．
 - [https://otree.readthedocs.io/en/latest/forms.html#raw-html-widgets](https://otree.readthedocs.io/en/latest/forms.html#raw-html-widgets)
 
 

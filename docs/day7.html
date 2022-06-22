@@ -206,6 +206,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.1.9" data-path="exercise.html">
+            
+                <a href="exercise.html">
+            
+                    
+                    演習
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -462,20 +475,27 @@
 </ul>
 </li>
 </ul>
+<hr>
 <ul>
 <li><span style="color: red;">6月30日・7月7日: 演習の時間（特にマスターの学生を対象）</span><ul>
 <li>課題: 次の論文での実験を実装する<br><a href="https://www.sciencedirect.com/science/article/pii/S0167268116301366" target="_blank">https://www.sciencedirect.com/science/article/pii/S0167268116301366</a><br>Rodriguez-Lara, I. (2016). Equity and bargaining power in ultimatum games. <em>Journal of Economic Behavior &amp; Organization</em>, 130, 144-165.<ul>
-<li>エフォートタスクは実装しなくても良い．</li>
+<li><a href="https://github.com/yshimod/RodriguezLara2016" target="_blank">https://github.com/yshimod/RodriguezLara2016</a> のリポジトリをダウンロードして（ GitHub アカウントがあればフォークしてからクローンして），それを編集していく．</li>
+<li>エフォートタスクはすでに1つのアプリ（ <code>effort</code> ）で実装されてい（るものとし）て，そのスコア（クイズの得点）が <code>participant.effort_score</code> に入っているので，この値を使う．</li>
 <li>実装の優先順位は...<ol>
-<li>Ultimatum game (Scenario 1) だけでも完成させる．</li>
+<li>Ultimatum game (Scenario 1) だけでも完成させる．<ol>
+<li>新しいアプリを追加する．</li>
+<li>プレイヤーの役割と reward level をプレイヤーごとランダムに決める．この時点でグループの joint endowment を計算して記録しておく．</li>
+<li>サンプルゲーム「trust」「dictator」などを参考に，最後通牒ゲームを実装する．</li>
+<li>結果表示画面で最後通牒ゲームにおける意思決定と利得を表示させる．</li>
+</ol>
+</li>
 <li>No-veto-cost game (Scenario 2) も完成させる．<ul>
-<li>ただし最終的な報酬までは計算しなくても良い．</li>
-<li>2つのゲームで対戦相手を変えられるように，アプリの繰り返し（ <code>NUM_ROUNDS = 2</code> ）として2つのゲームをプレイするようにする機構を実装する．</li>
+<li>最終的な報酬として，2つのゲーム（ Scenario ）のどちらかをランダムに選ぶ機構を実装する．</li>
 </ul>
 </li>
-<li>最終的な報酬として，2つのゲームのどちらかをランダムに選ぶ機構を実装する．</li>
 <li><code>SESSION_CONFIGS</code> で定義する変数を使って，2つのゲームの順番を変える機構を実装する．</li>
 <li>インストラクションを実装する．</li>
+<li>見てくれを良くする．</li>
 <li>エフォートタスクを実装する．</li>
 </ol>
 </li>
@@ -487,6 +507,7 @@
 </ul>
 </li>
 </ul>
+<hr>
 <h1 id="（qualtricsのような）質問紙調査を作る方法">（Qualtricsのような）質問紙調査を作る方法</h1>
 <ul>
 <li>今日のゴール<ul>
@@ -1188,7 +1209,7 @@ materials_gentrust = {
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第7回","level":"1.1.7","depth":2,"next":{"title":"第8回","level":"1.1.8","depth":2,"path":"day8.md","ref":"day8.md","articles":[]},"previous":{"title":"第6回","level":"1.1.6","depth":2,"path":"day6.md","ref":"day6.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day7.md","mtime":"2022-06-21T08:21:26.670Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-21T08:22:17.057Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第7回","level":"1.1.7","depth":2,"next":{"title":"第8回","level":"1.1.8","depth":2,"path":"day8.md","ref":"day8.md","articles":[]},"previous":{"title":"第6回","level":"1.1.6","depth":2,"path":"day6.md","ref":"day6.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day7.md","mtime":"2022-06-22T12:20:54.588Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-22T12:22:35.113Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
