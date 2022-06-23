@@ -5,7 +5,8 @@
 
 - 課題: 次の論文での実験を実装する  
 [https://www.sciencedirect.com/science/article/pii/S0167268116301366](https://www.sciencedirect.com/science/article/pii/S0167268116301366)  
-Rodriguez-Lara, I. (2016). Equity and bargaining power in ultimatum games. *Journal of Economic Behavior & Organization*, 130, 144-165.
+Rodriguez-Lara, I. (2016). Equity and bargaining power in ultimatum games.
+*Journal of Economic Behavior & Organization*, 130, 144-165.
 
 
 - [https://github.com/yshimod/RodriguezLara2016](https://github.com/yshimod/RodriguezLara2016) のリポジトリをダウンロードして（ GitHub アカウントがあればフォークしてからクローンして），それを編集していく．
@@ -31,6 +32,9 @@ Rodriguez-Lara, I. (2016). Equity and bargaining power in ultimatum games. *Jour
 - 完成しなかった場合は，途中までで提出して，何が分からなかったのかをお知らせください．
 
 - 誰も提出してくれなかった場合は，当日ゼロからコードを書いていく様子をZoomでお見せすることになってしまいます．
+
+
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/nZLnngQsWes?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 
 {% endraw %}
