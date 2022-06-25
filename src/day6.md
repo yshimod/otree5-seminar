@@ -7,28 +7,6 @@
 - 無限回繰り返しゲーム（確率的に繰り返しを終了する）
 
 
----
-
-この勉強会を始める時点で，どのレベルの知識を知っているかという前提と，何ができるようになるかという目標を明確にしていなかったため，初心者向けを装いながら，これまでのところオタク向けの内容になっています．
-
-[第4回](day4.md)で，どのようにコードを書いていくのかの手順を説明したつもりではあるのですが，やはり初心者には難解ではないかと思われます．
-文字資料だけでは何をどうしたらよいか分からないという方は動画を見て勉強するのが良いでしょう．
-たとえば，[Jonas Freyさん](https://sites.google.com/site/jonasfreysite/)によるoTreeチュートリアルの動画は有用です．
-- [Part 1: introduction](https://www.youtube.com/watch?v=OzkFvVhoHr0&list=PLBL9eqPcwzGPli11Yighw5LWwzIifEFd_&index=1)
-- [Part 2: Install oTree with Pycharm](https://www.youtube.com/watch?v=criiiSiEtUw&list=PLBL9eqPcwzGPli11Yighw5LWwzIifEFd_&index=2)
-- [Part 3: Overview over oTree](https://www.youtube.com/watch?v=7f5HgW4vgvU&list=PLBL9eqPcwzGPli11Yighw5LWwzIifEFd_&index=3)
-- [Part 4: A first Simple Game](https://www.youtube.com/watch?v=eozwgQ21Kg0&list=PLBL9eqPcwzGPli11Yighw5LWwzIifEFd_&index=4)
-- [Part 5: Real Effort Task with Multiple Rounds](https://www.youtube.com/watch?v=js2hsUwOFR0&list=PLBL9eqPcwzGPli11Yighw5LWwzIifEFd_&index=5)
-- [Part 6: Multiplayer Games - Prisoners Dilemma](https://www.youtube.com/watch?v=ewCDAk4DxWo&list=PLBL9eqPcwzGPli11Yighw5LWwzIifEFd_&index=6)
-- [Part 7: Deploying oTree Experiments on Heroku](https://www.youtube.com/watch?v=VrPdBEghYEM&list=PLBL9eqPcwzGPli11Yighw5LWwzIifEFd_&index=7)
-
-第4回では，ゼロからコードを書いていく方法を解説しています．
-しかし初心者には，すでに完成しているコードについて，少しいじっては動作を確認し，という試行錯誤を繰り返しながら自分が作りたいものに変えていく方法で勉強するのが良いでしょう．
-
-今回は完成したコードを読み下していきながら，特に oTree の組み込み関数の使い方を勉強していきます．
-
----
-
 
 # oTree の組み込み関数の使い方
 
