@@ -485,8 +485,8 @@
     # import random
     # import json
     def creating_session(subsession: Subsession):
-        list_crt = [k for k in C.materials_crt["items"].keys()]
-        list_gentrust = [k for k in C.materials_gentrust["items"].keys()]
+        list_crt = [*C.materials_crt["items"].keys()]
+        list_gentrust = [*C.materials_gentrust["items"].keys()]
 
         ## 全ての player について乱数を引いた結果を保存しておく
         for p in subsession.get_players():
@@ -601,9 +601,9 @@
             page_path = __name__ + "/gentrust.html"
 
         return {
-            "page_num": idx + 1,
-            "page_name": page_name,
-            "page_path": page_path
+            "page_num": idx + 1,    ## 数値 1 または 2
+            "page_name": page_name,    ## 文字列 "crt" または "gentrust"
+            "page_path": page_path    ## 文字列 "アプリ名/crt.html" または "アプリ名/gentrust.html"
         }
 
     class Survey1(Page):
@@ -640,18 +640,50 @@
 
     {{ block content }}
 
+        {# ↓ vars_for_template() で定義した変数 page_name で条件分岐 #}
         {{ if page_name == "crt" }}
             <p>以下の CRT の質問に回答してください．</p>
         {{ else }}
              <p>以下の Gen Trust の質問に回答してください．</p>
         {{ endif }}
 
+        {# ↓ vars_for_template() で定義した変数（ファイルパス） page_path によって crt.html または gentrust.html が展開される #}
         {{ include page_path }}
 
         {{ next_button }}
 
     {{ endblock }}
     ```
+
+
+- （余談） ↑ では，`{{ include }}` する子テンプレートファイルを切り替えるために， `vars_for_template()` でテンプレートファイルのパスを親テンプレートに渡していた．ページクラスで読み込む親テンプレートファイル（ `{{ block title }}` や `{{ block content }}` が含まれるテンプレート）自体も player ごと切り替えるために，ちょうど `form_fields` に渡したリストを `get_form_fields()` で上書きしたように， `template_name` に渡したパスを `get_template_name()` みたいな関数で上書きできたら便利かもしれない．公式ドキュメントで「 get_template_name 」を検索しても出てこないのだが，実のところ，ページクラスのメソッド `get_template_name()` は存在していて，我々がページクラスを定義する際に継承している親クラス（ `Page` クラス）において以下のように定義されている．
+
+  ```python
+  def get_template_name(self):
+      if self.template_name is not None:
+          return self.template_name
+      return '{}/{}.html'.format(
+          get_app_label_from_import_path(self.__module__), self.__class__.__name__
+      )
+  ```
+
+    これを，自らが定義する（ `Page` クラスを継承した）クラスにおいてオーバーライドしてしまえば，望んだ使い方ができるかもしれない．注意点は， oTree 本体ではスタティックメソッドとして定義されておらず，第1引数には `self` を受け取っている点である．したがって，自分でオーバーライドする際にも第1引数には `self` を取り， player オブジェクトを使いたい場合は `self.player` とすれば良い．たとえば，以下のような実装が可能かもしれない．
+
+  ```python
+  class Survey1(Page):
+      form_model = "player"
+
+      def get_template_name(self):
+          player = self.player
+          idx = 0
+          page_name = json.loads(player.order_pages)[idx]
+
+          if page_name == "crt":
+              return __name__ + "/Crt.html"
+          else:
+              return __name__ + "/GenTrust.html"
+  ```
+
 
 
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/hvYpAj7eA_0?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
@@ -678,7 +710,8 @@
 
 
 
-## 5. 見た目をモダンにする
+
+## 5. 見た目をかっこよくする
 
 ### CSS
 
@@ -767,35 +800,19 @@
 
 
 
-
 ### Bootstrap
 
-- oTree ではデフォルトで Bootstrap が読み込まれている．
+- oTree ではデフォルトで Bootstrap が読み込まれているので，使用することができる．
 
     - [Bootstrap のドキュメント](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
 
     - Bootstrap のバージョンは 5.0.1 （oTree v5.8.5 において）．
 
-- デフォルトで読み込まれているので，自分で読み込んではいけない．異なるバージョンを使うことはできない（？）．
 
-- ドキュメントで使いたい機能を検索して，コードの例をコピーする．
+- デフォルトで読み込まれているので，自分で CDN などを読み込んではいけない．異なるバージョンを使うことはできない（？）．
 
-- たとえば（いわゆる目玉のようなラジオボタンではなく）四角のボタンでラジオボタンを実装するには以下．
 
-  ```html
-  <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-      <input type="radio" class="btn-check" name="{{ 変数名 }}" id="{{ 変数名 }}-1" autocomplete="off">
-      <label class="btn btn-outline-primary" for="{{ 変数名 }}-1">Radio 1</label>
-
-      <input type="radio" class="btn-check" name="{{ 変数名 }}" id="{{ 変数名 }}-2" autocomplete="off">
-      <label class="btn btn-outline-primary" for="{{ 変数名 }}-2">Radio 2</label>
-
-      <input type="radio" class="btn-check" name="{{ 変数名 }}" id="{{ 変数名 }}-3" autocomplete="off">
-      <label class="btn btn-outline-primary" for="{{ 変数名 }}-3">Radio 3</label>
-  </div>
-  ```
-
-    - [https://getbootstrap.com/docs/5.0/components/button-group/#checkbox-and-radio-button-groups](https://getbootstrap.com/docs/5.0/components/button-group/#checkbox-and-radio-button-groups)
+- 基本的には HTML タグの `class` に Bootstrap が定義するクラス名を記述すればよい．
 
 
 - 要素（たとえば入力フォームと説明文と画像）を画面に敷き詰める場合， Bootstrap の Grid system が有用．
@@ -803,7 +820,362 @@
     - [https://getbootstrap.com/docs/5.0/layout/grid/](https://getbootstrap.com/docs/5.0/layout/grid/)
 
 
+
+#### ラジオボタンを Bootstrap の Button group で実装してみる
+
+- [https://getbootstrap.com/docs/5.0/components/button-group/#checkbox-and-radio-button-groups](https://getbootstrap.com/docs/5.0/components/button-group/#checkbox-and-radio-button-groups)
+
+
+- （前提）以下のように `__init__.py` が記述してあるとする．ここでは順番のシャッフルうんぬんについては捨象する．
+
+  %accordion%`__init__.py`%accordion%
+  ```python
+  from otree.api import *
+
+  class C(BaseConstants):
+      NAME_IN_URL = 'survey'
+      PLAYERS_PER_GROUP = None
+      NUM_ROUNDS = 1
+
+      materials_gentrust = {
+          "field": models.IntegerField,
+          "opts": [
+              [1, "Strongly Disagree"],
+              [2, "Disagree"],
+              [3, "Neutral"],
+              [4, "Agree"],
+              [5, "Strongly Agree"]
+          ],
+          "items": {
+              "gentrust1": "Most people are basically honest.",
+              "gentrust2": "Most people are trustworthy.",
+              "gentrust3": "Most people are basically good and kind.",
+              "gentrust4": "Most people are trustful of others.",
+              "gentrust5": "I am trustful.",
+              "gentrust6": "Most people will respond in kind when they are trusted by others."
+          }
+      }
+
+  class Subsession(BaseSubsession):
+      pass
+
+  class Group(BaseGroup):
+      pass
+
+  class Player(BasePlayer):
+      pass
+
+  for k, v in C.materials_gentrust["items"].items():
+      setattr(
+          Player,
+          k,
+          C.materials_gentrust["field"](
+              label = v,
+              choices = C.materials_gentrust["opts"],
+              widget = widgets.RadioSelectHorizontal
+          )
+      )
+
+  class Survey1(Page):
+      template_name = __name__ + "/gentrust.html"
+      form_model = "player"
+      form_fields = [*C.materials_gentrust["items"].keys()]    ## とりあえず入力フォームの順番は固定のままにしておく．
+
+  page_sequence = [Survey1]
+  ```
+  %/accordion%
+
+
+- まず，公式ドキュメントからコードの例をコピーして，テンプレートに貼り付ける．
+
+  ```html
+  <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+      <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+      <label class="btn btn-outline-primary" for="btnradio1">Radio 1</label>
+
+      <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+      <label class="btn btn-outline-primary" for="btnradio2">Radio 2</label>
+
+      <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+      <label class="btn btn-outline-primary" for="btnradio3">Radio 3</label>
+  </div>
+  ```
+
+
+- 外側の `<div>` 要素:
+
+    - `class` 属性の `btn-group` は Bootstrap が定義したもの．
+    
+        - 子要素の `class="btn"` であるものを `<div class="btn-group">` で囲む．
+
+    - `role` 属性と `aria-*` 属性は WAI-ARIA （支援技術を利用するためのルール） のためのもの．
+
+        - （少なくともラボで実験を実施する場合は）属性ごと消してしまっても良い．
+
+        - [https://developer.mozilla.org/ja/docs/Learn/Accessibility/WAI-ARIA_basics](https://developer.mozilla.org/ja/docs/Learn/Accessibility/WAI-ARIA_basics)
+
+
+- 内側の `<input>` 要素:
+
+    - （HTMLの機能） `type` 属性を `radio` にすることによって， `<input>` 要素がラジオボタンとして機能する．
+
+        - [https://developer.mozilla.org/ja/docs/Web/HTML/Element/input/radio](https://developer.mozilla.org/ja/docs/Web/HTML/Element/input/radio)
+
+    - （HTMLの機能） `name` 属性の値は変数名にする．選択肢の数だけ `<input>` 要素があるが，すべて同じ変数名にする．
+
+        - とりあえず `name="gentrust1"` としておく．
+
+    - （HTMLの機能） `name` 属性とは異なり， `id` 属性の値は `<input>` 要素ごと区別させなければならない．
+
+        - `<input>` 要素の `id` は `<label>` 要素との紐付けのために必要なものなので，その値自体は，ユニークでさえあれば，何でも良い．
+
+        - oTreeの（というよりDjangoの）流儀としては，変数名の頭に `id_` をつけ，その上で枝番を（0から）つける．このルールにしたがう必要はない．
+
+        - とりあえず `name="id_gentrust1-0"` としておく．
+
+    - （HTMLの機能） `checked` 属性が追加されていると，そのラジオボタンが選択されていることを表す．
+
+        - テンプレートにおいて `checked` 属性を記述してしまうと，デフォルトでそのボタンが選択されてしまう．
+
+        - 論理属性なので，値を渡す必要はない． `checked=""` と記述してあっても， `checked` 属性自体が存在するため，そのラジオボタンが選択されていることになる．
+
+        - 今回は，デフォルトでいずれかのラジオボタンが選択されている必要がないため， `checked` 属性は消しておく．
+
+    - （HTMLの機能） あるラジオボタンが選択された状態でフォームが送信されると，そのラジオボタン `value` 属性の値が送信される．
+
+        - 陽に `value` 属性を指定しない場合は，デフォルトで `"on"` なる文字列となる．
+
+        - コピペした Bootstrap のコードには `value` 属性が記述されていないため，自分で追加しなければならない．
+
+        - データモデルの定義をしたときに `choices` を記述している場合，その値と一致しなければならない．
+
+        - とりあえず，値を直書きしておく．
+
+    - （HTMLの機能） 必須回答にする場合（データモデルの定義で `blank=True` としていない場合）， `required` 属性を追加しておく．
+
+        - 複数ある選択肢のうちの一つにだけ `required` 属性が追加されていれば， `name` 属性が同じ値である `<input>` 要素（ラジオボタン）の1つが選択されていないとフォームの送信ができない．
+
+        - ↑ このような仕様ではあるが，保守性のために，すべての `<input>` 要素に `required` 属性を追加しておいた方が良い．
+
+        - 論理属性なので，値を渡す必要はない．
+
+    - （HTMLの機能） 一般論として， `autocomplete` 属性の値は `"off"` にしておいたほうが良い．さもないと， Firefox だけはラジオボタンの選択を維持してしまう．
+
+        - しかしながら， oTree 本体でフォーム全体（コンテンツブロック全体）に対して `autocomplete="off"` としてあるため，自分で陽に書く必要はない．
+
+        - とは言え念の為，サンプルのまま残しておく．
+
+    - （Bootstrapの機能） `class` 属性の `"btn-check"` は Bootstrap が定義したクラス名．
+
+        - [https://getbootstrap.jp/docs/5.0/forms/checks-radios/#radio-toggle-buttons](https://getbootstrap.jp/docs/5.0/forms/checks-radios/#radio-toggle-buttons)
+
+        - `<label class="btn">` 要素とセットで機能する．
+
+        - サンプルのままにしておく．
+
+
+- 内側の `<label>` 要素:
+
+    - （HTMLの機能） `for` 属性を対応する `<input>` 要素の `id` と一致させる．
+
+    - （HTMLの機能） ラベルとして表示するテキストを `<label>` の子要素に書く．
+
+        - とりあえず選択肢のラベルを直書きする．
+
+    - （Bootstrapの機能） `class` 属性の `"btn btn-outline-primary"` は Bootstrap が定義したもの．2つ目のクラス `btn-outline-primary` は modifier と呼ばれるもので，base class である `btn` を修飾する．
+
+        - たとえば `btn-outline-primary` の代わりに `btn-outline-danger` とすると，ボタンの色が赤色になる．
+
+        - たとえばボタンのサイズを大きくしたい場合は，更に `btn-lg` クラスも適用する．つまり， `class="btn btn-outline-primary btn-lg"` とする．
+
+        - [https://getbootstrap.jp/docs/5.0/components/buttons/](https://getbootstrap.jp/docs/5.0/components/buttons/)
+
+
+- とりあえず選択肢ごと変わる部分の記述を直書きした状態は以下の通り．
+
+  ```html
+  <div class="btn-group">
+      <!-- 最初の3つだけ -->
+      <input type="radio" class="btn-check" name="gentrust1" id="id_gentrust1-0" autocomplete="off" value="1" required>
+      <label class="btn btn-outline-primary" for="id_gentrust1-0">Strongly Disagree</label>
+
+      <input type="radio" class="btn-check" name="gentrust1" id="id_gentrust1-1" autocomplete="off" value="2" required>
+      <label class="btn btn-outline-primary" for="id_gentrust1-1">Disagree</label>
+
+      <input type="radio" class="btn-check" name="gentrust1" id="id_gentrust1-2" autocomplete="off" value="3" required>
+      <label class="btn btn-outline-primary" for="id_gentrust1-2">Neutral</label>
+  </div>
+  ```
+
+
+- （oTreeの機能） 選択肢の繰り返しの部分は `{{ for }}` ループを使って記述する．
+
+    - （前提） テンプレートで展開される `{{ C.materials_gentrust.opts }}` の正体は以下のリスト．
+
+    ```python
+    [
+        [1, "Strongly Disagree"],
+        [2, "Disagree"],
+        [3, "Neutral"],
+        [4, "Agree"],
+        [5, "Strongly Agree"]
+    ]
+    ```
+
+    - データモデルの定義の `choices` にこのリストを渡しているため，フォームで送信するべき値（ `<input>` 要素の `value` 属性の値）は，リストの各要素の0番目の要素（つまり `1`， `2`， `3`， `4`， `5` ）．
+
+    - たとえば `{{ C.materials_gentrust.opts.1.1 }}` は `Disagree` が展開される．
+
+    - テンプレートで `{{ for v in C.materials_gentrust.opts }}` と書くと，ループの中で...
+
+        - `{{ v.0 }}` は `1`， `2`， `3`， `4`， `5` が展開される．
+
+        - `{{ v.1 }}` は `Strongly Disagree`， `Disagree`， `Neutral`， `Agree`， `Strongly Agree` が展開される．
+
+        - `{{ forloop.counter }}` は `1`， `2`， `3`， `4`， `5` が展開される．
+
+        - `{{ forloop.counter0 }}` は `0`， `1`， `2`， `3`， `4` が展開される．
+
+    - ある一つの質問項目の5つの選択肢は， `{{ for }}` ループを使って以下のように記述すればよい．
+
+    ```html
+    <div class="btn-group">
+        {{ for v in C.materials_gentrust.opts }}
+            <input type="radio" class="btn-check" name="gentrust1" id="id_gentrust1-{{ forloop.counter0 }}" autocomplete="off" value="{{ v.0 }}" required>
+            <label class="btn btn-outline-primary" for="id_gentrust1-{{ forloop.counter0 }}">{{ v.1 }}</label>
+        {{ endfor }}
+    </div>
+    ```
+
+
+- さらに質問項目の繰り返しの部分も `{{ for }}` ループを使って記述する．
+
+    - （前提） `form_fields = ['gentrust1', 'gentrust2', 'gentrust3', 'gentrust4', 'gentrust5', 'gentrust6']` と指定してある．
+
+    - （oTreeの機能） テンプレートで `{{ for eachfield in form }}` と書くと，ループの中で...
+
+        - `{{ eachfield.label }}` は，  
+        `<label for="id_gentrust1">Most people are basically honest.</label>`，  
+        `<label for="id_gentrust2">Most people are trustworthy.</label>`，  
+        ...，  
+        `<label for="id_gentrust6">Most people will respond in kind when they are trusted by others.</label>`  
+        が展開される．
+
+        - `{{ eachfield.name }}` は， `gentrust1`， `gentrust2`， ...， `gentrust6` が展開される．
+
+        - `{{ eachfield.id }}` は， `id_gentrust1`， `id_gentrust2`， ...， `id_gentrust6` が展開される．
+
+        - `{{ eachfield }}` は，以下のように一つの質問項目のすべての選択肢が展開される（ただしデータモデルの定義で `widget = widgets.RadioSelectHorizontal` と指定していることを前提）．
+
+        %accordion%`{{ eachfield }}`で展開される HTML%accordion%
+        ```html
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="id_gentrust1-0" name="gentrust1" required value="1">
+            <label for="id_gentrust1-0" class="form-check-label">Strongly Disagree</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="id_gentrust1-1" name="gentrust1" required value="2">
+            <label for="id_gentrust1-1" class="form-check-label">Disagree</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="id_gentrust1-2" name="gentrust1" required value="3">
+            <label for="id_gentrust1-2" class="form-check-label">Neutral</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="id_gentrust1-3" name="gentrust1" required value="4">
+            <label for="id_gentrust1-3" class="form-check-label">Agree</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="id_gentrust1-4" name="gentrust1" required value="5">
+            <label for="id_gentrust1-4" class="form-check-label">Strongly Agree</label>
+        </div>
+        ```
+        %/accordion%
+
+            - 選択肢を一つずつ取り出すことも可能． `{{ eachfield.0 }}` （ `{{ for eachopt in eachfield }}` の0番目）は
+
+            ```html
+            <input class="form-check-input" type="radio" id="id_gentrust1-0" name="gentrust1" required value="1">
+            ```
+
+            `{{ eachfield.0.label }}` は
+
+            ```html
+            <label for="id_gentrust1-0">Strongly Disagree</label>
+            ```
+
+            `{{ eachfield.0.label }}` は `id_gentrust1-0` が，それぞれ展開される．
+
+            - ↑ を見れば分かるように，選択肢を `{{ form }}` の中から取り出して展開しても（Bootstrapを使う分には）使い勝手が悪い．
+
+            - ゆえに，選択肢を `{{ for }}` ループで作るときには，素材を直接 `C` クラスから取り出す（あるいは `vars_for_template()` で渡す ）方が良い．
+
+            - `{{ eachfield.0.label }}` で `<label>` タグを生成せずに，単なるテキストだけ展開してくれれば幾分便利なのだが， oTree の著者は気が利かない．
+
+    - （Bootstrapの機能） 質問項目同士の間隔を離らかすには，質問項目全体を包む `<div>` 要素の `class` 属性に `my-5` などを加える．
+
+        - [https://getbootstrap.jp/docs/5.0/utilities/spacing](https://getbootstrap.jp/docs/5.0/utilities/spacing)
+
+        - `my-5` は `m`argin の `y`方向を，size `5` の距離にすることを意味する（「size」は Bootstrap のドキュメントを参照のこと）．
+
+        - 細かく調整したい場合は，Bootstrapを使わずに直接 `styles="margin: 10px auto;"` などと指定する．
+
+    - （Bootstrapの機能） 一つの質問項目を線で囲むには， Card を使ってみる．
+
+        - [https://getbootstrap.jp/docs/5.0/components/card/](https://getbootstrap.jp/docs/5.0/components/card/)
+
+        - たとえば `<h5 class="card-title">` 要素で何番目の質問であるかを表示してみる．
+
+    - （oTreeの機能） フォームの検証を oTree サーバー側でも行うとき（たとえば正答の判定を行う場合など）， `{{ formfield_errors 変数名 }}` を記述しておけばエラーメッセージが `<div class="form-control-errors">ここにエラーメッセージ</div>` として展開される．
+
+        - `{{ for eachfield in form }}` のループの中では `{{ formfield_errors eachfield.name }}` と記述しておけば良い．
+
+
+- 結局，（ページクラスで直接読み込む）テンプレートは以下のように記述すればよい．
+
+    ```html
+    {{ block title }}
+        Survey
+    {{ endblock }}
+
+    {{ block content }}
+
+        {{ for eachfield in form }}
+            <div class="card my-5">
+                <div class="card-body">
+                    <h5 class="card-title">{{ forloop.counter }}</h5>
+                    <p class="card-text">{{ eachfield.label }}</p>
+                    <div class="btn-group">
+                        {{ for v in C.materials_gentrust.opts }}
+                            <input type="radio" class="btn-check" name="{{ eachfield.name }}" id="{{ eachfield.id }}-{{ forloop.counter0 }}" autocomplete="off" value="{{ v.0 }}" required>
+                            <label class="btn btn-outline-primary" for="{{ eachfield.id }}-{{ forloop.counter0 }}">{{ v.1 }}</label>
+                        {{ endfor }}
+                    </div>
+                    {{ formfield_errors eachfield.name }}
+                </div>
+            </div>
+        {{ endfor }}
+
+        {{ next_button }}
+
+    {{ endblock }}
+    ```
+
+
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/deJDSzgFY68?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
+
+- 勉強会当日は完成したコードを見ながら説明しましたが，改めて振り返るとあまりに説明を端折りすぎていたように思えたので，このページでは， Bootstrap のドキュメントからコードをコピーしてきたところから順を追ってテンプレートを書く方法を説明しています．
+
+- Bootstrap の使い方については様々な書籍や野良のWebページが存在しているので，そちらを参照すると良いでしょう．
+
+    - 注意点は， oTree 5 のデフォルトで読み込んでいる Bootstrap のバージョンが 5.0.1 である点です． Bootstrap のバージョン4と5では，仕様に大きな差異があります．
+
+    - 野良のWebページのコードの例をよく見ずにコピペして使おうとしたとき，実は古いバージョンのコードであり自分のプロジェクトでは上手く機能しない，ということはありえそうです．
+
+    - oTree 3 （3.4.0） では Bootstrap のバージョン 4.0.0 をデフォルトで読み込んでいるため， oTree 3 で書かれたコードで Bootstrap を駆使していた場合， oTree 5 でそのまま動かそうとしても意図した挙動にならないかもしれません．  
+    [https://otree.readthedocs.io/en/latest/misc/otreelite.html#bootstrap](https://otree.readthedocs.io/en/latest/misc/otreelite.html#bootstrap)
+
 
 
 

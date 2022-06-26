@@ -12,9 +12,11 @@
 
 - oTree の組み込み関数は [ `__init__.py` の書き方](otree_ref/init.md) で網羅しているつもりです．
 
+
 - 組み込み関数の使い方については，公式ドキュメントで関数名を検索してください．
 
     - たとえば，[`is_displayed` で検索](https://otree.readthedocs.io/en/latest/search.html?q=is_displayed)．
+
 
 - [oTree Hub の Example code](https://www.otreehub.com/code/) で（ブラウザの検索機能を使って）検索して使用例を見るのも有用です．
 

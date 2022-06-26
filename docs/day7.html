@@ -932,8 +932,8 @@ mydict2 = <span class="hljs-built_in">dict</span>(
 <pre><code class="lang-python"><span class="hljs-comment"># import random</span>
 <span class="hljs-comment"># import json</span>
 <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">creating_session</span>(<span class="hljs-params">subsession: Subsession</span>):</span>
-  list_crt = [k <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> C.materials_crt[<span class="hljs-string">&quot;items&quot;</span>].keys()]
-  list_gentrust = [k <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> C.materials_gentrust[<span class="hljs-string">&quot;items&quot;</span>].keys()]
+  list_crt = [*C.materials_crt[<span class="hljs-string">&quot;items&quot;</span>].keys()]
+  list_gentrust = [*C.materials_gentrust[<span class="hljs-string">&quot;items&quot;</span>].keys()]
 
   <span class="hljs-comment">## 全ての player について乱数を引いた結果を保存しておく</span>
   <span class="hljs-keyword">for</span> p <span class="hljs-keyword">in</span> subsession.get_players():
@@ -1049,9 +1049,9 @@ mydict2 = <span class="hljs-built_in">dict</span>(
       page_path = __name__ + <span class="hljs-string">&quot;/gentrust.html&quot;</span>
 
   <span class="hljs-keyword">return</span> {
-      <span class="hljs-string">&quot;page_num&quot;</span>: idx + <span class="hljs-number">1</span>,
-      <span class="hljs-string">&quot;page_name&quot;</span>: page_name,
-      <span class="hljs-string">&quot;page_path&quot;</span>: page_path
+      <span class="hljs-string">&quot;page_num&quot;</span>: idx + <span class="hljs-number">1</span>,    <span class="hljs-comment">## 数値 1 または 2</span>
+      <span class="hljs-string">&quot;page_name&quot;</span>: page_name,    <span class="hljs-comment">## 文字列 &quot;crt&quot; または &quot;gentrust&quot;</span>
+      <span class="hljs-string">&quot;page_path&quot;</span>: page_path    <span class="hljs-comment">## 文字列 &quot;アプリ名/crt.html&quot; または &quot;アプリ名/gentrust.html&quot;</span>
   }
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Survey1</span>(<span class="hljs-params">Page</span>):</span>
@@ -1086,12 +1086,14 @@ mydict2 = <span class="hljs-built_in">dict</span>(
 
 {{ block content }}
 
+  {# ↓ vars_for_template() で定義した変数 page_name で条件分岐 #}
   {{ if page_name == &quot;crt&quot; }}
       <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>以下の CRT の質問に回答してください．<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
   {{ else }}
        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>以下の Gen Trust の質問に回答してください．<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
   {{ endif }}
 
+  {# ↓ vars_for_template() で定義した変数（ファイルパス） page_path によって crt.html または gentrust.html が展開される #}
   {{ include page_path }}
 
   {{ next_button }}
@@ -1100,6 +1102,31 @@ mydict2 = <span class="hljs-built_in">dict</span>(
 </code></pre>
 </li>
 </ul>
+</li>
+</ul>
+<ul>
+<li><p>（余談） ↑ では，<code>{{ include }}</code> する子テンプレートファイルを切り替えるために， <code>vars_for_template()</code> でテンプレートファイルのパスを親テンプレートに渡していた．ページクラスで読み込む親テンプレートファイル（ <code>{{ block title }}</code> や <code>{{ block content }}</code> が含まれるテンプレート）自体も player ごと切り替えるために，ちょうど <code>form_fields</code> に渡したリストを <code>get_form_fields()</code> で上書きしたように， <code>template_name</code> に渡したパスを <code>get_template_name()</code> みたいな関数で上書きできたら便利かもしれない．公式ドキュメントで「 get_template_name 」を検索しても出てこないのだが，実のところ，ページクラスのメソッド <code>get_template_name()</code> は存在していて，我々がページクラスを定義する際に継承している親クラス（ <code>Page</code> クラス）において以下のように定義されている．</p>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_template_name</span>(<span class="hljs-params">self</span>):</span>
+    <span class="hljs-keyword">if</span> self.template_name <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
+        <span class="hljs-keyword">return</span> self.template_name
+    <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;{}/{}.html&apos;</span>.<span class="hljs-built_in">format</span>(
+        get_app_label_from_import_path(self.__module__), self.__class__.__name__
+    )
+</code></pre>
+<p>  これを，自らが定義する（ <code>Page</code> クラスを継承した）クラスにおいてオーバーライドしてしまえば，望んだ使い方ができるかもしれない．注意点は， oTree 本体ではスタティックメソッドとして定義されておらず，第1引数には <code>self</code> を受け取っている点である．したがって，自分でオーバーライドする際にも第1引数には <code>self</code> を取り， player オブジェクトを使いたい場合は <code>self.player</code> とすれば良い．たとえば，以下のような実装が可能かもしれない．</p>
+<pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Survey1</span>(<span class="hljs-params">Page</span>):</span>
+    form_model = <span class="hljs-string">&quot;player&quot;</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_template_name</span>(<span class="hljs-params">self</span>):</span>
+        player = self.player
+        idx = <span class="hljs-number">0</span>
+        page_name = json.loads(player.order_pages)[idx]
+
+        <span class="hljs-keyword">if</span> page_name == <span class="hljs-string">&quot;crt&quot;</span>:
+            <span class="hljs-keyword">return</span> __name__ + <span class="hljs-string">&quot;/Crt.html&quot;</span>
+        <span class="hljs-keyword">else</span>:
+            <span class="hljs-keyword">return</span> __name__ + <span class="hljs-string">&quot;/GenTrust.html&quot;</span>
+</code></pre>
 </li>
 </ul>
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/hvYpAj7eA_0?rel=0&amp;enablejsapi=1&amp;origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
@@ -1128,7 +1155,7 @@ mydict2 = <span class="hljs-built_in">dict</span>(
 <ul>
 <li>組み込み関数・メソッドの返り値の型（リストを返すのか，辞書を返すのか）が分からないとき，公式ドキュメントを検索するか， <a href="otree_ref/init.html"><code>__init__.py</code> の書き方</a> を参照して確認してください．</li>
 </ul>
-<h2 id="5-見た目をモダンにする">5. 見た目をモダンにする</h2>
+<h2 id="5-見た目をかっこよくする">5. 見た目をかっこよくする</h2>
 <h3 id="css">CSS</h3>
 <ul>
 <li>テンプレートで <code>{{ formfields }}</code> タグを使って入力フォームを作ると，あまりにもデザインがダサく辟易してしまう．</li>
@@ -1213,10 +1240,9 @@ mydict2 = <span class="hljs-built_in">dict</span>(
 
 
 
-
 <h3 id="bootstrap">Bootstrap</h3>
 <ul>
-<li><p>oTree ではデフォルトで Bootstrap が読み込まれている．</p>
+<li><p>oTree ではデフォルトで Bootstrap が読み込まれているので，使用することができる．</p>
 <ul>
 <li><p><a href="https://getbootstrap.com/docs/5.0/getting-started/introduction/" target="_blank">Bootstrap のドキュメント</a></p>
 </li>
@@ -1224,26 +1250,12 @@ mydict2 = <span class="hljs-built_in">dict</span>(
 </li>
 </ul>
 </li>
-<li><p>デフォルトで読み込まれているので，自分で読み込んではいけない．異なるバージョンを使うことはできない（？）．</p>
-</li>
-<li><p>ドキュメントで使いたい機能を検索して，コードの例をコピーする．</p>
-</li>
-<li><p>たとえば（いわゆる目玉のようなラジオボタンではなく）四角のボタンでラジオボタンを実装するには以下．</p>
-<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn-group&quot;</span> <span class="hljs-attr">role</span>=<span class="hljs-string">&quot;group&quot;</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">&quot;Basic radio toggle button group&quot;</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn-check&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;{{ 変数名 }}&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;{{ 変数名 }}-1&quot;</span> <span class="hljs-attr">autocomplete</span>=<span class="hljs-string">&quot;off&quot;</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-outline-primary&quot;</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;{{ 変数名 }}-1&quot;</span>&gt;</span>Radio 1<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-
-    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn-check&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;{{ 変数名 }}&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;{{ 変数名 }}-2&quot;</span> <span class="hljs-attr">autocomplete</span>=<span class="hljs-string">&quot;off&quot;</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-outline-primary&quot;</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;{{ 変数名 }}-2&quot;</span>&gt;</span>Radio 2<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-
-    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn-check&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;{{ 変数名 }}&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;{{ 変数名 }}-3&quot;</span> <span class="hljs-attr">autocomplete</span>=<span class="hljs-string">&quot;off&quot;</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-outline-primary&quot;</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;{{ 変数名 }}-3&quot;</span>&gt;</span>Radio 3<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-</code></pre>
-<ul>
-<li><a href="https://getbootstrap.com/docs/5.0/components/button-group/#checkbox-and-radio-button-groups" target="_blank">https://getbootstrap.com/docs/5.0/components/button-group/#checkbox-and-radio-button-groups</a></li>
 </ul>
-</li>
+<ul>
+<li>デフォルトで読み込まれているので，自分で CDN などを読み込んではいけない．異なるバージョンを使うことはできない（？）．</li>
+</ul>
+<ul>
+<li>基本的には HTML タグの <code>class</code> に Bootstrap が定義するクラス名を記述すればよい．</li>
 </ul>
 <ul>
 <li><p>要素（たとえば入力フォームと説明文と画像）を画面に敷き詰める場合， Bootstrap の Grid system が有用．</p>
@@ -1252,11 +1264,388 @@ mydict2 = <span class="hljs-built_in">dict</span>(
 </ul>
 </li>
 </ul>
+<h4 id="ラジオボタンを-bootstrap-の-button-group-で実装してみる">ラジオボタンを Bootstrap の Button group で実装してみる</h4>
+<ul>
+<li><a href="https://getbootstrap.com/docs/5.0/components/button-group/#checkbox-and-radio-button-groups" target="_blank">https://getbootstrap.com/docs/5.0/components/button-group/#checkbox-and-radio-button-groups</a></li>
+</ul>
+<ul>
+<li><p>（前提）以下のように <code>__init__.py</code> が記述してあるとする．ここでは順番のシャッフルうんぬんについては捨象する．</p>
+<div class="accordion accordionClose"><div class="accordionButton"><div class="accordionTitle"><code>__init__.py</code></div><div class="accordionSpinnerBox"><div class="accordionSpinner"></div></div></div><div class="accordionContent">
+<pre><code class="lang-python"><span class="hljs-keyword">from</span> otree.api <span class="hljs-keyword">import</span> *
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">C</span>(<span class="hljs-params">BaseConstants</span>):</span>
+    NAME_IN_URL = <span class="hljs-string">&apos;survey&apos;</span>
+    PLAYERS_PER_GROUP = <span class="hljs-literal">None</span>
+    NUM_ROUNDS = <span class="hljs-number">1</span>
+
+    materials_gentrust = {
+        <span class="hljs-string">&quot;field&quot;</span>: models.IntegerField,
+        <span class="hljs-string">&quot;opts&quot;</span>: [
+            [<span class="hljs-number">1</span>, <span class="hljs-string">&quot;Strongly Disagree&quot;</span>],
+            [<span class="hljs-number">2</span>, <span class="hljs-string">&quot;Disagree&quot;</span>],
+            [<span class="hljs-number">3</span>, <span class="hljs-string">&quot;Neutral&quot;</span>],
+            [<span class="hljs-number">4</span>, <span class="hljs-string">&quot;Agree&quot;</span>],
+            [<span class="hljs-number">5</span>, <span class="hljs-string">&quot;Strongly Agree&quot;</span>]
+        ],
+        <span class="hljs-string">&quot;items&quot;</span>: {
+            <span class="hljs-string">&quot;gentrust1&quot;</span>: <span class="hljs-string">&quot;Most people are basically honest.&quot;</span>,
+            <span class="hljs-string">&quot;gentrust2&quot;</span>: <span class="hljs-string">&quot;Most people are trustworthy.&quot;</span>,
+            <span class="hljs-string">&quot;gentrust3&quot;</span>: <span class="hljs-string">&quot;Most people are basically good and kind.&quot;</span>,
+            <span class="hljs-string">&quot;gentrust4&quot;</span>: <span class="hljs-string">&quot;Most people are trustful of others.&quot;</span>,
+            <span class="hljs-string">&quot;gentrust5&quot;</span>: <span class="hljs-string">&quot;I am trustful.&quot;</span>,
+            <span class="hljs-string">&quot;gentrust6&quot;</span>: <span class="hljs-string">&quot;Most people will respond in kind when they are trusted by others.&quot;</span>
+        }
+    }
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Subsession</span>(<span class="hljs-params">BaseSubsession</span>):</span>
+    <span class="hljs-keyword">pass</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Group</span>(<span class="hljs-params">BaseGroup</span>):</span>
+    <span class="hljs-keyword">pass</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Player</span>(<span class="hljs-params">BasePlayer</span>):</span>
+    <span class="hljs-keyword">pass</span>
+
+<span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">in</span> C.materials_gentrust[<span class="hljs-string">&quot;items&quot;</span>].items():
+    <span class="hljs-built_in">setattr</span>(
+        Player,
+        k,
+        C.materials_gentrust[<span class="hljs-string">&quot;field&quot;</span>](
+            label = v,
+            choices = C.materials_gentrust[<span class="hljs-string">&quot;opts&quot;</span>],
+            widget = widgets.RadioSelectHorizontal
+        )
+    )
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Survey1</span>(<span class="hljs-params">Page</span>):</span>
+    template_name = __name__ + <span class="hljs-string">&quot;/gentrust.html&quot;</span>
+    form_model = <span class="hljs-string">&quot;player&quot;</span>
+    form_fields = [*C.materials_gentrust[<span class="hljs-string">&quot;items&quot;</span>].keys()]    <span class="hljs-comment">## とりあえず入力フォームの順番は固定のままにしておく．</span>
+
+page_sequence = [Survey1]
+</code></pre>
+</div></div>
+</li>
+</ul>
+<ul>
+<li><p>まず，公式ドキュメントからコードの例をコピーして，テンプレートに貼り付ける．</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn-group&quot;</span> <span class="hljs-attr">role</span>=<span class="hljs-string">&quot;group&quot;</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">&quot;Basic radio toggle button group&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn-check&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;btnradio&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;btnradio1&quot;</span> <span class="hljs-attr">autocomplete</span>=<span class="hljs-string">&quot;off&quot;</span> <span class="hljs-attr">checked</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-outline-primary&quot;</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;btnradio1&quot;</span>&gt;</span>Radio 1<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn-check&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;btnradio&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;btnradio2&quot;</span> <span class="hljs-attr">autocomplete</span>=<span class="hljs-string">&quot;off&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-outline-primary&quot;</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;btnradio2&quot;</span>&gt;</span>Radio 2<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn-check&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;btnradio&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;btnradio3&quot;</span> <span class="hljs-attr">autocomplete</span>=<span class="hljs-string">&quot;off&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-outline-primary&quot;</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;btnradio3&quot;</span>&gt;</span>Radio 3<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</code></pre>
+</li>
+</ul>
+<ul>
+<li><p>外側の <code>&lt;div&gt;</code> 要素:</p>
+<ul>
+<li><p><code>class</code> 属性の <code>btn-group</code> は Bootstrap が定義したもの．</p>
+<ul>
+<li>子要素の <code>class=&quot;btn&quot;</code> であるものを <code>&lt;div class=&quot;btn-group&quot;&gt;</code> で囲む．</li>
+</ul>
+</li>
+<li><p><code>role</code> 属性と <code>aria-*</code> 属性は WAI-ARIA （支援技術を利用するためのルール） のためのもの．</p>
+<ul>
+<li><p>（少なくともラボで実験を実施する場合は）属性ごと消してしまっても良い．</p>
+</li>
+<li><p><a href="https://developer.mozilla.org/ja/docs/Learn/Accessibility/WAI-ARIA_basics" target="_blank">https://developer.mozilla.org/ja/docs/Learn/Accessibility/WAI-ARIA_basics</a></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>内側の <code>&lt;input&gt;</code> 要素:</p>
+<ul>
+<li><p>（HTMLの機能） <code>type</code> 属性を <code>radio</code> にすることによって， <code>&lt;input&gt;</code> 要素がラジオボタンとして機能する．</p>
+<ul>
+<li><a href="https://developer.mozilla.org/ja/docs/Web/HTML/Element/input/radio" target="_blank">https://developer.mozilla.org/ja/docs/Web/HTML/Element/input/radio</a></li>
+</ul>
+</li>
+<li><p>（HTMLの機能） <code>name</code> 属性の値は変数名にする．選択肢の数だけ <code>&lt;input&gt;</code> 要素があるが，すべて同じ変数名にする．</p>
+<ul>
+<li>とりあえず <code>name=&quot;gentrust1&quot;</code> としておく．</li>
+</ul>
+</li>
+<li><p>（HTMLの機能） <code>name</code> 属性とは異なり， <code>id</code> 属性の値は <code>&lt;input&gt;</code> 要素ごと区別させなければならない．</p>
+<ul>
+<li><p><code>&lt;input&gt;</code> 要素の <code>id</code> は <code>&lt;label&gt;</code> 要素との紐付けのために必要なものなので，その値自体は，ユニークでさえあれば，何でも良い．</p>
+</li>
+<li><p>oTreeの（というよりDjangoの）流儀としては，変数名の頭に <code>id_</code> をつけ，その上で枝番を（0から）つける．このルールにしたがう必要はない．</p>
+</li>
+<li><p>とりあえず <code>name=&quot;id_gentrust1-0&quot;</code> としておく．</p>
+</li>
+</ul>
+</li>
+<li><p>（HTMLの機能） <code>checked</code> 属性が追加されていると，そのラジオボタンが選択されていることを表す．</p>
+<ul>
+<li><p>テンプレートにおいて <code>checked</code> 属性を記述してしまうと，デフォルトでそのボタンが選択されてしまう．</p>
+</li>
+<li><p>論理属性なので，値を渡す必要はない． <code>checked=&quot;&quot;</code> と記述してあっても， <code>checked</code> 属性自体が存在するため，そのラジオボタンが選択されていることになる．</p>
+</li>
+<li><p>今回は，デフォルトでいずれかのラジオボタンが選択されている必要がないため， <code>checked</code> 属性は消しておく．</p>
+</li>
+</ul>
+</li>
+<li><p>（HTMLの機能） あるラジオボタンが選択された状態でフォームが送信されると，そのラジオボタン <code>value</code> 属性の値が送信される．</p>
+<ul>
+<li><p>陽に <code>value</code> 属性を指定しない場合は，デフォルトで <code>&quot;on&quot;</code> なる文字列となる．</p>
+</li>
+<li><p>コピペした Bootstrap のコードには <code>value</code> 属性が記述されていないため，自分で追加しなければならない．</p>
+</li>
+<li><p>データモデルの定義をしたときに <code>choices</code> を記述している場合，その値と一致しなければならない．</p>
+</li>
+<li><p>とりあえず，値を直書きしておく．</p>
+</li>
+</ul>
+</li>
+<li><p>（HTMLの機能） 必須回答にする場合（データモデルの定義で <code>blank=True</code> としていない場合）， <code>required</code> 属性を追加しておく．</p>
+<ul>
+<li><p>複数ある選択肢のうちの一つにだけ <code>required</code> 属性が追加されていれば， <code>name</code> 属性が同じ値である <code>&lt;input&gt;</code> 要素（ラジオボタン）の1つが選択されていないとフォームの送信ができない．</p>
+</li>
+<li><p>↑ このような仕様ではあるが，保守性のために，すべての <code>&lt;input&gt;</code> 要素に <code>required</code> 属性を追加しておいた方が良い．</p>
+</li>
+<li><p>論理属性なので，値を渡す必要はない．</p>
+</li>
+</ul>
+</li>
+<li><p>（HTMLの機能） 一般論として， <code>autocomplete</code> 属性の値は <code>&quot;off&quot;</code> にしておいたほうが良い．さもないと， Firefox だけはラジオボタンの選択を維持してしまう．</p>
+<ul>
+<li><p>しかしながら， oTree 本体でフォーム全体（コンテンツブロック全体）に対して <code>autocomplete=&quot;off&quot;</code> としてあるため，自分で陽に書く必要はない．</p>
+</li>
+<li><p>とは言え念の為，サンプルのまま残しておく．</p>
+</li>
+</ul>
+</li>
+<li><p>（Bootstrapの機能） <code>class</code> 属性の <code>&quot;btn-check&quot;</code> は Bootstrap が定義したクラス名．</p>
+<ul>
+<li><p><a href="https://getbootstrap.jp/docs/5.0/forms/checks-radios/#radio-toggle-buttons" target="_blank">https://getbootstrap.jp/docs/5.0/forms/checks-radios/#radio-toggle-buttons</a></p>
+</li>
+<li><p><code>&lt;label class=&quot;btn&quot;&gt;</code> 要素とセットで機能する．</p>
+</li>
+<li><p>サンプルのままにしておく．</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>内側の <code>&lt;label&gt;</code> 要素:</p>
+<ul>
+<li><p>（HTMLの機能） <code>for</code> 属性を対応する <code>&lt;input&gt;</code> 要素の <code>id</code> と一致させる．</p>
+</li>
+<li><p>（HTMLの機能） ラベルとして表示するテキストを <code>&lt;label&gt;</code> の子要素に書く．</p>
+<ul>
+<li>とりあえず選択肢のラベルを直書きする．</li>
+</ul>
+</li>
+<li><p>（Bootstrapの機能） <code>class</code> 属性の <code>&quot;btn btn-outline-primary&quot;</code> は Bootstrap が定義したもの．2つ目のクラス <code>btn-outline-primary</code> は modifier と呼ばれるもので，base class である <code>btn</code> を修飾する．</p>
+<ul>
+<li><p>たとえば <code>btn-outline-primary</code> の代わりに <code>btn-outline-danger</code> とすると，ボタンの色が赤色になる．</p>
+</li>
+<li><p>たとえばボタンのサイズを大きくしたい場合は，更に <code>btn-lg</code> クラスも適用する．つまり， <code>class=&quot;btn btn-outline-primary btn-lg&quot;</code> とする．</p>
+</li>
+<li><p><a href="https://getbootstrap.jp/docs/5.0/components/buttons/" target="_blank">https://getbootstrap.jp/docs/5.0/components/buttons/</a></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>とりあえず選択肢ごと変わる部分の記述を直書きした状態は以下の通り．</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn-group&quot;</span>&gt;</span>
+    <span class="hljs-comment">&lt;!-- 最初の3つだけ --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn-check&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;gentrust1&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;id_gentrust1-0&quot;</span> <span class="hljs-attr">autocomplete</span>=<span class="hljs-string">&quot;off&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;1&quot;</span> <span class="hljs-attr">required</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-outline-primary&quot;</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;id_gentrust1-0&quot;</span>&gt;</span>Strongly Disagree<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn-check&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;gentrust1&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;id_gentrust1-1&quot;</span> <span class="hljs-attr">autocomplete</span>=<span class="hljs-string">&quot;off&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;2&quot;</span> <span class="hljs-attr">required</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-outline-primary&quot;</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;id_gentrust1-1&quot;</span>&gt;</span>Disagree<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn-check&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;gentrust1&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;id_gentrust1-2&quot;</span> <span class="hljs-attr">autocomplete</span>=<span class="hljs-string">&quot;off&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;3&quot;</span> <span class="hljs-attr">required</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-outline-primary&quot;</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;id_gentrust1-2&quot;</span>&gt;</span>Neutral<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</code></pre>
+</li>
+</ul>
+<ul>
+<li><p>（oTreeの機能） 選択肢の繰り返しの部分は <code>{{ for }}</code> ループを使って記述する．</p>
+<ul>
+<li><p>（前提） テンプレートで展開される <code>{{ C.materials_gentrust.opts }}</code> の正体は以下のリスト．</p>
+<pre><code class="lang-python">[
+  [<span class="hljs-number">1</span>, <span class="hljs-string">&quot;Strongly Disagree&quot;</span>],
+  [<span class="hljs-number">2</span>, <span class="hljs-string">&quot;Disagree&quot;</span>],
+  [<span class="hljs-number">3</span>, <span class="hljs-string">&quot;Neutral&quot;</span>],
+  [<span class="hljs-number">4</span>, <span class="hljs-string">&quot;Agree&quot;</span>],
+  [<span class="hljs-number">5</span>, <span class="hljs-string">&quot;Strongly Agree&quot;</span>]
+]
+</code></pre>
+</li>
+<li><p>データモデルの定義の <code>choices</code> にこのリストを渡しているため，フォームで送信するべき値（ <code>&lt;input&gt;</code> 要素の <code>value</code> 属性の値）は，リストの各要素の0番目の要素（つまり <code>1</code>， <code>2</code>， <code>3</code>， <code>4</code>， <code>5</code> ）．</p>
+</li>
+<li><p>たとえば <code>{{ C.materials_gentrust.opts.1.1 }}</code> は <code>Disagree</code> が展開される．</p>
+</li>
+<li><p>テンプレートで <code>{{ for v in C.materials_gentrust.opts }}</code> と書くと，ループの中で...</p>
+<ul>
+<li><p><code>{{ v.0 }}</code> は <code>1</code>， <code>2</code>， <code>3</code>， <code>4</code>， <code>5</code> が展開される．</p>
+</li>
+<li><p><code>{{ v.1 }}</code> は <code>Strongly Disagree</code>， <code>Disagree</code>， <code>Neutral</code>， <code>Agree</code>， <code>Strongly Agree</code> が展開される．</p>
+</li>
+<li><p><code>{{ forloop.counter }}</code> は <code>1</code>， <code>2</code>， <code>3</code>， <code>4</code>， <code>5</code> が展開される．</p>
+</li>
+<li><p><code>{{ forloop.counter0 }}</code> は <code>0</code>， <code>1</code>， <code>2</code>， <code>3</code>， <code>4</code> が展開される．</p>
+</li>
+</ul>
+</li>
+<li><p>ある一つの質問項目の5つの選択肢は， <code>{{ for }}</code> ループを使って以下のように記述すればよい．</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn-group&quot;</span>&gt;</span>
+  {{ for v in C.materials_gentrust.opts }}
+      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn-check&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;gentrust1&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;id_gentrust1-{{ forloop.counter0 }}&quot;</span> <span class="hljs-attr">autocomplete</span>=<span class="hljs-string">&quot;off&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;{{ v.0 }}&quot;</span> <span class="hljs-attr">required</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-outline-primary&quot;</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;id_gentrust1-{{ forloop.counter0 }}&quot;</span>&gt;</span>{{ v.1 }}<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+  {{ endfor }}
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>さらに質問項目の繰り返しの部分も <code>{{ for }}</code> ループを使って記述する．</p>
+<ul>
+<li><p>（前提） <code>form_fields = [&apos;gentrust1&apos;, &apos;gentrust2&apos;, &apos;gentrust3&apos;, &apos;gentrust4&apos;, &apos;gentrust5&apos;, &apos;gentrust6&apos;]</code> と指定してある．</p>
+</li>
+<li><p>（oTreeの機能） テンプレートで <code>{{ for eachfield in form }}</code> と書くと，ループの中で...</p>
+<ul>
+<li><p><code>{{ eachfield.label }}</code> は，<br><code>&lt;label for=&quot;id_gentrust1&quot;&gt;Most people are basically honest.&lt;/label&gt;</code>，<br><code>&lt;label for=&quot;id_gentrust2&quot;&gt;Most people are trustworthy.&lt;/label&gt;</code>，<br>...，<br><code>&lt;label for=&quot;id_gentrust6&quot;&gt;Most people will respond in kind when they are trusted by others.&lt;/label&gt;</code><br>が展開される．</p>
+</li>
+<li><p><code>{{ eachfield.name }}</code> は， <code>gentrust1</code>， <code>gentrust2</code>， ...， <code>gentrust6</code> が展開される．</p>
+</li>
+<li><p><code>{{ eachfield.id }}</code> は， <code>id_gentrust1</code>， <code>id_gentrust2</code>， ...， <code>id_gentrust6</code> が展開される．</p>
+</li>
+<li><p><code>{{ eachfield }}</code> は，以下のように一つの質問項目のすべての選択肢が展開される（ただしデータモデルの定義で <code>widget = widgets.RadioSelectHorizontal</code> と指定していることを前提）．</p>
+<div class="accordion accordionClose"><div class="accordionButton"><div class="accordionTitle"><code>{{ eachfield }}</code>で展開される HTML</div><div class="accordionSpinnerBox"><div class="accordionSpinner"></div></div></div><div class="accordionContent">
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-check form-check-inline&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-check-input&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;id_gentrust1-0&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;gentrust1&quot;</span> <span class="hljs-attr">required</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;1&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;id_gentrust1-0&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-check-label&quot;</span>&gt;</span>Strongly Disagree<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-check form-check-inline&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-check-input&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;id_gentrust1-1&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;gentrust1&quot;</span> <span class="hljs-attr">required</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;2&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;id_gentrust1-1&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-check-label&quot;</span>&gt;</span>Disagree<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-check form-check-inline&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-check-input&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;id_gentrust1-2&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;gentrust1&quot;</span> <span class="hljs-attr">required</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;3&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;id_gentrust1-2&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-check-label&quot;</span>&gt;</span>Neutral<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-check form-check-inline&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-check-input&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;id_gentrust1-3&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;gentrust1&quot;</span> <span class="hljs-attr">required</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;4&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;id_gentrust1-3&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-check-label&quot;</span>&gt;</span>Agree<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-check form-check-inline&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-check-input&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;id_gentrust1-4&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;gentrust1&quot;</span> <span class="hljs-attr">required</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;5&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;id_gentrust1-4&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-check-label&quot;</span>&gt;</span>Strongly Agree<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</code></pre>
+</div></div>
+<ul>
+<li><p>選択肢を一つずつ取り出すことも可能． <code>{{ eachfield.0 }}</code> （ <code>{{ for eachopt in eachfield }}</code> の0番目）は</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-check-input&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;id_gentrust1-0&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;gentrust1&quot;</span> <span class="hljs-attr">required</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;1&quot;</span>&gt;</span>
+</code></pre>
+<p><code>{{ eachfield.0.label }}</code> は</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;id_gentrust1-0&quot;</span>&gt;</span>Strongly Disagree<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+</code></pre>
+<p><code>{{ eachfield.0.label }}</code> は <code>id_gentrust1-0</code> が，それぞれ展開される．</p>
+</li>
+<li><p>↑ を見れば分かるように，選択肢を <code>{{ form }}</code> の中から取り出して展開しても（Bootstrapを使う分には）使い勝手が悪い．</p>
+</li>
+<li><p>ゆえに，選択肢を <code>{{ for }}</code> ループで作るときには，素材を直接 <code>C</code> クラスから取り出す（あるいは <code>vars_for_template()</code> で渡す ）方が良い．</p>
+</li>
+<li><p><code>{{ eachfield.0.label }}</code> で <code>&lt;label&gt;</code> タグを生成せずに，単なるテキストだけ展開してくれれば幾分便利なのだが， oTree の著者は気が利かない．</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>（Bootstrapの機能） 質問項目同士の間隔を離らかすには，質問項目全体を包む <code>&lt;div&gt;</code> 要素の <code>class</code> 属性に <code>my-5</code> などを加える．</p>
+<ul>
+<li><p><a href="https://getbootstrap.jp/docs/5.0/utilities/spacing" target="_blank">https://getbootstrap.jp/docs/5.0/utilities/spacing</a></p>
+</li>
+<li><p><code>my-5</code> は <code>m</code>argin の <code>y</code>方向を，size <code>5</code> の距離にすることを意味する（「size」は Bootstrap のドキュメントを参照のこと）．</p>
+</li>
+<li><p>細かく調整したい場合は，Bootstrapを使わずに直接 <code>styles=&quot;margin: 10px auto;&quot;</code> などと指定する．</p>
+</li>
+</ul>
+</li>
+<li><p>（Bootstrapの機能） 一つの質問項目を線で囲むには， Card を使ってみる．</p>
+<ul>
+<li><p><a href="https://getbootstrap.jp/docs/5.0/components/card/" target="_blank">https://getbootstrap.jp/docs/5.0/components/card/</a></p>
+</li>
+<li><p>たとえば <code>&lt;h5 class=&quot;card-title&quot;&gt;</code> 要素で何番目の質問であるかを表示してみる．</p>
+</li>
+</ul>
+</li>
+<li><p>（oTreeの機能） フォームの検証を oTree サーバー側でも行うとき（たとえば正答の判定を行う場合など）， <code>{{ formfield_errors 変数名 }}</code> を記述しておけばエラーメッセージが <code>&lt;div class=&quot;form-control-errors&quot;&gt;ここにエラーメッセージ&lt;/div&gt;</code> として展開される．</p>
+<ul>
+<li><code>{{ for eachfield in form }}</code> のループの中では <code>{{ formfield_errors eachfield.name }}</code> と記述しておけば良い．</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>結局，（ページクラスで直接読み込む）テンプレートは以下のように記述すればよい．</p>
+<pre><code class="lang-html">  {{ block title }}
+      Survey
+  {{ endblock }}
+
+  {{ block content }}
+
+      {{ for eachfield in form }}
+          <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card my-5&quot;</span>&gt;</span>
+              <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-body&quot;</span>&gt;</span>
+                  <span class="hljs-tag">&lt;<span class="hljs-name">h5</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-title&quot;</span>&gt;</span>{{ forloop.counter }}<span class="hljs-tag">&lt;/<span class="hljs-name">h5</span>&gt;</span>
+                  <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-text&quot;</span>&gt;</span>{{ eachfield.label }}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+                  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn-group&quot;</span>&gt;</span>
+                      {{ for v in C.materials_gentrust.opts }}
+                          <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn-check&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;{{ eachfield.name }}&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;{{ eachfield.id }}-{{ forloop.counter0 }}&quot;</span> <span class="hljs-attr">autocomplete</span>=<span class="hljs-string">&quot;off&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;{{ v.0 }}&quot;</span> <span class="hljs-attr">required</span>&gt;</span>
+                          <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-outline-primary&quot;</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;{{ eachfield.id }}-{{ forloop.counter0 }}&quot;</span>&gt;</span>{{ v.1 }}<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                      {{ endfor }}
+                  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                  {{ formfield_errors eachfield.name }}
+              <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+          <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+      {{ endfor }}
+
+      {{ next_button }}
+
+  {{ endblock }}
+</code></pre>
+</li>
+</ul>
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/deJDSzgFY68?rel=0&amp;enablejsapi=1&amp;origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 
-
-
+<ul>
+<li><p>勉強会当日は完成したコードを見ながら説明しましたが，改めて振り返るとあまりに説明を端折りすぎていたように思えたので，このページでは， Bootstrap のドキュメントからコードをコピーしてきたところから順を追ってテンプレートを書く方法を説明しています．</p>
+</li>
+<li><p>Bootstrap の使い方については様々な書籍や野良のWebページが存在しているので，そちらを参照すると良いでしょう．</p>
+<ul>
+<li><p>注意点は， oTree 5 のデフォルトで読み込んでいる Bootstrap のバージョンが 5.0.1 である点です． Bootstrap のバージョン4と5では，仕様に大きな差異があります．</p>
+</li>
+<li><p>野良のWebページのコードの例をよく見ずにコピペして使おうとしたとき，実は古いバージョンのコードであり自分のプロジェクトでは上手く機能しない，ということはありえそうです．</p>
+</li>
+<li><p>oTree 3 （3.4.0） では Bootstrap のバージョン 4.0.0 をデフォルトで読み込んでいるため， oTree 3 で書かれたコードで Bootstrap を駆使していた場合， oTree 5 でそのまま動かそうとしても意図した挙動にならないかもしれません．<br><a href="https://otree.readthedocs.io/en/latest/misc/otreelite.html#bootstrap" target="_blank">https://otree.readthedocs.io/en/latest/misc/otreelite.html#bootstrap</a></p>
+</li>
+</ul>
+</li>
+</ul>
 
                                 
                                 </section>
@@ -1300,7 +1689,7 @@ mydict2 = <span class="hljs-built_in">dict</span>(
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第7回","level":"1.1.7","depth":2,"next":{"title":"第8回","level":"1.1.8","depth":2,"path":"day8.md","ref":"day8.md","articles":[]},"previous":{"title":"第6回","level":"1.1.6","depth":2,"path":"day6.md","ref":"day6.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day7.md","mtime":"2022-06-25T14:11:49.990Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-25T14:12:52.281Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第7回","level":"1.1.7","depth":2,"next":{"title":"第8回","level":"1.1.8","depth":2,"path":"day8.md","ref":"day8.md","articles":[]},"previous":{"title":"第6回","level":"1.1.6","depth":2,"path":"day6.md","ref":"day6.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day7.md","mtime":"2022-06-26T12:21:52.417Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-26T12:24:09.736Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
