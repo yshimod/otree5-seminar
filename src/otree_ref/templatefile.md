@@ -404,7 +404,7 @@
 
 
 ### `formfield_errors`
-- （ブラウザでの検証に通過した上で） oTree の検証に失敗した際にエラーメッセージを展開できる．
+- （ブラウザでの検証に通過した上で） oTree サーバーでの検証に失敗した際にエラーメッセージを展開できる．
 - エラーメッセージを表示したい場所（入力フォームの下など）に `{{ formfield_errors "変数名" }}` を記述しておく．
 - `{{ formfield "変数名" }}` を使ってフォームを実装する場合は， `{{ formfield_errors "変数名" }}` を記述しなくてもエラーメッセージを入力フォームの下で表示してくれる（ oTree 3 ではページタイトルの下側にまとめて表示されていた）．
 - `{{ for }}` ループを使う場合は，たとえば以下のようにする．
@@ -415,6 +415,10 @@
           {{ formfield_errors eachfield.name }}
       </div>
   {{ endfor }}
+  ```
+- oTree サーバーでの検証に引っかかった場合に以下の要素が追加されたページが表示される．
+  ```html
+  <div class="form-control-errors">ここにエラーメッセージ</div>
   ```
 - エラーメッセージは 組み込み関数 `error_message()` や データモデルクラスの組み込みメソッド `変数名_error_message()` を使ってカスタマイズできる．
 - [https://otree.readthedocs.io/en/latest/forms.html#raw-html-widgets](https://otree.readthedocs.io/en/latest/forms.html#raw-html-widgets)

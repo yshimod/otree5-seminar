@@ -120,7 +120,7 @@
 
     - `辞書.keys()` はリストではない（ dict_keys オブジェクトである）ため， `辞書.keys()[0]` として0番目のキーを取り出す，ということはできない．
 
-    - リストに変換するためには， `辞書.keys()` をアンパックすればよい．つまり `[*辞書.keys()]` とすればキーの文字列が並んだリストが得られる．
+    - リストに変換するためには， `辞書.keys()` をアンパックすれば良い．つまり `[*辞書.keys()]` とすればキーの文字列が並んだリストが得られる．
 
         - アンパック以外に， `list()` 関数を使う（ `list(辞書.keys())` ），内包表記を使う（ `[k for k in 辞書.keys()]` ）方法があるが，アンパックを使った方が処理が速い．
 
@@ -396,7 +396,7 @@
 - `{{ formfields }}` タグなどを使って入力フォームを作るとき，ページクラスの `get_form_fields()` で， player ごとシャッフルされた変数名のリストを返せば， player ごとフォームの順番をランダム化できる．
 
 
-- 乱数を引く処理を行う場合，乱数は一度だけ引き，その結果を記録しておくと良い．たとえば， `creating_session()` の中でリストを並び替え，その結果を `json.dumps()` を使ってJSON文字列に変換し， player モデルの変数（ `order_crt = models.LongStringField()` と定義してある）に記録しておく．
+- 乱数を引く処理を行う場合，乱数は一度だけ引き，その結果を記録しておくと良い．たとえば， `creating_session()` の中でリストを並び替え，その結果を `json.dumps()` を使って文字列に変換し， player モデルの変数（ `order_crt = models.LongStringField()` と定義してある）に記録しておく．
 
   ```python
   # import random
@@ -410,12 +410,58 @@
           p.order_crt = json.dumps(new_list_crt)
   ```
 
-    - 「JSON文字列」とは， `'["crt1", "crt3", "crt2"]'` のように変換された文字列．
+    - `json.dumps()` は，辞書型やリスト型のオブジェクトを（JSON）文字列にエンコード（変換）する関数．その逆で，（JSONの）文字列を Python が 辞書型やリスト型のオブジェクトとして使えるようにデコードする関数は `json.loads()`．以下の操作を確認せよ．
 
-    - JSON文字列に変換せず，リストオブジェクトのままデータを記録しよう（たとえば `p.order_crt = new_list_crt` ）とするとエラーとなる．
+    ```python
+    # import json
+    list_crt = ["crt1", "crt2", "crt3"]
+    print(type(list_crt))
+    # <class 'list'>
+    print(list_crt[0])
+    # crt1
+
+    encoded_list_crt = json.dumps(list_crt)
+    print(type(encoded_list_crt))
+    # <class 'str'>
+    print(encoded_list_crt)
+    # ["crt1", "crt2", "crt3"]
+    print(encoded_list_crt[0])
+    # [
+
+    decoded_list_crt = json.loads(encoded_list_crt)
+    print(type(decoded_list_crt))
+    # <class 'list'>
+    print(list_crt == decoded_list_crt)
+    # True
+    ```
+
+    ```python
+    testdict = dict(
+        testsublist = ["a", "b", "c"],
+        testsubdict = dict(
+            k1 = 1
+        )
+    )
+    print(type(testdict))
+    # <class 'dict'>
+
+    encoded_testdict = json.dumps(testdict)
+    print(type(encoded_testdict))
+    # <class 'str'>
+    print(encoded_testdict)
+    # {"testsublist": ["a", "b", "c"], "testsubdict": {"k1": 1}}
+
+    decoded_testdict = json.loads(encoded_testdict)
+    print(type(decoded_testdict))
+    # <class 'dict'>
+    print(testdict == decoded_testdict)
+    # True
+    ```
+
+    - 文字列に変換せず，リストオブジェクトのままデータを記録しようとする（たとえば `p.order_crt = new_list_crt` ）とエラーとなる．
 
 
-- `get_form_fields()` において，JSON文字列として記録してある変数名のリストを `json.loads()` でパース（Pythonがリストとして扱えるように変換）してから返す．
+- `get_form_fields()` において，文字列として記録してある変数名のリストを `json.loads()` でパース（Pythonがリストとして扱えるように変換）してから返す．
 
   ```python
   # import json
@@ -700,7 +746,7 @@
 
     - 乱数を引く場合には，一度だけ乱数を引いてその結果を記録しておく．リスト型の場合は JSON 文字列に変換してから記録すれば良い．
 
-    - ページの順番をシャッフルしたい場合，ページクラスを定義するときにはページの内容に依存しないように記述しなければならない．したがって，テンプレートファイルは共通化したものを最低限用意して，その中でテンプレートタグを使って内容を変化させるように実装すればよい．またページクラスの組み込みメソッドは，インデックスで挙動を変えるような関数を自前であらかじめ定義しておき，それを呼び出すように実装すればよい．
+    - ページの順番をシャッフルしたい場合，ページクラスを定義するときにはページの内容に依存しないように記述しなければならない．したがって，テンプレートファイルは共通化したものを最低限用意して，その中でテンプレートタグを使って内容を変化させるように実装すれば良い．またページクラスの組み込みメソッドは，インデックスで挙動を変えるような関数を自前であらかじめ定義しておき，それを呼び出すように実装すれば良い．
 
 
 - 自分が今処理しようとしているオブジェクト（リストや辞書）がどういうものか分からなくなったとき，その箇所で `print` してみると良いでしょう．
@@ -782,7 +828,7 @@
     ```
 
 
-- ブラウザで HTML の要素を検証し， oTree 組み込みの CSS セレクタを見つけ，それをカスタマイズすればよい．
+- ブラウザで HTML の要素を検証し， oTree 組み込みの CSS セレクタを見つけ，それをカスタマイズすれば良い．
 
     - [https://otree.readthedocs.io/en/latest/templates.html#customizing-the-theme](https://otree.readthedocs.io/en/latest/templates.html#customizing-the-theme)
 
@@ -812,12 +858,7 @@
 - デフォルトで読み込まれているので，自分で CDN などを読み込んではいけない．異なるバージョンを使うことはできない（？）．
 
 
-- 基本的には HTML タグの `class` に Bootstrap が定義するクラス名を記述すればよい．
-
-
-- 要素（たとえば入力フォームと説明文と画像）を画面に敷き詰める場合， Bootstrap の Grid system が有用．
-
-    - [https://getbootstrap.com/docs/5.0/layout/grid/](https://getbootstrap.com/docs/5.0/layout/grid/)
+- 基本的には HTML タグの `class` に Bootstrap が定義するクラス名を記述すれば良い．
 
 
 
@@ -877,7 +918,7 @@
       )
 
   class Survey1(Page):
-      template_name = __name__ + "/gentrust.html"
+      template_name = __name__ + "/GenTrust.html"
       form_model = "player"
       form_fields = [*C.materials_gentrust["items"].keys()]    ## とりあえず入力フォームの順番は固定のままにしておく．
 
@@ -886,7 +927,7 @@
   %/accordion%
 
 
-- まず，公式ドキュメントからコードの例をコピーして，テンプレートに貼り付ける．
+- まず， Bootstrap のドキュメントからコードの例をコピーして，テンプレートに貼り付ける．
 
   ```html
   <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
@@ -929,7 +970,7 @@
 
         - `<input>` 要素の `id` は `<label>` 要素との紐付けのために必要なものなので，その値自体は，ユニークでさえあれば，何でも良い．
 
-        - oTreeの（というよりDjangoの）流儀としては，変数名の頭に `id_` をつけ，その上で枝番を（0から）つける．このルールにしたがう必要はない．
+        - oTree の流儀（というより Django の流儀を引き継いでいるのだが）としては，変数名の頭に `id_` をつけ，その上で枝番を（0から）つける．ただし，このルールにしたがう必要はない．
 
         - とりあえず `name="id_gentrust1-0"` としておく．
 
@@ -1036,7 +1077,7 @@
 
         - `{{ forloop.counter0 }}` は `0`， `1`， `2`， `3`， `4` が展開される．
 
-    - ある一つの質問項目の5つの選択肢は， `{{ for }}` ループを使って以下のように記述すればよい．
+    - ある一つの質問項目の5つの選択肢は， `{{ for }}` ループを使って以下のように記述すれば良い．
 
     ```html
     <div class="btn-group">
@@ -1060,6 +1101,10 @@
         ...，  
         `<label for="id_gentrust6">Most people will respond in kind when they are trusted by others.</label>`  
         が展開される．
+
+            - ラジオボタンを生成する目的において `for` 属性は不要であるが，あっても問題なく動くため，このまま `<p>` タグで包んで使う．
+
+            - `<label>` タグを生成せずに，単なるテキストだけ展開してくれれば幾分便利なのだが， oTree の著者は気が利かない．
 
         - `{{ eachfield.name }}` は， `gentrust1`， `gentrust2`， ...， `gentrust6` が展開される．
 
@@ -1112,26 +1157,80 @@
 
             - `{{ eachfield.0.label }}` で `<label>` タグを生成せずに，単なるテキストだけ展開してくれれば幾分便利なのだが， oTree の著者は気が利かない．
 
-    - （Bootstrapの機能） 質問項目同士の間隔を離らかすには，質問項目全体を包む `<div>` 要素の `class` 属性に `my-5` などを加える．
+        -  詳細は [こちら](otree_ref/templatefile.md#form-オブジェクト) ．
 
-        - [https://getbootstrap.jp/docs/5.0/utilities/spacing](https://getbootstrap.jp/docs/5.0/utilities/spacing)
-
-        - `my-5` は `m`argin の `y`方向を，size `5` の距離にすることを意味する（「size」は Bootstrap のドキュメントを参照のこと）．
-
-        - 細かく調整したい場合は，Bootstrapを使わずに直接 `styles="margin: 10px auto;"` などと指定する．
-
-    - （Bootstrapの機能） 一つの質問項目を線で囲むには， Card を使ってみる．
-
-        - [https://getbootstrap.jp/docs/5.0/components/card/](https://getbootstrap.jp/docs/5.0/components/card/)
-
-        - たとえば `<h5 class="card-title">` 要素で何番目の質問であるかを表示してみる．
-
-    - （oTreeの機能） フォームの検証を oTree サーバー側でも行うとき（たとえば正答の判定を行う場合など）， `{{ formfield_errors 変数名 }}` を記述しておけばエラーメッセージが `<div class="form-control-errors">ここにエラーメッセージ</div>` として展開される．
+    - （oTreeの機能） フォームの検証を oTree サーバー側でも行うとき（たとえば正答の判定を行う場合など）， `{{ formfield_errors 変数名 }}` を記述しておけば，検証に引っかかった場合にエラーメッセージが `<div class="form-control-errors">ここにエラーメッセージ</div>` として展開される．
 
         - `{{ for eachfield in form }}` のループの中では `{{ formfield_errors eachfield.name }}` と記述しておけば良い．
 
+        - HTML タグの直書きで実装したい場合は，たとえば以下のように記述すれば良い．
 
-- 結局，（ページクラスで直接読み込む）テンプレートは以下のように記述すればよい．
+        ```html
+        {{ if eachfield.errors }}
+            <!-- 検証に引っかかった場合にのみ以下の要素が展開される -->
+            <p>もう一度確認してください．</p>
+        {{ endif }}
+        ```
+
+    - 質問文と選択肢のみを `{{ for }}` ループで質問項目の数だけ作るには以下のように記述すれば良い．
+
+    ```html
+    {{ for eachfield in form }}
+        <p>{{ eachfield.label }}</p>
+        <div class="btn-group">
+            {{ for v in C.materials_gentrust.opts }}
+                <input type="radio" class="btn-check" name="{{ eachfield.name }}" id="{{ eachfield.id }}-{{ forloop.counter0 }}" autocomplete="off" value="{{ v.0 }}" required>
+                <label class="btn btn-outline-primary" for="{{ eachfield.id }}-{{ forloop.counter0 }}">{{ v.1 }}</label>
+            {{ endfor }}
+        </div>
+        {{ formfield_errors eachfield.name }}
+    {{ endfor }}
+    ```
+
+
+- （Bootstrapの機能） 質問項目同士の間隔を離らかすには，質問項目全体を `<div>` 要素で包み，その `class` 属性に `my-5` などを加える．
+
+    - [https://getbootstrap.jp/docs/5.0/utilities/spacing](https://getbootstrap.jp/docs/5.0/utilities/spacing)
+
+    - `my-5` は `m`argin の `y`方向を，size `5` の距離にすることを意味する（「size」は Bootstrap のドキュメントを参照のこと）．
+
+    - 細かく調整したい場合は，Bootstrapを使わずに直接 `styles="margin: 10px auto;"` などと指定する．
+
+
+- （Bootstrapの機能） 一つの質問項目を線で囲むには， Card を使ってみる．
+
+    - [https://getbootstrap.jp/docs/5.0/components/card/](https://getbootstrap.jp/docs/5.0/components/card/)
+
+    - ドキュメントのコードの例:
+
+    ```html
+    <div class="card" style="width: 18rem;">
+        <img src="..." class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+    ```
+
+    - 不要な要素を消すと以下のようになる．コメントアウトしてある部分に要素を挿入する．
+
+    ```html
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title"><!-- ここにタイトル --></h5>
+            <p class="card-text"><!-- ここに質問文 --></p>
+            <!-- ここに選択肢要素 -->
+            <!-- ここにエラーメッセージ要素 -->
+        </div>
+    </div>
+    ```
+
+    - たとえば `<h5 class="card-title">` 要素で，何番目の質問であるか（ `{{ forloop.counter }}` ）を表示してみる．
+
+
+- 結局，（ページクラスで直接読み込む）テンプレートは以下のように記述すれば良い．
 
     ```html
     {{ block title }}
