@@ -200,7 +200,7 @@
 
     - ライブラリをインストールするには， CDN を使うか，ダウンロードしたライブラリのコードを `_static` ディレクトリに置いておく．
 
-    - oTree 公式ドキュメントでは [HighCharts](https://www.highcharts.com/demo) を使っている．  
+    - oTree 公式ドキュメントでは [HighCharts](https://www.highcharts.com/) を使っている．  
     [https://otree.readthedocs.io/en/latest/templates.html#charts](https://otree.readthedocs.io/en/latest/templates.html#charts)
 
     - （日本語ドキュメントが豊富な） [Chart.js](https://www.chartjs.org/) も有用．

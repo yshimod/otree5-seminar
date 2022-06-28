@@ -1046,6 +1046,7 @@ subsession.set_group_matrix(new_structure)
 <ul>
 <li>クラス <code>Page</code> を継承する．</li>
 <li>クラス名がURLに表示される．</li>
+<li>当該ページで使うテンプレートファイルのファイル名は <code>クラス名.html</code> にする．大文字・小文字を厳密に区別しておく．</li>
 </ul>
 <h3 id="ページクラスの変数">ページクラスの変数</h3>
 <ul>
@@ -1053,10 +1054,11 @@ subsession.set_group_matrix(new_structure)
 <li>テンプレートファイルのパスを渡せば，ページクラスの名称とファイル名が一致していなくても良い．</li>
 <li>一つのテンプレートファイルを複数のページクラスで使い回すことも可能．</li>
 <li>パスはアプリディレクトリから指定する．<ul>
-<li><code>template_name = &apos;app_name/MyPage.html&apos;</code></li>
+<li><code>template_name = &apos;アプリ名/MyPage.html&apos;</code></li>
 <li>同一アプリ内であれば， <code>template_name = __name__ + &apos;/MyPage.html&apos;</code> と書いても良い．</li>
 </ul>
 </li>
+<li>（ファイルシステムによってはファイル名の大文字と小文字の区別をしないが，）大文字・小文字を厳密に区別しておく．</li>
 </ul>
 </li>
 <li><code>form_model</code><ul>
@@ -1089,7 +1091,7 @@ subsession.set_group_matrix(new_structure)
 </ul>
 <h3 id="ページクラスの組み込みメソッド">ページクラスの組み込みメソッド</h3>
 <p>関数を定義する前にデコレータ <code>@staticmethod</code> を記述しておく．
-ただし，デコレータをつけずにおいてインスタンスメソッドとして（第1引数を <code>self</code> にして）使うことはできなさそう．</p>
+ただし，デコレータをつけずにおいてインスタンスメソッド（第1引数を <code>self</code> に受け取る関数）として使うことはできない．</p>
 <ul>
 <li><code>live_method()</code><ul>
 <li>引数: <code>(player: Player, data)</code></li>
@@ -1411,7 +1413,7 @@ subsession.set_group_matrix(new_structure)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"__init__.py の書き方","level":"2.4","depth":1,"next":{"title":"テンプレートファイルの書き方","level":"2.5","depth":1,"path":"otree_ref/templatefile.md","ref":"otree_ref/templatefile.md","articles":[]},"previous":{"title":"settings.py の書き方","level":"2.3","depth":1,"path":"otree_ref/settings.md","ref":"otree_ref/settings.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"otree_ref/init.md","mtime":"2022-06-22T12:20:54.589Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-27T04:24:12.968Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"__init__.py の書き方","level":"2.4","depth":1,"next":{"title":"テンプレートファイルの書き方","level":"2.5","depth":1,"path":"otree_ref/templatefile.md","ref":"otree_ref/templatefile.md","articles":[]},"previous":{"title":"settings.py の書き方","level":"2.3","depth":1,"path":"otree_ref/settings.md","ref":"otree_ref/settings.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"otree_ref/init.md","mtime":"2022-06-28T02:50:51.694Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-28T03:34:01.408Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

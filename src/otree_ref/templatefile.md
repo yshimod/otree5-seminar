@@ -4,13 +4,114 @@
 
 
 ## 基本
-- タイトルブロックを編集する．
-    - `{{ block title }}` と `{{ endblock }}` に挟まれた部分（デフォルトでは `Page title` と入っている部分）を「タイトルブロック」と呼ぶ．
-    - タイトルブロック内に，ページの冒頭で表示するタイトルを記述する．
-- コンテンツブロックを編集する．
-    - `{{ block content }}` と `{{ endblock }}` に挟まれた部分を「コンテンツブロック」と呼ぶ．
-    - コンテンツブロック内に，ページの本文を，HTMLタグも適宜使って記述する．
+- ファイル名はページクラスのクラス名と一致させる．たとえば
+  ```python
+  class Results(Page):
+      pass
+  ```
+    というクラスを定義していれば，テンプレートファイルの名前は `Results.html` とする．
+    - ファイル名が `results.html` （大文字・小文字の違い）でもエラーが出ずに動いてしまう環境（ファイルシステムに依存）がある．しかし，大文字・小文字もちゃんと一致させておくべき．
+        - Windows や Mac はファイル名の大文字と小文字を区別しない．しかし， Linux は区別する．ありがちなトラブルは，手元のPCでは正常に動くのに，Heroku（Linux）にデプロイしたときには動かない，
+        - Git でプロジェクトを管理している場合，ファイル名の大文字・小文字のリネームは無視されるので注意．
+    - クラス名とファイル名を一致させたくない場合はページクラスの `template_name` にパスを渡す．詳しくは[こちら](init.html#ページクラスの変数) ．
+- **タイトルブロック** （ `{{ block title }}` と `{{ endblock }}` に挟まれた部分）内に，ページの冒頭で表示するタイトルを記述する．
+- **コンテンツブロック** （ `{{ block content }}` と `{{ endblock }}` に挟まれた部分）内に，ページの本文を，HTMLタグも適宜使って記述する．
+- CSSを使う場合は， **スタイルブロック** （ `{{ block styles }}` と `{{ endblock }}` に挟まれた部分）に `<style>` タグで直書きするか `<link>` タグを書いてCSSファイルを読み込む．．
+- JavaScriptを使う場合は， **スクリプトブロック** （ `{{ block scripts }}` と `{{ endblock }}` に挟まれた部分）に `<script>` タグで直書きするかJSファイルを読み込む．
 
+- oTree はまずはじめに oTree サーバーがテンプレートファイルを読み込んで変数の展開などを行い HTML を生成して，これをクライアント（参加者のブラウザ）に送信する．  
+[https://otree.readthedocs.io/en/latest/templates.html#how-templates-work-an-example](https://otree.readthedocs.io/en/latest/templates.html#how-templates-work-an-example)
+
+- 自分が記述したテンプレートファイルの各ブロックの内容は，以下の該当箇所に展開され，一つのHTMLが完成する．
+  ```html
+  <!DOCTYPE html>
+  <html>
+      <head>
+          <title>{% block head_title %}タイトルブロックに記述した文字列{% endblock %}</title>
+          {% block internal_styles %}
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <link rel="stylesheet" href="{% static 'bootstrap5/css/bootstrap.min.css' %}">
+              <link rel="stylesheet" href="{% static 'otree/css/theme.css' %}">
+          {% endblock %}
+
+          {% block global_styles %}{% endblock %}
+          {% block app_styles %}{% endblock %}
+          {% block styles %}スタイルブロックに記述した要素{% endblock %}
+      </head>
+      <body>
+          {% block body_main %}
+              <div class="otree-body container">
+                  <h2 class="otree-title page-header" id="_otree-title">{% block title %}タイトルブロックに記述した要素{% endblock %}</h2>
+                  {% if view.remaining_timeout_seconds() != None %}
+                      {% with form_element_id="form" %}
+                          <!-- タイムアウトの設定がしてあると，ここで残り時間が表示される． -->
+                          <div class="otree-timer alert alert-warning">
+                              <p>
+                                  {{ timer_text }}
+                                  <span style="font-weight: bold">
+                                      <span class="otree-timer__time-left"></span>
+                                  </span>
+                              </p>
+                          </div>
+                      {% endwith %}
+                  {% endif %}
+                  {% if form.errors %}
+                      <!-- oTreeのフォーム検証に引っかかると，ここでエラーメッセージが表示される． -->
+                      <div class="otree-form-errors alert alert-danger">
+                          {% if form.non_field_error %}
+                              {{ form.non_field_error }}
+                          {% else %}
+                              {{ "Please fix the errors."|gettext }}
+                          {% endif %}
+                      </div>
+                  {% endif %}
+                  {% if is_defined('js_vars') and js_vars %}
+                      <!-- js_varsが定義してあると，渡した辞書をここでJavaScriptのオブジェクトとして定義する． -->
+                      <script>var js_vars = {{ js_vars }};</script>
+                  {% endif %}
+
+                  <form class="otree-form" method="post" role="form" id="form" autocomplete="off">
+                      <script src="{% static 'otree/js/formInputs.js' %}"></script>
+                      <div class="_otree-content">
+                          <!-- (((((((((((((((((((((((((((((((((((((((((((((((((((((((( CONTENT BLOCK -->
+                          {% block content %}
+                              コンテンツブロックに記述した要素
+                          {% endblock %}
+                          <!-- )))))))))))))))))))))))))))))))))))))))))))))))))))))))) END OF CONTENT BLOCK -->
+                      </div>
+                  </form>
+                  <br/>
+                  {% if is_defined('view.is_debug') and view.is_debug %}
+                      <!-- DEBUGモードのとき，ここにデバッグ用の情報が表示される． -->
+                      <br>
+                      {% include 'otree/includes/debug_info.html' %}
+                  {% endif %}
+              </div>
+          {% endblock %}
+
+          {% block internal_scripts %}
+              <script src="{% static 'otree/js/internet-explorer.js' %}"></script>
+              <script src="{% static 'otree/js/reconnecting-websocket-iife.min.js' %}"></script>
+              {% block bootstrap_scripts %}
+                  <script src="{% static 'bootstrap5/js/bootstrap.bundle.min.js' %}"></script>
+              {% endblock %}
+              <script src="{% static 'otree/js/common.js' %}"></script>
+              <script id="websocket-redirect" src="{% static 'otree/js/page-websocket-redirect.js' %}" data-socket-url="{{ view.socket_url() }}" data-is-debug="{{ view.is_debug || '' }}"></script>
+              {% if view.remaining_timeout_seconds() != None %}
+                  {% include 'otree/includes/TimeLimit.js.html' %}
+              {% endif %}
+          {% endblock %}
+          {% if has_live_method %}
+              <form id="liveform"></form>
+              <script src="{% static 'otree/js/live.js' %}" id="otree-live" data-socket-url="{{ view.live_url() }}"></script>
+          {% endif %}
+
+          {% block global_scripts %}{% endblock %}
+          {% block app_scripts %}{% endblock %}
+          {% block scripts %}スクリプトブロックに記述した要素{% endblock %}
+      </body>
+  </html>
+  ```
 
 
 ## 変数の展開
@@ -282,6 +383,57 @@
   <img src="/static/global/photo.png">
   ```
   と生成する．
+- プロジェクトディレクトリ直下の `_static` ディレクトリは， oTree 本体が用意している `_static` （中身は以下）を上書きする．
+
+  %accordion%oTree 本体の `_static` の中身%accordion%
+  ```
+  .
+  ├── bootstrap5
+  │   ├── css
+  │   │   ├── bootstrap.min.css
+  │   │   └── bootstrap.min.css.map
+  │   └── js
+  │       ├── bootstrap.bundle.min.js
+  │       └── bootstrap.bundle.min.js.map
+  ├── favicon.ico
+  ├── glyphicons
+  │   ├── clock.png
+  │   ├── cloud.png
+  │   ├── cogwheel.png
+  │   ├── delete.png
+  │   ├── download-alt.png
+  │   ├── eye-open.png
+  │   ├── folder-closed.png
+  │   ├── link.png
+  │   ├── list-alt.png
+  │   ├── pencil.png
+  │   ├── plus.png
+  │   ├── pushpin.png
+  │   ├── refresh.png
+  │   ├── stats.png
+  │   └── usd.png
+  ├── otree
+  │   ├── css
+  │   │   ├── table.css
+  │   │   └── theme.css
+  │   └── js
+  │       ├── common.js
+  │       ├── formInputs.js
+  │       ├── internet-explorer.js
+  │       ├── jquery-3.2.1.min.js
+  │       ├── jquery.color-2.1.2.min.js
+  │       ├── jquery.countdown.min.js
+  │       ├── jquery.timeago.en-short.js
+  │       ├── jquery.timeago.js
+  │       ├── live.js
+  │       ├── monitor2.js
+  │       ├── page-websocket-redirect.js
+  │       ├── reconnecting-websocket-iife.min.js
+  │       └── table-utils.js
+  └── robots.txt
+  ```
+  %/accordion%
+    - 画像ファイルならともかく，CSSファイル，JSファイルを上書きするのは危険かも．
 
 
 ### `extends`

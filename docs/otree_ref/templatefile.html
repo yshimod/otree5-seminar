@@ -466,15 +466,114 @@
                                 <h1 id="テンプレートファイルの書き方">テンプレートファイルの書き方</h1>
 <h2 id="基本">基本</h2>
 <ul>
-<li>タイトルブロックを編集する．<ul>
-<li><code>{{ block title }}</code> と <code>{{ endblock }}</code> に挟まれた部分（デフォルトでは <code>Page title</code> と入っている部分）を「タイトルブロック」と呼ぶ．</li>
-<li>タイトルブロック内に，ページの冒頭で表示するタイトルを記述する．</li>
+<li>ファイル名はページクラスのクラス名と一致させる．たとえば<pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Results</span>(<span class="hljs-params">Page</span>):</span>
+    <span class="hljs-keyword">pass</span>
+</code></pre>
+  というクラスを定義していれば，テンプレートファイルの名前は <code>Results.html</code> とする．<ul>
+<li>ファイル名が <code>results.html</code> （大文字・小文字の違い）でもエラーが出ずに動いてしまう環境（ファイルシステムに依存）がある．しかし，大文字・小文字もちゃんと一致させておくべき．<ul>
+<li>Windows や Mac はファイル名の大文字と小文字を区別しない．しかし， Linux は区別する．ありがちなトラブルは，手元のPCでは正常に動くのに，Heroku（Linux）にデプロイしたときには動かない，</li>
+<li>Git でプロジェクトを管理している場合，ファイル名の大文字・小文字のリネームは無視されるので注意．</li>
 </ul>
 </li>
-<li>コンテンツブロックを編集する．<ul>
-<li><code>{{ block content }}</code> と <code>{{ endblock }}</code> に挟まれた部分を「コンテンツブロック」と呼ぶ．</li>
-<li>コンテンツブロック内に，ページの本文を，HTMLタグも適宜使って記述する．</li>
+<li>クラス名とファイル名を一致させたくない場合はページクラスの <code>template_name</code> にパスを渡す．詳しくは<a href="init.html#ページクラスの変数">こちら</a> ．</li>
 </ul>
+</li>
+<li><strong>タイトルブロック</strong> （ <code>{{ block title }}</code> と <code>{{ endblock }}</code> に挟まれた部分）内に，ページの冒頭で表示するタイトルを記述する．</li>
+<li><strong>コンテンツブロック</strong> （ <code>{{ block content }}</code> と <code>{{ endblock }}</code> に挟まれた部分）内に，ページの本文を，HTMLタグも適宜使って記述する．</li>
+<li>CSSを使う場合は， <strong>スタイルブロック</strong> （ <code>{{ block styles }}</code> と <code>{{ endblock }}</code> に挟まれた部分）に <code>&lt;style&gt;</code> タグで直書きするか <code>&lt;link&gt;</code> タグを書いてCSSファイルを読み込む．．</li>
+<li><p>JavaScriptを使う場合は， <strong>スクリプトブロック</strong> （ <code>{{ block scripts }}</code> と <code>{{ endblock }}</code> に挟まれた部分）に <code>&lt;script&gt;</code> タグで直書きするかJSファイルを読み込む．</p>
+</li>
+<li><p>oTree はまずはじめに oTree サーバーがテンプレートファイルを読み込んで変数の展開などを行い HTML を生成して，これをクライアント（参加者のブラウザ）に送信する．<br><a href="https://otree.readthedocs.io/en/latest/templates.html#how-templates-work-an-example" target="_blank">https://otree.readthedocs.io/en/latest/templates.html#how-templates-work-an-example</a></p>
+</li>
+<li><p>自分が記述したテンプレートファイルの各ブロックの内容は，以下の該当箇所に展開され，一つのHTMLが完成する．</p>
+<pre><code class="lang-html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>{% block head_title %}タイトルブロックに記述した文字列{% endblock %}<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+        {% block internal_styles %}
+            <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;{% static &apos;bootstrap5/css/bootstrap.min.css&apos; %}&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;{% static &apos;otree/css/theme.css&apos; %}&quot;</span>&gt;</span>
+        {% endblock %}
+
+        {% block global_styles %}{% endblock %}
+        {% block app_styles %}{% endblock %}
+        {% block styles %}スタイルブロックに記述した要素{% endblock %}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+        {% block body_main %}
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;otree-body container&quot;</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">h2</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;otree-title page-header&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;_otree-title&quot;</span>&gt;</span>{% block title %}タイトルブロックに記述した要素{% endblock %}<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+                {% if view.remaining_timeout_seconds() != None %}
+                    {% with form_element_id=&quot;form&quot; %}
+                        <span class="hljs-comment">&lt;!-- タイムアウトの設定がしてあると，ここで残り時間が表示される． --&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;otree-timer alert alert-warning&quot;</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+                                {{ timer_text }}
+                                <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;font-weight: bold&quot;</span>&gt;</span>
+                                    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;otree-timer__time-left&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+                                <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+                            <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                    {% endwith %}
+                {% endif %}
+                {% if form.errors %}
+                    <span class="hljs-comment">&lt;!-- oTreeのフォーム検証に引っかかると，ここでエラーメッセージが表示される． --&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;otree-form-errors alert alert-danger&quot;</span>&gt;</span>
+                        {% if form.non_field_error %}
+                            {{ form.non_field_error }}
+                        {% else %}
+                            {{ &quot;Please fix the errors.&quot;|gettext }}
+                        {% endif %}
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                {% endif %}
+                {% if is_defined(&apos;js_vars&apos;) and js_vars %}
+                    <span class="hljs-comment">&lt;!-- js_varsが定義してあると，渡した辞書をここでJavaScriptのオブジェクトとして定義する． --&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="handlebars"><span class="xml">var js_vars = </span><span class="hljs-template-variable">{{ <span class="hljs-name">js_vars</span> }}</span><span class="xml">;</span></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+                {% endif %}
+
+                <span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;otree-form&quot;</span> <span class="hljs-attr">method</span>=<span class="hljs-string">&quot;post&quot;</span> <span class="hljs-attr">role</span>=<span class="hljs-string">&quot;form&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;form&quot;</span> <span class="hljs-attr">autocomplete</span>=<span class="hljs-string">&quot;off&quot;</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;{% static &apos;otree/js/formInputs.js&apos; %}&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;_otree-content&quot;</span>&gt;</span>
+                        <span class="hljs-comment">&lt;!-- (((((((((((((((((((((((((((((((((((((((((((((((((((((((( CONTENT BLOCK --&gt;</span>
+                        {% block content %}
+                            コンテンツブロックに記述した要素
+                        {% endblock %}
+                        <span class="hljs-comment">&lt;!-- )))))))))))))))))))))))))))))))))))))))))))))))))))))))) END OF CONTENT BLOCK --&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">br</span>/&gt;</span>
+                {% if is_defined(&apos;view.is_debug&apos;) and view.is_debug %}
+                    <span class="hljs-comment">&lt;!-- DEBUGモードのとき，ここにデバッグ用の情報が表示される． --&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span>
+                    {% include &apos;otree/includes/debug_info.html&apos; %}
+                {% endif %}
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        {% endblock %}
+
+        {% block internal_scripts %}
+            <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;{% static &apos;otree/js/internet-explorer.js&apos; %}&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;{% static &apos;otree/js/reconnecting-websocket-iife.min.js&apos; %}&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+            {% block bootstrap_scripts %}
+                <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;{% static &apos;bootstrap5/js/bootstrap.bundle.min.js&apos; %}&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+            {% endblock %}
+            <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;{% static &apos;otree/js/common.js&apos; %}&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;websocket-redirect&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;{% static &apos;otree/js/page-websocket-redirect.js&apos; %}&quot;</span> <span class="hljs-attr">data-socket-url</span>=<span class="hljs-string">&quot;{{ view.socket_url() }}&quot;</span> <span class="hljs-attr">data-is-debug</span>=<span class="hljs-string">&quot;{{ view.is_debug || &apos;&apos; }}&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+            {% if view.remaining_timeout_seconds() != None %}
+                {% include &apos;otree/includes/TimeLimit.js.html&apos; %}
+            {% endif %}
+        {% endblock %}
+        {% if has_live_method %}
+            <span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;liveform&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;{% static &apos;otree/js/live.js&apos; %}&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;otree-live&quot;</span> <span class="hljs-attr">data-socket-url</span>=<span class="hljs-string">&quot;{{ view.live_url() }}&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+        {% endif %}
+
+        {% block global_scripts %}{% endblock %}
+        {% block app_scripts %}{% endblock %}
+        {% block scripts %}スクリプトブロックに記述した要素{% endblock %}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
 </li>
 </ul>
 <h2 id="変数の展開">変数の展開</h2>
@@ -735,6 +834,57 @@
 と記述する．これを oTree は<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;/static/global/photo.png&quot;</span>&gt;</span>
 </code></pre>
 と生成する．</li>
+<li><p>プロジェクトディレクトリ直下の <code>_static</code> ディレクトリは， oTree 本体が用意している <code>_static</code> （中身は以下）を上書きする．</p>
+<div class="accordion accordionClose"><div class="accordionButton"><div class="accordionTitle">oTree 本体の <code>_static</code> の中身</div><div class="accordionSpinnerBox"><div class="accordionSpinner"></div></div></div><div class="accordionContent">
+<pre><code>.
+├── bootstrap5
+│   ├── css
+│   │   ├── bootstrap.min.css
+│   │   └── bootstrap.min.css.map
+│   └── js
+│       ├── bootstrap.bundle.min.js
+│       └── bootstrap.bundle.min.js.map
+├── favicon.ico
+├── glyphicons
+│   ├── clock.png
+│   ├── cloud.png
+│   ├── cogwheel.png
+│   ├── delete.png
+│   ├── download-alt.png
+│   ├── eye-open.png
+│   ├── folder-closed.png
+│   ├── link.png
+│   ├── list-alt.png
+│   ├── pencil.png
+│   ├── plus.png
+│   ├── pushpin.png
+│   ├── refresh.png
+│   ├── stats.png
+│   └── usd.png
+├── otree
+│   ├── css
+│   │   ├── table.css
+│   │   └── theme.css
+│   └── js
+│       ├── common.js
+│       ├── formInputs.js
+│       ├── internet-explorer.js
+│       ├── jquery-3.2.1.min.js
+│       ├── jquery.color-2.1.2.min.js
+│       ├── jquery.countdown.min.js
+│       ├── jquery.timeago.en-short.js
+│       ├── jquery.timeago.js
+│       ├── live.js
+│       ├── monitor2.js
+│       ├── page-websocket-redirect.js
+│       ├── reconnecting-websocket-iife.min.js
+│       └── table-utils.js
+└── robots.txt
+</code></pre></div></div>
+<ul>
+<li>画像ファイルならともかく，CSSファイル，JSファイルを上書きするのは危険かも．</li>
+</ul>
+</li>
 </ul>
 <h3 id="extends"><code>extends</code></h3>
 <ul>
@@ -1016,7 +1166,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"テンプレートファイルの書き方","level":"2.5","depth":1,"next":{"title":"【資料: デプロイ編】","level":"3.1","depth":1,"ref":"","articles":[]},"previous":{"title":"__init__.py の書き方","level":"2.4","depth":1,"path":"otree_ref/init.md","ref":"otree_ref/init.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"otree_ref/templatefile.md","mtime":"2022-06-27T03:29:45.547Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-27T04:24:12.968Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"テンプレートファイルの書き方","level":"2.5","depth":1,"next":{"title":"【資料: デプロイ編】","level":"3.1","depth":1,"ref":"","articles":[]},"previous":{"title":"__init__.py の書き方","level":"2.4","depth":1,"path":"otree_ref/init.md","ref":"otree_ref/init.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"otree_ref/templatefile.md","mtime":"2022-06-28T03:30:19.988Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-28T03:34:01.408Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
