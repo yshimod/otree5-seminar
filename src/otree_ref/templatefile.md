@@ -572,7 +572,7 @@
   ```html
   <div class="form-control-errors">ここにエラーメッセージ</div>
   ```
-- エラーメッセージは 組み込み関数 `error_message()` や データモデルクラスの組み込みメソッド `変数名_error_message()` を使ってカスタマイズできる．
+- エラーメッセージはページクラスの組み込みメソッド `error_message()` やモジュールレベルの組み込み関数 `変数名_error_message()` を使ってカスタマイズできる．
 - [https://otree.readthedocs.io/en/latest/forms.html#raw-html-widgets](https://otree.readthedocs.io/en/latest/forms.html#raw-html-widgets)
 
 

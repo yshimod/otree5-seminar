@@ -38,7 +38,7 @@
     - クラウドを介して複数人での開発が効率化できる．
     - 複数のマシンで1つのプロジェクトを管理できる．
     - GitHubはホスティングサービスとしても有用．
-    - GitHubとHerokuとの連携も便利（2022年5月現在使えないけど）．
+    - GitHubとHerokuとの連携も便利 ~~（2022年5月現在使えないけど）~~ ．
     - （GitHubのほかにGitLabもある．）
 - 研究活動でのGitHubの活用例
     - 国里愛彦ラボ [https://kunisatolab.github.io/main/how-to-github.html](https://kunisatolab.github.io/main/how-to-github.html)
