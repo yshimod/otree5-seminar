@@ -11,6 +11,9 @@ Rodriguez-Lara, I. (2016). Equity and bargaining power in ultimatum games.
 
 - [https://github.com/yshimod/RodriguezLara2016](https://github.com/yshimod/RodriguezLara2016) のリポジトリをダウンロードして（ GitHub アカウントがあればフォークしてからクローンして），それを編集していく．
 
+    - [ZIP ファイルのダウンロード](https://github.com/yshimod/RodriguezLara2016/archive/refs/heads/initial.zip)
+
+
 - エフォートタスクはすでに1つのアプリ（ `effort` ）で実装されてい（るものとし）て，そのスコア（クイズの得点）が `participant.effort_score` に入っているので，この値を使う．
 
 - 実装の優先順位は...
