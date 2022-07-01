@@ -468,18 +468,28 @@
                                 <h1 id="settingspy-の書き方"><code>settings.py</code> の書き方</h1>
 <h2 id="sessionconfigs"><code>SESSION_CONFIGS</code></h2>
 <ul>
-<li>セッションの構成を辞書型で定義する．<ul>
-<li><code>name</code>: セッションの名前</li>
-<li><code>display_name</code>: 管理者画面で表示するセッション名（指定しなければ <code>name</code> が表示される）</li>
-<li><code>app_sequence</code>: アプリの順序をlistで設定</li>
-<li><code>num_demo_participants</code>: デモページでの人数</li>
-<li>独自のセッション変数（定数）<ul>
-<li>たとえば <code>time_pressure=True</code> と設定した場合，アプリのスクリプトの中では <code>インスタンスオブジェクト.session.config[&quot;time_pressure&quot;]</code> で変数にアクセスできる（インスタンスオブジェクト ∈ { <code>player</code>, <code>group</code>, <code>subsession</code> } ）．</li>
-<li><a href="https://otree.readthedocs.io/en/latest/treatments.html" target="_blank">https://otree.readthedocs.io/en/latest/treatments.html</a></li>
-</ul>
+<li><p>セッションの構成を辞書型で定義する．</p>
+<ul>
+<li><p><code>name</code>: セッションの名前</p>
+</li>
+<li><p><code>display_name</code>: 管理者画面で表示するセッション名（指定しなければ <code>name</code> が表示される）</p>
+</li>
+<li><p><code>app_sequence</code>: アプリの順序をlistで設定</p>
+</li>
+<li><p><code>num_demo_participants</code>: デモページでの人数</p>
+</li>
+<li><p>独自のセッション変数（定数）</p>
+<ul>
+<li><p>たとえば <code>time_pressure=True</code> と設定した場合，アプリのスクリプトの中では <code>インスタンスオブジェクト.session.config[&quot;time_pressure&quot;]</code> で変数にアクセスできる（インスタンスオブジェクト ∈ { <code>player</code>, <code>group</code>, <code>subsession</code> } ）．</p>
+</li>
+<li><p><a href="https://otree.readthedocs.io/en/latest/treatments.html" target="_blank">https://otree.readthedocs.io/en/latest/treatments.html</a></p>
 </li>
 </ul>
 </li>
+</ul>
+</li>
+</ul>
+<ul>
 <li>例<pre><code class="lang-python">SESSION_CONFIGS = [
     <span class="hljs-built_in">dict</span>(
         name=<span class="hljs-string">&quot;guess_two_thirds&quot;</span>,
@@ -505,12 +515,17 @@
 </ul>
 <h2 id="sessionconfigdefaults"><code>SESSION_CONFIG_DEFAULTS</code></h2>
 <ul>
-<li><code>SESSION_CONFIGS</code> で複数のセッションを設定している場合，すべての要素に共通して設定したい変数があれば <code>SESSION_CONFIG_DEFAULTS</code> で設定する．</li>
-<li><code>SESSION_CONFIGS</code> に同じ変数名で定義されていれば， <code>SESSION_CONFIGS</code> の定義が優先される．</li>
-<li><code>real_world_currency_per_point</code> （実験ポイントと通貨の間のレート） と <code>participation_fee</code> （固定報酬） は <code>SESSION_CONFIG_DEFAULTS</code> か <code>SESSION_CONFIGS</code> のどちらかで必ず設定しなければならない．<ul>
+<li><p><code>SESSION_CONFIGS</code> で複数のセッションを設定している場合，すべての要素に共通して設定したい変数があれば <code>SESSION_CONFIG_DEFAULTS</code> で設定する．</p>
+</li>
+<li><p><code>SESSION_CONFIGS</code> に同じ変数名で定義されていれば， <code>SESSION_CONFIGS</code> の定義が優先される．</p>
+</li>
+<li><p><code>real_world_currency_per_point</code> （実験ポイントと通貨の間のレート） と <code>participation_fee</code> （固定報酬） は <code>SESSION_CONFIG_DEFAULTS</code> か <code>SESSION_CONFIGS</code> のどちらかで必ず設定しなければならない．</p>
+<ul>
 <li><code>participation_fee</code> で固定報酬を設定した場合，SessionPaymentsページで表示される参加者の合計報酬額（ <code>participant.payoff_plus_participation_fee</code> ）は，どんな参加者であれ <code>participation_fee.payoff</code> が加算される．たとえばオンライン実験で実験中に脱落した場合にも固定報酬が加算されてしまう．</li>
 </ul>
 </li>
+</ul>
+<ul>
 <li>例<pre><code class="lang-python">SESSION_CONFIG_DEFAULTS = <span class="hljs-built_in">dict</span>(
     real_world_currency_per_point=<span class="hljs-number">1.00</span>,    <span class="hljs-comment"># この変数は必ず設定せよ</span>
     participation_fee=<span class="hljs-number">0.00</span>,    <span class="hljs-comment"># この変数は必ず設定せよ</span>
@@ -521,9 +536,12 @@
 </ul>
 <h2 id="participantfields"><code>PARTICIPANT_FIELDS</code></h2>
 <ul>
-<li>参加者一人一人について，アプリをまたいで1つの変数を使いたい場合，変数名の一覧を <code>PARTICIPANT_FIELDS</code> にlistで渡す．</li>
-<li>たとえば <code>effort_score</code> なる変数をアプリのスクリプトで使う場合， <code>participant.effort_score</code> または <code>participant.vars[&apos;effort_score&apos;]</code> で変数にアクセスする．変数の値の更新も可能．</li>
-<li>例<pre><code class="lang-python">PARTICIPANT_FIELDS = [
+<li><p>参加者一人一人について，アプリをまたいで1つの変数を使いたい場合，変数名の一覧を <code>PARTICIPANT_FIELDS</code> にlistで渡す．</p>
+</li>
+<li><p>たとえば <code>effort_score</code> なる変数をアプリのスクリプトで使う場合， <code>participant.effort_score</code> または <code>participant.vars[&apos;effort_score&apos;]</code> で変数にアクセスする．変数の値の更新も可能．</p>
+</li>
+<li><p>例</p>
+<pre><code class="lang-python">PARTICIPANT_FIELDS = [
     <span class="hljs-string">&apos;effort_score&apos;</span>,
     <span class="hljs-string">&apos;lottery_score&apos;</span>
 ]
@@ -532,9 +550,12 @@
 </ul>
 <h2 id="sessionfields"><code>SESSION_FIELDS</code></h2>
 <ul>
-<li>アプリをまたいでセッション参加者全員に共通な変数を使いたい場合，変数名の一覧を <code>SESSION_FIELDS</code> にlistで渡す．</li>
-<li>たとえば <code>effort_score_best</code> なる変数をアプリのスクリプトで使う場合， <code>session.effort_score_best</code> または <code>session.vars[&apos;effort_score_best&apos;]</code> で変数にアクセスする．変数の値の更新も可能．</li>
-<li>例<pre><code class="lang-python">SESSION_FIELDS = [
+<li><p>アプリをまたいでセッション参加者全員に共通な変数を使いたい場合，変数名の一覧を <code>SESSION_FIELDS</code> にlistで渡す．</p>
+</li>
+<li><p>たとえば <code>effort_score_best</code> なる変数をアプリのスクリプトで使う場合， <code>session.effort_score_best</code> または <code>session.vars[&apos;effort_score_best&apos;]</code> で変数にアクセスする．変数の値の更新も可能．</p>
+</li>
+<li><p>例</p>
+<pre><code class="lang-python">SESSION_FIELDS = [
     <span class="hljs-string">&apos;effort_score_best&apos;</span>,
     <span class="hljs-string">&apos;lottery_score_best&apos;</span>
 ]
@@ -543,12 +564,17 @@
 </ul>
 <h2 id="languagecode"><code>LANGUAGE_CODE</code></h2>
 <ul>
-<li>参加者に表示するデフォルトメッセージの言語を選択する．<ul>
+<li><p>参加者に表示するデフォルトメッセージの言語を選択する．</p>
+<ul>
 <li>たとえば次のページへ進めるボタンのテキストは，英語は「Next」日本語は「次へ」．</li>
 </ul>
 </li>
-<li>管理者画面は翻訳されない．</li>
-<li>例<pre><code class="lang-python"><span class="hljs-comment"># ISO-639 code</span>
+</ul>
+<ul>
+<li><p>管理者画面は翻訳されない．</p>
+</li>
+<li><p>例</p>
+<pre><code class="lang-python"><span class="hljs-comment"># ISO-639 code</span>
 <span class="hljs-comment"># for example: de, fr, ja, ko, zh-hans</span>
 LANGUAGE_CODE = <span class="hljs-string">&apos;ja&apos;</span>    <span class="hljs-comment">## 日本語</span>
 </code></pre>
@@ -556,12 +582,17 @@ LANGUAGE_CODE = <span class="hljs-string">&apos;ja&apos;</span>    <span class="
 </ul>
 <h2 id="realworldcurrencycode"><code>REAL_WORLD_CURRENCY_CODE</code></h2>
 <ul>
-<li>Currency型で使う通貨を選択する．</li>
-<li>日本円の場合，Currency型は整数になる．</li>
-<li>テンプレートで値を表示するとき，数字の後に「円」が表示される．<ul>
+<li><p>Currency型で使う通貨を選択する．</p>
+</li>
+<li><p>日本円の場合，Currency型は整数になる．</p>
+</li>
+<li><p>テンプレートで値を表示するとき，数字の後に「円」が表示される．</p>
+<ul>
 <li>「〇〇円」表記を「¥〇〇」表記に変更することはできない．</li>
 </ul>
 </li>
+</ul>
+<ul>
 <li>例<pre><code class="lang-python"><span class="hljs-comment"># e.g. EUR, GBP, CNY, JPY</span>
 REAL_WORLD_CURRENCY_CODE = <span class="hljs-string">&apos;JPY&apos;</span>    <span class="hljs-comment">## 日本円</span>
 </code></pre>
@@ -569,18 +600,25 @@ REAL_WORLD_CURRENCY_CODE = <span class="hljs-string">&apos;JPY&apos;</span>    <
 </ul>
 <h2 id="usepoints"><code>USE_POINTS</code></h2>
 <ul>
-<li>Currency型で通貨ではなくポイント（トークン，ECU）を使う場合， <code>True</code> を渡す．</li>
-<li>テンプレートで値を表示するとき，数字の後に「ポイント」が表示される．</li>
-<li>例<pre><code class="lang-python">USE_POINTS = <span class="hljs-literal">True</span>
+<li><p>Currency型で通貨ではなくポイント（トークン，ECU）を使う場合， <code>True</code> を渡す．</p>
+</li>
+<li><p>テンプレートで値を表示するとき，数字の後に「ポイント」が表示される．</p>
+</li>
+<li><p>例</p>
+<pre><code class="lang-python">USE_POINTS = <span class="hljs-literal">True</span>
 </code></pre>
 </li>
 </ul>
 <h2 id="rooms"><code>ROOMS</code></h2>
 <ul>
-<li>Roomを使用する場合，dictで定義する．</li>
-<li>参加者の一覧が手元にある場合:<ul>
-<li>参加者ラベルの一覧はテキストファイル（たとえば <code>econ101.txt</code> ）で作る．ラベル（ <code>participant_label</code> ）を改行区切りで記述する．</li>
-<li>参加者ラベルの一覧を記述したテキストファイルのパス（ <code>_rooms/econ101.txt</code> ）を <code>participant_label_file</code> で指定する．<pre><code class="lang-python">ROOMS = [
+<li><p>Roomを使用する場合，dictで定義する．</p>
+</li>
+<li><p>参加者の一覧が手元にある場合:</p>
+<ul>
+<li><p>参加者ラベルの一覧はテキストファイル（たとえば <code>econ101.txt</code> ）で作る．ラベル（ <code>participant_label</code> ）を改行区切りで記述する．</p>
+</li>
+<li><p>参加者ラベルの一覧を記述したテキストファイルのパス（ <code>_rooms/econ101.txt</code> ）を <code>participant_label_file</code> で指定する．</p>
+<pre><code class="lang-python">ROOMS = [
   <span class="hljs-built_in">dict</span>(
       name=<span class="hljs-string">&apos;econ101&apos;</span>,
       display_name=<span class="hljs-string">&apos;Econ 101 class&apos;</span>,
@@ -591,9 +629,14 @@ REAL_WORLD_CURRENCY_CODE = <span class="hljs-string">&apos;JPY&apos;</span>    <
 </li>
 </ul>
 </li>
-<li>参加者の一覧が手元に無い場合:<ul>
-<li>たとえば，参加者にラベルを入力させる，URLクエリパラメータでラベルを設定する，などの場合．</li>
-<li><code>participant_label_file</code> を設定しない．<pre><code class="lang-python">ROOMS = [
+</ul>
+<ul>
+<li><p>参加者の一覧が手元に無い場合:</p>
+<ul>
+<li><p>たとえば，参加者にラベルを入力させる，URLクエリパラメータでラベルを設定する，などの場合．</p>
+</li>
+<li><p><code>participant_label_file</code> を設定しない．</p>
+<pre><code class="lang-python">ROOMS = [
   <span class="hljs-built_in">dict</span>(
       name=<span class="hljs-string">&apos;live_demo&apos;</span>,
       display_name=<span class="hljs-string">&apos;Room for live demo (no participant labels)&apos;</span>
@@ -606,36 +649,50 @@ REAL_WORLD_CURRENCY_CODE = <span class="hljs-string">&apos;JPY&apos;</span>    <
 </ul>
 <h2 id="adminusername"><code>ADMIN_USERNAME</code></h2>
 <ul>
-<li>管理者のユーザー名．</li>
-<li>例<pre><code class="lang-python">ADMIN_USERNAME = <span class="hljs-string">&apos;admin&apos;</span>
+<li><p>管理者のユーザー名．</p>
+</li>
+<li><p>例</p>
+<pre><code class="lang-python">ADMIN_USERNAME = <span class="hljs-string">&apos;admin&apos;</span>
 </code></pre>
 </li>
 </ul>
 <h2 id="adminpassword"><code>ADMIN_PASSWORD</code></h2>
 <ul>
-<li>管理者のパスワード． <code>settings.py</code> 内で直接設定できなくもないが，環境変数（ <code>OTREE_ADMIN_PASSWORD</code> ）を設定する方が良い．</li>
-<li>デフォルト<pre><code class="lang-python"><span class="hljs-comment"># for security, best to set admin password in an environment variable</span>
+<li><p>管理者のパスワード． <code>settings.py</code> 内で直接設定できなくもないが，環境変数（ <code>OTREE_ADMIN_PASSWORD</code> ）を設定する方が良い．</p>
+</li>
+<li><p>デフォルト</p>
+<pre><code class="lang-python"><span class="hljs-comment"># for security, best to set admin password in an environment variable</span>
 ADMIN_PASSWORD = environ.get(<span class="hljs-string">&apos;OTREE_ADMIN_PASSWORD&apos;</span>)
 </code></pre>
 </li>
 </ul>
 <h2 id="demopageintrohtml"><code>DEMO_PAGE_INTRO_HTML</code></h2>
 <ul>
-<li>デモページで実験者向けに表示する説明文．</li>
-<li>例<pre><code class="lang-python">DEMO_PAGE_INTRO_HTML = <span class="hljs-string">&quot;&quot;&quot;Here are some oTree games.&quot;&quot;&quot;</span>
+<li><p>デモページで実験者向けに表示する説明文．</p>
+</li>
+<li><p>例</p>
+<pre><code class="lang-python">DEMO_PAGE_INTRO_HTML = <span class="hljs-string">&quot;&quot;&quot;Here are some oTree games.&quot;&quot;&quot;</span>
 </code></pre>
 </li>
 </ul>
 <h2 id="secretkey"><code>SECRET_KEY</code></h2>
 <ul>
-<li>URLに付与されるランダム文字列の生成に使われる．</li>
-<li><code>otree startproject</code> でプロジェクトを作成したときに文字列が自動的に生成される．</li>
-<li><code>SECRET_KEY</code> があれば不正にアクセスできてしまう？</li>
-<li>GitHubでプロジェクトを管理する場合， <code>settings.py</code> の中には書かず環境変数で設定した方が良い？（Djangoの <code>SECRET_KEY</code> はGitHubにプッシュすると警告される．）</li>
-<li>例<pre><code class="lang-python">SECRET_KEY = <span class="hljs-string">&apos;1234567890&apos;</span>
+<li><p>URLに付与されるランダム文字列の生成に使われる．</p>
+</li>
+<li><p><code>otree startproject</code> でプロジェクトを作成したときに文字列が自動的に生成される．</p>
+</li>
+<li><p><code>SECRET_KEY</code> があれば不正にアクセスできてしまう？</p>
+</li>
+<li><p>GitHubでプロジェクトを管理する場合， <code>settings.py</code> の中には書かず環境変数で設定した方が良い？（Djangoの <code>SECRET_KEY</code> はGitHubにプッシュすると警告される．）</p>
+</li>
+<li><p>例</p>
+<pre><code class="lang-python">SECRET_KEY = <span class="hljs-string">&apos;1234567890&apos;</span>
 </code></pre>
 </li>
-<li>環境変数で設定する例<pre><code class="lang-python">SECRET_KEY = environ.get(<span class="hljs-string">&apos;OTREE_SECRET_KEY&apos;</span>)
+</ul>
+<ul>
+<li><p>環境変数で設定する例</p>
+<pre><code class="lang-python">SECRET_KEY = environ.get(<span class="hljs-string">&apos;OTREE_SECRET_KEY&apos;</span>)
 </code></pre>
 <ul>
 <li>環境変数は <code>export OTREE_SECRET_KEY=1234567890</code> などのように設定．</li>
@@ -644,23 +701,29 @@ ADMIN_PASSWORD = environ.get(<span class="hljs-string">&apos;OTREE_ADMIN_PASSWOR
 </ul>
 <h2 id="installedapps"><code>INSTALLED_APPS</code></h2>
 <ul>
-<li>デフォルトで以下が設定されているが， oTree 5 では不要？<pre><code class="lang-python">INSTALLED_APPS = [<span class="hljs-string">&apos;otree&apos;</span>]
+<li>以下が設定されていることがあるかもしれないが， oTree 5 では不要．<pre><code class="lang-python">INSTALLED_APPS = [<span class="hljs-string">&apos;otree&apos;</span>]
 </code></pre>
 </li>
 </ul>
 <h2 id="debug"><code>DEBUG</code></h2>
 <ul>
-<li>oTree 本体では <code>DEBUG = os.environ.get(&apos;OTREE_PRODUCTION&apos;) in [None, &apos;&apos;, &apos;0&apos;]</code></li>
-<li>つまり，環境変数で <code>export OTREE_PRODUCTION=1</code> とするか <code>settings.py</code> で以下の設定をしない限りデバッグモードで起動する．<pre><code class="lang-python">DEBUG = <span class="hljs-literal">False</span>
+<li><p>oTree 本体では <code>DEBUG = os.environ.get(&apos;OTREE_PRODUCTION&apos;) in [None, &apos;&apos;, &apos;0&apos;]</code></p>
+</li>
+<li><p>つまり，環境変数で <code>export OTREE_PRODUCTION=1</code> とするか <code>settings.py</code> で以下の設定をしない限りデバッグモードで起動する．</p>
+<pre><code class="lang-python">DEBUG = <span class="hljs-literal">False</span>
 </code></pre>
 </li>
 </ul>
 <h2 id="authlevel"><code>AUTH_LEVEL</code></h2>
 <ul>
-<li>oTree 本体では <code>AUTH_LEVEL = os.environ.get(&apos;OTREE_AUTH_LEVEL&apos;)</code></li>
-<li>環境変数で <code>export OTREE_AUTH_LEVEL=STUDY</code> とするか <code>settings.py</code> で以下の設定すると本番モード（管理者画面全体がパスワード保護）で起動する．<pre><code class="lang-python">OTREE_AUTH_LEVEL = <span class="hljs-string">&quot;STUDY&quot;</span>
+<li><p>oTree 本体では <code>AUTH_LEVEL = os.environ.get(&apos;OTREE_AUTH_LEVEL&apos;)</code></p>
+</li>
+<li><p>環境変数で <code>export OTREE_AUTH_LEVEL=STUDY</code> とするか <code>settings.py</code> で以下の設定すると本番モード（管理者画面全体がパスワード保護）で起動する．</p>
+<pre><code class="lang-python">OTREE_AUTH_LEVEL = <span class="hljs-string">&quot;STUDY&quot;</span>
 </code></pre>
 </li>
+</ul>
+<ul>
 <li><code>STUDY</code> を <code>DEMO</code> に変えると，管理者画面のデモページ以外がパスワード保護で起動する．</li>
 </ul>
 
@@ -706,7 +769,7 @@ ADMIN_PASSWORD = environ.get(<span class="hljs-string">&apos;OTREE_ADMIN_PASSWOR
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"settings.py の書き方","level":"2.3","depth":1,"next":{"title":"__init__.py の書き方","level":"2.4","depth":1,"path":"otree_ref/init.md","ref":"otree_ref/init.md","articles":[]},"previous":{"title":"シェルで使用するoTreeサブコマンド","level":"2.2","depth":1,"path":"otree_ref/cmd.md","ref":"otree_ref/cmd.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"otree_ref/settings.md","mtime":"2022-06-22T12:20:54.589Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-30T10:10:27.658Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"settings.py の書き方","level":"2.3","depth":1,"next":{"title":"__init__.py の書き方","level":"2.4","depth":1,"path":"otree_ref/init.md","ref":"otree_ref/init.md","articles":[]},"previous":{"title":"シェルで使用するoTreeサブコマンド","level":"2.2","depth":1,"path":"otree_ref/cmd.md","ref":"otree_ref/cmd.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"otree_ref/settings.md","mtime":"2022-07-01T07:54:53.114Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-07-01T08:13:42.800Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
