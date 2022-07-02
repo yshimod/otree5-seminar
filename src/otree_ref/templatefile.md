@@ -266,44 +266,6 @@
         </tr>
     </table>
     ```
-    <table>
-        <tr>
-            <th>オプションL</th>
-            <th></th>
-            <th></th>
-            <th>オプションR</th>
-        </tr>
-        <tr>
-            <td>50%の確率で650円</td>
-            <td><input type="radio" name="mpl_0" value="L"></td>
-            <td><input type="radio" name="mpl_0" value="R"></td>
-            <td>100%の確率で200円</td>
-        </tr>
-        <tr>
-            <td>50%の確率で650円</td>
-            <td><input type="radio" name="mpl_1" value="L"></td>
-            <td><input type="radio" name="mpl_1" value="R"></td>
-            <td>100%の確率で250円</td>
-        </tr>
-        <tr>
-            <td>50%の確率で650円</td>
-            <td><input type="radio" name="mpl_2" value="L"></td>
-            <td><input type="radio" name="mpl_2" value="R"></td>
-            <td>100%の確率で300円</td>
-        </tr>
-        <tr>
-            <td>50%の確率で650円</td>
-            <td><input type="radio" name="mpl_3" value="L"></td>
-            <td><input type="radio" name="mpl_3" value="R"></td>
-            <td>100%の確率で350円</td>
-        </tr>
-        <tr>
-            <td>50%の確率で650円</td>
-            <td><input type="radio" name="mpl_4" value="L"></td>
-            <td><input type="radio" name="mpl_4" value="R"></td>
-            <td>100%の確率で400円</td>
-        </tr>
-    </table>
 
 
 - forループをネストさせる場合， `forloop.counter` は内側のforループのカウンター番号が展開される．外側のforループのカウンター番号を展開する場合は `{{ with parentloop_counter = forloop.counter }} {{ endwith }}` で内側のforループを挟み， 外側のカウンター番号として `{{ parentloop_counter }}` を使う．たとえば  
