@@ -518,6 +518,7 @@
     - 整数型．
     - 浮動小数点型の値を渡すとエラーとなる（入力フォームの送信時は oTree サーバーの検証に引っかかる）．
     - テンプレートタグで自由記述の入力フォームを作るとき， `type="number"` とした `<input>` で生成されるため，数字以外は入力できない．
+    - `min` や `max` を設定すると `<input>` 要素の `min`， `max` 属性にも値が渡され，ブラウザでも最小値，最大値の検証が行われる．
     - `choices`
         - リッカート尺度の入力フォームを実装する場合，たとえば以下のように記述する．
         ```python
@@ -544,6 +545,7 @@
     - 浮動小数点型．
     - Pythonの float と同様，15桁の有効桁数までは正確に表現できる．
     - テンプレートタグで自由記述の入力フォームを作るとき， `type="text"` とした `<input>` で生成されるため，数字以外も入力できてしまうが，文字列が送信されると oTree サーバーの検証に引っかかる．
+    - `min` や `max` を設定すると `<input>` 要素の `min`， `max` 属性にも値が渡されるが， `type="text"` であるため，結局，ブラウザでの最小値，最大値の検証は機能しないことに注意．
     - `choices`
     - `widget`
     - `initial`
@@ -569,6 +571,7 @@
     - `help_text`
     - `max_length`
         - デフォルトは `max_length=10000`．
+        - ブラウザでは検証されない．文字列の長さの検証を実装するには HTML タグを直書きして `<input>` 要素の `maxlength` 属性を設定する．
     - `blank`
 
 
@@ -588,23 +591,234 @@
 
 
 
-### widget として使えるもの
+### テンプレートタグで入力フォームを作る
 [https://otree.readthedocs.io/en/latest/forms.html#widgets](https://otree.readthedocs.io/en/latest/forms.html#widgets)
 
-- `widgets.CheckboxInput`
-- `widgets.RadioSelect`
-- `widgets.RadioSelectHorizontal`
+1. データを参加者に入力させたいページのクラスにおいて `form_model` と `form_fields` を設定する．
+
+1. テンプレートで `{{ formfields }}` タグを記述する．一つずつ特定して設置する場合には `{{ formfield "変数名" }}` と記述する．
+
+1. テンプレートタグで入力フォームを設置するとき，HTML タグが生成される．
+
+
+- `models.BooleanField()` を特に設定せず使った場合:
+
+  ```python
+  test = models.BooleanField(
+      label="ラベル"
+  )
+  ```
+
+  <p class="codepen" data-height="300" data-theme-id="dark" data-default-tab="html,result" data-slug-hash="rNdVWGO" data-editable="true" data-user="yshimod" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+      <span>See the Pen <a href="https://codepen.io/yshimod/pen/rNdVWGO">
+      oTree Boolean</a> by yshimod (<a href="https://codepen.io/yshimod">@yshimod</a>)
+      on <a href="https://codepen.io">CodePen</a>.</span>
+  </p>
+
+
+- `models.BooleanField()` で選択肢を設定した場合:
+
+  ```python
+  test = models.BooleanField(
+      label="ラベル",
+      choices=[
+          [True, "協力する"],
+          [False, "裏切る"]
+      ]
+  )
+  ```
+
+  <p class="codepen" data-height="300" data-theme-id="dark" data-default-tab="html,result" data-slug-hash="poLJNWM" data-editable="true" data-user="yshimod" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+      <span>See the Pen <a href="https://codepen.io/yshimod/pen/poLJNWM">
+      oTree Boolean Labeled</a> by yshimod (<a href="https://codepen.io/yshimod">@yshimod</a>)
+      on <a href="https://codepen.io">CodePen</a>.</span>
+  </p>
+
+
+- `models.BooleanField()` で `widgets.RadioSelectHorizontal` を使った場合:
+
+  ```python
+  test = models.BooleanField(
+      label="ラベル",
+      widget=widgets.RadioSelectHorizontal
+  )
+  ```
+
+  <p class="codepen" data-height="300" data-theme-id="dark" data-default-tab="html,result" data-slug-hash="bGvdBmJ" data-editable="true" data-user="yshimod" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+      <span>See the Pen <a href="https://codepen.io/yshimod/pen/bGvdBmJ">
+      oTree Boolean ckbox</a> by yshimod (<a href="https://codepen.io/yshimod">@yshimod</a>)
+      on <a href="https://codepen.io">CodePen</a>.</span>
+  </p>
+
+
+- `models.BooleanField()` で `widgets.CheckboxInput` を使った場合:
+
+  ```python
+  test = models.BooleanField(
+      label="ラベル",
+      widget=widgets.CheckboxInput
+  )
+  ```
+
+  <p class="codepen" data-height="300" data-theme-id="dark" data-default-tab="html,result" data-slug-hash="WNzvogB" data-editable="true" data-user="yshimod" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+      <span>See the Pen <a href="https://codepen.io/yshimod/pen/WNzvogB">
+      oTree Boolean Checkbox</a> by yshimod (<a href="https://codepen.io/yshimod">@yshimod</a>)
+      on <a href="https://codepen.io">CodePen</a>.</span>
+  </p>
+
+
+- `models.IntegerField()` を特に設定せず使った場合:
+
+  ```python
+  test = models.IntegerField(
+      label="ラベル"
+  )
+  ```
+
+  <p class="codepen" data-height="300" data-theme-id="dark" data-default-tab="html,result" data-slug-hash="rNdVWoL" data-editable="true" data-user="yshimod" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+      <span>See the Pen <a href="https://codepen.io/yshimod/pen/rNdVWoL">
+      Untitled</a> by yshimod (<a href="https://codepen.io/yshimod">@yshimod</a>)
+      on <a href="https://codepen.io">CodePen</a>.</span>
+  </p>
+
+
+- `models.IntegerField()` で最大値を設定した場合:
+
+  ```python
+  test = models.IntegerField(
+      label="ラベル",
+      max=100
+  )
+  ```
+
+  <p class="codepen" data-height="300" data-theme-id="dark" data-default-tab="html,result" data-slug-hash="wvmaoNZ" data-editable="true" data-user="yshimod" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+      <span>See the Pen <a href="https://codepen.io/yshimod/pen/wvmaoNZ">
+      oTree Integer Max</a> by yshimod (<a href="https://codepen.io/yshimod">@yshimod</a>)
+      on <a href="https://codepen.io">CodePen</a>.</span>
+  </p>
+
+
+- `models.IntegerField()` で選択肢を設定した場合:
+
+  ```python
+  test = models.IntegerField(
+      label="ラベル",
+      choices = [
+          [1, "全く同意できない"],
+          [2, "同意できない"],
+          [3, "どちらともいえない"],
+          [4, "同意できる"],
+          [5, "非常に同意できる"],
+          [99, "わからない"]
+      ]
+  )
+  ```
+
+  <p class="codepen" data-height="300" data-theme-id="dark" data-default-tab="html,result" data-slug-hash="VwXLmRX" data-editable="true" data-user="yshimod" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+      <span>See the Pen <a href="https://codepen.io/yshimod/pen/VwXLmRX">
+      oTree Integer Labeled</a> by yshimod (<a href="https://codepen.io/yshimod">@yshimod</a>)
+      on <a href="https://codepen.io">CodePen</a>.</span>
+  </p>
+
+
+- `models.IntegerField()` で選択肢を設定した上で `widgets.RadioSelect` を使った場合:
+
+  ```python
+  test = models.IntegerField(
+      label="ラベル",
+      choices = [
+          [1, "全く同意できない"],
+          [2, "同意できない"],
+          [3, "どちらともいえない"],
+          [4, "同意できる"],
+          [5, "非常に同意できる"],
+          [99, "わからない"]
+      ],
+      widget=widgets.RadioSelect
+  )
+  ```
+
+  <p class="codepen" data-height="300" data-theme-id="dark" data-default-tab="html,result" data-slug-hash="PoRqbgX" data-editable="true" data-user="yshimod" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+      <span>See the Pen <a href="https://codepen.io/yshimod/pen/PoRqbgX">
+      Untitled</a> by yshimod (<a href="https://codepen.io/yshimod">@yshimod</a>)
+      on <a href="https://codepen.io">CodePen</a>.</span>
+  </p>
+
+
+- `models.FloatField()` を特に設定せず使った場合:
+
+  ```python
+  test = models.FloatField(
+      label="ラベル"
+  )
+  ```
+
+  <p class="codepen" data-height="300" data-theme-id="dark" data-default-tab="html,result" data-slug-hash="yLKNVde" data-editable="true" data-user="yshimod" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+      <span>See the Pen <a href="https://codepen.io/yshimod/pen/yLKNVde">
+      oTree Float</a> by yshimod (<a href="https://codepen.io/yshimod">@yshimod</a>)
+      on <a href="https://codepen.io">CodePen</a>.</span>
+  </p>
+
+
+- `models.FloatField()` で最小値を設定した場合:
+
+  ```python
+  test = models.FloatField(
+      label="ラベル",
+      min=10/3
+  )
+  ```
+
+  <p class="codepen" data-height="300" data-theme-id="dark" data-default-tab="html,result" data-slug-hash="xxWGRvL" data-editable="true" data-user="yshimod" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+      <span>See the Pen <a href="https://codepen.io/yshimod/pen/xxWGRvL">
+      oTree Float Min</a> by yshimod (<a href="https://codepen.io/yshimod">@yshimod</a>)
+      on <a href="https://codepen.io">CodePen</a>.</span>
+  </p>
+
+    - ブラウザでの最小値の検証は機能しないことに注意．
+
+
+- `models.StringField()` を特に設定せず使った場合:
+
+  ```python
+  test = models.StringField(
+      label="ラベル"
+  )
+  ```
+
+  <p class="codepen" data-height="300" data-theme-id="dark" data-default-tab="html,result" data-slug-hash="VwXLPYd" data-editable="true" data-user="yshimod" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+      <span>See the Pen <a href="https://codepen.io/yshimod/pen/VwXLPYd">
+      oTree String</a> by yshimod (<a href="https://codepen.io/yshimod">@yshimod</a>)
+      on <a href="https://codepen.io">CodePen</a>.</span>
+  </p>
+
+
+- `models.LongStringField()` を特に設定せず使った場合:
+
+  ```python
+  test = models.LongStringField(
+      label="ラベル"
+  )
+  ```
+
+  <p class="codepen" data-height="300" data-theme-id="dark" data-default-tab="html,result" data-slug-hash="RwMPKrq" data-editable="true" data-user="yshimod" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+      <span>See the Pen <a href="https://codepen.io/yshimod/pen/RwMPKrq">
+      oTree LongString</a> by yshimod (<a href="https://codepen.io/yshimod">@yshimod</a>)
+      on <a href="https://codepen.io">CodePen</a>.</span>
+  </p>
 
 
 
-### 入力フォームとの対応
+
+
+### HTML タグを直書きして入力フォームを作る
 [https://otree.readthedocs.io/en/latest/forms.html#raw-html-widgets](https://otree.readthedocs.io/en/latest/forms.html#raw-html-widgets)
 
 1. データを参加者に入力させたいページのクラスにおいて `form_model` と `form_fields` を設定する．
 
-1. フィールド名（記憶するデータの変数名）を，HTMLテンプレートの `<input>` タグの `name` 属性に設定する．テンプレートタグを使えば自動でやってくれる．
+1. フィールド名（記憶するデータの変数名）を， `<input>` 要素の `name` 属性に設定する．
 
-1. HTMLタグを直書きして入力フォームを作る場合も，テンプレートタグ `{{ formfield_errors '変数名' }}` を書いておくと，oTreeによる検証のエラーメッセージを表示することができる．
+1. テンプレートタグ `{{ formfield_errors '変数名' }}` を書いておくと， oTree による検証のエラーメッセージを表示することができる．
 
 
 
@@ -977,4 +1191,7 @@
 - ページの順番をリストで渡す．ページ名の文字列ではなく，ページクラスのクラスオジェクトが要素．
 
 
+
+
+<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
 {% endraw %}

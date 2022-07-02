@@ -511,6 +511,7 @@
               <meta name="viewport" content="width=device-width, initial-scale=1.0">
               <link rel="stylesheet" href="{% static 'bootstrap5/css/bootstrap.min.css' %}">
               <link rel="stylesheet" href="{% static 'otree/css/theme.css' %}">
+              <script src="{% static 'otree/js/jquery-3.2.1.min.js' %}"></script>
           {% endblock %}
 
           {% block global_styles %}{% endblock %}
@@ -656,7 +657,7 @@
   </div>
   ```
 
-    - ↑ で `{{ fld }}` となっている部分は以下のような HTML タグが生成される．
+    - ↑ で `{{ fld }}` と記述している部分は以下のような HTML タグが生成される．
 
         - チェックボックスの場合
         ```html
@@ -700,6 +701,8 @@
             </div>
         </div>
         ```
+
+    - データモデルでの定義と実際に生成される HTML 要素の対応に関する詳細は [こちら](init.md#テンプレートタグで入力フォームを作る) ．
 
 
 

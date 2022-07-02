@@ -1085,6 +1085,7 @@ subsession.set_group_matrix(new_structure)
 <li>整数型．</li>
 <li>浮動小数点型の値を渡すとエラーとなる（入力フォームの送信時は oTree サーバーの検証に引っかかる）．</li>
 <li>テンプレートタグで自由記述の入力フォームを作るとき， <code>type=&quot;number&quot;</code> とした <code>&lt;input&gt;</code> で生成されるため，数字以外は入力できない．</li>
+<li><code>min</code> や <code>max</code> を設定すると <code>&lt;input&gt;</code> 要素の <code>min</code>， <code>max</code> 属性にも値が渡され，ブラウザでも最小値，最大値の検証が行われる．</li>
 <li><code>choices</code><ul>
 <li>リッカート尺度の入力フォームを実装する場合，たとえば以下のように記述する．<pre><code class="lang-python">choices = [
   [<span class="hljs-number">1</span>, <span class="hljs-string">&quot;全く同意できない&quot;</span>],
@@ -1114,6 +1115,7 @@ subsession.set_group_matrix(new_structure)
 <li>浮動小数点型．</li>
 <li>Pythonの float と同様，15桁の有効桁数までは正確に表現できる．</li>
 <li>テンプレートタグで自由記述の入力フォームを作るとき， <code>type=&quot;text&quot;</code> とした <code>&lt;input&gt;</code> で生成されるため，数字以外も入力できてしまうが，文字列が送信されると oTree サーバーの検証に引っかかる．</li>
+<li><code>min</code> や <code>max</code> を設定すると <code>&lt;input&gt;</code> 要素の <code>min</code>， <code>max</code> 属性にも値が渡されるが， <code>type=&quot;text&quot;</code> であるため，結局，ブラウザでの最小値，最大値の検証は機能しないことに注意．</li>
 <li><code>choices</code></li>
 <li><code>widget</code></li>
 <li><code>initial</code></li>
@@ -1143,6 +1145,7 @@ subsession.set_group_matrix(new_structure)
 <li><code>help_text</code></li>
 <li><code>max_length</code><ul>
 <li>デフォルトは <code>max_length=10000</code>．</li>
+<li>ブラウザでは検証されない．文字列の長さの検証を実装するには HTML タグを直書きして <code>&lt;input&gt;</code> 要素の <code>maxlength</code> 属性を設定する．</li>
 </ul>
 </li>
 <li><code>blank</code></li>
@@ -1168,21 +1171,234 @@ subsession.set_group_matrix(new_structure)
 </ul>
 </li>
 </ul>
-<h3 id="widget-として使えるもの">widget として使えるもの</h3>
+<h3 id="テンプレートタグで入力フォームを作る">テンプレートタグで入力フォームを作る</h3>
 <p><a href="https://otree.readthedocs.io/en/latest/forms.html#widgets" target="_blank">https://otree.readthedocs.io/en/latest/forms.html#widgets</a></p>
+<ol>
+<li><p>データを参加者に入力させたいページのクラスにおいて <code>form_model</code> と <code>form_fields</code> を設定する．</p>
+</li>
+<li><p>テンプレートで <code>{{ formfields }}</code> タグを記述する．一つずつ特定して設置する場合には <code>{{ formfield &quot;変数名&quot; }}</code> と記述する．</p>
+</li>
+<li><p>テンプレートタグで入力フォームを設置するとき，HTML タグが生成される．</p>
+</li>
+</ol>
 <ul>
-<li><code>widgets.CheckboxInput</code></li>
-<li><code>widgets.RadioSelect</code></li>
-<li><code>widgets.RadioSelectHorizontal</code></li>
+<li><p><code>models.BooleanField()</code> を特に設定せず使った場合:</p>
+<pre><code class="lang-python">test = models.BooleanField(
+    label=<span class="hljs-string">&quot;ラベル&quot;</span>
+)
+</code></pre>
+<p class="codepen" data-height="300" data-theme-id="dark" data-default-tab="html,result" data-slug-hash="rNdVWGO" data-editable="true" data-user="yshimod" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+    <span>See the Pen <a href="https://codepen.io/yshimod/pen/rNdVWGO" target="_blank">
+    oTree Boolean</a> by yshimod (<a href="https://codepen.io/yshimod" target="_blank">@yshimod</a>)
+    on <a href="https://codepen.io" target="_blank">CodePen</a>.</span>
+</p>
+
+
+</li>
 </ul>
-<h3 id="入力フォームとの対応">入力フォームとの対応</h3>
+<ul>
+<li><p><code>models.BooleanField()</code> で選択肢を設定した場合:</p>
+<pre><code class="lang-python">test = models.BooleanField(
+    label=<span class="hljs-string">&quot;ラベル&quot;</span>,
+    choices=[
+        [<span class="hljs-literal">True</span>, <span class="hljs-string">&quot;協力する&quot;</span>],
+        [<span class="hljs-literal">False</span>, <span class="hljs-string">&quot;裏切る&quot;</span>]
+    ]
+)
+</code></pre>
+<p class="codepen" data-height="300" data-theme-id="dark" data-default-tab="html,result" data-slug-hash="poLJNWM" data-editable="true" data-user="yshimod" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+    <span>See the Pen <a href="https://codepen.io/yshimod/pen/poLJNWM" target="_blank">
+    oTree Boolean Labeled</a> by yshimod (<a href="https://codepen.io/yshimod" target="_blank">@yshimod</a>)
+    on <a href="https://codepen.io" target="_blank">CodePen</a>.</span>
+</p>
+
+
+</li>
+</ul>
+<ul>
+<li><p><code>models.BooleanField()</code> で <code>widgets.RadioSelectHorizontal</code> を使った場合:</p>
+<pre><code class="lang-python">test = models.BooleanField(
+    label=<span class="hljs-string">&quot;ラベル&quot;</span>,
+    widget=widgets.RadioSelectHorizontal
+)
+</code></pre>
+<p class="codepen" data-height="300" data-theme-id="dark" data-default-tab="html,result" data-slug-hash="bGvdBmJ" data-editable="true" data-user="yshimod" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+    <span>See the Pen <a href="https://codepen.io/yshimod/pen/bGvdBmJ" target="_blank">
+    oTree Boolean ckbox</a> by yshimod (<a href="https://codepen.io/yshimod" target="_blank">@yshimod</a>)
+    on <a href="https://codepen.io" target="_blank">CodePen</a>.</span>
+</p>
+
+
+</li>
+</ul>
+<ul>
+<li><p><code>models.BooleanField()</code> で <code>widgets.CheckboxInput</code> を使った場合:</p>
+<pre><code class="lang-python">test = models.BooleanField(
+    label=<span class="hljs-string">&quot;ラベル&quot;</span>,
+    widget=widgets.CheckboxInput
+)
+</code></pre>
+<p class="codepen" data-height="300" data-theme-id="dark" data-default-tab="html,result" data-slug-hash="WNzvogB" data-editable="true" data-user="yshimod" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+    <span>See the Pen <a href="https://codepen.io/yshimod/pen/WNzvogB" target="_blank">
+    oTree Boolean Checkbox</a> by yshimod (<a href="https://codepen.io/yshimod" target="_blank">@yshimod</a>)
+    on <a href="https://codepen.io" target="_blank">CodePen</a>.</span>
+</p>
+
+
+</li>
+</ul>
+<ul>
+<li><p><code>models.IntegerField()</code> を特に設定せず使った場合:</p>
+<pre><code class="lang-python">test = models.IntegerField(
+    label=<span class="hljs-string">&quot;ラベル&quot;</span>
+)
+</code></pre>
+<p class="codepen" data-height="300" data-theme-id="dark" data-default-tab="html,result" data-slug-hash="rNdVWoL" data-editable="true" data-user="yshimod" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+    <span>See the Pen <a href="https://codepen.io/yshimod/pen/rNdVWoL" target="_blank">
+    Untitled</a> by yshimod (<a href="https://codepen.io/yshimod" target="_blank">@yshimod</a>)
+    on <a href="https://codepen.io" target="_blank">CodePen</a>.</span>
+</p>
+
+
+</li>
+</ul>
+<ul>
+<li><p><code>models.IntegerField()</code> で最大値を設定した場合:</p>
+<pre><code class="lang-python">test = models.IntegerField(
+    label=<span class="hljs-string">&quot;ラベル&quot;</span>,
+    <span class="hljs-built_in">max</span>=<span class="hljs-number">100</span>
+)
+</code></pre>
+<p class="codepen" data-height="300" data-theme-id="dark" data-default-tab="html,result" data-slug-hash="wvmaoNZ" data-editable="true" data-user="yshimod" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+    <span>See the Pen <a href="https://codepen.io/yshimod/pen/wvmaoNZ" target="_blank">
+    oTree Integer Max</a> by yshimod (<a href="https://codepen.io/yshimod" target="_blank">@yshimod</a>)
+    on <a href="https://codepen.io" target="_blank">CodePen</a>.</span>
+</p>
+
+
+</li>
+</ul>
+<ul>
+<li><p><code>models.IntegerField()</code> で選択肢を設定した場合:</p>
+<pre><code class="lang-python">test = models.IntegerField(
+    label=<span class="hljs-string">&quot;ラベル&quot;</span>,
+    choices = [
+        [<span class="hljs-number">1</span>, <span class="hljs-string">&quot;全く同意できない&quot;</span>],
+        [<span class="hljs-number">2</span>, <span class="hljs-string">&quot;同意できない&quot;</span>],
+        [<span class="hljs-number">3</span>, <span class="hljs-string">&quot;どちらともいえない&quot;</span>],
+        [<span class="hljs-number">4</span>, <span class="hljs-string">&quot;同意できる&quot;</span>],
+        [<span class="hljs-number">5</span>, <span class="hljs-string">&quot;非常に同意できる&quot;</span>],
+        [<span class="hljs-number">99</span>, <span class="hljs-string">&quot;わからない&quot;</span>]
+    ]
+)
+</code></pre>
+<p class="codepen" data-height="300" data-theme-id="dark" data-default-tab="html,result" data-slug-hash="VwXLmRX" data-editable="true" data-user="yshimod" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+    <span>See the Pen <a href="https://codepen.io/yshimod/pen/VwXLmRX" target="_blank">
+    oTree Integer Labeled</a> by yshimod (<a href="https://codepen.io/yshimod" target="_blank">@yshimod</a>)
+    on <a href="https://codepen.io" target="_blank">CodePen</a>.</span>
+</p>
+
+
+</li>
+</ul>
+<ul>
+<li><p><code>models.IntegerField()</code> で選択肢を設定した上で <code>widgets.RadioSelect</code> を使った場合:</p>
+<pre><code class="lang-python">test = models.IntegerField(
+    label=<span class="hljs-string">&quot;ラベル&quot;</span>,
+    choices = [
+        [<span class="hljs-number">1</span>, <span class="hljs-string">&quot;全く同意できない&quot;</span>],
+        [<span class="hljs-number">2</span>, <span class="hljs-string">&quot;同意できない&quot;</span>],
+        [<span class="hljs-number">3</span>, <span class="hljs-string">&quot;どちらともいえない&quot;</span>],
+        [<span class="hljs-number">4</span>, <span class="hljs-string">&quot;同意できる&quot;</span>],
+        [<span class="hljs-number">5</span>, <span class="hljs-string">&quot;非常に同意できる&quot;</span>],
+        [<span class="hljs-number">99</span>, <span class="hljs-string">&quot;わからない&quot;</span>]
+    ],
+    widget=widgets.RadioSelect
+)
+</code></pre>
+<p class="codepen" data-height="300" data-theme-id="dark" data-default-tab="html,result" data-slug-hash="PoRqbgX" data-editable="true" data-user="yshimod" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+    <span>See the Pen <a href="https://codepen.io/yshimod/pen/PoRqbgX" target="_blank">
+    Untitled</a> by yshimod (<a href="https://codepen.io/yshimod" target="_blank">@yshimod</a>)
+    on <a href="https://codepen.io" target="_blank">CodePen</a>.</span>
+</p>
+
+
+</li>
+</ul>
+<ul>
+<li><p><code>models.FloatField()</code> を特に設定せず使った場合:</p>
+<pre><code class="lang-python">test = models.FloatField(
+    label=<span class="hljs-string">&quot;ラベル&quot;</span>
+)
+</code></pre>
+<p class="codepen" data-height="300" data-theme-id="dark" data-default-tab="html,result" data-slug-hash="yLKNVde" data-editable="true" data-user="yshimod" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+    <span>See the Pen <a href="https://codepen.io/yshimod/pen/yLKNVde" target="_blank">
+    oTree Float</a> by yshimod (<a href="https://codepen.io/yshimod" target="_blank">@yshimod</a>)
+    on <a href="https://codepen.io" target="_blank">CodePen</a>.</span>
+</p>
+
+
+</li>
+</ul>
+<ul>
+<li><p><code>models.FloatField()</code> で最小値を設定した場合:</p>
+<pre><code class="lang-python">test = models.FloatField(
+    label=<span class="hljs-string">&quot;ラベル&quot;</span>,
+    <span class="hljs-built_in">min</span>=<span class="hljs-number">10</span>/<span class="hljs-number">3</span>
+)
+</code></pre>
+<p class="codepen" data-height="300" data-theme-id="dark" data-default-tab="html,result" data-slug-hash="xxWGRvL" data-editable="true" data-user="yshimod" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+    <span>See the Pen <a href="https://codepen.io/yshimod/pen/xxWGRvL" target="_blank">
+    oTree Float Min</a> by yshimod (<a href="https://codepen.io/yshimod" target="_blank">@yshimod</a>)
+    on <a href="https://codepen.io" target="_blank">CodePen</a>.</span>
+</p>
+
+<ul>
+<li>ブラウザでの最小値の検証は機能しないことに注意．</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><code>models.StringField()</code> を特に設定せず使った場合:</p>
+<pre><code class="lang-python">test = models.StringField(
+    label=<span class="hljs-string">&quot;ラベル&quot;</span>
+)
+</code></pre>
+<p class="codepen" data-height="300" data-theme-id="dark" data-default-tab="html,result" data-slug-hash="VwXLPYd" data-editable="true" data-user="yshimod" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+    <span>See the Pen <a href="https://codepen.io/yshimod/pen/VwXLPYd" target="_blank">
+    oTree String</a> by yshimod (<a href="https://codepen.io/yshimod" target="_blank">@yshimod</a>)
+    on <a href="https://codepen.io" target="_blank">CodePen</a>.</span>
+</p>
+
+
+</li>
+</ul>
+<ul>
+<li><p><code>models.LongStringField()</code> を特に設定せず使った場合:</p>
+<pre><code class="lang-python">test = models.LongStringField(
+    label=<span class="hljs-string">&quot;ラベル&quot;</span>
+)
+</code></pre>
+<p class="codepen" data-height="300" data-theme-id="dark" data-default-tab="html,result" data-slug-hash="RwMPKrq" data-editable="true" data-user="yshimod" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+    <span>See the Pen <a href="https://codepen.io/yshimod/pen/RwMPKrq" target="_blank">
+    oTree LongString</a> by yshimod (<a href="https://codepen.io/yshimod" target="_blank">@yshimod</a>)
+    on <a href="https://codepen.io" target="_blank">CodePen</a>.</span>
+</p>
+
+
+
+
+
+</li>
+</ul>
+<h3 id="html-タグを直書きして入力フォームを作る">HTML タグを直書きして入力フォームを作る</h3>
 <p><a href="https://otree.readthedocs.io/en/latest/forms.html#raw-html-widgets" target="_blank">https://otree.readthedocs.io/en/latest/forms.html#raw-html-widgets</a></p>
 <ol>
 <li><p>データを参加者に入力させたいページのクラスにおいて <code>form_model</code> と <code>form_fields</code> を設定する．</p>
 </li>
-<li><p>フィールド名（記憶するデータの変数名）を，HTMLテンプレートの <code>&lt;input&gt;</code> タグの <code>name</code> 属性に設定する．テンプレートタグを使えば自動でやってくれる．</p>
+<li><p>フィールド名（記憶するデータの変数名）を， <code>&lt;input&gt;</code> 要素の <code>name</code> 属性に設定する．</p>
 </li>
-<li><p>HTMLタグを直書きして入力フォームを作る場合も，テンプレートタグ <code>{{ formfield_errors &apos;変数名&apos; }}</code> を書いておくと，oTreeによる検証のエラーメッセージを表示することができる．</p>
+<li><p>テンプレートタグ <code>{{ formfield_errors &apos;変数名&apos; }}</code> を書いておくと， oTree による検証のエラーメッセージを表示することができる．</p>
 </li>
 </ol>
 <h2 id="ページ">ページ</h2>
@@ -1613,6 +1829,8 @@ subsession.set_group_matrix(new_structure)
 <ul>
 <li>ページの順番をリストで渡す．ページ名の文字列ではなく，ページクラスのクラスオジェクトが要素．</li>
 </ul>
+<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+
 
                                 
                                 </section>
@@ -1656,7 +1874,7 @@ subsession.set_group_matrix(new_structure)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"__init__.py の書き方","level":"2.4","depth":1,"next":{"title":"テンプレートファイルの書き方","level":"2.5","depth":1,"path":"otree_ref/templatefile.md","ref":"otree_ref/templatefile.md","articles":[]},"previous":{"title":"settings.py の書き方","level":"2.3","depth":1,"path":"otree_ref/settings.md","ref":"otree_ref/settings.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"otree_ref/init.md","mtime":"2022-07-01T08:11:19.250Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-07-01T08:13:42.800Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"__init__.py の書き方","level":"2.4","depth":1,"next":{"title":"テンプレートファイルの書き方","level":"2.5","depth":1,"path":"otree_ref/templatefile.md","ref":"otree_ref/templatefile.md","articles":[]},"previous":{"title":"settings.py の書き方","level":"2.3","depth":1,"path":"otree_ref/settings.md","ref":"otree_ref/settings.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"otree_ref/init.md","mtime":"2022-07-02T08:07:22.456Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-07-02T08:14:44.095Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
