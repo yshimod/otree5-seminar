@@ -9,7 +9,7 @@ Rodriguez-Lara, I. (2016). Equity and bargaining power in ultimatum games.
 *Journal of Economic Behavior & Organization*, 130, 144-165.
 
 
-- [https://github.com/yshimod/RodriguezLara2016](https://github.com/yshimod/RodriguezLara2016) のリポジトリをダウンロードして（ GitHub アカウントがあればフォークしてからクローンして），それを編集していく．
+- [https://github.com/yshimod/RodriguezLara2016/tree/initial](https://github.com/yshimod/RodriguezLara2016/tree/initial) のリポジトリ（initialブランチ）をダウンロードして（ GitHub アカウントがあればフォークしてからクローンして），それを編集していく．
 
     - [ZIP ファイルのダウンロード](https://github.com/yshimod/RodriguezLara2016/archive/refs/heads/initial.zip)
 
