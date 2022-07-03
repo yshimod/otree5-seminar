@@ -927,6 +927,15 @@
   %/accordion%
 
 
+- テンプレートタグ `{{ formfields }}` を使うと以下のような（ダサい）スタイルとなる．
+
+  <p class="codepen" data-height="300" data-theme-id="dark" data-default-tab="result" data-slug-hash="xxWGjOM" data-editable="true" data-user="yshimod" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+      <span>See the Pen <a href="https://codepen.io/yshimod/pen/xxWGjOM">
+      oTree day7-0</a> by yshimod (<a href="https://codepen.io/yshimod">@yshimod</a>)
+      on <a href="https://codepen.io">CodePen</a>.</span>
+  </p>
+
+
 - まず， Bootstrap のドキュメントからコードの例をコピーして，テンプレートに貼り付ける．
 
   ```html
@@ -941,6 +950,12 @@
       <label class="btn btn-outline-primary" for="btnradio3">Radio 3</label>
   </div>
   ```
+
+  <p class="codepen" data-height="300" data-theme-id="dark" data-default-tab="result" data-slug-hash="QWmbrKM" data-editable="true" data-user="yshimod" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+      <span>See the Pen <a href="https://codepen.io/yshimod/pen/QWmbrKM">
+      oTree day7-1</a> by yshimod (<a href="https://codepen.io/yshimod">@yshimod</a>)
+      on <a href="https://codepen.io">CodePen</a>.</span>
+  </p>
 
 
 - 外側の `<div>` 要素:
@@ -1088,6 +1103,12 @@
     </div>
     ```
 
+  <p class="codepen" data-height="300" data-theme-id="dark" data-default-tab="result" data-slug-hash="oNqXdzr" data-editable="true" data-user="yshimod" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+      <span>See the Pen <a href="https://codepen.io/yshimod/pen/oNqXdzr">
+      oTree day7-2</a> by yshimod (<a href="https://codepen.io/yshimod">@yshimod</a>)
+      on <a href="https://codepen.io">CodePen</a>.</span>
+  </p>
+
 
 - さらに質問項目の繰り返しの部分も `{{ for }}` ループを使って記述する．
 
@@ -1187,6 +1208,12 @@
     {{ endfor }}
     ```
 
+  <p class="codepen" data-height="300" data-theme-id="dark" data-default-tab="result" data-slug-hash="qBodYqG" data-editable="true" data-user="yshimod" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+      <span>See the Pen <a href="https://codepen.io/yshimod/pen/qBodYqG">
+      oTree day7-3</a> by yshimod (<a href="https://codepen.io/yshimod">@yshimod</a>)
+      on <a href="https://codepen.io">CodePen</a>.</span>
+  </p>
+
 
 - （Bootstrapの機能） 質問項目同士の間隔を離らかすには，質問項目全体を `<div>` 要素で包み，その `class` 属性に `my-5` などを加える．
 
@@ -1232,33 +1259,36 @@
 
 - 結局，（ページクラスで直接読み込む）テンプレートは以下のように記述すれば良い．
 
-    ```html
-    {{ block title }}
-        Survey
-    {{ endblock }}
+  ```html
+  {{ block title }}
+      Survey
+  {{ endblock }}
+  {{ block content }}
+      {{ for eachfield in form }}
+          <div class="card my-5">
+              <div class="card-body">
+                  <h5 class="card-title">{{ forloop.counter }}</h5>
+                  <p class="card-text">{{ eachfield.label }}</p>
+                  <div class="btn-group">
+                      {{ for v in C.materials_gentrust.opts }}
+                          <input type="radio" class="btn-check" name="{{ eachfield.name }}" id="{{ eachfield.id }}-{{ forloop.counter0 }}" autocomplete="off" value="{{ v.0 }}" required>
+                          <label class="btn btn-outline-primary" for="{{ eachfield.id }}-{{ forloop.counter0 }}">{{ v.1 }}</label>
+                      {{ endfor }}
+                  </div>
+                  {{ formfield_errors eachfield.name }}
+              </div>
+          </div>
+      {{ endfor }}
+      {{ next_button }}
+  {{ endblock }}
+  ```
 
-    {{ block content }}
+  <p class="codepen" data-height="300" data-theme-id="dark" data-default-tab="result" data-slug-hash="ZExGoLR" data-editable="true" data-user="yshimod" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+      <span>See the Pen <a href="https://codepen.io/yshimod/pen/ZExGoLR">
+      oTree day7-4</a> by yshimod (<a href="https://codepen.io/yshimod">@yshimod</a>)
+      on <a href="https://codepen.io">CodePen</a>.</span>
+  </p>
 
-        {{ for eachfield in form }}
-            <div class="card my-5">
-                <div class="card-body">
-                    <h5 class="card-title">{{ forloop.counter }}</h5>
-                    <p class="card-text">{{ eachfield.label }}</p>
-                    <div class="btn-group">
-                        {{ for v in C.materials_gentrust.opts }}
-                            <input type="radio" class="btn-check" name="{{ eachfield.name }}" id="{{ eachfield.id }}-{{ forloop.counter0 }}" autocomplete="off" value="{{ v.0 }}" required>
-                            <label class="btn btn-outline-primary" for="{{ eachfield.id }}-{{ forloop.counter0 }}">{{ v.1 }}</label>
-                        {{ endfor }}
-                    </div>
-                    {{ formfield_errors eachfield.name }}
-                </div>
-            </div>
-        {{ endfor }}
-
-        {{ next_button }}
-
-    {{ endblock }}
-    ```
 
 
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/deJDSzgFY68?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
@@ -1278,4 +1308,5 @@
 
 
 
+<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
 {% endraw %}

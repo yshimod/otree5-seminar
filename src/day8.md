@@ -11,12 +11,10 @@
 
 
 
-# ライブページの使い方
-
-- [https://otree.readthedocs.io/en/latest/live.html](https://otree.readthedocs.io/en/latest/live.html)
-- Udemyの講座 [https://www.udemy.com/course/learn-otree/](https://www.udemy.com/course/learn-otree/) のライブページに関するレクチャー（「Advanced oTree Features」の「Real Time Interaction between Participants - oTree LivePages」）は無料で見れる．
+# ExtraModel ・ JavaScript ・ ライブページ
 
 
+## ExtraModel
 
 ## JavaScript
 
@@ -112,77 +110,81 @@
 
     - player モデルで `switching_point` なる変数を ` models.IntegerField()` で定義しておく．MPLの1行ずつデータを取りたい場合は各行に相当する変数を定義する．
 
-    ```html
-    {{ block title }}
-        タイトル
-    {{ endblock }}
+  %accordion%テンプレート%accordion%
+  ```html
+  {{ block title }}
+      タイトル
+  {{ endblock }}
+  {{ block content }}
+      <table class="table table-striped table-hover">
+          <thead>
+              <tr>
+                  <th class="text-end">オプションL</th>
+                  <th></th>
+                  <th></th>
+                  <th class="text-start">オプションR</th>
+              </tr>
+          </thead>
+          <tbody>
+              {{ for v in C.optR }}
+                  <tr>
+                      <td class="text-end">
+                          50%の確率で650円
+                      </td>
+                      <td>
+                          <input class="text-center BtnChoice BtnL" type="radio" name="mpl_{{ forloop.counter0 }}" id="L_mpl_{{ forloop.counter0 }}" value="{{ forloop.counter0 }}">
+                      </td>
+                      <td>
+                          <input class="text-center BtnChoice BtnR" type="radio" name="mpl_{{ forloop.counter0 }}" id="R_mpl_{{ forloop.counter0 }}" value="{{ forloop.counter0 }}">
+                      </td>
+                      <td class="text-start">
+                          100%の確率で{{ v }}円
+                      </td>
+                  </tr>
+              {{ endfor }}
+          </tbody>
+      </table>
+      <input type="hidden" name="switching_point" id="id_switching_point" value="">
+      {{ next_button }}
+  {{ endblock }}
+  {{ block scripts }}
+      <script>
+          const listlength = 5;    // 本当は js_vars から受け取ると良い．
+          const btnsAll = document.querySelectorAll('.BtnChoice');
+          btnsAll.forEach(el => {
+              el.addEventListener('click', function() {
+                  let switchingPoint;
+                  const tmpCol = el.id.slice(0,1);
+                  if (tmpCol == "L") {
+                      switchingPoint = parseInt(el.name.slice(4), 10) + 1;
+                  }
+                  else if (tmpCol == "R") {
+                      switchingPoint = parseInt(el.name.slice(4), 10);
+                  }
+                  document.getElementById("id_switching_point").value = switchingPoint;
+                  let tmpRow;
+                  for (var i = 0; i < listlength; i++) {
+                      tmpRow = 'mpl_' + i;
+                      if (i < switchingPoint) {
+                          document.getElementsByName(tmpRow)[0].checked = true;
+                          document.getElementsByName(tmpRow)[1].checked = false;
+                      } else {
+                          document.getElementsByName(tmpRow)[0].checked = false;
+                          document.getElementsByName(tmpRow)[1].checked = true;
+                      }
+                  }
+              }, false);
+          });
+      </script>
+  {{ endblock }}
+  ```
+  %/accordion%
 
-    {{ block content }}
-        <table class="table table-striped table-hover">
-            <thead>
-                <tr>
-                    <th class="text-end">オプションL</th>
-                    <th></th>
-                    <th></th>
-                    <th class="text-start">オプションR</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{ for v in C.optR }}
-                    <tr>
-                        <td class="text-end">
-                            50%の確率で650円
-                        </td>
-                        <td>
-                            <input class="text-center BtnChoice BtnL" type="radio" name="mpl_{{ forloop.counter0 }}" id="L_mpl_{{ forloop.counter0 }}" value="{{ forloop.counter0 }}">
-                        </td>
-                        <td>
-                            <input class="text-center BtnChoice BtnR" type="radio" name="mpl_{{ forloop.counter0 }}" id="R_mpl_{{ forloop.counter0 }}" value="{{ forloop.counter0 }}">
-                        </td>
-                        <td class="text-start">
-                            100%の確率で{{ v }}円
-                        </td>
-                    </tr>
-                {{ endfor }}
-            </tbody>
-        </table>
-        <input type="hidden" name="switching_point" id="id_switching_point" value="">
-
-        {{ next_button }}
-    {{ endblock }}
-
-    {{ block scripts }}
-        <script>
-            const listlength = 5;    // 本当は js_vars から受け取ると良い．
-            const btnsAll = document.querySelectorAll('.BtnChoice');
-            btnsAll.forEach(el => {
-                el.addEventListener('click', function() {
-                    let switchingPoint;
-                    const tmpCol = el.id.slice(0,1);
-                    if (tmpCol == "L") {
-                        switchingPoint = parseInt(el.name.slice(4), 10) + 1;
-                    }
-                    else if (tmpCol == "R") {
-                        switchingPoint = parseInt(el.name.slice(4), 10);
-                    }
-                    document.getElementById("id_switching_point").value = switchingPoint;
-
-                    let tmpRow;
-                    for (var i = 0; i < listlength; i++) {
-                        tmpRow = 'mpl_' + i;
-                        if (i < switchingPoint) {
-                            document.getElementsByName(tmpRow)[0].checked = true;
-                            document.getElementsByName(tmpRow)[1].checked = false;
-                        } else {
-                            document.getElementsByName(tmpRow)[0].checked = false;
-                            document.getElementsByName(tmpRow)[1].checked = true;
-                        }
-                    }
-                }, false);
-            });
-        </script>
-    {{ endblock }}
-    ```
+  <p class="codepen" data-height="500" data-theme-id="dark" data-default-tab="result" data-slug-hash="VwXLxbw" data-editable="true" data-user="yshimod" style="height: 500px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+      <span>See the Pen <a href="https://codepen.io/yshimod/pen/VwXLxbw">
+      oTree day8-1</a> by yshimod (<a href="https://codepen.io/yshimod">@yshimod</a>)
+      on <a href="https://codepen.io">CodePen</a>.</span>
+  </p>
 
 
 - oTree ではデフォルトで jQuery が読み込まれている．
@@ -205,6 +207,7 @@
 
     - （日本語ドキュメントが豊富な） [Chart.js](https://www.chartjs.org/) も有用．
 
+    %accordion%テンプレート%accordion%
     ```html
     {{ block title }}
         タイトル
@@ -293,6 +296,20 @@
         </script>
     {{ endblock }}
     ```
+    %/accordion%
+
+    <p class="codepen" data-height="500" data-theme-id="dark" data-default-tab="result" data-slug-hash="XWEbqRy" data-editable="true" data-user="yshimod" style="height: 500px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+        <span>See the Pen <a href="https://codepen.io/yshimod/pen/XWEbqRy">
+        oTree day8-2</a> by yshimod (<a href="https://codepen.io/yshimod">@yshimod</a>)
+        on <a href="https://codepen.io">CodePen</a>.</span>
+    </p>
+
+
+
+## ライブページ
+
+- [https://otree.readthedocs.io/en/latest/live.html](https://otree.readthedocs.io/en/latest/live.html)
+- Udemyの講座 [https://www.udemy.com/course/learn-otree/](https://www.udemy.com/course/learn-otree/) のライブページに関するレクチャー（「Advanced oTree Features」の「Real Time Interaction between Participants - oTree LivePages」）は無料で見れる．
 
 
 
@@ -300,4 +317,6 @@
 ## 三上さん特別レクチャー
 
 
+
+<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
 {% endraw %}

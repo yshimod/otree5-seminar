@@ -1363,6 +1363,17 @@ page_sequence = [Survey1]
 </li>
 </ul>
 <ul>
+<li><p>テンプレートタグ <code>{{ formfields }}</code> を使うと以下のような（ダサい）スタイルとなる．</p>
+<p class="codepen" data-height="300" data-theme-id="dark" data-default-tab="result" data-slug-hash="xxWGjOM" data-editable="true" data-user="yshimod" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+    <span>See the Pen <a href="https://codepen.io/yshimod/pen/xxWGjOM" target="_blank">
+    oTree day7-0</a> by yshimod (<a href="https://codepen.io/yshimod" target="_blank">@yshimod</a>)
+    on <a href="https://codepen.io" target="_blank">CodePen</a>.</span>
+</p>
+
+
+</li>
+</ul>
+<ul>
 <li><p>まず， Bootstrap のドキュメントからコードの例をコピーして，テンプレートに貼り付ける．</p>
 <pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn-group&quot;</span> <span class="hljs-attr">role</span>=<span class="hljs-string">&quot;group&quot;</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">&quot;Basic radio toggle button group&quot;</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn-check&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;btnradio&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;btnradio1&quot;</span> <span class="hljs-attr">autocomplete</span>=<span class="hljs-string">&quot;off&quot;</span> <span class="hljs-attr">checked</span>&gt;</span>
@@ -1375,6 +1386,13 @@ page_sequence = [Survey1]
     <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-outline-primary&quot;</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;btnradio3&quot;</span>&gt;</span>Radio 3<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
+<p class="codepen" data-height="300" data-theme-id="dark" data-default-tab="result" data-slug-hash="QWmbrKM" data-editable="true" data-user="yshimod" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+    <span>See the Pen <a href="https://codepen.io/yshimod/pen/QWmbrKM" target="_blank">
+    oTree day7-1</a> by yshimod (<a href="https://codepen.io/yshimod" target="_blank">@yshimod</a>)
+    on <a href="https://codepen.io" target="_blank">CodePen</a>.</span>
+</p>
+
+
 </li>
 </ul>
 <ul>
@@ -1550,6 +1568,13 @@ page_sequence = [Survey1]
 </code></pre>
 </li>
 </ul>
+<p class="codepen" data-height="300" data-theme-id="dark" data-default-tab="result" data-slug-hash="oNqXdzr" data-editable="true" data-user="yshimod" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+    <span>See the Pen <a href="https://codepen.io/yshimod/pen/oNqXdzr" target="_blank">
+    oTree day7-2</a> by yshimod (<a href="https://codepen.io/yshimod" target="_blank">@yshimod</a>)
+    on <a href="https://codepen.io" target="_blank">CodePen</a>.</span>
+</p>
+
+
 </li>
 </ul>
 <ul>
@@ -1643,6 +1668,13 @@ page_sequence = [Survey1]
 </code></pre>
 </li>
 </ul>
+<p class="codepen" data-height="300" data-theme-id="dark" data-default-tab="result" data-slug-hash="qBodYqG" data-editable="true" data-user="yshimod" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+    <span>See the Pen <a href="https://codepen.io/yshimod/pen/qBodYqG" target="_blank">
+    oTree day7-3</a> by yshimod (<a href="https://codepen.io/yshimod" target="_blank">@yshimod</a>)
+    on <a href="https://codepen.io" target="_blank">CodePen</a>.</span>
+</p>
+
+
 </li>
 </ul>
 <ul>
@@ -1691,32 +1723,36 @@ page_sequence = [Survey1]
 </ul>
 <ul>
 <li><p>結局，（ページクラスで直接読み込む）テンプレートは以下のように記述すれば良い．</p>
-<pre><code class="lang-html">  {{ block title }}
-      Survey
-  {{ endblock }}
-
-  {{ block content }}
-
-      {{ for eachfield in form }}
-          <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card my-5&quot;</span>&gt;</span>
-              <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-body&quot;</span>&gt;</span>
-                  <span class="hljs-tag">&lt;<span class="hljs-name">h5</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-title&quot;</span>&gt;</span>{{ forloop.counter }}<span class="hljs-tag">&lt;/<span class="hljs-name">h5</span>&gt;</span>
-                  <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-text&quot;</span>&gt;</span>{{ eachfield.label }}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
-                  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn-group&quot;</span>&gt;</span>
-                      {{ for v in C.materials_gentrust.opts }}
-                          <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn-check&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;{{ eachfield.name }}&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;{{ eachfield.id }}-{{ forloop.counter0 }}&quot;</span> <span class="hljs-attr">autocomplete</span>=<span class="hljs-string">&quot;off&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;{{ v.0 }}&quot;</span> <span class="hljs-attr">required</span>&gt;</span>
-                          <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-outline-primary&quot;</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;{{ eachfield.id }}-{{ forloop.counter0 }}&quot;</span>&gt;</span>{{ v.1 }}<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-                      {{ endfor }}
-                  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-                  {{ formfield_errors eachfield.name }}
-              <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-          <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-      {{ endfor }}
-
-      {{ next_button }}
-
-  {{ endblock }}
+<pre><code class="lang-html">{{ block title }}
+    Survey
+{{ endblock }}
+{{ block content }}
+    {{ for eachfield in form }}
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card my-5&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-body&quot;</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">h5</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-title&quot;</span>&gt;</span>{{ forloop.counter }}<span class="hljs-tag">&lt;/<span class="hljs-name">h5</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-text&quot;</span>&gt;</span>{{ eachfield.label }}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn-group&quot;</span>&gt;</span>
+                    {{ for v in C.materials_gentrust.opts }}
+                        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn-check&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;{{ eachfield.name }}&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;{{ eachfield.id }}-{{ forloop.counter0 }}&quot;</span> <span class="hljs-attr">autocomplete</span>=<span class="hljs-string">&quot;off&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;{{ v.0 }}&quot;</span> <span class="hljs-attr">required</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-outline-primary&quot;</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;{{ eachfield.id }}-{{ forloop.counter0 }}&quot;</span>&gt;</span>{{ v.1 }}<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                    {{ endfor }}
+                <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                {{ formfield_errors eachfield.name }}
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    {{ endfor }}
+    {{ next_button }}
+{{ endblock }}
 </code></pre>
+<p class="codepen" data-height="300" data-theme-id="dark" data-default-tab="result" data-slug-hash="ZExGoLR" data-editable="true" data-user="yshimod" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+    <span>See the Pen <a href="https://codepen.io/yshimod/pen/ZExGoLR" target="_blank">
+    oTree day7-4</a> by yshimod (<a href="https://codepen.io/yshimod" target="_blank">@yshimod</a>)
+    on <a href="https://codepen.io" target="_blank">CodePen</a>.</span>
+</p>
+
+
+
 </li>
 </ul>
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/deJDSzgFY68?rel=0&amp;enablejsapi=1&amp;origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
@@ -1736,6 +1772,8 @@ page_sequence = [Survey1]
 </ul>
 </li>
 </ul>
+<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+
 
                                 
                                 </section>
@@ -1779,7 +1817,7 @@ page_sequence = [Survey1]
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第7回","level":"1.1.7","depth":2,"next":{"title":"第8回","level":"1.1.8","depth":2,"path":"day8.md","ref":"day8.md","articles":[]},"previous":{"title":"第6回","level":"1.1.6","depth":2,"path":"day6.md","ref":"day6.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day7.md","mtime":"2022-06-28T05:56:53.952Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-07-02T08:29:18.712Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第7回","level":"1.1.7","depth":2,"next":{"title":"第8回","level":"1.1.8","depth":2,"path":"day8.md","ref":"day8.md","articles":[]},"previous":{"title":"第6回","level":"1.1.6","depth":2,"path":"day6.md","ref":"day6.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day7.md","mtime":"2022-07-03T05:40:06.332Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-07-03T06:01:22.709Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
