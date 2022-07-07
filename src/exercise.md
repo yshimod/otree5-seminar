@@ -1,3 +1,7 @@
+---
+showToc: false
+---
+
 {% raw %}
 【演習】 2022年6月30日・7月7日
 
@@ -31,12 +35,6 @@ Rodriguez-Lara, I. (2016). Equity and bargaining power in ultimatum games.
     1. エフォートタスクを実装する．
 
 
-- 前日までにコードを提出してもらえたら，当日，Zoomで添削しながら解説します．
-
-- 完成しなかった場合は，途中までで提出して，何が分からなかったのかをお知らせください．
-
-- 誰も提出してくれなかった場合は，当日ゼロからコードを書いていく様子をZoomでお見せすることになってしまいます．
-
 
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/nZLnngQsWes?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
@@ -58,16 +56,26 @@ Rodriguez-Lara, I. (2016). Equity and bargaining power in ultimatum games.
     - 意思決定のページを該当する役割のプライヤーにのみ表示するように `is_displayed()` を定義する．
     - 入力フォームを設定する．
         - まだ，最大値・最小値の検証は実装していない．
-- 本日の進捗分をコミットしておきました: [https://github.com/yshimod/RodriguezLara2016](https://github.com/yshimod/RodriguezLara2016)
 
 
-- **ToDo**
-    - とりあえず Scenario 1 の利得計算の実装を行う．
+#### 7月7日
+
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/nU4EayIL9Cc?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
+
+- やったこと...
+    - Scenario 1 の利得計算の実装を行う．
     - 入力フォームの最大値・最小値の検証を実装する．
     - プレイヤーの役割をランダムに決定する．
     - Scenario 2 (No-veto-cost game) 用のページを追加する．変数（フィールド）も追加する．
     - Scenario 1 と Scenario 2 のどちらを実現させるのかをランダムに決定する機構を実装する．
-    - 意思決定画面の見てくれを良くする（入力フォームをスライダーにする）．
+    - 入力フォームをスライダーにする．
+
+
+- 補遺（近日執筆）
+    - 2つのゲーム（Scenario）の順番を切り替えられるようにする方法．
+    - 1つのラウンドで2つのゲームを行う実装ではなく，ラウンド数を2にして，各ラウンドで1つのゲームを行う実装．
+
 
 
 

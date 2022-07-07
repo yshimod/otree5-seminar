@@ -29,7 +29,7 @@
 
 - クラス `C` で設定するものはCSVデータ出力には含まれない．CSVデータに記録しなくても平気な定数を定義する．
 
-    - セッションごと（トリートメントごと）変化しうる変数はクラス `C` ではなく `settings.py` の `SESSION_CONFIGS` の中で定義するべき． `SESSION_CONFIGS` で定義した変数（ `session.変数` ）はCSVデータ出力に含まれる．
+    - セッションごと（トリートメントごと）変化しうる変数はクラス `C` ではなく `settings.py` の `SESSION_CONFIGS` の中で定義するべき． `SESSION_CONFIGS` で定義した変数はCSVデータ出力に含まれる．
 
 
 - 公式ドキュメントには，辞書型の変数はメソッドで定義せよ，とあるが，辞書型の変数も普通に定義できそう．
@@ -948,7 +948,7 @@
 
 - `app_after_this_page()`
     - 引数: `(player: Player, upcoming_apps)`
-        - `upcoming_apps` は `settings.py` で設定した `SESSION_CONFIGS.app_sequence` で，当該アプリより後のアプリ名（文字列）が並んだリスト．
+        - `upcoming_apps` は `settings.py` で設定した `SESSION_CONFIGS` の `app_sequence` で，当該アプリより後のアプリ名（文字列）が並んだリスト．
     - 返り値: スキップ先のアプリ名（ `upcoming_apps` の要素である文字列）．
     - 複数のラウンドが設定してあるときも，アプリごとスキップする．同一アプリで次のラウンドの最初のページへスキップするのではない．
     - [https://otree.readthedocs.io/en/latest/pages.html#app-after-this-page](https://otree.readthedocs.io/en/latest/pages.html#app-after-this-page)
@@ -998,7 +998,7 @@
 ### 待機ページの組み込みメソッド
 
 関数を定義する前にデコレータ `@staticmethod` を記述しておく．
-ただし，デコレータをつけずにおいてインスタンスメソッドとして（第1引数を `self` にして）使うことはできなさそう．
+ただし，デコレータをつけずにおいてインスタンスメソッドとして（第1引数を `self` にして）使うことはできない．
 
 
 - `vars_for_template()`
