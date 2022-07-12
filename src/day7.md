@@ -167,7 +167,7 @@
 
 
 
-## 2. データモデルでたくさんの変数を定義する
+## 2. データモデルでたくさんのフィールドを定義する
 
 - [https://otree.readthedocs.io/en/latest/misc/tips_and_tricks.html#how-to-make-many-fields](https://otree.readthedocs.io/en/latest/misc/tips_and_tricks.html#how-to-make-many-fields)
 
@@ -222,7 +222,7 @@
     - 自分の手でコピペしてループするのは危険．うっかりミスをしがち．たとえ，自分は几帳面である，と思っている人であっても．
 
 
-- `Player` クラスの外側（下側）で， `setattr(Player, "変数名", models.*Field())` をforループで回す．以下の記述は，上で一つずつ定義しているのと同じ．
+- `Player` クラスの外側（下側）で， `setattr(Player, "フィールド名", models.*Field())` をforループで回す．以下の記述は，上で一つずつ定義しているのと同じ．
 
   ```python
   class Player(BasePlayer):
@@ -393,16 +393,16 @@
         - 詳細は [こちら](otree_ref/templatefile.md#form-オブジェクト) ．
 
 
-- `{{ formfields }}` タグなどを使って入力フォームを作るとき，ページクラスの `get_form_fields()` で， player ごとシャッフルされた変数名のリストを返せば， player ごとフォームの順番をランダム化できる．
+- `{{ formfields }}` タグなどを使って入力フォームを作るとき，ページクラスの `get_form_fields()` で， player ごとシャッフルされたフィールド名のリストを返せば， player ごと入力フォームの順番をランダム化できる．
 
 
-- 乱数を引く処理を行う場合，乱数は一度だけ引き，その結果を記録しておくと良い．たとえば， `creating_session()` の中でリストを並び替え，その結果を `json.dumps()` を使って文字列に変換し， player モデルの変数（ `order_crt = models.LongStringField()` と定義してある）に記録しておく．
+- 乱数を引く処理を行う場合，乱数は一度だけ引き，その結果を記録しておくと良い．たとえば， `creating_session()` の中でリストを並び替え，その結果を `json.dumps()` を使って文字列に変換し， player モデルのフィールド（ `order_crt = models.LongStringField()` と定義してある）に記録しておく．
 
   ```python
   # import random
   # import json
   def creating_session(subsession: Subsession):
-      list_crt = [*C.materials_crt["items"].keys()]    ## 変数名（文字列）のリスト
+      list_crt = [*C.materials_crt["items"].keys()]    ## フィールド名（文字列）のリスト
 
       ## 全ての player について乱数を引いて結果を保存しておく
       for p in subsession.get_players():
@@ -461,7 +461,7 @@
     - 文字列に変換せず，リストオブジェクトのままデータを記録しようとする（たとえば `p.order_crt = new_list_crt` ）とエラーとなる．
 
 
-- `get_form_fields()` において，文字列として記録してある変数名のリストを `json.loads()` でパース（Pythonがリストとして扱えるように変換）してから返す．
+- `get_form_fields()` において，文字列として記録してあるフィールド名のリストを `json.loads()` でパース（Pythonがリストとして扱えるように変換）してから返す．
 
   ```python
   # import json
@@ -483,7 +483,7 @@
       return new_list_crt
   ```
 
-    - `get_form_fields()` はページを読み込む度に実行されるため，↑ の実装だと，画面を更新する度にフォームの順番が並び替えられてしまう．
+    - `get_form_fields()` はページを読み込む度に実行されるため，↑ の実装だと，画面を更新する度に入力フォームの順番が並び替えられてしまう．
 
 
 - セッション作成時に呼び出される `creating_session()` ではなく，どうしても `get_form_fields()` の中で乱数を引きたい場合，結果が記録されていない場合（ `player.field_maybe_none("order_crt") == None` ）にのみ乱数を引くような実装にしたほうが良い．たとえば以下のような実装をする．
@@ -501,7 +501,7 @@
       return json.loads(player.order_crt)
   ```
 
-    - 変数が `None` か否かを判定するときに直接 `player.order_crt == None` として比較すると，（本当に `None` の場合）エラーとなるので，組み込みメソッド `.field_maybe_none()` を使う．
+    - フィールドの中身が `None` か否かを判定するときに直接 `player.order_crt == None` として比較すると，（本当に `None` の場合）エラーとなるので，組み込みメソッド `.field_maybe_none()` を使う．
 
 
 
@@ -523,9 +523,9 @@
     ```
 
 
-- 入力フォームを `{{ formfields }}` タグ（のみ）を使って実装している場合，当該ページで表示させたい入力フォームの変数名のリストを `get_form_fields()` で返せば良い．
+- 入力フォームを `{{ formfields }}` タグ（のみ）を使って実装している場合，当該ページで表示させたい入力フォームのフィールド名のリストを `get_form_fields()` で返せば良い．
 
-    - まず，ページの順番のリストを `creating_session()` の中で乱数を引いて決定する．なお，あらかじめ順番を記録しておく変数 `order_pages` と `order_crt` と `order_gentrust` を `models.LongStringField` で定義しておく．
+    - まず，ページの順番のリストを `creating_session()` の中で乱数を引いて決定する．なお，あらかじめ順番を記録しておくフィールド `order_pages`， `order_crt`， `order_gentrust` を `models.LongStringField` で定義しておく．
 
     ```python
     # import random
@@ -977,7 +977,7 @@
 
         - [https://developer.mozilla.org/ja/docs/Web/HTML/Element/input/radio](https://developer.mozilla.org/ja/docs/Web/HTML/Element/input/radio)
 
-    - （HTMLの機能） `name` 属性の値は変数名にする．選択肢の数だけ `<input>` 要素があるが，すべて同じ変数名にする．
+    - （HTMLの機能） `name` 属性の値はフィールド名にする．選択肢の数だけ `<input>` 要素があるが，すべて同じフィールド名にする．
 
         - とりあえず `name="gentrust1"` としておく．
 
@@ -985,7 +985,7 @@
 
         - `<input>` 要素の `id` は `<label>` 要素との紐付けのために必要なものなので，その値自体は，ユニークでさえあれば，何でも良い．
 
-        - oTree の流儀（というより Django の流儀を引き継いでいるのだが）としては，変数名の頭に `id_` をつけ，その上で枝番を（0から）つける．ただし，このルールにしたがう必要はない．
+        - oTree の流儀（というより Django の流儀を引き継いでいるのだが）としては，フィールド名の頭に `id_` をつけ，その上で枝番を（0から）つける．ただし，このルールにしたがう必要はない．
 
         - とりあえず `name="id_gentrust1-0"` としておく．
 
@@ -1180,7 +1180,7 @@
 
         -  詳細は [こちら](otree_ref/templatefile.md#form-オブジェクト) ．
 
-    - （oTreeの機能） フォームの検証を oTree サーバー側でも行うとき（たとえば正答の判定を行う場合など）， `{{ formfield_errors 変数名 }}` を記述しておけば，検証に引っかかった場合にエラーメッセージが `<div class="form-control-errors">ここにエラーメッセージ</div>` として展開される．
+    - （oTreeの機能） 入力フォームの検証を oTree サーバー側でも行うとき（たとえば正答の判定を行う場合など）， `{{ formfield_errors フィールド名 }}` を記述しておけば，検証に引っかかった場合にエラーメッセージが `<div class="form-control-errors">ここにエラーメッセージ</div>` として展開される．
 
         - `{{ for eachfield in form }}` のループの中では `{{ formfield_errors eachfield.name }}` と記述しておけば良い．
 

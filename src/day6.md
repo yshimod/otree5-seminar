@@ -41,13 +41,13 @@
 
     - 後手は先手に返すポイント数 `sent_back_amount` を決定する．
 
-- player の変数として定義するより，group の変数として定義した方が良い．
+- player のフィールドとして定義するより，group のフィールドとして定義した方が良い．
 
     - テンプレートで `sent_amount` を展開するとき...
 
-        - group の変数であれば `{{ group.sent_amount }}`．
+        - group のフィールドであれば `{{ group.sent_amount }}`．
 
-        - player の変数であれば `vars_for_template()` で `player.group.get_player_by_id(1).sent_amount` を何らかの変数として渡す必要がある．
+        - player のフィールドであれば `vars_for_template()` で `player.group.get_player_by_id(1).sent_amount` を何らかの変数として渡す必要がある．
 
             - テンプレートで直接 `{{ group.get_player_by_id(1).sent_amount }}` としたいところだが，エラーとなる．
 
@@ -172,13 +172,13 @@
     ```
     %/accordion%
 
-    - テンプレートでは，特定のプレイヤーの変数を直接展開することができないため， `vars_for_template()` を使ってテンプレートに変数を渡す必要がある．この手間がデメリットといえばデメリット．
+    - テンプレートでは，自分以外の特定のプレイヤーのフィールドを直接展開することができないため， `vars_for_template()` を使ってテンプレートに変数を渡す必要がある．この手間がデメリットといえばデメリット．
 
     - `sent_amount` と `sent_back_amount` を `Player` クラスで定義する場合，出力されるCSVファイルの1行（あるプレイヤーのデータ）には，先手プレイヤーの場合に `sent_amount` 列は数値が入っているが， `sent_asent_back_amountmount` 列は空欄（ `None` ）となっている．後手プレイヤーの場合には `sent_asent_back_amountmount` 列は数値が入っているが， `sent_amount` 列は空欄となっている．
 
         - 実験実施だけに注目すれば（変数を呼び出すのが少々面倒くさいだけで）問題ないが，実験データの分析のことを考慮すると，1行に当該プレイヤーの意思決定と相手プレイヤーの意思決定の両方が入っている方が便利かも．
 
-    - `Player` クラスの変数として入力フォームを実装し， oTree サーバー側で（たとえば `before_next_page()` を使って） `Group` クラスの変数に "転記" する方法も一案．
+    - `Player` クラスにフィールドを定義して入力フォームを実装し， oTree サーバー側で（たとえば `before_next_page()` を使って） `Group` クラスのフィールドに "転記" する方法も一案．
 
     %accordion%`__init__.py`%accordion%
     ```python
@@ -358,7 +358,7 @@
 
 
 
-### `変数名_max()` で入力フォーム検証の条件を動的に設定する
+### `フィールド名_max()` で入力フォーム検証の条件を動的に設定する
 
 - 信頼ゲームで後手が行う意思決定（先手に返すポイント数: `sent_back_amount`）の上限は，先手が預けたポイント数（を何倍かしたもの）．
 
@@ -392,7 +392,7 @@
 
 - subsession の途中で group 編成を変更することはできない．
 
-    - ただし， subsession の途中でも， group 内での役割（`id_in_group`）は group の `set_players()` メソッドで変更できる．
+    - ただし， subsession の途中でも， group 内での役割（ `id_in_group` ）は group の `set_players()` メソッドで変更できる．
 
 - `creating_session()` はセッションを作成するタイミングで実行されるので， `creating_session()` では意思決定に応じて group 編成を変更することはできない．
 
@@ -535,7 +535,7 @@
             print(nanika)
     ```
 
-    - 関数 `testfunc1()` を `Kurasu` クラスのインスタンス（ `Kurasu()` ）のメソッドとして呼び出すとき，第1引数に自身のインスタンスオブジェクト（ `self = Kurasu()` ）を受け取った状態の関数になっており，第2引数の `nanika` だけ渡せば良い．
+    - 関数 `testfunc1()` を `Kurasu` クラスのインスタンス（ `Kurasu()` ）のメソッドとして呼び出すとき，第1引数に自身のインスタンスオブジェクト（ `self = Kurasu()` ）を受け取った状態の関数になっており（「部分適用」と呼ばれる），第2引数の `nanika` だけ渡せば良い．
 
         - たとえば，
 
@@ -600,7 +600,7 @@
     ```
 
     曰く「`testfunc2()` は引数を1つ（ `nanika` ）しか取らない関数のはずなのに，2個渡されましたけど，どういうこと？」と．
-    この場合， `testfunc2()` がインスタンスメソッドとして呼び出されているので，第1変数として暗黙のうちに `Kurasu()` が引数として渡されている．
+    この場合， `testfunc2()` がインスタンスメソッドとして呼び出されているので，第1引数として暗黙のうちにインスタンスオブジェクト `Kurasu()` が渡されている．
     しかし， `testfunc2()` を定義するときに `nanika` しか受け取らない，ということにしていたので，エラーが出た．
 
     - 関数 `testfunc2()` をクラスから直接呼び出すとき， `@staticmethod` がついているか否かによらず，（ `Kurasu.testfunc1()` の場合と同様に） `testfunc2()` の定義で記述した引数をすべて渡さなければならない．

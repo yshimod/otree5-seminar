@@ -626,7 +626,7 @@ mydict2 = <span class="hljs-built_in">dict</span>(
 </ul>
 </li>
 </ul>
-<h2 id="2-データモデルでたくさんの変数を定義する">2. データモデルでたくさんの変数を定義する</h2>
+<h2 id="2-データモデルでたくさんのフィールドを定義する">2. データモデルでたくさんのフィールドを定義する</h2>
 <ul>
 <li><p><a href="https://otree.readthedocs.io/en/latest/misc/tips_and_tricks.html#how-to-make-many-fields" target="_blank">https://otree.readthedocs.io/en/latest/misc/tips_and_tricks.html#how-to-make-many-fields</a></p>
 </li>
@@ -681,7 +681,7 @@ mydict2 = <span class="hljs-built_in">dict</span>(
 </li>
 </ul>
 <ul>
-<li><p><code>Player</code> クラスの外側（下側）で， <code>setattr(Player, &quot;変数名&quot;, models.*Field())</code> をforループで回す．以下の記述は，上で一つずつ定義しているのと同じ．</p>
+<li><p><code>Player</code> クラスの外側（下側）で， <code>setattr(Player, &quot;フィールド名&quot;, models.*Field())</code> をforループで回す．以下の記述は，上で一つずつ定義しているのと同じ．</p>
 <pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Player</span>(<span class="hljs-params">BasePlayer</span>):</span>
     <span class="hljs-keyword">pass</span>
 
@@ -843,14 +843,14 @@ mydict2 = <span class="hljs-built_in">dict</span>(
 </li>
 </ul>
 <ul>
-<li><code>{{ formfields }}</code> タグなどを使って入力フォームを作るとき，ページクラスの <code>get_form_fields()</code> で， player ごとシャッフルされた変数名のリストを返せば， player ごとフォームの順番をランダム化できる．</li>
+<li><code>{{ formfields }}</code> タグなどを使って入力フォームを作るとき，ページクラスの <code>get_form_fields()</code> で， player ごとシャッフルされたフィールド名のリストを返せば， player ごと入力フォームの順番をランダム化できる．</li>
 </ul>
 <ul>
-<li><p>乱数を引く処理を行う場合，乱数は一度だけ引き，その結果を記録しておくと良い．たとえば， <code>creating_session()</code> の中でリストを並び替え，その結果を <code>json.dumps()</code> を使って文字列に変換し， player モデルの変数（ <code>order_crt = models.LongStringField()</code> と定義してある）に記録しておく．</p>
+<li><p>乱数を引く処理を行う場合，乱数は一度だけ引き，その結果を記録しておくと良い．たとえば， <code>creating_session()</code> の中でリストを並び替え，その結果を <code>json.dumps()</code> を使って文字列に変換し， player モデルのフィールド（ <code>order_crt = models.LongStringField()</code> と定義してある）に記録しておく．</p>
 <pre><code class="lang-python"><span class="hljs-comment"># import random</span>
 <span class="hljs-comment"># import json</span>
 <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">creating_session</span>(<span class="hljs-params">subsession: Subsession</span>):</span>
-    list_crt = [*C.materials_crt[<span class="hljs-string">&quot;items&quot;</span>].keys()]    <span class="hljs-comment">## 変数名（文字列）のリスト</span>
+    list_crt = [*C.materials_crt[<span class="hljs-string">&quot;items&quot;</span>].keys()]    <span class="hljs-comment">## フィールド名（文字列）のリスト</span>
 
     <span class="hljs-comment">## 全ての player について乱数を引いて結果を保存しておく</span>
     <span class="hljs-keyword">for</span> p <span class="hljs-keyword">in</span> subsession.get_players():
@@ -908,7 +908,7 @@ decoded_testdict = json.loads(encoded_testdict)
 </li>
 </ul>
 <ul>
-<li><p><code>get_form_fields()</code> において，文字列として記録してある変数名のリストを <code>json.loads()</code> でパース（Pythonがリストとして扱えるように変換）してから返す．</p>
+<li><p><code>get_form_fields()</code> において，文字列として記録してあるフィールド名のリストを <code>json.loads()</code> でパース（Pythonがリストとして扱えるように変換）してから返す．</p>
 <pre><code class="lang-python"><span class="hljs-comment"># import json</span>
 <span class="hljs-meta">@staticmethod</span>
 <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_form_fields</span>(<span class="hljs-params">player: Player</span>):</span>
@@ -927,7 +927,7 @@ decoded_testdict = json.loads(encoded_testdict)
     <span class="hljs-keyword">return</span> new_list_crt
 </code></pre>
 <ul>
-<li><code>get_form_fields()</code> はページを読み込む度に実行されるため，↑ の実装だと，画面を更新する度にフォームの順番が並び替えられてしまう．</li>
+<li><code>get_form_fields()</code> はページを読み込む度に実行されるため，↑ の実装だと，画面を更新する度に入力フォームの順番が並び替えられてしまう．</li>
 </ul>
 </li>
 </ul>
@@ -945,7 +945,7 @@ decoded_testdict = json.loads(encoded_testdict)
     <span class="hljs-keyword">return</span> json.loads(player.order_crt)
 </code></pre>
 <ul>
-<li>変数が <code>None</code> か否かを判定するときに直接 <code>player.order_crt == None</code> として比較すると，（本当に <code>None</code> の場合）エラーとなるので，組み込みメソッド <code>.field_maybe_none()</code> を使う．</li>
+<li>フィールドの中身が <code>None</code> か否かを判定するときに直接 <code>player.order_crt == None</code> として比較すると，（本当に <code>None</code> の場合）エラーとなるので，組み込みメソッド <code>.field_maybe_none()</code> を使う．</li>
 </ul>
 </li>
 </ul>
@@ -968,9 +968,9 @@ decoded_testdict = json.loads(encoded_testdict)
 </li>
 </ul>
 <ul>
-<li><p>入力フォームを <code>{{ formfields }}</code> タグ（のみ）を使って実装している場合，当該ページで表示させたい入力フォームの変数名のリストを <code>get_form_fields()</code> で返せば良い．</p>
+<li><p>入力フォームを <code>{{ formfields }}</code> タグ（のみ）を使って実装している場合，当該ページで表示させたい入力フォームのフィールド名のリストを <code>get_form_fields()</code> で返せば良い．</p>
 <ul>
-<li><p>まず，ページの順番のリストを <code>creating_session()</code> の中で乱数を引いて決定する．なお，あらかじめ順番を記録しておく変数 <code>order_pages</code> と <code>order_crt</code> と <code>order_gentrust</code> を <code>models.LongStringField</code> で定義しておく．</p>
+<li><p>まず，ページの順番のリストを <code>creating_session()</code> の中で乱数を引いて決定する．なお，あらかじめ順番を記録しておくフィールド <code>order_pages</code>， <code>order_crt</code>， <code>order_gentrust</code> を <code>models.LongStringField</code> で定義しておく．</p>
 <pre><code class="lang-python"><span class="hljs-comment"># import random</span>
 <span class="hljs-comment"># import json</span>
 <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">creating_session</span>(<span class="hljs-params">subsession: Subsession</span>):</span>
@@ -1422,7 +1422,7 @@ page_sequence = [Survey1]
 <li><a href="https://developer.mozilla.org/ja/docs/Web/HTML/Element/input/radio" target="_blank">https://developer.mozilla.org/ja/docs/Web/HTML/Element/input/radio</a></li>
 </ul>
 </li>
-<li><p>（HTMLの機能） <code>name</code> 属性の値は変数名にする．選択肢の数だけ <code>&lt;input&gt;</code> 要素があるが，すべて同じ変数名にする．</p>
+<li><p>（HTMLの機能） <code>name</code> 属性の値はフィールド名にする．選択肢の数だけ <code>&lt;input&gt;</code> 要素があるが，すべて同じフィールド名にする．</p>
 <ul>
 <li>とりあえず <code>name=&quot;gentrust1&quot;</code> としておく．</li>
 </ul>
@@ -1431,7 +1431,7 @@ page_sequence = [Survey1]
 <ul>
 <li><p><code>&lt;input&gt;</code> 要素の <code>id</code> は <code>&lt;label&gt;</code> 要素との紐付けのために必要なものなので，その値自体は，ユニークでさえあれば，何でも良い．</p>
 </li>
-<li><p>oTree の流儀（というより Django の流儀を引き継いでいるのだが）としては，変数名の頭に <code>id_</code> をつけ，その上で枝番を（0から）つける．ただし，このルールにしたがう必要はない．</p>
+<li><p>oTree の流儀（というより Django の流儀を引き継いでいるのだが）としては，フィールド名の頭に <code>id_</code> をつけ，その上で枝番を（0から）つける．ただし，このルールにしたがう必要はない．</p>
 </li>
 <li><p>とりあえず <code>name=&quot;id_gentrust1-0&quot;</code> としておく．</p>
 </li>
@@ -1641,7 +1641,7 @@ page_sequence = [Survey1]
 </li>
 </ul>
 </li>
-<li><p>（oTreeの機能） フォームの検証を oTree サーバー側でも行うとき（たとえば正答の判定を行う場合など）， <code>{{ formfield_errors 変数名 }}</code> を記述しておけば，検証に引っかかった場合にエラーメッセージが <code>&lt;div class=&quot;form-control-errors&quot;&gt;ここにエラーメッセージ&lt;/div&gt;</code> として展開される．</p>
+<li><p>（oTreeの機能） 入力フォームの検証を oTree サーバー側でも行うとき（たとえば正答の判定を行う場合など）， <code>{{ formfield_errors フィールド名 }}</code> を記述しておけば，検証に引っかかった場合にエラーメッセージが <code>&lt;div class=&quot;form-control-errors&quot;&gt;ここにエラーメッセージ&lt;/div&gt;</code> として展開される．</p>
 <ul>
 <li><p><code>{{ for eachfield in form }}</code> のループの中では <code>{{ formfield_errors eachfield.name }}</code> と記述しておけば良い．</p>
 </li>
@@ -1817,7 +1817,7 @@ page_sequence = [Survey1]
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第7回","level":"1.1.7","depth":2,"next":{"title":"第8回","level":"1.1.8","depth":2,"path":"day8.md","ref":"day8.md","articles":[]},"previous":{"title":"第6回","level":"1.1.6","depth":2,"path":"day6.md","ref":"day6.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day7.md","mtime":"2022-07-03T05:40:06.332Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-07-12T01:50:18.915Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第7回","level":"1.1.7","depth":2,"next":{"title":"第8回","level":"1.1.8","depth":2,"path":"day8.md","ref":"day8.md","articles":[]},"previous":{"title":"第6回","level":"1.1.6","depth":2,"path":"day6.md","ref":"day6.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day7.md","mtime":"2022-07-12T08:48:29.428Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-07-12T09:11:16.144Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

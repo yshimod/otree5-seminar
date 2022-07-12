@@ -27,9 +27,9 @@
 
 - アプリ内で参照する変数（定数）を定義する．
 
-- クラス `C` で設定するものはCSVデータ出力には含まれない．CSVデータに記録しなくても平気な定数を定義する．
+- `C` クラスで設定するものはCSVデータ出力には含まれない．CSVデータに記録するまでもないような定数（当面は実験の条件として変更しないようなもの）を定義する．
 
-    - セッションごと（トリートメントごと）変化しうる変数はクラス `C` ではなく `settings.py` の `SESSION_CONFIGS` の中で定義するべき． `SESSION_CONFIGS` で定義した変数はCSVデータ出力に含まれる．
+    - セッションごと（トリートメントごと）変化しうる変数は `C` クラスではなく `settings.py` の `SESSION_CONFIGS` の中で定義するべき． `SESSION_CONFIGS` で定義した変数はCSVデータ出力に含まれる．
 
 
 - 公式ドキュメントには，辞書型の変数はメソッドで定義せよ，とあるが，辞書型の変数も普通に定義できそう．
@@ -129,8 +129,8 @@
 
 
 - `field_maybe_none()`
-    - 引数: フォームの変数名（文字列）．
-    - 返り値: 引数の変数の値．変数の値が `None` であれば `None` がエラーを出すことなく返ってくる．
+    - 引数: フィールド名（文字列）．
+    - 返り値: 引数のフィールドの値．フィールドの値が `None` であれば `None` がエラーを出すことなく返ってくる．
     - [https://otree.readthedocs.io/en/latest/misc/tips_and_tricks.html#field-maybe-none](https://otree.readthedocs.io/en/latest/misc/tips_and_tricks.html#field-maybe-none)
 
 
@@ -259,8 +259,8 @@
 
 
 - `field_maybe_none()`
-    - 引数: フォームの変数名（文字列）．
-    - 返り値: 引数の変数の値．変数の値が `None` であれば `None` がエラーを出すことなく返ってくる．
+    - 引数: フィールド名（文字列）．
+    - 返り値: 引数のフィールドの値．フィールドの値が `None` であれば `None` がエラーを出すことなく返ってくる．
     - [https://otree.readthedocs.io/en/latest/misc/tips_and_tricks.html#field-maybe-none](https://otree.readthedocs.io/en/latest/misc/tips_and_tricks.html#field-maybe-none)
 
 
@@ -325,8 +325,8 @@
 
 
 - `field_maybe_none()`
-    - 引数: フォームの変数名（文字列）．
-    - 返り値: 引数の変数の値．変数の値が `None` であれば `None` がエラーを出すことなく返ってくる．
+    - 引数: フィールド名（文字列）．
+    - 返り値: 引数のフィールドの値．フィールドの値が `None` であれば `None` がエラーを出すことなく返ってくる．
     - [https://otree.readthedocs.io/en/latest/misc/tips_and_tricks.html#field-maybe-none](https://otree.readthedocs.io/en/latest/misc/tips_and_tricks.html#field-maybe-none)
 
 
@@ -461,9 +461,9 @@
             [False, "非協力"]
         ]
         ```
-        - テンプレートタグで入力フォームを作るとき，（ `widget = widgets.RadioSelect` と指定しなくても）ラジオボタンでフォームが生成され，ラベルは `choices` で設定したものが表示される．
+        - テンプレートタグで入力フォームを作るとき，（ `widget = widgets.RadioSelect` と指定しなくても）ラジオボタンで入力フォームが生成され，ラベルは `choices` で設定したものが表示される．
     - `widget`
-        - `choices` を指定せずに `widget = widgets.CheckboxInput` と指定すると，チェックボックスでフォームが生成される．
+        - `choices` を指定せずに `widget = widgets.CheckboxInput` と指定すると，チェックボックスで入力フォームが生成される．
     - `initial`
         - 初期値を設定する場合は指定する．
         - `initial` を指定していないとき，タイムアウトが発生すると `False` が入る．
@@ -475,8 +475,8 @@
         - ドキュメントを記述してもよいが，（アプリなどのドキュメントとは異なり）管理者画面で自動的にドキュメントが表示されるような仕組みは無さそう．
         - [https://docs.sqlalchemy.org/en/14/core/metadata.html#sqlalchemy.schema.Column.params.doc](https://docs.sqlalchemy.org/en/14/core/metadata.html#sqlalchemy.schema.Column.params.doc)
     - `help_text`
-        - 参加者への指示などの文章を記述しておくと，テンプレートタグで入力フォームを作るときに小さい灰色の字で `help_text` に書いたものがフォームの下側に表示される．
-        - テンプレートで `{{ form.変数名.description }}` と記述すると `help_text` に書いた文字列が展開される．
+        - 参加者への指示などの文章を記述しておくと，テンプレートタグで入力フォームを作るときに小さい灰色の字で `help_text` に書いたものが入力フォームの下側に表示される．
+        - テンプレートで `{{ form.フィールド名.description }}` と記述すると `help_text` に書いた文字列が展開される．
     - `blank`
         - 強制回答にしない場合は `blank = True` とする．
 
@@ -596,7 +596,7 @@
 
 1. データを参加者に入力させたいページのクラスにおいて `form_model` と `form_fields` を設定する．
 
-1. テンプレートで `{{ formfields }}` タグを記述する．一つずつ特定して設置する場合には `{{ formfield "変数名" }}` と記述する．
+1. テンプレートで `{{ formfields }}` タグを記述する．一つずつ特定して設置する場合には `{{ formfield "フィールド名" }}` と記述する．
 
 1. テンプレートタグで入力フォームを設置するとき，HTML タグが生成される．
 
@@ -816,9 +816,9 @@
 
 1. データを参加者に入力させたいページのクラスにおいて `form_model` と `form_fields` を設定する．
 
-1. フィールド名（記憶するデータの変数名）を， `<input>` 要素の `name` 属性に設定する．
+1. フィールド名を， `<input>` 要素の `name` 属性に設定する．
 
-1. テンプレートタグ `{{ formfield_errors '変数名' }}` を書いておくと， oTree による検証のエラーメッセージを表示することができる．
+1. テンプレートタグ `{{ formfield_errors 'フィールド名' }}` を書いておくと， oTree による検証のエラーメッセージを表示することができる．
 
 
 
@@ -847,17 +847,17 @@
 
 - `form_model`
     - 当該ページで使う入力フォームのモデルを `"player"`， `"group"`， `"subsession"` から選んで文字列を渡す．
-    - どれか一つしか選べない．一つのページで player モデルの変数と group モデルの変数の両方の入力フォームを置くことはできない．たとえばとりあえず全部 player モデルでデータを記録しておき， oTree 内部で group モデルの変数に転記する，などで対処する．
+    - どれか一つしか選べない．一つのページで player モデルのフィールドと group モデルのフィールドの両方の入力フォームを置くことはできない．たとえばとりあえず全部 player モデルでデータを記録しておき， oTree 内部で group モデルのフィールドに転記する，などで対処する．
     - 動的に変更することはできない．
 
 
 - `form_fields`
-    - 当該ページで入力フォームの変数名の文字列をリストで渡す．
-    - `form_model` で指定したモデルで定義していない変数を指定してはいけない．
+    - 当該ページで入力フォームのフィールド名の文字列をリストで渡す．
+    - `form_model` で指定したモデルで定義していないフィールドを指定してはいけない．
     - `form_fields` で複数要素を指定していて，かつテンプレートタグ `{{ formfields }}` を使う場合，リストの順番通り入力フォームが作られる．
     - 動的に変更する場合には組み込みメソッド `get_form_fields()` を使う．
         - `form_fields` で設定してあっても， `get_form_fields()` の設定の方が優先される．
-    - `form_fields` で入力フォームの変数名を渡した場合，当該変数で `blank = True` と設定しない限り，（ `initial` を設定してあっても，）ページの入力フォームから適切な値が送信されなければ次のページへ進めない．
+    - `form_fields` で入力フォームのフィールド名を渡した場合，当該フィールドの定義で `blank = True` と設定しない限り，（ `initial` を設定してあっても，）ページの入力フォームから適切な値が送信されなければ次のページへ進めない．
 
 
 - `timeout_seconds`
@@ -887,7 +887,7 @@
 
 - `get_form_fields()`
     - 引数: `(player: Player)`
-    - 返り値: 変数名の文字列のリスト． `form_fields` と同様．
+    - 返り値: フィールド名の文字列のリスト． `form_fields` と同様．
     - ページを読み込む度に実行される（しかも2回実行される？）．
     - `vars_for_template()` よりも先に実行される．
     - [https://otree.readthedocs.io/en/latest/forms.html#determining-form-fields-dynamically](https://otree.readthedocs.io/en/latest/forms.html#determining-form-fields-dynamically)
@@ -928,15 +928,15 @@
 
 - `error_message()`
     - 引数: `(player: Player, values)`
-        - `values` はフォームの変数名をキーとする辞書で，入力された値が取り出せる．
-        - 検証したいフォームが定義してあるモデルが player でなくても（当該ページのクラスで `form_model = "player"` と設定してある場合以外であっても），1つ目の引数は `player` ．
+        - `values` は入力フォームのフィールド名をキーとする辞書で，入力された値が取り出せる．
+        - 検証したい入力フォームが定義してあるモデルが player でなくても（当該ページのクラスで `form_model = "player"` と設定してある場合以外であっても），1つ目の引数は `player` ．
             - ページに入力フォームが無い場合であっても， `error_message()` は使える．
-    - 返り値: フォームの変数名をキーとする辞書型で，値は各フォームに対応するエラーメッセージの文字列．
+    - 返り値: 入力フォームのフィールド名をキーとする辞書型で，値は各入力フォームに対応するエラーメッセージの文字列．
         - エラーが無い場合は何も返さないか，空の辞書を返す．
         - 辞書型ではなく，単なる文字列を返すとき，画面のタイトルの直下にその文字列が表示される．
             - 作例: [https://www.otreehub.com/projects/otree-snippets/](https://www.otreehub.com/projects/otree-snippets/) の「experimenter_input」．
     - ページが進められたとき（フォームが送信されたとき），次のページを表示する前に実行され，エラーがあれば同一ページにエラーメッセージを追加したものを表示する．
-    - フォームごと個別に検証用の関数を定義することもできる．ページクラスの外側で `変数名_error_message()` を定義する．
+    - 入力フォームごと個別に検証用の関数を定義することもできる．ページクラスの外側で `フィールド名_error_message()` を定義する．
     - [https://otree.readthedocs.io/en/latest/misc/tips_and_tricks.html#avoid-duplicated-validation-methods](https://otree.readthedocs.io/en/latest/misc/tips_and_tricks.html#avoid-duplicated-validation-methods)
 
 
@@ -1051,7 +1051,9 @@
 
 ### `creating_session()`
 
-- `Subsession` クラスの下側で定義する．
+- group の編成（各 player がどの group に属し， `id_in_group` は何か）をカスタマイズするときに使う．
+
+- 刺激呈示などで乱数を使う場合， `creating_session()` で乱数を引き出して player のフィールドなどに記録しておくと良い．
 
 - 引数: `(subsession: Subsession)`
 
@@ -1059,7 +1061,7 @@
 
 - セッションの作成時に実行される．
     - 直前のアプリや直前のラウンド（ subsession ）における行動に応じた処理はできない．
-    - ↑ そのような処理をしたい場合は（想定された使い方ではないが） `group_by_arrival_time_method()` を使う．
+    - ↑ そのような処理をしたい場合は `group_by_arrival_time_method()` を使う．
 
 
 - subsession の数だけ（ `NUM_ROUNDS` だけ）実行される．
@@ -1107,9 +1109,7 @@
 
 ### `group_by_arrival_time_method()`
 
-- `Subsession` クラスの下側で定義する．
-
-- 引数: `(subsession: Subsession, waiting_players)`
+- 引数: `(subsession: Subsession, waiting_players: list[Player])`
     - `waiting_players` 到達して待機中の player オブジェクトが入ったリスト．
 
 
@@ -1126,6 +1126,8 @@
 
 ### `vars_for_admin_report()`
 
+- 独自の管理者画面を使いたいときに使う．
+
 - 引数: `(subsession: Subsession)`
 
 - 返り値: 辞書型．
@@ -1136,12 +1138,14 @@
 
 
 
-### `変数名_max`
+### `フィールド名_max()`
 
-- `変数名` の部分にフィールドの変数名を入れる．
+- `フィールド名` の部分にフィールドのフィールド名を入れる．
 
-- 引数: 当該変数が定義されているクラスのインスタンス．
-    - たとえば player の変数であれば，引数は `player` ．
+- oTree サーバーを立ち上げる段階ではフィールドの最大値が決められない場合に，この関数を使う．
+
+- 引数: 当該フィールドが定義されているクラスのインスタンス．
+    - たとえば player のフィールドであれば，引数は `player` ．
 
 
 - 返り値: フィールドの最大値．
@@ -1150,12 +1154,14 @@
 
 
 
-### `変数名_min()`
+### `フィールド名_min()`
 
-- `変数名` の部分にフィールドの変数名を入れる．
+- `フィールド名` の部分にフィールドのフィールド名を入れる．
 
-- 引数: 当該変数が定義されているクラスのインスタンス．
-    - たとえば player の変数であれば，引数は `player` ．
+- `フィールド名_max()` の最小値版．
+
+- 引数: 当該フィールドが定義されているクラスのインスタンス．
+    - たとえば player のフィールドであれば，引数は `player` ．
 
 
 - 返り値: フィールドの最小値．
@@ -1164,12 +1170,14 @@
 
 
 
-### `変数名_choices`
+### `フィールド名_choices`
 
-- `変数名` の部分にフィールドの変数名を入れる．
+- `フィールド名` の部分にフィールドのフィールド名を入れる．
 
-- 引数: 当該変数が定義されているクラスのインスタンス．
-    - たとえば player の変数であれば，引数は `player` ．
+- oTree サーバーを立ち上げる段階では入力フォームの選択肢が決められない場合に，この関数を使う．
+
+- 引数: 当該フィールドが定義されているクラスのインスタンス．
+    - たとえば player のフィールドであれば，引数は `player` ．
 
 
 - 返り値: フィールドの選択肢のリスト．
@@ -1178,14 +1186,16 @@
 
 
 
-### `変数名_error_message`
+### `フィールド名_error_message`
 
-- `変数名` の部分にフィールドの変数名を入れる．
+- `フィールド名` の部分にフィールドのフィールド名を入れる．
+
+- 入力フォームの oTree サーバー側での検証に引っかかった場合に表示するエラーメッセージをカスタマイズするときに使う．
 
 - 引数: `(*, value)`
     - `value` は入力されたフィールドの値．
-    - `*` には当該変数が定義されているクラスのインスタンスを書く．
-        - たとえば player の変数であれば，引数は `player` ．
+    - `*` には当該フィールドが定義されているクラスのインスタンスを書く．
+        - たとえば player のフィールドであれば，引数は `player` ．
 
 
 - 返り値: エラーメッセージの文字列．

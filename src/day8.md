@@ -108,7 +108,7 @@
 
     - 定数に `optR = [200, 250, 300, 350, 400]` を設定しておく．
 
-    - player モデルで `switching_point` なる変数を ` models.IntegerField()` で定義しておく．MPLの1行ずつデータを取りたい場合は各行に相当する変数を定義する．
+    - player モデルで `switching_point` なるフィールドを ` models.IntegerField()` で定義しておく．MPLの1行ずつデータを取りたい場合は各行に相当するフィールドを定義する．
 
   %accordion%テンプレート%accordion%
   ```html

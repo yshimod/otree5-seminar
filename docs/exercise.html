@@ -512,13 +512,13 @@
 <li>やったこと...<ul>
 <li>実験課題用に新しいアプリを作る．</li>
 <li>必要なページのクラスをとりあえず定義し，対応するテンプレートファイルも作成する．</li>
-<li>必要な変数（フィールド）を定義する．</li>
+<li>必要なフィールドを定義する．</li>
 <li><code>creating_session()</code> で reward level をランダムに決定する．<ul>
 <li>まだ プレイヤーの役割はランダム化していない．</li>
 </ul>
 </li>
-<li>最初の待機ページの <code>after_all_players_arrive()</code> で， <code>effort</code> アプリで生成した変数を受け取り， group の変数に代入する．</li>
-<li>同じく <code>after_all_players_arrive()</code> で， joint endowment も計算し group の変数に代入する．</li>
+<li>最初の待機ページの <code>after_all_players_arrive()</code> で， <code>effort</code> アプリで生成した変数を受け取り， group のフィールドに代入する．</li>
+<li>同じく <code>after_all_players_arrive()</code> で， joint endowment も計算し group のフィールドに代入する．</li>
 <li>意思決定のページを該当する役割のプライヤーにのみ表示するように <code>is_displayed()</code> を定義する．</li>
 <li>入力フォームを設定する．<ul>
 <li>まだ，最大値・最小値の検証は実装していない．</li>
@@ -536,7 +536,7 @@
 <li>Scenario 1 の利得計算の実装を行う．</li>
 <li>入力フォームの最大値・最小値の検証を実装する．</li>
 <li>プレイヤーの役割をランダムに決定する．</li>
-<li>Scenario 2 (No-veto-cost game) 用のページを追加する．変数（フィールド）も追加する．</li>
+<li>Scenario 2 (No-veto-cost game) 用のページを追加する．フィールドも追加する．</li>
 <li>Scenario 1 と Scenario 2 のどちらを実現させるのかをランダムに決定する機構を実装する．</li>
 <li>入力フォームをスライダーにする．</li>
 </ul>
@@ -588,7 +588,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"showToc":false,"title":"演習","level":"1.1.9","depth":2,"next":{"title":"【資料: 開発編】","level":"2.1","depth":1,"ref":"","articles":[]},"previous":{"title":"第8回","level":"1.1.8","depth":2,"path":"day8.md","ref":"day8.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"exercise.md","mtime":"2022-07-07T09:43:11.776Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-07-12T01:50:18.915Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"showToc":false,"title":"演習","level":"1.1.9","depth":2,"next":{"title":"【資料: 開発編】","level":"2.1","depth":1,"ref":"","articles":[]},"previous":{"title":"第8回","level":"1.1.8","depth":2,"path":"day8.md","ref":"day8.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"exercise.md","mtime":"2022-07-12T08:28:45.030Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-07-12T09:11:16.144Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

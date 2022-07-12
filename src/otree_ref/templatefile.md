@@ -28,7 +28,7 @@
 
 - **コンテンツブロック** （ `{{ block content }}` と `{{ endblock }}` に挟まれた部分）
     - コンテンツブロック内に，ページの本文を，HTMLタグも適宜使いながら記述する．
-    - oTree サーバーに送信したいデータの入力フォームを作るためには，コンテンツブロック内に `<input>` タグなどを記述する．このとき `name` 属性に，記録するデータの変数名を設定する．
+    - oTree サーバーに送信したいデータの入力フォームを作るためには，コンテンツブロック内に `<input>` タグなどを記述する．このとき `name` 属性に，記録するデータのフィールド名を設定する．
 
 
 - CSSを使う場合は， **スタイルブロック** （ `{{ block styles }}` と `{{ endblock }}` に挟まれた部分）に `<style>` タグで直書きするか `<link>` タグを書いてCSSファイルを読み込む．
@@ -71,7 +71,7 @@
     - `C`
 
 
-- 変数の演算はほとんどできない．
+- 変数の演算はできない．
 
     - たとえば `{{ C.ENDOWMENT * 10 }}` として値を10倍して表示する，という使い方はできない．
 
@@ -498,7 +498,7 @@
                       {% endwith %}
                   {% endif %}
                   {% if form.errors %}
-                      <!-- oTreeのフォーム検証に引っかかると，ここでエラーメッセージが表示される． -->
+                      <!-- oTree 側の検証に引っかかると，ここでエラーメッセージが表示される． -->
                       <div class="otree-form-errors alert alert-danger">
                           {% if form.non_field_error %}
                               {{ form.non_field_error }}
@@ -581,7 +581,7 @@
 
 ### `formfield`
 
-- `{{ formfield "変数名" }}` とすると，当該変数の入力フォームが以下のように展開される．
+- `{{ formfield "フィールド名" }}` とすると，当該フィールドの入力フォームが以下のように展開される．
   ```html
   <div class="{{ classes }}">
       {{ if is_checkbox }}
@@ -609,7 +609,7 @@
           </p>
       {{ endif }}
       {{ if errors }}
-          <!-- 一旦ページの入力フォームが送信されて oTree の検証に引っかかった場合 -->
+          <!-- 一旦ページのフォームが送信されて oTree 側の検証に引っかかった場合 -->
           <div class="form-control-errors">
               {{ for error in errors }}
                   {{ error }}<br/>
@@ -623,22 +623,22 @@
 
         - チェックボックスの場合
         ```html
-        <input type="checkbox" class="form-check-input" id="id_変数名" name="変数名" required value="y">
+        <input type="checkbox" class="form-check-input" id="id_フィールド名" name="フィールド名" required value="y">
         ```
 
-        - 記述フォームの場合
+        - テキスト入力欄の場合
         ```html
-        <input type="text" class="form-control" id="id_変数名" name="変数名" required value="">
+        <input type="text" class="form-control" id="id_フィールド名" name="フィールド名" required value="">
         ```
 
         - `models.LongStringField` を使っている場合
         ```html
-        <textarea class="form-control" id="id_変数名" name="変数名" required value=""></textarea>
+        <textarea class="form-control" id="id_フィールド名" name="フィールド名" required value=""></textarea>
         ```
 
         - ドロップダウンメニューの場合
         ```html
-        <select class="form-select" id="id_変数名" name="変数名" required>
+        <select class="form-select" id="id_フィールド名" name="フィールド名" required>
             <option value="">--------</option>
             <option value="1">A</option>
             <option value="2">B</option>
@@ -648,18 +648,18 @@
 
         - ラジオボタンの場合
         ```html
-        <div id="id_変数名" required>
+        <div id="id_フィールド名" required>
             <div class="form-check">
-                <input class="form-check-input" type="radio" id="id_変数名-0" name="変数名" required value="1">
-                <label for="id_変数名-0">A</label>
+                <input class="form-check-input" type="radio" id="id_フィールド名-0" name="フィールド名" required value="1">
+                <label for="id_フィールド名-0">A</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" id="id_変数名-1" name="変数名" required value="2">
-                <label for="id_変数名-1">B</label>
+                <input class="form-check-input" type="radio" id="id_フィールド名-1" name="フィールド名" required value="2">
+                <label for="id_フィールド名-1">B</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" id="id_変数名-2" name="変数名" required value="3">
-                <label for="id_変数名-2">C</label>
+                <input class="form-check-input" type="radio" id="id_フィールド名-2" name="フィールド名" required value="3">
+                <label for="id_フィールド名-2">C</label>
             </div>
         </div>
         ```
@@ -673,10 +673,10 @@
 - （ブラウザでの検証に通過した上で） oTree サーバーでの検証に失敗した際にエラーメッセージを展開できる．
 
 
-- エラーメッセージを表示したい場所（入力フォームの下など）に `{{ formfield_errors "変数名" }}` を記述しておく．
+- エラーメッセージを表示したい場所（入力フォームの下など）に `{{ formfield_errors "フィールド名" }}` を記述しておく．
 
 
-- `{{ formfield "変数名" }}` を使ってフォームを実装する場合は， `{{ formfield_errors "変数名" }}` を記述しなくてもエラーメッセージを入力フォームの下で表示してくれる（ oTree 3 ではページタイトルの下側にまとめて表示されていた）．
+- `{{ formfield "フィールド名" }}` を使って入力フォームを実装する場合は， `{{ formfield_errors "フィールド名" }}` を記述しなくてもエラーメッセージを入力フォームの下で表示してくれる（ oTree 3 ではページタイトルの下側にまとめて表示されていた）．
 
 
 - `{{ for }}` ループを使う場合は，たとえば以下のようにする．
@@ -696,7 +696,7 @@
   ```
 
 
-- エラーメッセージはページクラスの組み込みメソッド `error_message()` やモジュールレベルの組み込み関数 `変数名_error_message()` を使ってカスタマイズできる．
+- エラーメッセージはページクラスの組み込みメソッド `error_message()` やモジュールレベルの組み込み関数 `フィールド名_error_message()` を使ってカスタマイズできる．
 
 
 - [https://otree.readthedocs.io/en/latest/forms.html#raw-html-widgets](https://otree.readthedocs.io/en/latest/forms.html#raw-html-widgets)
@@ -749,32 +749,32 @@
 - `form` 自体はテンプレートタグではなく，デフォルトでテンプレートに渡される変数（オブジェクト）．
 
 
-- ページクラスで `form_fields` に渡した変数に対応する入力フォームがすべて含まれている．
+- ページクラスで `form_fields` に渡したフィールドに対応する入力フォームがすべて含まれている．
 
-    - `{{ form.変数名 }}` は `{{ formfield "変数名" }}` のラベルを除いた入力フォーム部分のみが展開される．
+    - `{{ form.フィールド名 }}` は `{{ formfield "フィールド名" }}` のラベルを除いた入力フォーム部分のみが展開される．
 
-        - HTMLタグの `name` 属性には変数名が入っている．
+        - HTMLタグの `name` 属性にはフィールド名が入っている．
 
-        - HTMLタグの `id` 属性には `"id_変数名"` なる文字列が入っている．
+        - HTMLタグの `id` 属性には `"id_フィールド名"` なる文字列が入っている．
 
-    - `{{ form.変数名.name }}` は変数名が展開される．
+    - `{{ form.フィールド名.name }}` はフィールド名が展開される．
 
-    - `{{ form.変数名.id }}` は `"id_変数名"` なる文字列が展開される．
+    - `{{ form.フィールド名.id }}` は `"id_フィールド名"` なる文字列が展開される．
 
-    - `{{ form.変数名.label }}` は以下のHTMLタグが展開される．
+    - `{{ form.フィールド名.label }}` は以下のHTMLタグが展開される．
     ```html
-    <label for="id_変数名">データモデルで `label` に設定した文字列</label>
+    <label for="id_フィールド名">データモデルで `label` に設定した文字列</label>
     ```
 
-    - `{{ form.変数名.description }}` はデータモデルで `help_text` に設定した文字列が展開される．
+    - `{{ form.フィールド名.description }}` はデータモデルで `help_text` に設定した文字列が展開される．
 
-    - `{{ form.変数名.errors }}` は oTree の検証に引っかかったときのエラーメッセージ（文字列）がリストに入った状態で展開される．
+    - `{{ form.フィールド名.errors }}` は oTree の検証に引っかかったときのエラーメッセージ（文字列）がリストに入った状態で展開される．
 
         - たとえば，以下のような使い方をする．
         ```html
-        {{ if form.変数名.errors }}
+        {{ if form.フィールド名.errors }}
             <!-- エラーが発生した場合 -->
-            {{ form.変数名.errors.0 }}    {# ← リストの0番目にエラーメッセージ（文字列）が入っている #}
+            {{ form.フィールド名.errors.0 }}    {# ← リストの0番目にエラーメッセージ（文字列）が入っている #}
         {{ endif }}
         ```
 
@@ -790,12 +790,12 @@
   ```
 
 
-- 入力フォームがドロップダウンメニューの場合， `{{ form.変数名 }}` から更にパーツを取り出すことができる．
+- 入力フォームがドロップダウンメニューの場合， `{{ form.フィールド名 }}` から更にパーツを取り出すことができる．
 
     - たとえば
     ```html
-    <select class="form-select" id="id_変数名" name="変数名" required>
-        {{ for eachopt in form.変数名 }}
+    <select class="form-select" id="id_フィールド名" name="フィールド名" required>
+        {{ for eachopt in form.フィールド名 }}
             {{ eachopt }}
         {{ endfor }}
     </select>
@@ -806,12 +806,12 @@
     ```
 
 
-- 入力フォームがラジオボタンの場合， `{{ form.変数名 }}` から更にパーツを取り出すことができる．
+- 入力フォームがラジオボタンの場合， `{{ form.フィールド名 }}` から更にパーツを取り出すことができる．
 
     - たとえば
     ```html
-    <select class="form-select" id="id_変数名" name="変数名" required>
-        {{ for eachopt in form.変数名 }}
+    <select class="form-select" id="id_フィールド名" name="フィールド名" required>
+        {{ for eachopt in form.フィールド名 }}
             <p>
                 {{ eachopt.label }}: {{ eachopt }}
             </p>
@@ -820,14 +820,14 @@
     ```
     としたとき， `{{ eachopt }}` には，たとえば以下の HTML タグが展開される．
     ```html
-    <input class="form-check-input" type="radio" id="id_変数名-0" name="変数名" required value="1">
+    <input class="form-check-input" type="radio" id="id_フィールド名-0" name="フィールド名" required value="1">
     ```
     `{{ eachopt.label }}` には，たとえば以下の HTML タグが展開される．
     ```html
-    <label for="id_変数名-0">A</label>
+    <label for="id_フィールド名-0">A</label>
     ```
 
-    - インデックス（パーツの `id` 属性で `"id_変数名-"` のあとに入る数字）は0から始まることに注意．
+    - インデックス（パーツの `id` 属性で `"id_フィールド名-"` のあとに入る数字）は0から始まることに注意．
 
 
 

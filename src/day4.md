@@ -254,7 +254,7 @@
 
 3. コンテンツブロック内に入力フォームを挿入する
 
-    - たとえば変数名を `contribution` にするとき，以下をコンテンツブロック内に記述すれば，とりあえず入力フォームができる．
+    - たとえばフィールド名を `contribution` にするとき，以下をコンテンツブロック内に記述すれば，とりあえず入力フォームができる．
 
     ```html
     <input name="contribution">
@@ -364,9 +364,9 @@
 
     - oTree 3 では，主に `models.py` に記述していた内容．
 
-    - player， group， subsession の各階層で保存するべきデータの変数名を `Player` クラス，`Group` クラス，`Subsession` クラスのそれぞれで定義する．
+    - player， group， subsession の各階層で保存するべきデータのフィールド名を `Player` クラス，`Group` クラス，`Subsession` クラスのそれぞれで定義する．
 
-        - 公共財ゲームなど，プレイヤーに役割の区別がなく対称的な場合，意思決定データは一つの変数名で player の階層に保存しておけば良い．
+        - 公共財ゲームなど，プレイヤーに役割の区別がなく対称的な場合，意思決定データは一つのフィールドで player の階層に保存しておけば良い．
 
         - 信頼ゲームにおける提案者・応答者など，プレイヤーに役割の区別があって，かつ，グループ内で一つの役割に複数のプレイヤーが縮退しない場合，各プレイヤーの意思決定データはグループにおいてユニークなので， player の階層に保存するよりも group の階層に保存する方が良い．
 
@@ -374,15 +374,15 @@
 
         - participant と session の階層へは入力フォームから直接データを保存できないため，工夫を要する．
 
-    - デフォルトで `Player` クラス，`Group` クラス，`Subsession` クラスが `__init__.py` に記述されているので，変数を設定する場合には `pass` を削除して書き込めば良い．
+    - デフォルトで `Player` クラス，`Group` クラス，`Subsession` クラスが `__init__.py` に記述されているので，フィールドを設定する場合には `pass` を削除して書き込めば良い．
 
-    - `変数名 = models.*Field()` と記述して設定する．
+    - `フィールド名 = models.*Field()` と記述して設定する．
 
         - `models.*Field()` の詳細は [こちら](otree_ref/init.md#フィールドの型) ．
 
         - `models.*Field()` の引数で，最大値と最小値などの検証の設定や，初期値や選択肢の設定ができる．詳細は [こちら](otree_ref/init.md#フィールドの型) ．
 
-            - `label`: フォームのラベル（デフォルトは変数名）
+            - `label`: 入力フォームのラベル（デフォルトはフィールド名）
 
             - `min`: 最小値
 
@@ -400,11 +400,11 @@
 
             - `form_model`: 保存したいデータのモデル（ player， group， subsession のいずれか）から一つを選んで文字列で指定する．
 
-                - `Player` クラスで定義した `contribution` なる変数を使う場合は `form_model = "player"` とする．
+                - `Player` クラスで定義した `contribution` なるフィールドを使う場合は `form_model = "player"` とする．
 
-            - `form_fields`: 保存したいデータの変数名をリストで指定する．
+            - `form_fields`: 保存したいデータのフィールド名をリストで指定する．
 
-                - `Player` クラスで定義した `contribution` なる変数を使う場合は `form_fields = ["contribution"]` とする．
+                - `Player` クラスで定義した `contribution` なるフィールドを使う場合は `form_fields = ["contribution"]` とする．
 
     - ページクラスの設定とデータモデルの設定が終われば，とりあえず意思決定データを収集することはできる．質問紙調査であれば，ここまでの作業で完成．
 
@@ -467,7 +467,7 @@
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/qsyWxGr8U-M?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 
-- 利得を計算する際の途中の変数（グループでの貢献額の合計値と分配額）をグループモデルに保存するために定義する．
+- 利得を計算する際の途中の変数（グループでの貢献額の合計値と分配額）をグループモデルのフィールドに保存するために定義する．
 
     - `Group` クラスに `total_contribution = models.FloatField()` と `individual_share = models.FloatField()`
 
@@ -506,7 +506,7 @@
         ## 各プレイヤーの配分額を計算し，Group の individual_share に代入．
         group.individual_share = group.total_contribution * C.MULTIPLIER / C.PLAYERS_PER_GROUP
 
-        ## 一人ずつプレイヤーの報酬額を計算し，Player の 予め用意されている変数 payoff に代入．
+        ## 一人ずつプレイヤーの報酬額を計算し，Player の 予め用意されている payoff フィールドに代入．
         for player in players:
             player.payoff = C.ENDOWMENT - player.contribution + group.individual_share
             ## ↑ player.payoff に値を代入すると，勝手に oTree 組み込みの通貨型に変換される．値は丸められる．
@@ -589,13 +589,13 @@
 - ページで入力フォームが送信されるとき（「次へ」ボタンが押されるとき）， oTree は入力された値を検証する．
 
 
-- HTMLタグでフォームの検証を実装していれば，ページで入力フォームを送信する前にブラウザでもフォームに入力された値を検証する．  
+- HTMLタグで入力フォームの検証を実装していれば，ページで入力フォームを送信する前にブラウザでも入力フォームに入力された値を検証する．  
 [https://developer.mozilla.org/ja/docs/Learn/Forms/Form_validation](https://developer.mozilla.org/ja/docs/Learn/Forms/Form_validation)
 
 
 - 任意回答であることを陽に設定しない場合，少なくとも値が入力されているかの検証が行われる．
 
-    - 任意回答にする（空欄を許す）場合には `<input>` 要素に `required` 属性を追加しないことに加え， `__init__.py` でフォームを定義するときに `blank=True` とする．
+    - 任意回答にする（空欄を許す）場合には `<input>` 要素に `required` 属性を追加しないことに加え， `__init__.py` でフィールドを定義するときに `blank=True` とする．
 
 
 - （例1） データモデルのクラスで `input1 = models.IntegerField()` として，テンプレートでは `<input name="input1">` とHTMLタグを直書きしている場合...
@@ -665,13 +665,13 @@
 - ブラウザでの検証において表示されるメッセージ（たとえば `required` があるときに Chrome で空欄のままフォームを送信しようとすると，「！ このフィールドを入力してください。」と表示される）はブラウザごと異なる．カスタマイズするには HTML， CSS， JavaScript それぞれでコードを書く必要があって面倒だが，Bootstrap を使うと便利．
 
 
-- HTMLタグの直打ちで入力フォームを実装しているとき， oTree サーバー側での検証を経てエラーメッセージ画面に表示するには，テンプレートに `{{ formfield_errors '変数名' }}` タグを入れる．
+- HTMLタグの直打ちで入力フォームを実装しているとき， oTree サーバー側での検証を経てエラーメッセージ画面に表示するには，テンプレートに `{{ formfield_errors 'フィールド名' }}` タグを入れる．
 
 
-- oTree サーバー側検証でのエラーメッセージをカスタマイズするにはページクラスの組み込みメソッド `error_message()` や `変数名_error_message()` を使う．
+- oTree サーバー側検証でのエラーメッセージをカスタマイズするにはページクラスの組み込みメソッド `error_message()` や `フィールド名_error_message()` を使う．
 
 
-- `error_message()` や `変数名_error_message()` を使って，最大値・最小値のような単純な検証だけではなく，より込み入った検証を実装することも可能． `error_message()` で記述した検証のアルゴリズムは HTML のタグには反映されないため，ブラウザでは検証されない．
+- `error_message()` や `フィールド名_error_message()` を使って，最大値・最小値のような単純な検証だけではなく，より込み入った検証を実装することも可能． `error_message()` で記述した検証のアルゴリズムは HTML のタグには反映されないため，ブラウザでは検証されない．
 
     - たとえば，`input1 = models.IntegerField(min=0, max=100)` とした上で，
 
@@ -681,7 +681,7 @@
         return '不正解です．'
     ```
 
-    と定義した場合，「10」とフォームに入力したときにブラウザの検証には通過するが， oTree サーバー側の検証にはひっかかる．
+    と定義した場合，「10」と入力フォームに入力したときにブラウザの検証には通過するが， oTree サーバー側の検証にはひっかかる．
 
 
 
