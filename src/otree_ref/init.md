@@ -358,7 +358,7 @@
     - たとえば player オブジェクトを引数で受け取る関数の中では `player.session.変数名` とする．
 
 
-- （All appsの）CSV出力で，自分で定義した変数と組み込みの変数も出力される．
+- （All apps の）CSV出力で，自分で定義した変数と組み込みの変数も出力される．
 
 - 組み込みの変数・メソッド
 
@@ -443,6 +443,90 @@
         - `PARTICIPANT_FIELDS` で変数名を定義しなくても， `participant.vars["変数名"] = なにか` として記録できる．
 
         - `vars` の要素として記録したものは，（ `custom_export()` を使わない限り）CSV出力で出力されない．
+
+
+
+### ExtraModel
+[https://otree.readthedocs.io/en/latest/misc/advanced.html#extramodel](https://otree.readthedocs.io/en/latest/misc/advanced.html#extramodel)
+
+- データベースにおいて `Player`， `Group`， `Subsession` の各テーブルのレコード（1行）は，それぞれ player， group， subsession に関してユニークである．つまり，（1つのラウンドで）1つのフィールドには1つの値しか入れることができない．
+
+- ExtraModel を使えば，独自にテーブルのフィールドを定義することができる． ExtraModel のテーブルは player （，group，subsession ）あたり1レコード，の制約がなく，1人の player について複数のレコードを作ることができる．
+
+- ExtraModel のデータは自動には CSV ファイル出力ができないため， [`custom_export()`](#customexport) を使って出力するように設定する．
+
+- 使い方:
+
+    1. `ExtraModel` クラスを継承したクラスを定義する．定義しただけテーブルが作られる．
+    ```python
+    class MyModel(ExtraModel):
+        # なにか
+    ```
+
+    1. `Player` クラスなどと同様にフィールドを定義する．
+    ```python
+    var1 = models.IntegerField()
+    var2 = models.StringField()
+    ```
+
+    1. フィールドに記録したデータが，どの group の，どの player のデータなのかを記録するためのフィールドを定義する．対戦相手 player が誰であるのかを記録するためのフィールドも定義できる．
+    ```python
+    me = models.Link(Player)
+    opponent = models.Link(Player)
+    group = models.Link(Group)
+    subsession = models.Link(Subsession)
+    ```
+
+    1. 結局，クラスの定義は以下のようになる．
+    ```python
+    class MyModel(ExtraModel):
+        me = models.Link(Player)
+        opponent = models.Link(Player)
+        var1 = models.IntegerField()
+        var2 = models.BooleanField()
+    ```
+
+    1. データを記録するためには `create()` メソッドでレコードを作る．
+        - 引数で記録したいデータを渡す． 
+        - player （など）とレコードとの紐付けのためのフィールドには， `player` オブジェクトそのものを渡す．
+        - 定義してあるフィールドすべての値を渡す必要はない．渡さなければ，そのフィールドは `None` となる．
+
+        - たとえば `before_next_page()` の中で以下のように使う．
+        ```python
+        @staticmethod
+        def before_next_page(player: Player, timeout_happened):
+            MyModel.create(
+                me = player,
+                opponent = player.get_others_in_group()[0],    ## opponent には相手 player のオブジェクトを渡す．
+                var1 = 123
+            )
+        ```
+
+    1. すでに作られたレコードを取り出すためには `filter()` メソッドでクエリにかける．
+        - 返り値は定義した `ExtraModel` クラスのインスタンスオブジェクトのリストである．
+        - クエリの条件に合致するレコードが1件であってもリストで返ってくることに注意．
+        - クエリの対象はテーブル全体であり，セッションごと `resetdb` をしていない場合は別のセッションでのデータにもアクセスできる．逆に言えば，クエリの条件で player， group， subsession を使わない場合，別のセッションで作られたレコードも引っかかる．
+        - 既に存在するレコードのフィールドの値を更新することもできる．
+
+        - たとえば `vars_for_template()` の中で以下のように使う．
+        ```python
+        @staticmethod
+        def vars_for_template(player: Player):
+            ## opponent が 自分である（対戦相手の）レコードを取り出す．
+            retrieved_record = MyModel.filter(opponent = player)[0]
+
+            her_var1 = retrieved_record.var1
+            retrieved_record.var2 = True
+
+            ## 他人の player オブジェクトを取り出すことも可能
+            opponent: Player = retrieved_record.me
+            opponent_payoff = opponent.payoff
+
+            return dict(
+                her_var1 = her_var1,
+                opponent_payoff = opponent_payoff
+            )
+        ```
 
 
 

@@ -475,17 +475,17 @@
 </ul>
 <h1 id="extramodel-・-javascript-・-ライブページ">ExtraModel ・ JavaScript ・ ライブページ</h1>
 <h2 id="extramodel">ExtraModel</h2>
+<ul>
+<li><a href="otree_ref/init.html#extramodel">ExtraModel</a></li>
+<li><a href="otree_ref/init.html#customexport"><code>custom_export()</code></a></li>
+</ul>
 <h2 id="javascript">JavaScript</h2>
 <ul>
 <li>画面の表示内容を動的に書き換えたり，入力フォームの値の検証を自前で実装したりする場合には JavaScript を使う．</li>
 </ul>
 <ul>
-<li><p>JavaScript を使うには，以下の3通り．</p>
+<li><p>JavaScript を使うには，以下の2通り．</p>
 <ul>
-<li><p>テンプレートファイルの HTML タグにたとえば <code>onclick</code> 属性を加える．</p>
-<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;alert(&apos;ボタンが押されました！&apos;);&quot;</span>&gt;</span>
-</code></pre>
-</li>
 <li><p>テンプレートファイルに <code>{{ block scripts }} {{ endblock }}</code> を置き，その中に<code>&lt;script&gt;</code> タグで JavaScript コードを書く．</p>
 <pre><code class="lang-html">{{ block title }}
   タイトル
@@ -520,6 +520,28 @@
 <p>JS ファイル <code>myscripts.js</code> の中身は以下．</p>
 <pre><code class="lang-js">alert(<span class="hljs-string">&quot;Hello World!&quot;</span>);
 </code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>JavaScript で入力フォームの要素（たとえば値）を操作する場合，通常は <code>document.querySelector(&apos;[name=フィールド名]&apos;)</code> などを使えばよいが， oTree も多少便利な機能 <code>formInputs</code> を用意しているため使える．</p>
+<ul>
+<li><p>たとえばフィールド名が <code>xyz</code> である入力フォームの値を取り出すには以下のようにする．</p>
+<pre><code class="lang-JavaScript"><span class="hljs-keyword">const</span> el_xyz = formInputs.xyz;
+<span class="hljs-keyword">const</span> original_value = el_xyz.value;
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;取り出した値:&quot;</span>, original_value);
+</code></pre>
+</li>
+<li><p>たとえばフィールド名が <code>xyz</code> である入力フォームの値を更新するには以下のようにする．</p>
+<pre><code class="lang-JavaScript"><span class="hljs-keyword">const</span> el_xyz = formInputs.xyz;
+el_xyz.value = <span class="hljs-number">999</span>;
+</code></pre>
+</li>
+<li><p>なぜか公式ドキュメントからは記述が消えてしまったため，今後実装が変更となる（ないし機能が廃止になる）可能性がある．</p>
+<ul>
+<li><a href="https://groups.google.com/g/otree/c/3fRobN1YZTU/m/kCKws1VZAQAJ" target="_blank">著者によるフォーラムのポスト</a></li>
+</ul>
 </li>
 </ul>
 </li>
@@ -755,8 +777,14 @@
 </p>
 
 
-
 </li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><a href="https://www.jspsych.org/" target="_blank">jsPsych</a> を使う場合は工夫が必要．<br>実装例:<ul>
+<li><a href="https://github.com/yshimod/jspsych_on_otree" target="_blank">https://github.com/yshimod/jspsych_on_otree</a></li>
+<li><a href="https://www.otreehub.com/projects/jspsych-on-otree/" target="_blank">https://www.otreehub.com/projects/jspsych-on-otree/</a></li>
 </ul>
 </li>
 </ul>
@@ -811,7 +839,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第8回","level":"1.1.8","depth":2,"next":{"title":"演習","level":"1.1.9","depth":2,"path":"exercise.md","ref":"exercise.md","articles":[]},"previous":{"title":"第7回","level":"1.1.7","depth":2,"path":"day7.md","ref":"day7.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day8.md","mtime":"2022-07-12T08:27:39.574Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-07-12T09:11:16.144Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第8回","level":"1.1.8","depth":2,"next":{"title":"演習","level":"1.1.9","depth":2,"path":"exercise.md","ref":"exercise.md","articles":[]},"previous":{"title":"第7回","level":"1.1.7","depth":2,"path":"day7.md","ref":"day7.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day8.md","mtime":"2022-07-12T13:28:06.342Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-07-12T13:30:29.913Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

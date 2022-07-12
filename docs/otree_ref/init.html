@@ -875,7 +875,7 @@ subsession.set_group_matrix(new_structure)
 </li>
 </ul>
 <ul>
-<li><p>（All appsの）CSV出力で，自分で定義した変数と組み込みの変数も出力される．</p>
+<li><p>（All apps の）CSV出力で，自分で定義した変数と組み込みの変数も出力される．</p>
 </li>
 <li><p>組み込みの変数・メソッド</p>
 <ul>
@@ -983,6 +983,91 @@ subsession.set_group_matrix(new_structure)
 </ul>
 </li>
 </ul>
+</li>
+</ul>
+<h3 id="extramodel">ExtraModel</h3>
+<p><a href="https://otree.readthedocs.io/en/latest/misc/advanced.html#extramodel" target="_blank">https://otree.readthedocs.io/en/latest/misc/advanced.html#extramodel</a></p>
+<ul>
+<li><p>データベースにおいて <code>Player</code>， <code>Group</code>， <code>Subsession</code> の各テーブルのレコード（1行）は，それぞれ player， group， subsession に関してユニークである．つまり，（1つのラウンドで）1つのフィールドには1つの値しか入れることができない．</p>
+</li>
+<li><p>ExtraModel を使えば，独自にテーブルのフィールドを定義することができる． ExtraModel のテーブルは player （，group，subsession ）あたり1レコード，の制約がなく，1人の player について複数のレコードを作ることができる．</p>
+</li>
+<li><p>ExtraModel のデータは自動には CSV ファイル出力ができないため， <a href="#customexport"><code>custom_export()</code></a> を使って出力するように設定する．</p>
+</li>
+<li><p>使い方:</p>
+<ol>
+<li><p><code>ExtraModel</code> クラスを継承したクラスを定義する．定義しただけテーブルが作られる．</p>
+<pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyModel</span>(<span class="hljs-params">ExtraModel</span>):</span>
+ <span class="hljs-comment"># なにか</span>
+</code></pre>
+</li>
+<li><p><code>Player</code> クラスなどと同様にフィールドを定義する．</p>
+<pre><code class="lang-python">var1 = models.IntegerField()
+var2 = models.StringField()
+</code></pre>
+</li>
+<li><p>フィールドに記録したデータが，どの group の，どの player のデータなのかを記録するためのフィールドを定義する．対戦相手 player が誰であるのかを記録するためのフィールドも定義できる．</p>
+<pre><code class="lang-python">me = models.Link(Player)
+opponent = models.Link(Player)
+group = models.Link(Group)
+subsession = models.Link(Subsession)
+</code></pre>
+</li>
+<li><p>結局，クラスの定義は以下のようになる．</p>
+<pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyModel</span>(<span class="hljs-params">ExtraModel</span>):</span>
+ me = models.Link(Player)
+ opponent = models.Link(Player)
+ var1 = models.IntegerField()
+ var2 = models.BooleanField()
+</code></pre>
+</li>
+<li><p>データを記録するためには <code>create()</code> メソッドでレコードを作る．</p>
+<ul>
+<li>引数で記録したいデータを渡す． </li>
+<li>player （など）とレコードとの紐付けのためのフィールドには， <code>player</code> オブジェクトそのものを渡す．</li>
+<li><p>定義してあるフィールドすべての値を渡す必要はない．渡さなければ，そのフィールドは <code>None</code> となる．</p>
+</li>
+<li><p>たとえば <code>before_next_page()</code> の中で以下のように使う．</p>
+<pre><code class="lang-python"><span class="hljs-meta">@staticmethod</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">before_next_page</span>(<span class="hljs-params">player: Player, timeout_happened</span>):</span>
+  MyModel.create(
+      me = player,
+      opponent = player.get_others_in_group()[<span class="hljs-number">0</span>],    <span class="hljs-comment">## opponent には相手 player のオブジェクトを渡す．</span>
+      var1 = <span class="hljs-number">123</span>
+  )
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p>すでに作られたレコードを取り出すためには <code>filter()</code> メソッドでクエリにかける．</p>
+<ul>
+<li>返り値は定義した <code>ExtraModel</code> クラスのインスタンスオブジェクトのリストである．</li>
+<li>クエリの条件に合致するレコードが1件であってもリストで返ってくることに注意．</li>
+<li>クエリの対象はテーブル全体であり，セッションごと <code>resetdb</code> をしていない場合は別のセッションでのデータにもアクセスできる．逆に言えば，クエリの条件で player， group， subsession を使わない場合，別のセッションで作られたレコードも引っかかる．</li>
+<li><p>既に存在するレコードのフィールドの値を更新することもできる．</p>
+</li>
+<li><p>たとえば <code>vars_for_template()</code> の中で以下のように使う．</p>
+<pre><code class="lang-python"><span class="hljs-meta">@staticmethod</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">vars_for_template</span>(<span class="hljs-params">player: Player</span>):</span>
+  <span class="hljs-comment">## opponent が 自分である（対戦相手の）レコードを取り出す．</span>
+  retrieved_record = MyModel.<span class="hljs-built_in">filter</span>(opponent = player)[<span class="hljs-number">0</span>]
+
+  her_var1 = retrieved_record.var1
+  retrieved_record.var2 = <span class="hljs-literal">True</span>
+
+  <span class="hljs-comment">## 他人の player オブジェクトを取り出すことも可能</span>
+  opponent: Player = retrieved_record.me
+  opponent_payoff = opponent.payoff
+
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">dict</span>(
+      her_var1 = her_var1,
+      opponent_payoff = opponent_payoff
+  )
+</code></pre>
+</li>
+</ul>
+</li>
+</ol>
 </li>
 </ul>
 <h3 id="フィールドの型">フィールドの型</h3>
@@ -1910,7 +1995,7 @@ subsession.set_group_matrix(new_structure)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"__init__.py の書き方","level":"2.4","depth":1,"next":{"title":"テンプレートファイルの書き方","level":"2.5","depth":1,"path":"otree_ref/templatefile.md","ref":"otree_ref/templatefile.md","articles":[]},"previous":{"title":"settings.py の書き方","level":"2.3","depth":1,"path":"otree_ref/settings.md","ref":"otree_ref/settings.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"otree_ref/init.md","mtime":"2022-07-12T09:02:14.254Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-07-12T09:11:16.144Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"__init__.py の書き方","level":"2.4","depth":1,"next":{"title":"テンプレートファイルの書き方","level":"2.5","depth":1,"path":"otree_ref/templatefile.md","ref":"otree_ref/templatefile.md","articles":[]},"previous":{"title":"settings.py の書き方","level":"2.3","depth":1,"path":"otree_ref/settings.md","ref":"otree_ref/settings.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"otree_ref/init.md","mtime":"2022-07-12T12:42:03.706Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-07-12T13:30:29.913Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

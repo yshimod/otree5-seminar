@@ -16,18 +16,18 @@
 
 ## ExtraModel
 
+- [ExtraModel](otree_ref/init.html#extramodel)
+- [`custom_export()`](otree_ref/init.html#customexport)
+
+
+
+
 ## JavaScript
 
 - 画面の表示内容を動的に書き換えたり，入力フォームの値の検証を自前で実装したりする場合には JavaScript を使う．
 
 
-- JavaScript を使うには，以下の3通り．
-
-    - テンプレートファイルの HTML タグにたとえば `onclick` 属性を加える．
-
-    ```html
-    <input type="button" onclick="alert('ボタンが押されました！');">
-    ```
+- JavaScript を使うには，以下の2通り．
 
     - テンプレートファイルに `{{ block scripts }} {{ endblock }}` を置き，その中に`<script>` タグで JavaScript コードを書く．
 
@@ -70,6 +70,26 @@
     ```js
     alert("Hello World!");
     ```
+
+
+- JavaScript で入力フォームの要素（たとえば値）を操作する場合，通常は `document.querySelector('[name=フィールド名]')` などを使えばよいが， oTree も多少便利な機能 `formInputs` を用意しているため使える．
+
+    - たとえばフィールド名が `xyz` である入力フォームの値を取り出すには以下のようにする．
+    ```JavaScript
+    const el_xyz = formInputs.xyz;
+    const original_value = el_xyz.value;
+    console.log("取り出した値:", original_value);
+    ```
+
+    - たとえばフィールド名が `xyz` である入力フォームの値を更新するには以下のようにする．
+    ```JavaScript
+    const el_xyz = formInputs.xyz;
+    el_xyz.value = 999;
+    ```
+
+    - なぜか公式ドキュメントからは記述が消えてしまったため，今後実装が変更となる（ないし機能が廃止になる）可能性がある．
+
+        - [著者によるフォーラムのポスト](https://groups.google.com/g/otree/c/3fRobN1YZTU/m/kCKws1VZAQAJ)
 
 
 - oTree サーバーから JavaScript に変数を渡すには，ページクラスの組み込みメソッド `js_vars()` を使う．
@@ -303,6 +323,13 @@
         oTree day8-2</a> by yshimod (<a href="https://codepen.io/yshimod">@yshimod</a>)
         on <a href="https://codepen.io">CodePen</a>.</span>
     </p>
+
+
+- [jsPsych](https://www.jspsych.org/) を使う場合は工夫が必要．  
+実装例:
+    - [https://github.com/yshimod/jspsych_on_otree](https://github.com/yshimod/jspsych_on_otree)
+    - [https://www.otreehub.com/projects/jspsych-on-otree/](https://www.otreehub.com/projects/jspsych-on-otree/)
+
 
 
 
