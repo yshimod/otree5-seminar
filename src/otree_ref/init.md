@@ -1075,11 +1075,31 @@
 
 ### `custom_export()`
 
-- 引数: `players` （ `player` のリスト）
+- 独自の構成でデータを CSV ファイルとして出力するときに使う．
+    - `ExtraModel` のフィールドに記録したデータはそのままでは CSV ファイルとして出力されないため， `custom_export()` で出力する．
+    - 通常のフィールドに JSON 文字列でデータが保存してある場合，これを `custom_export()` の中でパースして，一つのセルに一つのデータが入るようにする．
 
-- 返り値: `yeild` で出力したいデータをリストで返す．
 
-- "CSV Data Export" で出力するときに実行される．
+- 引数: (`players: list[Player]`) 
+    - `players` は `player` オブジェクトが入ったリスト．
+
+
+- 返り値: `yield` で CSV ファイルで出力したいデータをリストで返す．
+    - たとえば，各 player の `player.payoff` を出力したい場合，以下のようにすれば良い．
+    ```python
+    def custom_export(players: list[Player]):
+        ## まずCSVファイルの1行目に列名を出力すると良い．
+        yield ["session.code", "player.id_in_subsession", "group.id_in_subsession", "id_in_group", "payoff"]
+
+        for p in players:
+            ## forループで yield を使うと，リストのデータがCSVファイルの行として次々追記される，
+            yield [p.session.code, p.id_in_subsession, p.group.id_in_subsession, p.id_in_group, p.payoff]
+    ```
+
+
+- セッションごと CSV ファイルを出力することはできず，データベースに保存されているすべてのデータが出力される．したがって，各行にはセッションに固有なID（ `player.session.code` ）を含めておくと良い．
+
+- "CSV Data Export" で出力する度に関数が実行される．
 
 - [https://otree.readthedocs.io/en/latest/admin.html#custom-data-exports](https://otree.readthedocs.io/en/latest/admin.html#custom-data-exports)
 
