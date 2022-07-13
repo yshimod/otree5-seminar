@@ -788,10 +788,132 @@ el_xyz.value = <span class="hljs-number">999</span>;
 </ul>
 </li>
 </ul>
-<h2 id="ライブページ">ライブページ</h2>
+<h2 id="live-page">Live page</h2>
 <ul>
 <li><a href="https://otree.readthedocs.io/en/latest/live.html" target="_blank">https://otree.readthedocs.io/en/latest/live.html</a></li>
-<li>Udemyの講座 <a href="https://www.udemy.com/course/learn-otree/" target="_blank">https://www.udemy.com/course/learn-otree/</a> のライブページに関するレクチャー（「Advanced oTree Features」の「Real Time Interaction between Participants - oTree LivePages」）は無料で見れる．</li>
+<li>Udemyの講座 <a href="https://www.udemy.com/course/learn-otree/" target="_blank">https://www.udemy.com/course/learn-otree/</a> の Live page に関するレクチャー（「Advanced oTree Features」の「Real Time Interaction between Participants - oTree LivePages」）は無料で見れる．</li>
+</ul>
+<ul>
+<li><p>通常，クライアントと oTree サーバーのデータのやり取りは HTTP プロトコルによって行われる．</p>
+<ul>
+<li><p>画面を表示するとき（実験刺激を呈示するとき）には，クライアントが oTree サーバー（ Web サーバー ）に GET メソッドでリクエストを送信し，リクエストに応じてサーバーがクライアントに画面の内容（ HTML文書 ）を送信し返す．なお， HTML は Python によってテンプレートファイルをもとに動的に生成される．</p>
+</li>
+<li><p>次のページへ進むときには，クライアントがサーバーに POST メソッドで，入力フォームの値を含めたリクエストを送信し，これを受けてサーバーがデータを受け取りつつ，次の画面の内容を送信し返す．</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>HTTP プロトコルはクライアントからリクエストを送信することによって通信が始める方法であり，サーバー側から通信を始めることはできない．この問題を解決する，すなわちサーバー側から通信を開始する方法として WebSocket プロトコルが存在する．</p>
+</li>
+<li><p>oTree において WebSocket による通信を利用するためには Live page と呼ばれる機能を使う．</p>
+</li>
+<li><p>「サーバー側から通信を開始する方法」があると言っても， oTree の Live page は管理者（実験者）の任意のタイミングでデータを送信することはできず，セッションの参加者の操作をきっかけとしてデータを送信することになる．</p>
+</li>
+</ul>
+<h3 id="（javascript）-live-page-を作動させる-livesend">（JavaScript） Live page を作動させる <code>liveSend()</code></h3>
+<ul>
+<li><p>テンプレートにおいて JavaScript で <code>liveSend()</code> を呼び出すと， oTree サーバーで <code>live_method()</code> が作動する．</p>
+</li>
+<li><p><code>liveSend()</code> の引数として JavaScript のオブジェクトを渡すことができる．数値，文字列だけでも良い．</p>
+</li>
+<li><p>たとえばクリックのタイミングで発火させる場合には以下のように実装すれば良い．</p>
+<pre><code class="lang-html">{{ block content }}
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;number&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;sendnumber&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;sendbutton&quot;</span>&gt;</span>送信<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+{{ endblock }}
+
+{{ block scripts }}
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">my_send_dunc</span>(<span class="hljs-params"></span>) </span>{
+            <span class="hljs-keyword">const</span> sendnumber_value = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;sendnumber&quot;</span>).value;
+            <span class="hljs-keyword">const</span> send_obj = {
+                <span class="hljs-string">&quot;number&quot;</span>: sendnumber_value
+            };
+            liveSend(send_obj);
+        }
+
+        <span class="hljs-built_in">window</span>.onload = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+            <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;sendbutton&quot;</span>).addEventListener(<span class="hljs-string">&quot;click&quot;</span>, my_send_dunc, <span class="hljs-literal">false</span>);
+        };
+    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+{{ endblock }}
+</code></pre>
+</li>
+<li><p>Chrome でどんなデータが送信されたのかを確認するには，デベロッパーツールを開き，Networkタブで，名前が <code>live</code> から始まる要素（Headers Request URL が <code>ws://</code> か <code>wss://</code> から始まっている）の Messages を見れば良い．</p>
+</li>
+</ul>
+<h3 id="（python）-クライアントにデータを送信する-livemethod">（Python） クライアントにデータを送信する <code>live_method()</code></h3>
+<ul>
+<li><p>ページクラスの組み込みメソッド <code>live_method()</code> を Live page を使うページのクラスで定義する．</p>
+</li>
+<li><p>引数は <code>player</code> と <code>data</code> ． <code>data</code> には <code>liveSend()</code> の引数に渡したものが入っている．</p>
+</li>
+<li><p>宛先をキーとして，送信するデータを格納した辞書オブジェクトを関数の返り値にすると，指定した宛先（当該 player 以外でもよい）にデータを送信できる．</p>
+</li>
+<li><p>宛先は <code>id_in_group</code> の自然数で指定する．</p>
+<ul>
+<li><code>liveSend()</code> を実行した player 自身にデータを送る場合は <code>{player.id_in_group: 値}</code> を返す．</li>
+<li>group の全員に送信する場合のキーは <code>0</code>．</li>
+<li>他の group や subsession 全体へは送信できない．</li>
+<li>キーが数値ないし変数のときには <code>dict()</code> が使えないので， <code>{ }</code> で辞書オブジェクトを定義する．</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>たとえば <code>liveSend()</code> で <code>{&quot;number&quot;: &quot;3&quot;}</code> なる値がサーバーに送信された後，中身の数値を10倍したものを， group の他人 player 全員に送信するためには以下のようにする．</p>
+<pre><code class="lang-python"><span class="hljs-meta">@staticmethod</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">live_method</span>(<span class="hljs-params">player: Player, data</span>):</span>
+    received_number = <span class="hljs-built_in">int</span>(data[<span class="hljs-string">&quot;number&quot;</span>])    <span class="hljs-comment">## 数値 3 が入る．</span>
+    return_number = received_number * <span class="hljs-number">10</span>
+
+    <span class="hljs-keyword">return</span> { p.id_in_group: {<span class="hljs-string">&quot;return_number&quot;</span>: return_number} <span class="hljs-keyword">for</span> p <span class="hljs-keyword">in</span> player.get_others_in_group() }
+    <span class="hljs-comment">## 3人グループで自分の id_in_group が 2 のとき， ↑ の辞書オブジェクトは</span>
+    <span class="hljs-comment">## { 1: {&quot;return_number&quot;: 30}, 3: {&quot;return_number&quot;: 30} }</span>
+    <span class="hljs-comment">## となっている．</span>
+</code></pre>
+</li>
+</ul>
+<h3 id="（javascript）-サーバーから送信されたデータを受け取る-liverecv">（JavaScript） サーバーから送信されたデータを受け取る <code>liveRecv()</code></h3>
+<ul>
+<li><p>テンプレートにおいて JavaScript で <code>liveRecv()</code> を定義しておくと， oTree サーバーで <code>live_method()</code> が作動してデータが送信されたタイミングで自動的に <code>liveRecv()</code> が発火する．</p>
+</li>
+<li><p><code>liveRecv()</code> の引数として <code>data</code> を受け取る． <code>live_method()</code> の返り値である辞書オブジェクトの値のみが入っている（宛先のキーは送信されない）．</p>
+</li>
+<li><p>たとえば <code>{&quot;return_number&quot;: 30}</code> なるデータを受け取り，このタイミングで受け取った数字を画面に表示させるためには以下のようにする．</p>
+<pre><code class="lang-html">{{ block content }}
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;number&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;sendnumber&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;sendbutton&quot;</span>&gt;</span>送信<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+        相手から受け取った値: <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;pushednumber&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+{{ endblock }}
+
+{{ block scripts }}
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">liveRecv</span>(<span class="hljs-params">data</span>) </span>{
+            <span class="hljs-keyword">const</span> pushednumber = data[<span class="hljs-string">&quot;return_number&quot;</span>];
+            <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;pushednumber&quot;</span>).innerText = pushednumber;
+        }
+
+        <span class="hljs-comment">// 以下は liveSend() のために既に記述していた部分．</span>
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">my_send_dunc</span>(<span class="hljs-params"></span>) </span>{
+            <span class="hljs-keyword">const</span> sendnumber_value = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;sendnumber&quot;</span>).value;
+            <span class="hljs-keyword">const</span> send_obj = {
+                <span class="hljs-string">&quot;number&quot;</span>: sendnumber_value
+            };
+            liveSend(send_obj);
+        }
+
+        <span class="hljs-built_in">window</span>.onload = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+            <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;sendbutton&quot;</span>).addEventListener(<span class="hljs-string">&quot;click&quot;</span>, my_send_dunc, <span class="hljs-literal">false</span>);
+        };
+    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+{{ endblock }}
+</code></pre>
+</li>
+<li><p>Chrome でどんなデータを受け取ったのかを確認するには，デベロッパーツールを開き，Networkタブで，名前が <code>live</code> から始まる要素（Headers Request URL が <code>ws://</code> か <code>wss://</code> から始まっている）の Messages を見れば良い．</p>
+</li>
 </ul>
 <h2 id="三上さん特別レクチャー">三上さん特別レクチャー</h2>
 <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
@@ -839,7 +961,7 @@ el_xyz.value = <span class="hljs-number">999</span>;
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第8回","level":"1.1.8","depth":2,"next":{"title":"演習","level":"1.1.9","depth":2,"path":"exercise.md","ref":"exercise.md","articles":[]},"previous":{"title":"第7回","level":"1.1.7","depth":2,"path":"day7.md","ref":"day7.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day8.md","mtime":"2022-07-12T13:28:06.342Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-07-12T13:30:29.913Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第8回","level":"1.1.8","depth":2,"next":{"title":"演習","level":"1.1.9","depth":2,"path":"exercise.md","ref":"exercise.md","articles":[]},"previous":{"title":"第7回","level":"1.1.7","depth":2,"path":"day7.md","ref":"day7.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day8.md","mtime":"2022-07-13T08:03:44.214Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-07-13T08:04:07.253Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

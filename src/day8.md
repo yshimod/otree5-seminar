@@ -9,8 +9,6 @@
 
 
 
-
-
 # ExtraModel ・ JavaScript ・ ライブページ
 
 
@@ -333,10 +331,131 @@
 
 
 
-## ライブページ
+## Live page
 
 - [https://otree.readthedocs.io/en/latest/live.html](https://otree.readthedocs.io/en/latest/live.html)
-- Udemyの講座 [https://www.udemy.com/course/learn-otree/](https://www.udemy.com/course/learn-otree/) のライブページに関するレクチャー（「Advanced oTree Features」の「Real Time Interaction between Participants - oTree LivePages」）は無料で見れる．
+- Udemyの講座 [https://www.udemy.com/course/learn-otree/](https://www.udemy.com/course/learn-otree/) の Live page に関するレクチャー（「Advanced oTree Features」の「Real Time Interaction between Participants - oTree LivePages」）は無料で見れる．
+
+
+- 通常，クライアントと oTree サーバーのデータのやり取りは HTTP プロトコルによって行われる．
+
+    - 画面を表示するとき（実験刺激を呈示するとき）には，クライアントが oTree サーバー（ Web サーバー ）に GET メソッドでリクエストを送信し，リクエストに応じてサーバーがクライアントに画面の内容（ HTML文書 ）を送信し返す．なお， HTML は Python によってテンプレートファイルをもとに動的に生成される．
+
+    - 次のページへ進むときには，クライアントがサーバーに POST メソッドで，入力フォームの値を含めたリクエストを送信し，これを受けてサーバーがデータを受け取りつつ，次の画面の内容を送信し返す．
+
+
+- HTTP プロトコルはクライアントからリクエストを送信することによって通信が始める方法であり，サーバー側から通信を始めることはできない．この問題を解決する，すなわちサーバー側から通信を開始する方法として WebSocket プロトコルが存在する．
+
+- oTree において WebSocket による通信を利用するためには Live page と呼ばれる機能を使う．
+
+- 「サーバー側から通信を開始する方法」があると言っても， oTree の Live page は管理者（実験者）の任意のタイミングでデータを送信することはできず，セッションの参加者の操作をきっかけとしてデータを送信することになる．
+
+
+
+### （JavaScript） Live page を作動させる `liveSend()`
+
+- テンプレートにおいて JavaScript で `liveSend()` を呼び出すと， oTree サーバーで `live_method()` が作動する．
+
+- `liveSend()` の引数として JavaScript のオブジェクトを渡すことができる．数値，文字列だけでも良い．
+
+- たとえばクリックのタイミングで発火させる場合には以下のように実装すれば良い．
+  ```html
+  {{ block content }}
+      <input type="number" id="sendnumber">
+      <button type="button" id="sendbutton">送信</button>
+  {{ endblock }}
+
+  {{ block scripts }}
+      <script>
+          function my_send_dunc() {
+              const sendnumber_value = document.getElementById("sendnumber").value;
+              const send_obj = {
+                  "number": sendnumber_value
+              };
+              liveSend(send_obj);
+          }
+
+          window.onload = function() {
+              document.getElementById("sendbutton").addEventListener("click", my_send_dunc, false);
+          };
+      </script>
+  {{ endblock }}
+  ```
+
+- Chrome でどんなデータが送信されたのかを確認するには，デベロッパーツールを開き，Networkタブで，名前が `live` から始まる要素（Headers Request URL が `ws://` か `wss://` から始まっている）の Messages を見れば良い．
+
+
+
+### （Python） クライアントにデータを送信する `live_method()`
+
+- ページクラスの組み込みメソッド `live_method()` を Live page を使うページのクラスで定義する．
+
+- 引数は `player` と `data` ． `data` には `liveSend()` の引数に渡したものが入っている．
+
+- 宛先をキーとして，送信するデータを格納した辞書オブジェクトを関数の返り値にすると，指定した宛先（当該 player 以外でもよい）にデータを送信できる．
+
+- 宛先は `id_in_group` の自然数で指定する．
+    - `liveSend()` を実行した player 自身にデータを送る場合は `{player.id_in_group: 値}` を返す．
+    - group の全員に送信する場合のキーは `0`．
+    - 他の group や subsession 全体へは送信できない．
+    - キーが数値ないし変数のときには `dict()` が使えないので， `{ }` で辞書オブジェクトを定義する．
+
+
+- たとえば `liveSend()` で `{"number": "3"}` なる値がサーバーに送信された後，中身の数値を10倍したものを， group の他人 player 全員に送信するためには以下のようにする．
+  ```python
+  @staticmethod
+  def live_method(player: Player, data):
+      received_number = int(data["number"])    ## 数値 3 が入る．
+      return_number = received_number * 10
+
+      return { p.id_in_group: {"return_number": return_number} for p in player.get_others_in_group() }
+      ## 3人グループで自分の id_in_group が 2 のとき， ↑ の辞書オブジェクトは
+      ## { 1: {"return_number": 30}, 3: {"return_number": 30} }
+      ## となっている．
+  ```
+
+
+
+### （JavaScript） サーバーから送信されたデータを受け取る `liveRecv()`
+
+- テンプレートにおいて JavaScript で `liveRecv()` を定義しておくと， oTree サーバーで `live_method()` が作動してデータが送信されたタイミングで自動的に `liveRecv()` が発火する．
+
+- `liveRecv()` の引数として `data` を受け取る． `live_method()` の返り値である辞書オブジェクトの値のみが入っている（宛先のキーは送信されない）．
+
+- たとえば `{"return_number": 30}` なるデータを受け取り，このタイミングで受け取った数字を画面に表示させるためには以下のようにする．
+  ```html
+  {{ block content }}
+      <input type="number" id="sendnumber">
+      <button type="button" id="sendbutton">送信</button>
+      <div>
+          相手から受け取った値: <span id="pushednumber"></span>
+      </div>
+  {{ endblock }}
+
+  {{ block scripts }}
+      <script>
+          function liveRecv(data) {
+              const pushednumber = data["return_number"];
+              document.getElementById("pushednumber").innerText = pushednumber;
+          }
+
+          // 以下は liveSend() のために既に記述していた部分．
+          function my_send_dunc() {
+              const sendnumber_value = document.getElementById("sendnumber").value;
+              const send_obj = {
+                  "number": sendnumber_value
+              };
+              liveSend(send_obj);
+          }
+
+          window.onload = function() {
+              document.getElementById("sendbutton").addEventListener("click", my_send_dunc, false);
+          };
+      </script>
+  {{ endblock }}
+  ```
+
+- Chrome でどんなデータを受け取ったのかを確認するには，デベロッパーツールを開き，Networkタブで，名前が `live` から始まる要素（Headers Request URL が `ws://` か `wss://` から始まっている）の Messages を見れば良い．
 
 
 

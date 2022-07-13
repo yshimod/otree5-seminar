@@ -372,7 +372,7 @@
 
     - `config`
 
-        - `settings.py` の `SESSION_CONFIGS` （の当該セッションの要素内） と `SESSION_CONFIG_DEFAULTS` で設定した変数がdictに入っている．
+        - `settings.py` の `SESSION_CONFIGS` （の当該セッションの要素内） と `SESSION_CONFIG_DEFAULTS` で設定した変数が辞書オブジェクトに入っている．
 
             - `config['participation_fee']`
 
@@ -963,7 +963,7 @@
 
 - `live_method()`
     - 引数: `(player: Player, data)`
-    - 返り値: 辞書型．キーは `id_in_group` とする．
+    - 返り値: 辞書型．キーは `id_in_group` の自然数とする．
         - group の全員に送信する場合のキーは `0`．
         - 他の group や subsession 全体へは送信できない．
     - [https://otree.readthedocs.io/en/latest/live.html](https://otree.readthedocs.io/en/latest/live.html)
