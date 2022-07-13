@@ -13,7 +13,7 @@ Rodriguez-Lara, I. (2016). Equity and bargaining power in ultimatum games.
 *Journal of Economic Behavior & Organization*, 130, 144-165.
 
 
-- [https://github.com/yshimod/RodriguezLara2016/tree/initial](https://github.com/yshimod/RodriguezLara2016/tree/initial) のリポジトリ（initialブランチ）をダウンロードして（ GitHub アカウントがあればフォークしてからクローンして），それを編集していく．
+- [https://github.com/yshimod/RodriguezLara2016/tree/initial](https://github.com/yshimod/RodriguezLara2016/tree/initial) のリポジトリ（ initial ブランチ）をダウンロードして（ GitHub アカウントがあればフォークしてからクローンして），それを編集していく．
 
     - [ZIP ファイルのダウンロード](https://github.com/yshimod/RodriguezLara2016/archive/refs/heads/initial.zip)
 
@@ -70,6 +70,10 @@ Rodriguez-Lara, I. (2016). Equity and bargaining power in ultimatum games.
     - Scenario 2 (No-veto-cost game) 用のページを追加する．フィールドも追加する．
     - Scenario 1 と Scenario 2 のどちらを実現させるのかをランダムに決定する機構を実装する．
     - 入力フォームをスライダーにする．
+
+
+- （とりあえず見た目は美しくないけど）完成したものはこちら:
+    - [https://github.com/yshimod/RodriguezLara2016](https://github.com/yshimod/RodriguezLara2016) （ master ブランチ）
 
 
 - 補遺（近日執筆）
