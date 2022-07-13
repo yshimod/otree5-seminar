@@ -367,7 +367,7 @@
 
   {{ block scripts }}
       <script>
-          function my_send_dunc() {
+          function my_send_func() {
               const sendnumber_value = document.getElementById("sendnumber").value;
               const send_obj = {
                   "number": sendnumber_value
@@ -376,7 +376,7 @@
           }
 
           window.onload = function() {
-              document.getElementById("sendbutton").addEventListener("click", my_send_dunc, false);
+              document.getElementById("sendbutton").addEventListener("click", my_send_func, false);
           };
       </script>
   {{ endblock }}
@@ -440,7 +440,7 @@
           }
 
           // 以下は liveSend() のために既に記述していた部分．
-          function my_send_dunc() {
+          function my_send_func() {
               const sendnumber_value = document.getElementById("sendnumber").value;
               const send_obj = {
                   "number": sendnumber_value
@@ -449,7 +449,7 @@
           }
 
           window.onload = function() {
-              document.getElementById("sendbutton").addEventListener("click", my_send_dunc, false);
+              document.getElementById("sendbutton").addEventListener("click", my_send_func, false);
           };
       </script>
   {{ endblock }}

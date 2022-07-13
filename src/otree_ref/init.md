@@ -554,7 +554,7 @@
         - 入力する機会がなければ `None` のまま．
     - `label`
         - テンプレートタグで入力フォームを作るとき，`label` に指定した文字列が （ `<input>` タグに対応する） `<label>` タグで生成される．
-        - `label = ""` としてあるとき，以前はもコロンだけが必ず表示されていたが，いつの間にか改善され，最新バージョンでは `<label>` タグ自体生成されない．
+        - 以前は，指定した文字列の後にコロンが自動的に追加されて， `label = ""` の場合であってもコロンだけが表示されていた．しかしいつの間にか改善され，コロンが追加される実装は廃止となり， `label = ""` の場合は `<label>` タグ自体生成されない．
     - `doc`
         - ドキュメントを記述してもよいが，（アプリなどのドキュメントとは異なり）管理者画面で自動的にドキュメントが表示されるような仕組みは無さそう．
         - [https://docs.sqlalchemy.org/en/14/core/metadata.html#sqlalchemy.schema.Column.params.doc](https://docs.sqlalchemy.org/en/14/core/metadata.html#sqlalchemy.schema.Column.params.doc)
