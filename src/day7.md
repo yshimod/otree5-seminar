@@ -1,14 +1,8 @@
 {% raw %}
 【第7回】 2022年6月23日
 
-
-- 入力フォームの順番をランダム化する
-- ページの順番をランダム化する
-- Bootstrapで入力フォームの見た目をモダンにする
-
-
-
 # （Qualtricsのような）質問紙調査を作る方法
+
 
 - 今日のゴール
     - コード [https://github.com/yshimod/otree_survey](https://github.com/yshimod/otree_survey)

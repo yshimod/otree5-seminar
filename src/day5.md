@@ -1,16 +1,7 @@
 {% raw %}
 【第5回】 2022年6月9日
 
-
-- [第4回の補足](day4.md#day4suppl)
-- テンプレートにおけるプログラミング
-
-
-
 #  テンプレートにおけるプログラミング
-
--[ テンプレートファイルがブラウザに表示される仕組み](https://otree.readthedocs.io/en/latest/templates.html#how-templates-work-an-example)
-
 
 
 ## 変数とフィルター

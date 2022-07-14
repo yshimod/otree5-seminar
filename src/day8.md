@@ -1,14 +1,6 @@
 {% raw %}
 【第8回】 2022年7月14日
 
-
-- 今後の予定
-    - 第8回: 連続時間ダブルオークション（ライブページとExtraModel）
-    - 第回: 補遺
-
-
-
-
 # ExtraModel ・ JavaScript ・ ライブページ
 
 
@@ -464,13 +456,14 @@
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/6SLXuQuXvrk?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 
+
 ## 三上さん特別レクチャー
 
 - [信州大 三上亮さん](https://sites.google.com/view/ryomikami/japanese) に Live page を解説していただきました．
 
 - [スライド](https://drive.google.com/file/d/1tjHZmcoO_Hfdf9mo6skRx_JlAGpi5FQJ/view?usp=sharing)
 
-- サンプルコード:  
+- 連続時間ダブルオークションのコード:  
 [https://github.com/oTree-org/more-demos](https://github.com/oTree-org/more-demos) （double_auction アプリ）
     - デモページ [https://otree-more-demos.herokuapp.com/](https://otree-more-demos.herokuapp.com/)
 
