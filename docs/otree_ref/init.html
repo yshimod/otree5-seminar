@@ -996,9 +996,9 @@ subsession.set_group_matrix(new_structure)
 </li>
 <li><p>使い方:</p>
 <ol>
-<li><p><code>ExtraModel</code> クラスを継承したクラスを定義する．定義しただけテーブルが作られる．</p>
+<li><p><code>ExtraModel</code> クラスを継承したクラスを定義する．定義しただけテーブルが作られるため，複数のクラスを定義することができる．</p>
 <pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyModel</span>(<span class="hljs-params">ExtraModel</span>):</span>
- <span class="hljs-comment"># なにか</span>
+   <span class="hljs-comment"># なにか</span>
 </code></pre>
 </li>
 <li><p><code>Player</code> クラスなどと同様にフィールドを定義する．</p>
@@ -1013,12 +1013,12 @@ group = models.Link(Group)
 subsession = models.Link(Subsession)
 </code></pre>
 </li>
-<li><p>結局，クラスの定義は以下のようになる．</p>
+<li><p>たとえば，クラスの定義は以下のようになる．</p>
 <pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyModel</span>(<span class="hljs-params">ExtraModel</span>):</span>
- me = models.Link(Player)
- opponent = models.Link(Player)
- var1 = models.IntegerField()
- var2 = models.BooleanField()
+   me = models.Link(Player)
+   opponent = models.Link(Player)
+   var1 = models.IntegerField()
+   var2 = models.BooleanField()
 </code></pre>
 </li>
 <li><p>データを記録するためには <code>create()</code> メソッドでレコードを作る．</p>
@@ -1055,7 +1055,7 @@ subsession = models.Link(Subsession)
   her_var1 = retrieved_record.var1
   retrieved_record.var2 = <span class="hljs-literal">True</span>
 
-  <span class="hljs-comment">## 他人の player オブジェクトを取り出すことも可能</span>
+  <span class="hljs-comment">## 他人の player オブジェクトを取り出すことも可能．</span>
   opponent: Player = retrieved_record.me
   opponent_payoff = opponent.payoff
 
@@ -1586,6 +1586,12 @@ subsession = models.Link(Subsession)
 <li>返り値: 辞書型．</li>
 <li>ページを読み込む度に実行される．</li>
 <li><code>vars_for_template()</code> の後に実行される．</li>
+<li>返り値のオブジェクトが， HTML のコンテンツブロックの要素の直前において， <code>js_vars</code> なる変数名で定義される．したがって， <code>js_vars</code> から値を取り出せば良い．<ul>
+<li>たとえば <code>js_vars()</code> の返り値が <code>return {&quot;testlist&quot; = list(range(0, 10, 2))}</code> であるとき， oTree サーバーは自動的に以下の要素を展開する．<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript"><span class="hljs-keyword">var</span> js_vars = {<span class="hljs-string">&quot;testlist&quot;</span>: [<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">6</span>, <span class="hljs-number">8</span>]};</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+</li>
+</ul>
+</li>
 <li><a href="https://otree.readthedocs.io/en/latest/templates.html#passing-data-from-python-to-javascript-js-vars" target="_blank">https://otree.readthedocs.io/en/latest/templates.html#passing-data-from-python-to-javascript-js-vars</a></li>
 </ul>
 </li>
@@ -1807,11 +1813,11 @@ subsession = models.Link(Subsession)
 <ul>
 <li><p>たとえば，各 player の <code>player.payoff</code> を出力したい場合，以下のようにすれば良い．</p>
 <pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">custom_export</span>(<span class="hljs-params">players: <span class="hljs-built_in">list</span>[Player]</span>):</span>
-  <span class="hljs-comment">## まずCSVファイルの1行目に列名を出力すると良い．</span>
+  <span class="hljs-comment">## まず CSV ファイルの1行目に列名を出力すると良い．</span>
   <span class="hljs-keyword">yield</span> [<span class="hljs-string">&quot;session.code&quot;</span>, <span class="hljs-string">&quot;player.id_in_subsession&quot;</span>, <span class="hljs-string">&quot;group.id_in_subsession&quot;</span>, <span class="hljs-string">&quot;id_in_group&quot;</span>, <span class="hljs-string">&quot;payoff&quot;</span>]
 
   <span class="hljs-keyword">for</span> p <span class="hljs-keyword">in</span> players:
-      <span class="hljs-comment">## forループで yield を使うと，リストのデータがCSVファイルの行として次々追記される，</span>
+      <span class="hljs-comment">## forループで yield を使うと，リストのデータが CSV ファイルの行として次々追記される．</span>
       <span class="hljs-keyword">yield</span> [p.session.code, p.id_in_subsession, p.group.id_in_subsession, p.id_in_group, p.payoff]
 </code></pre>
 </li>
@@ -1995,7 +2001,7 @@ subsession = models.Link(Subsession)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"__init__.py の書き方","level":"2.4","depth":1,"next":{"title":"テンプレートファイルの書き方","level":"2.5","depth":1,"path":"otree_ref/templatefile.md","ref":"otree_ref/templatefile.md","articles":[]},"previous":{"title":"settings.py の書き方","level":"2.3","depth":1,"path":"otree_ref/settings.md","ref":"otree_ref/settings.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"otree_ref/init.md","mtime":"2022-07-13T08:39:43.174Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-07-13T14:49:04.405Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"__init__.py の書き方","level":"2.4","depth":1,"next":{"title":"テンプレートファイルの書き方","level":"2.5","depth":1,"path":"otree_ref/templatefile.md","ref":"otree_ref/templatefile.md","articles":[]},"previous":{"title":"settings.py の書き方","level":"2.3","depth":1,"path":"otree_ref/settings.md","ref":"otree_ref/settings.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"otree_ref/init.md","mtime":"2022-07-14T09:40:20.765Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-07-14T09:43:24.651Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

@@ -476,106 +476,112 @@
 <h1 id="extramodel-・-javascript-・-ライブページ">ExtraModel ・ JavaScript ・ ライブページ</h1>
 <h2 id="extramodel">ExtraModel</h2>
 <ul>
-<li><a href="otree_ref/init.html#extramodel">ExtraModel</a></li>
-<li><a href="otree_ref/init.html#customexport"><code>custom_export()</code></a></li>
+<li><a href="otree_ref/init.html#extramodel">詳細はこちら</a></li>
 </ul>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/dimFNK-jyOM?rel=0&amp;enablejsapi=1&amp;origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
+
+
+<h3 id="customexport"><code>custom_export()</code></h3>
+<ul>
+<li><a href="otree_ref/init.html#customexport">詳細はこちら</a></li>
+</ul>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/-y3MuhCiLic?rel=0&amp;enablejsapi=1&amp;origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
+
+
+
 <h2 id="javascript">JavaScript</h2>
 <ul>
 <li>画面の表示内容を動的に書き換えたり，入力フォームの値の検証を自前で実装したりする場合には JavaScript を使う．</li>
 </ul>
-<ul>
-<li><p>JavaScript を使うには，以下の2通り．</p>
+<h3 id="javascript-の記述方法">JavaScript の記述方法</h3>
 <ul>
 <li><p>テンプレートファイルに <code>{{ block scripts }} {{ endblock }}</code> を置き，その中に<code>&lt;script&gt;</code> タグで JavaScript コードを書く．</p>
 <pre><code class="lang-html">{{ block title }}
-  タイトル
+    タイトル
 {{ endblock }}
 
 {{ block content }}
-  {{ formfields }}
-  {{ next_button }}
+    {{ formfields }}
+    {{ next_button }}
 {{ endblock }}
 
 {{ block scripts }}
-  <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
-      alert(<span class="hljs-string">&quot;Hello World!&quot;</span>);
-  </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+        alert(<span class="hljs-string">&quot;Hello World!&quot;</span>);
+    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 {{ endblock }}
 </code></pre>
 </li>
 <li><p>JS ファイル（ <code>myscripts.js</code> ）を作成して， <code>_static/global</code> などに入れておき，それを読み込む．</p>
 <pre><code class="lang-html">{{ block title }}
-  タイトル
+    タイトル
 {{ endblock }}
 
 {{ block content }}
-  {{ formfields }}
-  {{ next_button }}
+    {{ formfields }}
+    {{ next_button }}
 {{ endblock }}
 
 {{ block scripts }}
-  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;{{ static &apos;global/myscripts.js&apos; }}&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;{{ static &apos;global/myscripts.js&apos; }}&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 {{ endblock }}
 </code></pre>
-<p>JS ファイル <code>myscripts.js</code> の中身は以下．</p>
+<p>  JS ファイル <code>myscripts.js</code> の中身は以下．</p>
 <pre><code class="lang-js">alert(<span class="hljs-string">&quot;Hello World!&quot;</span>);
 </code></pre>
 </li>
 </ul>
-</li>
-</ul>
-<ul>
-<li><p>JavaScript で入力フォームの要素（たとえば値）を操作する場合，通常は <code>document.querySelector(&apos;[name=フィールド名]&apos;)</code> などを使えばよいが， oTree も多少便利な機能 <code>formInputs</code> を用意しているため使える．</p>
-<ul>
-<li><p>たとえばフィールド名が <code>xyz</code> である入力フォームの値を取り出すには以下のようにする．</p>
-<pre><code class="lang-JavaScript"><span class="hljs-keyword">const</span> el_xyz = formInputs.xyz;
-<span class="hljs-keyword">const</span> original_value = el_xyz.value;
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;取り出した値:&quot;</span>, original_value);
-</code></pre>
-</li>
-<li><p>たとえばフィールド名が <code>xyz</code> である入力フォームの値を更新するには以下のようにする．</p>
-<pre><code class="lang-JavaScript"><span class="hljs-keyword">const</span> el_xyz = formInputs.xyz;
-el_xyz.value = <span class="hljs-number">999</span>;
-</code></pre>
-</li>
-<li><p>なぜか公式ドキュメントからは記述が消えてしまったため，今後実装が変更となる（ないし機能が廃止になる）可能性がある．</p>
-<ul>
-<li><a href="https://groups.google.com/g/otree/c/3fRobN1YZTU/m/kCKws1VZAQAJ" target="_blank">著者によるフォーラムのポスト</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+<h3 id="jsvars"><code>js_vars()</code></h3>
 <ul>
 <li><p>oTree サーバーから JavaScript に変数を渡すには，ページクラスの組み込みメソッド <code>js_vars()</code> を使う．</p>
-<ul>
-<li><p>たとえば</p>
+</li>
+<li><p>たとえば以下のように設定する．</p>
 <pre><code class="lang-python"><span class="hljs-meta">@staticmethod</span>
 <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">js_vars</span>(<span class="hljs-params">player: Player</span>):</span>
-  <span class="hljs-keyword">return</span> <span class="hljs-built_in">dict</span>(
-      testlist = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, <span class="hljs-number">10</span>, <span class="hljs-number">2</span>))
-  )
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">dict</span>(
+        testlist = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, <span class="hljs-number">10</span>, <span class="hljs-number">2</span>))
+    )
 </code></pre>
-<p>としたとき，クライアントに送信される HTML （タイトルの要素の直後，コンテンツブロックの要素の直前）には自動的に</p>
-<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript"><span class="hljs-keyword">var</span> js_vars = {<span class="hljs-string">&quot;testlist&quot;</span>: [<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">6</span>, <span class="hljs-number">8</span>]};</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-</code></pre>
-<p>と展開されている．渡した変数を JavaScript で使うには，たとえば以下のようにする．</p>
+</li>
+<li><p>返り値の辞書オブジェクトの中の値は，単なる数値，文字列，リスト，辞書オブジェクト，など， JSON 文字列化できるものに限られる．</p>
+</li>
+<li><p>渡した変数を JavaScript で使うには，自動的に定義される <code>js_vars</code> なるオブジェクトから取り出す．たとえば以下のように記述する．</p>
 <pre><code class="lang-html">{{ block scripts }}
-  <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
-      <span class="hljs-keyword">const</span> testlist = js_vars.testlist;
-      testlist.forEach(<span class="hljs-function"><span class="hljs-params">el</span> =&gt;</span> {
-          <span class="hljs-built_in">console</span>.log(el);
-      });
-  </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+        <span class="hljs-keyword">const</span> testlist = js_vars.testlist;    <span class="hljs-comment">// js_vars から 自分が定義した testlist を取り出す．</span>
+
+        <span class="hljs-comment">// リストの要素を一つずつ console.log する．</span>
+        testlist.forEach(<span class="hljs-function"><span class="hljs-params">el</span> =&gt;</span> {
+            <span class="hljs-built_in">console</span>.log(el);
+        });
+    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 {{ endblock }}
 </code></pre>
 </li>
 </ul>
+<h3 id="jquery">jQuery</h3>
+<ul>
+<li><p>oTree ではデフォルトで jQuery が読み込まれている．</p>
+</li>
+<li><p><a href="https://api.jquery.com/" target="_blank">jQuery のドキュメント</a></p>
+</li>
+<li><p>jQuery のバージョンは 3.2.1 （oTree v5.8.5 において）．</p>
+</li>
+<li><p>JavaScript コードの中で <code>jQuery()</code> や <code>$()</code> で jQuery を呼び出す．</p>
+<ul>
+<li>たとえば <code>document.getElementById(&quot;id_something&quot;)</code> は <code>$(&quot;#id_something&quot;)</code> と似た機能．ただし後者は jQuery のオブジェクトが返ってくる．</li>
+</ul>
 </li>
 </ul>
+<h3 id="（作例）-javascript-で（おせっかいな）-mpl-を実装する．">（作例） JavaScript で（おせっかいな） MPL を実装する．</h3>
 <ul>
-<li><p>（作例）MPLでスイッチングポイントをクリックしたときに，自動的にラジオボタンが切り替える JavaScript コード:</p>
+<li><p>MPLでスイッチングポイントをクリックしたときに，自動的にラジオボタンが切り替える JavaScript コード:</p>
 <ul>
+<li>コード（js_samples アプリ） <a href="https://github.com/yshimod/otree_survey" target="_blank">https://github.com/yshimod/otree_survey</a></li>
+<li><p>デモページ（「JavaScriptを使った作例」の1ページ目） <a href="https://otree-seminar-survey-sample.herokuapp.com/demo" target="_blank">https://otree-seminar-survey-sample.herokuapp.com/demo</a></p>
+</li>
 <li><p>定数に <code>optR = [200, 250, 300, 350, 400]</code> を設定しておく．</p>
 </li>
 <li><p>player モデルで <code>switching_point</code> なるフィールドを <code>models.IntegerField()</code> で定義しておく．MPLの1行ずつデータを取りたい場合は各行に相当するフィールドを定義する．</p>
@@ -585,6 +591,7 @@ el_xyz.value = <span class="hljs-number">999</span>;
 <pre><code class="lang-html">{{ block title }}
     タイトル
 {{ endblock }}
+
 {{ block content }}
     <span class="hljs-tag">&lt;<span class="hljs-name">table</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;table table-striped table-hover&quot;</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">thead</span>&gt;</span>
@@ -617,6 +624,7 @@ el_xyz.value = <span class="hljs-number">999</span>;
     <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;hidden&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;switching_point&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;id_switching_point&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;&quot;</span>&gt;</span>
     {{ next_button }}
 {{ endblock }}
+
 {{ block scripts }}
     <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
         <span class="hljs-keyword">const</span> listlength = <span class="hljs-number">5</span>;    <span class="hljs-comment">// 本当は js_vars から受け取ると良い．</span>
@@ -656,129 +664,115 @@ el_xyz.value = <span class="hljs-number">999</span>;
 </p>
 
 
+
 </li>
 </ul>
-<ul>
-<li><p>oTree ではデフォルトで jQuery が読み込まれている．</p>
-<ul>
-<li><p><a href="https://api.jquery.com/" target="_blank">jQuery のドキュメント</a></p>
-</li>
-<li><p>jQuery のバージョンは 3.2.1 （oTree v5.8.5 において）．</p>
-</li>
-<li><p>JavaScript コードの中で <code>jQuery()</code> や <code>$()</code> で jQuery を呼び出す．</p>
-<ul>
-<li>たとえば <code>document.getElementById(&quot;id_something&quot;)</code> は <code>$(&quot;#id_something&quot;)</code> と似た機能．ただし後者は jQuery のオブジェクトが返ってくる．</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+<h3 id="ライブラリの利用">ライブラリの利用</h3>
 <ul>
 <li><p>JavaScript のライブラリを自分で読み込んで使っても良い．</p>
-<ul>
+</li>
 <li><p>ライブラリをインストールするには， CDN を使うか，ダウンロードしたライブラリのコードを <code>_static</code> ディレクトリに置いておく．</p>
 </li>
 <li><p>oTree 公式ドキュメントでは <a href="https://www.highcharts.com/" target="_blank">HighCharts</a> を使っている．<br><a href="https://otree.readthedocs.io/en/latest/templates.html#charts" target="_blank">https://otree.readthedocs.io/en/latest/templates.html#charts</a></p>
 </li>
 <li><p>（日本語ドキュメントが豊富な） <a href="https://www.chartjs.org/" target="_blank">Chart.js</a> も有用．</p>
+<ul>
+<li>コード（js_samples アプリ） <a href="https://github.com/yshimod/otree_survey" target="_blank">https://github.com/yshimod/otree_survey</a></li>
+<li>デモページ（「JavaScriptを使った作例」の2ページ目） <a href="https://otree-seminar-survey-sample.herokuapp.com/demo" target="_blank">https://otree-seminar-survey-sample.herokuapp.com/demo</a></li>
+</ul>
 <div class="accordion accordionClose"><div class="accordionButton"><div class="accordionTitle">テンプレート</div><div class="accordionSpinnerBox"><div class="accordionSpinner"></div></div></div><div class="accordionContent">
 <pre><code class="lang-html">{{ block title }}
-  タイトル
+    タイトル
 {{ endblock }}
 
 {{ block content }}
-  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;row align-items-center&quot;</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;col-8&quot;</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;width: 480px; max-width: 100%; margin: auto;&quot;</span>&gt;</span>
-              <span class="hljs-tag">&lt;<span class="hljs-name">canvas</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;myChart&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;height: 300px; width: 100%;&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">canvas</span>&gt;</span>
-          <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;col-2&quot;</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-danger btn-lg&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;updateFunction();&quot;</span>&gt;</span>ボタン<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-
-  {{ next_button }}
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;row align-items-center&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;col-8&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;width: 480px; max-width: 100%; margin: auto;&quot;</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">canvas</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;myChart&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;height: 300px; width: 100%;&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">canvas</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;col-2&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-danger btn-lg&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;updateFunction();&quot;</span>&gt;</span>ボタン<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    {{ next_button }}
 {{ endblock }}
 
 {{ block scripts }}
-  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js&quot;</span> <span class="hljs-attr">integrity</span>=<span class="hljs-string">&quot;sha256-cHVO4dqZfamRhWD7s4iXyaXWVK10odD+qp4xidFzqTI=&quot;</span> <span class="hljs-attr">crossorigin</span>=<span class="hljs-string">&quot;anonymous&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
-      <span class="hljs-keyword">const</span> ctx = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;myChart&quot;</span>);
-      <span class="hljs-keyword">const</span> myChart = <span class="hljs-keyword">new</span> Chart(ctx, {
-          <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;bar&apos;</span>,
-          <span class="hljs-attr">data</span>: {
-              <span class="hljs-attr">labels</span>: [<span class="hljs-string">&apos;&apos;</span>],
-              <span class="hljs-attr">datasets</span>: [
-                  {
-                      <span class="hljs-attr">label</span>: <span class="hljs-string">&apos;ド&apos;</span>,
-                      <span class="hljs-attr">data</span>: [<span class="hljs-number">20</span>],
-                      <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">&quot;#ffcf00&quot;</span>,
-                      <span class="hljs-attr">stack</span>: <span class="hljs-string">&apos;stack1&apos;</span>
-                  },
-                  {
-                      <span class="hljs-attr">label</span>: <span class="hljs-string">&apos;イ&apos;</span>,
-                      <span class="hljs-attr">data</span>: [<span class="hljs-number">30</span>],
-                      <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">&quot;#dd0000&quot;</span>,
-                      <span class="hljs-attr">stack</span>: <span class="hljs-string">&apos;stack1&apos;</span>
-                  },
-                  {
-                      <span class="hljs-attr">label</span>: <span class="hljs-string">&apos;ツ&apos;</span>,
-                      <span class="hljs-attr">data</span>: [<span class="hljs-number">50</span>],
-                      <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">&quot;#000000&quot;</span>,
-                      <span class="hljs-attr">stack</span>: <span class="hljs-string">&apos;stack1&apos;</span>
-                  }
-              ],
-          },
-          <span class="hljs-attr">options</span>: {
-              <span class="hljs-attr">plugins</span>: {
-                  <span class="hljs-attr">title</span>: {
-                      <span class="hljs-attr">display</span>: <span class="hljs-literal">true</span>,
-                      <span class="hljs-attr">text</span>: <span class="hljs-string">&apos;ドイツの割合&apos;</span>
-                  },
-                  <span class="hljs-attr">legend</span>: {
-                      <span class="hljs-attr">position</span>: <span class="hljs-string">&apos;bottom&apos;</span>,
-                      <span class="hljs-attr">onClick</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> }
-                  },
-              },
-              <span class="hljs-attr">responsive</span>: <span class="hljs-literal">true</span>,
-              <span class="hljs-attr">tooltip</span>: {
-                  <span class="hljs-attr">mode</span>: <span class="hljs-string">&apos;index&apos;</span>
-              },
-              <span class="hljs-attr">hover</span>: <span class="hljs-literal">true</span>,
-              <span class="hljs-attr">scales</span>: {
-                  <span class="hljs-attr">y</span>: {
-                      <span class="hljs-attr">stacked</span>: <span class="hljs-literal">true</span>,
-                      <span class="hljs-attr">max</span>: <span class="hljs-number">100</span>
-                  }
-              }
-          }
-      });
-
-      <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">updateFunction</span>(<span class="hljs-params"></span>) </span>{
-          <span class="hljs-keyword">const</span> yellow = <span class="hljs-built_in">Math</span>.random();
-          <span class="hljs-keyword">const</span> red = <span class="hljs-built_in">Math</span>.random();
-          <span class="hljs-keyword">const</span> black = <span class="hljs-built_in">Math</span>.random();
-          <span class="hljs-keyword">const</span> totnum = yellow + red + black;
-
-          myChart.data.datasets[<span class="hljs-number">0</span>].data[<span class="hljs-number">0</span>] = <span class="hljs-number">100</span> * yellow / totnum;
-          myChart.data.datasets[<span class="hljs-number">1</span>].data[<span class="hljs-number">0</span>] = <span class="hljs-number">100</span> * red / totnum;
-          myChart.data.datasets[<span class="hljs-number">2</span>].data[<span class="hljs-number">0</span>] = <span class="hljs-number">100</span> * black / totnum;
-          myChart.update();
-      }
-  </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js&quot;</span> <span class="hljs-attr">tegrity</span>=<span class="hljs-string">&quot;sha256-cHVO4dqZfamRhWD7s4iXyaXWVK10odD+qp4xidFzqTI=&quot;</span> <span class="hljs-attr">crossorigin</span>=<span class="hljs-string">&quot;anonymous&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+        <span class="hljs-keyword">const</span> ctx = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;myChart&quot;</span>);
+        <span class="hljs-keyword">const</span> myChart = <span class="hljs-keyword">new</span> Chart(ctx, {
+            <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;bar&apos;</span>,
+            <span class="hljs-attr">data</span>: {
+                <span class="hljs-attr">labels</span>: [<span class="hljs-string">&apos;&apos;</span>],
+                <span class="hljs-attr">datasets</span>: [
+                    {
+                        <span class="hljs-attr">label</span>: <span class="hljs-string">&apos;ド&apos;</span>,
+                        <span class="hljs-attr">data</span>: [<span class="hljs-number">20</span>],
+                        <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">&quot;#ffcf00&quot;</span>,
+                        <span class="hljs-attr">stack</span>: <span class="hljs-string">&apos;stack1&apos;</span>
+                    },
+                    {
+                        <span class="hljs-attr">label</span>: <span class="hljs-string">&apos;イ&apos;</span>,
+                        <span class="hljs-attr">data</span>: [<span class="hljs-number">30</span>],
+                        <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">&quot;#dd0000&quot;</span>,
+                        <span class="hljs-attr">stack</span>: <span class="hljs-string">&apos;stack1&apos;</span>
+                    },
+                    {
+                        <span class="hljs-attr">label</span>: <span class="hljs-string">&apos;ツ&apos;</span>,
+                        <span class="hljs-attr">data</span>: [<span class="hljs-number">50</span>],
+                        <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">&quot;#000000&quot;</span>,
+                        <span class="hljs-attr">stack</span>: <span class="hljs-string">&apos;stack1&apos;</span>
+                    }
+                ],
+            },
+            <span class="hljs-attr">options</span>: {
+                <span class="hljs-attr">plugins</span>: {
+                    <span class="hljs-attr">title</span>: {
+                        <span class="hljs-attr">display</span>: <span class="hljs-literal">true</span>,
+                        <span class="hljs-attr">text</span>: <span class="hljs-string">&apos;ドイツの割合&apos;</span>
+                    },
+                    <span class="hljs-attr">legend</span>: {
+                        <span class="hljs-attr">position</span>: <span class="hljs-string">&apos;bottom&apos;</span>,
+                        <span class="hljs-attr">onClick</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> }
+                    },
+                },
+                <span class="hljs-attr">responsive</span>: <span class="hljs-literal">true</span>,
+                <span class="hljs-attr">tooltip</span>: {
+                    <span class="hljs-attr">mode</span>: <span class="hljs-string">&apos;index&apos;</span>
+                },
+                <span class="hljs-attr">hover</span>: <span class="hljs-literal">true</span>,
+                <span class="hljs-attr">scales</span>: {
+                    <span class="hljs-attr">y</span>: {
+                        <span class="hljs-attr">stacked</span>: <span class="hljs-literal">true</span>,
+                        <span class="hljs-attr">max</span>: <span class="hljs-number">100</span>
+                    }
+                }
+            }
+        });
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">updateFunction</span>(<span class="hljs-params"></span>) </span>{
+            <span class="hljs-keyword">const</span> yellow = <span class="hljs-built_in">Math</span>.random();
+            <span class="hljs-keyword">const</span> red = <span class="hljs-built_in">Math</span>.random();
+            <span class="hljs-keyword">const</span> black = <span class="hljs-built_in">Math</span>.random();
+            <span class="hljs-keyword">const</span> totnum = yellow + red + black;
+            myChart.data.datasets[<span class="hljs-number">0</span>].data[<span class="hljs-number">0</span>] = <span class="hljs-number">100</span> * yellow / totnum;
+            myChart.data.datasets[<span class="hljs-number">1</span>].data[<span class="hljs-number">0</span>] = <span class="hljs-number">100</span> * red / totnum;
+            myChart.data.datasets[<span class="hljs-number">2</span>].data[<span class="hljs-number">0</span>] = <span class="hljs-number">100</span> * black / totnum;
+            myChart.update();
+        }
+    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 {{ endblock }}
 </code></pre>
 </div></div>
-<p class="codepen" data-height="500" data-theme-id="dark" data-default-tab="result" data-slug-hash="XWEbqRy" data-editable="true" data-user="yshimod" style="height: 500px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
-  <span>See the Pen <a href="https://codepen.io/yshimod/pen/XWEbqRy" target="_blank">
-  oTree day8-2</a> by yshimod (<a href="https://codepen.io/yshimod" target="_blank">@yshimod</a>)
-  on <a href="https://codepen.io" target="_blank">CodePen</a>.</span>
+<p class="codepen" data-height="500" data-theme-id="dark" data-default-tab="result" data-slug-hash="XWEbqRy" ta-editable="true" data-user="yshimod" style="height: 500px; box-sizing: border-box; display: flex; align-items: center; stify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+    <span>See the Pen <a href="https://codepen.io/yshimod/pen/XWEbqRy" target="_blank">
+    oTree day8-2</a> by yshimod (<a href="https://codepen.io/yshimod" target="_blank">@yshimod</a>)
+    on <a href="https://codepen.io" target="_blank">CodePen</a>.</span>
 </p>
 
 
-</li>
-</ul>
 </li>
 </ul>
 <ul>
@@ -788,6 +782,10 @@ el_xyz.value = <span class="hljs-number">999</span>;
 </ul>
 </li>
 </ul>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/VMMWpYfzvsc?rel=0&amp;enablejsapi=1&amp;origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
+
+
 <h2 id="live-page">Live page</h2>
 <ul>
 <li><a href="https://otree.readthedocs.io/en/latest/live.html" target="_blank">https://otree.readthedocs.io/en/latest/live.html</a></li>
@@ -809,6 +807,8 @@ el_xyz.value = <span class="hljs-number">999</span>;
 <li><p>oTree において WebSocket による通信を利用するためには Live page と呼ばれる機能を使う．</p>
 </li>
 <li><p>「サーバー側から通信を開始する方法」があると言っても， oTree の Live page は管理者（実験者）の任意のタイミングでデータを送信することはできず，セッションの参加者の操作をきっかけとしてデータを送信することになる．</p>
+</li>
+<li><p>WebSocket の通信内容を Chrome で確認するには，デベロッパーツールを開き，Networkタブで，名前が <code>live</code> から始まる要素（ Type が websocket ）の Messages を見れば良い．</p>
 </li>
 </ul>
 <h3 id="（javascript）-live-page-を作動させる-livesend">（JavaScript） Live page を作動させる <code>liveSend()</code></h3>
@@ -840,7 +840,7 @@ el_xyz.value = <span class="hljs-number">999</span>;
 {{ endblock }}
 </code></pre>
 </li>
-<li><p>Chrome でどんなデータが送信されたのかを確認するには，デベロッパーツールを開き，Networkタブで，名前が <code>live</code> から始まる要素（Headers Request URL が <code>ws://</code> か <code>wss://</code> から始まっている）の Messages を見れば良い．</p>
+<li><p>JavaScript で <code>liveSend()</code> を呼び出しても，（後述の） <code>live_method()</code> がページクラスで定義されていなければ実行されない．</p>
 </li>
 </ul>
 <h3 id="（python）-クライアントにデータを送信する-livemethod">（Python） クライアントにデータを送信する <code>live_method()</code></h3>
@@ -861,16 +861,15 @@ el_xyz.value = <span class="hljs-number">999</span>;
 </li>
 </ul>
 <ul>
-<li><p>たとえば <code>liveSend()</code> で <code>{&quot;number&quot;: &quot;3&quot;}</code> なる値がサーバーに送信された後，中身の数値を10倍したものを， group の他人 player 全員に送信するためには以下のようにする．</p>
+<li><p>たとえば <code>liveSend()</code> で <code>{&quot;number&quot;: &quot;3&quot;}</code> なる値がサーバーに送信された後，中身の数値を10倍したものを， group の全員に送信するためには以下のようにする．</p>
 <pre><code class="lang-python"><span class="hljs-meta">@staticmethod</span>
 <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">live_method</span>(<span class="hljs-params">player: Player, data</span>):</span>
     received_number = <span class="hljs-built_in">int</span>(data[<span class="hljs-string">&quot;number&quot;</span>])    <span class="hljs-comment">## 数値 3 が入る．</span>
     return_number = received_number * <span class="hljs-number">10</span>
 
-    <span class="hljs-keyword">return</span> { p.id_in_group: {<span class="hljs-string">&quot;return_number&quot;</span>: return_number} <span class="hljs-keyword">for</span> p <span class="hljs-keyword">in</span> player.get_others_in_group() }
-    <span class="hljs-comment">## 3人グループで自分の id_in_group が 2 のとき， ↑ の辞書オブジェクトは</span>
-    <span class="hljs-comment">## { 1: {&quot;return_number&quot;: 30}, 3: {&quot;return_number&quot;: 30} }</span>
-    <span class="hljs-comment">## となっている．</span>
+    <span class="hljs-keyword">return</span> {
+        <span class="hljs-number">0</span>: {<span class="hljs-string">&quot;return_number&quot;</span>: return_number}
+    }
 </code></pre>
 </li>
 </ul>
@@ -885,14 +884,14 @@ el_xyz.value = <span class="hljs-number">999</span>;
     <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;number&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;sendnumber&quot;</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;sendbutton&quot;</span>&gt;</span>送信<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
-        相手から受け取った値: <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;pushednumber&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+        受け取った値: <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;pushednumber&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 {{ endblock }}
 
 {{ block scripts }}
     <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
         <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">liveRecv</span>(<span class="hljs-params">data</span>) </span>{
-            <span class="hljs-keyword">const</span> pushednumber = data[<span class="hljs-string">&quot;return_number&quot;</span>];
+            <span class="hljs-keyword">const</span> pushednumber = data.return_number;
             <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;pushednumber&quot;</span>).innerText = pushednumber;
         }
 
@@ -912,10 +911,27 @@ el_xyz.value = <span class="hljs-number">999</span>;
 {{ endblock }}
 </code></pre>
 </li>
-<li><p>Chrome でどんなデータを受け取ったのかを確認するには，デベロッパーツールを開き，Networkタブで，名前が <code>live</code> から始まる要素（Headers Request URL が <code>ws://</code> か <code>wss://</code> から始まっている）の Messages を見れば良い．</p>
+</ul>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/6SLXuQuXvrk?rel=0&amp;enablejsapi=1&amp;origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
+
+<h2 id="三上さん特別レクチャー">三上さん特別レクチャー</h2>
+<ul>
+<li><p><a href="https://sites.google.com/view/ryomikami/japanese" target="_blank">信州大 三上亮さん</a> に Live page を解説していただきました．</p>
+</li>
+<li><p><a href="https://drive.google.com/file/d/1tjHZmcoO_Hfdf9mo6skRx_JlAGpi5FQJ/view?usp=sharing" target="_blank">スライド</a></p>
+</li>
+<li><p>サンプルコード:<br><a href="https://github.com/oTree-org/more-demos" target="_blank">https://github.com/oTree-org/more-demos</a> （double_auction アプリ）</p>
+<ul>
+<li>デモページ <a href="https://otree-more-demos.herokuapp.com/" target="_blank">https://otree-more-demos.herokuapp.com/</a></li>
+</ul>
 </li>
 </ul>
-<h2 id="三上さん特別レクチャー">三上さん特別レクチャー</h2>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/iyjIbaW_yXQ?rel=0&amp;enablejsapi=1&amp;origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
+
+
+
 <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
 
 
@@ -961,7 +977,7 @@ el_xyz.value = <span class="hljs-number">999</span>;
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第8回","level":"1.1.8","depth":2,"next":{"title":"演習","level":"1.1.9","depth":2,"path":"exercise.md","ref":"exercise.md","articles":[]},"previous":{"title":"第7回","level":"1.1.7","depth":2,"path":"day7.md","ref":"day7.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day8.md","mtime":"2022-07-13T08:40:03.077Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-07-13T14:49:04.405Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第8回","level":"1.1.8","depth":2,"next":{"title":"演習","level":"1.1.9","depth":2,"path":"exercise.md","ref":"exercise.md","articles":[]},"previous":{"title":"第7回","level":"1.1.7","depth":2,"path":"day7.md","ref":"day7.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day8.md","mtime":"2022-07-14T09:35:06.213Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-07-14T09:43:24.651Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

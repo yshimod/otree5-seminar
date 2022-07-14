@@ -14,8 +14,17 @@
 
 ## ExtraModel
 
-- [ExtraModel](otree_ref/init.html#extramodel)
-- [`custom_export()`](otree_ref/init.html#customexport)
+- [詳細はこちら](otree_ref/init.html#extramodel)
+
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/dimFNK-jyOM?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
+
+
+### `custom_export()`
+
+- [詳細はこちら](otree_ref/init.html#customexport)
+
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/-y3MuhCiLic?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 
 
@@ -25,104 +34,102 @@
 - 画面の表示内容を動的に書き換えたり，入力フォームの値の検証を自前で実装したりする場合には JavaScript を使う．
 
 
-- JavaScript を使うには，以下の2通り．
+### JavaScript の記述方法
 
-    - テンプレートファイルに `{{ block scripts }} {{ endblock }}` を置き，その中に`<script>` タグで JavaScript コードを書く．
+- テンプレートファイルに `{{ block scripts }} {{ endblock }}` を置き，その中に`<script>` タグで JavaScript コードを書く．
 
-    ```html
-    {{ block title }}
-        タイトル
-    {{ endblock }}
+  ```html
+  {{ block title }}
+      タイトル
+  {{ endblock }}
 
-    {{ block content }}
-        {{ formfields }}
-        {{ next_button }}
-    {{ endblock }}
+  {{ block content }}
+      {{ formfields }}
+      {{ next_button }}
+  {{ endblock }}
 
-    {{ block scripts }}
-        <script>
-            alert("Hello World!");
-        </script>
-    {{ endblock }}
-    ```
+  {{ block scripts }}
+      <script>
+          alert("Hello World!");
+      </script>
+  {{ endblock }}
+  ```
 
-    - JS ファイル（ `myscripts.js` ）を作成して， `_static/global` などに入れておき，それを読み込む．
+- JS ファイル（ `myscripts.js` ）を作成して， `_static/global` などに入れておき，それを読み込む．
 
-    ```html
-    {{ block title }}
-        タイトル
-    {{ endblock }}
+  ```html
+  {{ block title }}
+      タイトル
+  {{ endblock }}
 
-    {{ block content }}
-        {{ formfields }}
-        {{ next_button }}
-    {{ endblock }}
+  {{ block content }}
+      {{ formfields }}
+      {{ next_button }}
+  {{ endblock }}
 
-    {{ block scripts }}
-        <script src="{{ static 'global/myscripts.js' }}"></script>
-    {{ endblock }}
-    ```
+  {{ block scripts }}
+      <script src="{{ static 'global/myscripts.js' }}"></script>
+  {{ endblock }}
+  ```
 
     JS ファイル `myscripts.js` の中身は以下．
 
-    ```js
-    alert("Hello World!");
-    ```
+  ```js
+  alert("Hello World!");
+  ```
 
 
-- JavaScript で入力フォームの要素（たとえば値）を操作する場合，通常は `document.querySelector('[name=フィールド名]')` などを使えばよいが， oTree も多少便利な機能 `formInputs` を用意しているため使える．
-
-    - たとえばフィールド名が `xyz` である入力フォームの値を取り出すには以下のようにする．
-    ```JavaScript
-    const el_xyz = formInputs.xyz;
-    const original_value = el_xyz.value;
-    console.log("取り出した値:", original_value);
-    ```
-
-    - たとえばフィールド名が `xyz` である入力フォームの値を更新するには以下のようにする．
-    ```JavaScript
-    const el_xyz = formInputs.xyz;
-    el_xyz.value = 999;
-    ```
-
-    - なぜか公式ドキュメントからは記述が消えてしまったため，今後実装が変更となる（ないし機能が廃止になる）可能性がある．
-
-        - [著者によるフォーラムのポスト](https://groups.google.com/g/otree/c/3fRobN1YZTU/m/kCKws1VZAQAJ)
-
+### `js_vars()`
 
 - oTree サーバーから JavaScript に変数を渡すには，ページクラスの組み込みメソッド `js_vars()` を使う．
 
-    - たとえば
+- たとえば以下のように設定する．
 
-    ```python
-    @staticmethod
-    def js_vars(player: Player):
-        return dict(
-            testlist = list(range(0, 10, 2))
-        )
-    ```
+  ```python
+  @staticmethod
+  def js_vars(player: Player):
+      return dict(
+          testlist = list(range(0, 10, 2))
+      )
+  ```
 
-    としたとき，クライアントに送信される HTML （タイトルの要素の直後，コンテンツブロックの要素の直前）には自動的に
+- 返り値の辞書オブジェクトの中の値は，単なる数値，文字列，リスト，辞書オブジェクト，など， JSON 文字列化できるものに限られる．
 
-    ```html
-    <script>var js_vars = {"testlist": [0, 2, 4, 6, 8]};</script>
-    ```
+- 渡した変数を JavaScript で使うには，自動的に定義される `js_vars` なるオブジェクトから取り出す．たとえば以下のように記述する．
 
-    と展開されている．渡した変数を JavaScript で使うには，たとえば以下のようにする．
+  ```html
+  {{ block scripts }}
+      <script>
+          const testlist = js_vars.testlist;    // js_vars から 自分が定義した testlist を取り出す．
 
-    ```html
-    {{ block scripts }}
-        <script>
-            const testlist = js_vars.testlist;
-            testlist.forEach(el => {
-                console.log(el);
-            });
-        </script>
-    {{ endblock }}
-    ```
+          // リストの要素を一つずつ console.log する．
+          testlist.forEach(el => {
+              console.log(el);
+          });
+      </script>
+  {{ endblock }}
+  ```
 
 
-- （作例）MPLでスイッチングポイントをクリックしたときに，自動的にラジオボタンが切り替える JavaScript コード:
+### jQuery
+
+- oTree ではデフォルトで jQuery が読み込まれている．
+
+- [jQuery のドキュメント](https://api.jquery.com/)
+
+- jQuery のバージョンは 3.2.1 （oTree v5.8.5 において）．
+
+- JavaScript コードの中で `jQuery()` や `$()` で jQuery を呼び出す．
+
+    - たとえば `document.getElementById("id_something")` は `$("#id_something")` と似た機能．ただし後者は jQuery のオブジェクトが返ってくる．
+
+
+### （作例） JavaScript で（おせっかいな） MPL を実装する．
+
+- MPLでスイッチングポイントをクリックしたときに，自動的にラジオボタンが切り替える JavaScript コード:
+
+    - コード（js_samples アプリ） [https://github.com/yshimod/otree_survey](https://github.com/yshimod/otree_survey)
+    - デモページ（「JavaScriptを使った作例」の1ページ目） [https://otree-seminar-survey-sample.herokuapp.com/demo](https://otree-seminar-survey-sample.herokuapp.com/demo)
 
     - 定数に `optR = [200, 250, 300, 350, 400]` を設定しておく．
 
@@ -133,6 +140,7 @@
   {{ block title }}
       タイトル
   {{ endblock }}
+
   {{ block content }}
       <table class="table table-striped table-hover">
           <thead>
@@ -165,6 +173,7 @@
       <input type="hidden" name="switching_point" id="id_switching_point" value="">
       {{ next_button }}
   {{ endblock }}
+
   {{ block scripts }}
       <script>
           const listlength = 5;    // 本当は js_vars から受け取ると良い．
@@ -205,122 +214,113 @@
   </p>
 
 
-- oTree ではデフォルトで jQuery が読み込まれている．
 
-    - [jQuery のドキュメント](https://api.jquery.com/)
-
-    - jQuery のバージョンは 3.2.1 （oTree v5.8.5 において）．
-
-    - JavaScript コードの中で `jQuery()` や `$()` で jQuery を呼び出す．
-
-        - たとえば `document.getElementById("id_something")` は `$("#id_something")` と似た機能．ただし後者は jQuery のオブジェクトが返ってくる．
-
+### ライブラリの利用
 
 - JavaScript のライブラリを自分で読み込んで使っても良い．
 
-    - ライブラリをインストールするには， CDN を使うか，ダウンロードしたライブラリのコードを `_static` ディレクトリに置いておく．
+- ライブラリをインストールするには， CDN を使うか，ダウンロードしたライブラリのコードを `_static` ディレクトリに置いておく．
 
-    - oTree 公式ドキュメントでは [HighCharts](https://www.highcharts.com/) を使っている．  
-    [https://otree.readthedocs.io/en/latest/templates.html#charts](https://otree.readthedocs.io/en/latest/templates.html#charts)
+- oTree 公式ドキュメントでは [HighCharts](https://www.highcharts.com/) を使っている．  
+[https://otree.readthedocs.io/en/latest/templates.html#charts](https://otree.readthedocs.io/en/latest/templates.html#charts)
 
-    - （日本語ドキュメントが豊富な） [Chart.js](https://www.chartjs.org/) も有用．
+- （日本語ドキュメントが豊富な） [Chart.js](https://www.chartjs.org/) も有用．
+    - コード（js_samples アプリ） [https://github.com/yshimod/otree_survey](https://github.com/yshimod/otree_survey)
+    - デモページ（「JavaScriptを使った作例」の2ページ目） [https://otree-seminar-survey-sample.herokuapp.com/demo](https://otree-seminar-survey-sample.herokuapp.com/demo)
 
-    %accordion%テンプレート%accordion%
-    ```html
-    {{ block title }}
-        タイトル
-    {{ endblock }}
+  %accordion%テンプレート%accordion%
+  ```html
+  {{ block title }}
+      タイトル
+  {{ endblock }}
 
-    {{ block content }}
-        <div class="row align-items-center">
-            <div class="col-8">
-                <div style="width: 480px; max-width: 100%; margin: auto;">
-                    <canvas id="myChart" style="height: 300px; width: 100%;"></canvas>
-                </div>
-            </div>
-            <div class="col-2">
-                <button type="button" class="btn btn-danger btn-lg" onclick="updateFunction();">ボタン</button>
-            </div>
-        </div>
+  {{ block content }}
+      <div class="row align-items-center">
+          <div class="col-8">
+              <div style="width: 480px; max-width: 100%; margin: auto;">
+                  <canvas id="myChart" style="height: 300px; width: 100%;"></canvas>
+              </div>
+          </div>
+          <div class="col-2">
+              <button type="button" class="btn btn-danger btn-lg" onclick="updateFunction();">ボタン</button>
+          </div>
+      </div>
+      {{ next_button }}
+  {{ endblock }}
 
-        {{ next_button }}
-    {{ endblock }}
+  {{ block scripts }}
+      <script src="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js" tegrity="sha256-cHVO4dqZfamRhWD7s4iXyaXWVK10odD+qp4xidFzqTI=" crossorigin="anonymous"></script>
+      <script>
+          const ctx = document.getElementById("myChart");
+          const myChart = new Chart(ctx, {
+              type: 'bar',
+              data: {
+                  labels: [''],
+                  datasets: [
+                      {
+                          label: 'ド',
+                          data: [20],
+                          backgroundColor: "#ffcf00",
+                          stack: 'stack1'
+                      },
+                      {
+                          label: 'イ',
+                          data: [30],
+                          backgroundColor: "#dd0000",
+                          stack: 'stack1'
+                      },
+                      {
+                          label: 'ツ',
+                          data: [50],
+                          backgroundColor: "#000000",
+                          stack: 'stack1'
+                      }
+                  ],
+              },
+              options: {
+                  plugins: {
+                      title: {
+                          display: true,
+                          text: 'ドイツの割合'
+                      },
+                      legend: {
+                          position: 'bottom',
+                          onClick: function () { return false }
+                      },
+                  },
+                  responsive: true,
+                  tooltip: {
+                      mode: 'index'
+                  },
+                  hover: true,
+                  scales: {
+                      y: {
+                          stacked: true,
+                          max: 100
+                      }
+                  }
+              }
+          });
+          function updateFunction() {
+              const yellow = Math.random();
+              const red = Math.random();
+              const black = Math.random();
+              const totnum = yellow + red + black;
+              myChart.data.datasets[0].data[0] = 100 * yellow / totnum;
+              myChart.data.datasets[1].data[0] = 100 * red / totnum;
+              myChart.data.datasets[2].data[0] = 100 * black / totnum;
+              myChart.update();
+          }
+      </script>
+  {{ endblock }}
+  ```
+  %/accordion%
 
-    {{ block scripts }}
-        <script src="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js" integrity="sha256-cHVO4dqZfamRhWD7s4iXyaXWVK10odD+qp4xidFzqTI=" crossorigin="anonymous"></script>
-        <script>
-            const ctx = document.getElementById("myChart");
-            const myChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: [''],
-                    datasets: [
-                        {
-                            label: 'ド',
-                            data: [20],
-                            backgroundColor: "#ffcf00",
-                            stack: 'stack1'
-                        },
-                        {
-                            label: 'イ',
-                            data: [30],
-                            backgroundColor: "#dd0000",
-                            stack: 'stack1'
-                        },
-                        {
-                            label: 'ツ',
-                            data: [50],
-                            backgroundColor: "#000000",
-                            stack: 'stack1'
-                        }
-                    ],
-                },
-                options: {
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'ドイツの割合'
-                        },
-                        legend: {
-                            position: 'bottom',
-                            onClick: function () { return false }
-                        },
-                    },
-                    responsive: true,
-                    tooltip: {
-                        mode: 'index'
-                    },
-                    hover: true,
-                    scales: {
-                        y: {
-                            stacked: true,
-                            max: 100
-                        }
-                    }
-                }
-            });
-
-            function updateFunction() {
-                const yellow = Math.random();
-                const red = Math.random();
-                const black = Math.random();
-                const totnum = yellow + red + black;
-
-                myChart.data.datasets[0].data[0] = 100 * yellow / totnum;
-                myChart.data.datasets[1].data[0] = 100 * red / totnum;
-                myChart.data.datasets[2].data[0] = 100 * black / totnum;
-                myChart.update();
-            }
-        </script>
-    {{ endblock }}
-    ```
-    %/accordion%
-
-    <p class="codepen" data-height="500" data-theme-id="dark" data-default-tab="result" data-slug-hash="XWEbqRy" data-editable="true" data-user="yshimod" style="height: 500px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
-        <span>See the Pen <a href="https://codepen.io/yshimod/pen/XWEbqRy">
-        oTree day8-2</a> by yshimod (<a href="https://codepen.io/yshimod">@yshimod</a>)
-        on <a href="https://codepen.io">CodePen</a>.</span>
-    </p>
+  <p class="codepen" data-height="500" data-theme-id="dark" data-default-tab="result" data-slug-hash="XWEbqRy" ta-editable="true" data-user="yshimod" style="height: 500px; box-sizing: border-box; display: flex; align-items: center; stify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+      <span>See the Pen <a href="https://codepen.io/yshimod/pen/XWEbqRy">
+      oTree day8-2</a> by yshimod (<a href="https://codepen.io/yshimod">@yshimod</a>)
+      on <a href="https://codepen.io">CodePen</a>.</span>
+  </p>
 
 
 - [jsPsych](https://www.jspsych.org/) を使う場合は工夫が必要．  
@@ -328,6 +328,8 @@
     - [https://github.com/yshimod/jspsych_on_otree](https://github.com/yshimod/jspsych_on_otree)
     - [https://www.otreehub.com/projects/jspsych-on-otree/](https://www.otreehub.com/projects/jspsych-on-otree/)
 
+
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/VMMWpYfzvsc?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 
 
@@ -350,6 +352,7 @@
 
 - 「サーバー側から通信を開始する方法」があると言っても， oTree の Live page は管理者（実験者）の任意のタイミングでデータを送信することはできず，セッションの参加者の操作をきっかけとしてデータを送信することになる．
 
+- WebSocket の通信内容を Chrome で確認するには，デベロッパーツールを開き，Networkタブで，名前が `live` から始まる要素（ Type が websocket ）の Messages を見れば良い．
 
 
 ### （JavaScript） Live page を作動させる `liveSend()`
@@ -382,7 +385,7 @@
   {{ endblock }}
   ```
 
-- Chrome でどんなデータが送信されたのかを確認するには，デベロッパーツールを開き，Networkタブで，名前が `live` から始まる要素（Headers Request URL が `ws://` か `wss://` から始まっている）の Messages を見れば良い．
+- JavaScript で `liveSend()` を呼び出しても，（後述の） `live_method()` がページクラスで定義されていなければ実行されない．
 
 
 
@@ -401,17 +404,17 @@
     - キーが数値ないし変数のときには `dict()` が使えないので， `{ }` で辞書オブジェクトを定義する．
 
 
-- たとえば `liveSend()` で `{"number": "3"}` なる値がサーバーに送信された後，中身の数値を10倍したものを， group の他人 player 全員に送信するためには以下のようにする．
+- たとえば `liveSend()` で `{"number": "3"}` なる値がサーバーに送信された後，中身の数値を10倍したものを， group の全員に送信するためには以下のようにする．
+
   ```python
   @staticmethod
   def live_method(player: Player, data):
       received_number = int(data["number"])    ## 数値 3 が入る．
       return_number = received_number * 10
 
-      return { p.id_in_group: {"return_number": return_number} for p in player.get_others_in_group() }
-      ## 3人グループで自分の id_in_group が 2 のとき， ↑ の辞書オブジェクトは
-      ## { 1: {"return_number": 30}, 3: {"return_number": 30} }
-      ## となっている．
+      return {
+          0: {"return_number": return_number}
+      }
   ```
 
 
@@ -423,19 +426,20 @@
 - `liveRecv()` の引数として `data` を受け取る． `live_method()` の返り値である辞書オブジェクトの値のみが入っている（宛先のキーは送信されない）．
 
 - たとえば `{"return_number": 30}` なるデータを受け取り，このタイミングで受け取った数字を画面に表示させるためには以下のようにする．
+
   ```html
   {{ block content }}
       <input type="number" id="sendnumber">
       <button type="button" id="sendbutton">送信</button>
       <div>
-          相手から受け取った値: <span id="pushednumber"></span>
+          受け取った値: <span id="pushednumber"></span>
       </div>
   {{ endblock }}
 
   {{ block scripts }}
       <script>
           function liveRecv(data) {
-              const pushednumber = data["return_number"];
+              const pushednumber = data.return_number;
               document.getElementById("pushednumber").innerText = pushednumber;
           }
 
@@ -455,12 +459,24 @@
   {{ endblock }}
   ```
 
-- Chrome でどんなデータを受け取ったのかを確認するには，デベロッパーツールを開き，Networkタブで，名前が `live` から始まる要素（Headers Request URL が `ws://` か `wss://` から始まっている）の Messages を見れば良い．
 
 
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/6SLXuQuXvrk?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 
 ## 三上さん特別レクチャー
+
+- [信州大 三上亮さん](https://sites.google.com/view/ryomikami/japanese) に Live page を解説していただきました．
+
+- [スライド](https://drive.google.com/file/d/1tjHZmcoO_Hfdf9mo6skRx_JlAGpi5FQJ/view?usp=sharing)
+
+- サンプルコード:  
+[https://github.com/oTree-org/more-demos](https://github.com/oTree-org/more-demos) （double_auction アプリ）
+    - デモページ [https://otree-more-demos.herokuapp.com/](https://otree-more-demos.herokuapp.com/)
+
+
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/iyjIbaW_yXQ?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
 
 
 

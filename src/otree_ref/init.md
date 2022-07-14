@@ -457,34 +457,38 @@
 
 - 使い方:
 
-    1. `ExtraModel` クラスを継承したクラスを定義する．定義しただけテーブルが作られる．
-    ```python
-    class MyModel(ExtraModel):
-        # なにか
-    ```
+    1. `ExtraModel` クラスを継承したクラスを定義する．定義しただけテーブルが作られるため，複数のクラスを定義することができる．
+
+      ```python
+      class MyModel(ExtraModel):
+          # なにか
+      ```
 
     1. `Player` クラスなどと同様にフィールドを定義する．
-    ```python
-    var1 = models.IntegerField()
-    var2 = models.StringField()
-    ```
+
+      ```python
+      var1 = models.IntegerField()
+      var2 = models.StringField()
+      ```
 
     1. フィールドに記録したデータが，どの group の，どの player のデータなのかを記録するためのフィールドを定義する．対戦相手 player が誰であるのかを記録するためのフィールドも定義できる．
-    ```python
-    me = models.Link(Player)
-    opponent = models.Link(Player)
-    group = models.Link(Group)
-    subsession = models.Link(Subsession)
-    ```
 
-    1. 結局，クラスの定義は以下のようになる．
-    ```python
-    class MyModel(ExtraModel):
-        me = models.Link(Player)
-        opponent = models.Link(Player)
-        var1 = models.IntegerField()
-        var2 = models.BooleanField()
-    ```
+      ```python
+      me = models.Link(Player)
+      opponent = models.Link(Player)
+      group = models.Link(Group)
+      subsession = models.Link(Subsession)
+      ```
+
+    1. たとえば，クラスの定義は以下のようになる．
+
+      ```python
+      class MyModel(ExtraModel):
+          me = models.Link(Player)
+          opponent = models.Link(Player)
+          var1 = models.IntegerField()
+          var2 = models.BooleanField()
+      ```
 
     1. データを記録するためには `create()` メソッドでレコードを作る．
         - 引数で記録したいデータを渡す． 
@@ -492,6 +496,7 @@
         - 定義してあるフィールドすべての値を渡す必要はない．渡さなければ，そのフィールドは `None` となる．
 
         - たとえば `before_next_page()` の中で以下のように使う．
+
         ```python
         @staticmethod
         def before_next_page(player: Player, timeout_happened):
@@ -518,7 +523,7 @@
             her_var1 = retrieved_record.var1
             retrieved_record.var2 = True
 
-            ## 他人の player オブジェクトを取り出すことも可能
+            ## 他人の player オブジェクトを取り出すことも可能．
             opponent: Player = retrieved_record.me
             opponent_payoff = opponent.payoff
 
@@ -990,6 +995,11 @@
     - 返り値: 辞書型．
     - ページを読み込む度に実行される．
     - `vars_for_template()` の後に実行される．
+    - 返り値のオブジェクトが， HTML のコンテンツブロックの要素の直前において， `js_vars` なる変数名で定義される．したがって， `js_vars` から値を取り出せば良い．
+        - たとえば `js_vars()` の返り値が `return {"testlist" = list(range(0, 10, 2))}` であるとき， oTree サーバーは自動的に以下の要素を展開する．
+        ```html
+        <script>var js_vars = {"testlist": [0, 2, 4, 6, 8]};</script>
+        ```
     - [https://otree.readthedocs.io/en/latest/templates.html#passing-data-from-python-to-javascript-js-vars](https://otree.readthedocs.io/en/latest/templates.html#passing-data-from-python-to-javascript-js-vars)
 
 
@@ -1174,11 +1184,11 @@
     - たとえば，各 player の `player.payoff` を出力したい場合，以下のようにすれば良い．
     ```python
     def custom_export(players: list[Player]):
-        ## まずCSVファイルの1行目に列名を出力すると良い．
+        ## まず CSV ファイルの1行目に列名を出力すると良い．
         yield ["session.code", "player.id_in_subsession", "group.id_in_subsession", "id_in_group", "payoff"]
 
         for p in players:
-            ## forループで yield を使うと，リストのデータがCSVファイルの行として次々追記される，
+            ## forループで yield を使うと，リストのデータが CSV ファイルの行として次々追記される．
             yield [p.session.code, p.id_in_subsession, p.group.id_in_subsession, p.id_in_group, p.payoff]
     ```
 
