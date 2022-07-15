@@ -1,7 +1,7 @@
 {% raw %}
 【第8回】 2022年7月14日
 
-# ExtraModel ・ JavaScript ・ ライブページ
+# ExtraModel ・ JavaScript ・ Live page
 
 
 ## ExtraModel
@@ -459,16 +459,24 @@
 
 ## 三上さん特別レクチャー
 
-- [信州大 三上亮さん](https://sites.google.com/view/ryomikami/japanese) に Live page を解説していただきました．
+- [信州大 三上亮さん](https://sites.google.com/view/ryomikami/japanese) に Live page を解説していただきました．ありがとうございます．
 
 - [スライド](https://drive.google.com/file/d/1tjHZmcoO_Hfdf9mo6skRx_JlAGpi5FQJ/view?usp=sharing)
 
 - 連続時間ダブルオークションのコード:  
 [https://github.com/oTree-org/more-demos](https://github.com/oTree-org/more-demos) （double_auction アプリ）
+    - コメントを付けたコード [https://github.com/RyoMikami/otree5_lecture](https://github.com/RyoMikami/otree5_lecture)
     - デモページ [https://otree-more-demos.herokuapp.com/](https://otree-more-demos.herokuapp.com/)
 
 
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/iyjIbaW_yXQ?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
+
+- （下平注） このサンプルのコードにはいくつか注意するべき点があります． Live page の勉強用や，授業におけるデモンストレーションとして使うならまだしも，ダブルオークションの研究で使う場合は以下の点を検討した方が良さそうです．
+    - [`__init__.py`](https://github.com/oTree-org/more-demos/blob/master/double_auction/__init__.py) の61行目から66行目において，売買が成立する buyer と seller のペアを探す関数を定義されていますが， `id_in_group` の昇順に一人ずつ取引が成立するか確認して，最初に見つかったペアを返す実装となっています．通常は，売りオファーの安い順・買いオファーの高い順，およびオファーの早い順，に取引を成立させていく必要があると思われます．
+    - [`__init__.py`](https://github.com/oTree-org/more-demos/blob/master/double_auction/__init__.py) の53行目から58行目で Transaction なる ExtraModel を定義し，85行目から91行目において取引の内容（誰とどの価格で取引したか，など）を Transaction に記録しています．留保価格/生産費用（break_even_point），オファー（current_offer），利得（payoff）は player のフィールドが定義され，そこに記録されているのですが，価格は記録されていません．また， `custom_export()` で Transaction の中身を CSV ファイルに出力するような実装が行われていません．したがって，このままの状態では価格を直接確認することはできません．複数個の財を購入した buyer については，利得と留保価格から価格を逆算することもできません． z-Tree の contracts テーブルのような，1レコードに取引時刻，ペアのID，取引価格，を記録したテーブルは `custom_export()` を使って自分で実装しなければなりません．
+    - [`Trading.html`](https://github.com/oTree-org/more-demos/blob/master/double_auction/Trading.html) （JavaScript部分）の99行目から101行目において， seller が財を持っていない場合にオファーを送信するボタンを押せないように変更するコードが記述されています．これ自体に問題は無いのですが， buyer が既に財を1つ手に入れている場合に対する処理は記述されておらず，結局， buyer は何個でも財を買える状態になっています．もしも buyer が買える財の数を1つだけにする場合には自分で実装する必要があります．
+        - なお下平は，てっきり buyer は1つだけ買えるものと勘違いしていたため，（島田さんの授業で実施した）実験データを見て「複数個買えとる buyer おるがや．バグか！」と早とちりし，RAさんも巻き込んで検証に多大な時間をかけてしまいました．たとえば，参加者が多い場合に，ある参加者のオファーがサーバーに飛んできてマッチングを計算している最中に，他の参加者のオファーが飛んできて，おかしくなっているのではないか，などと，当てずっぽうの仮設を立て無為な時間を過ごしました（ちなみに oTree はシングルスレッドで動いているため，処理に割り込むということはありません）．三上さんにこの点を指摘していただいたおかげで自分の過ちに気づくことができました．まずはじっくりコードを読め，という教訓を得ました．
 
 
 
