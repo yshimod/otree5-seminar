@@ -926,10 +926,43 @@
 
 
 <ul>
-<li>（下平注） このサンプルのコードにはいくつか注意するべき点があります． Live page の勉強用や，授業におけるデモンストレーションとして使うならまだしも，ダブルオークションの研究で使う場合は以下の点を検討した方が良さそうです．<ul>
-<li><a href="https://github.com/oTree-org/more-demos/blob/master/double_auction/__init__.py" target="_blank"><code>__init__.py</code></a> の61行目から66行目において，売買が成立する buyer と seller のペアを探す関数を定義されていますが， <code>id_in_group</code> の昇順に一人ずつ取引が成立するか確認して，最初に見つかったペアを返す実装となっています．通常は，売りオファーの安い順・買いオファーの高い順，およびオファーの早い順，に取引を成立させていく必要があると思われます．</li>
-<li><a href="https://github.com/oTree-org/more-demos/blob/master/double_auction/__init__.py" target="_blank"><code>__init__.py</code></a> の53行目から58行目で Transaction なる ExtraModel を定義し，85行目から91行目において取引の内容（誰とどの価格で取引したか，など）を Transaction に記録しています．留保価格/生産費用（break_even_point），オファー（current_offer），利得（payoff）は player のフィールドが定義され，そこに記録されているのですが，価格は記録されていません．また， <code>custom_export()</code> で Transaction の中身を CSV ファイルに出力するような実装が行われていません．したがって，このままの状態では価格を直接確認することはできません．複数個の財を購入した buyer については，利得と留保価格から価格を逆算することもできません． z-Tree の contracts テーブルのような，1レコードに取引時刻，ペアのID，取引価格，を記録したテーブルは <code>custom_export()</code> を使って自分で実装しなければなりません．</li>
-<li><a href="https://github.com/oTree-org/more-demos/blob/master/double_auction/Trading.html" target="_blank"><code>Trading.html</code></a> （JavaScript部分）の99行目から101行目において， seller が財を持っていない場合にオファーを送信するボタンを押せないように変更するコードが記述されています．これ自体に問題は無いのですが， buyer が既に財を1つ手に入れている場合に対する処理は記述されておらず，結局， buyer は何個でも財を買える状態になっています．もしも buyer が買える財の数を1つだけにする場合には自分で実装する必要があります．<ul>
+<li><p>（下平注） このサンプルのコードにはいくつか注意するべき点があります． Live page の勉強用や，授業におけるデモンストレーションとして使うならまだしも，ダブルオークションの研究で使う場合は以下の点を検討した方が良さそうです．</p>
+<ul>
+<li><p><a href="https://github.com/oTree-org/more-demos/blob/master/double_auction/__init__.py" target="_blank"><code>__init__.py</code></a> の61行目から66行目において，売買が成立する buyer と seller のペアを探す関数を定義されていますが， <code>id_in_group</code> の昇順に一人ずつ取引が成立するか確認して，最初に見つかったペアを返す実装となっています．通常は，売りオファーの安い順・買いオファーの高い順，およびオファーの早い順，に取引を成立させていく必要があると思われます．</p>
+</li>
+<li><p><a href="https://github.com/oTree-org/more-demos/blob/master/double_auction/__init__.py" target="_blank"><code>__init__.py</code></a> の53行目から58行目で Transaction なる ExtraModel を定義し，85行目から91行目において取引の内容（誰とどの価格で取引したか，など）を Transaction に記録しています．留保価格/生産費用（break_even_point），オファー（current_offer），利得（payoff）は player のフィールドが定義され，そこに記録されているのですが，価格は記録されていません．また， <code>custom_export()</code> で Transaction の中身を CSV ファイルに出力するような実装が行われていません．したがって，このままの状態では価格を直接確認することはできません．複数個の財を購入した buyer については，利得と留保価格から価格を逆算することもできません． z-Tree の contracts テーブルのような，1レコードに取引時刻，ペアのID，取引価格，を記録したテーブルは <code>custom_export()</code> を使って自分で実装しなければなりません．</p>
+<ul>
+<li><p>たとえば以下のような実装が考えられます．</p>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">custom_export</span>(<span class="hljs-params">players: <span class="hljs-built_in">list</span>[Player]</span>):</span>
+  <span class="hljs-keyword">yield</span> [
+      <span class="hljs-string">&quot;セッションコード&quot;</span>,
+      <span class="hljs-string">&quot;groupのid_in_subsession&quot;</span>,
+      <span class="hljs-string">&quot;ラウンド&quot;</span>,
+      <span class="hljs-string">&quot;buyerのid_in_subsession&quot;</span>,
+      <span class="hljs-string">&quot;sellerのid_in_subsession&quot;</span>,
+      <span class="hljs-string">&quot;価格&quot;</span>,
+      <span class="hljs-string">&quot;経過秒&quot;</span>
+  ]
+
+  <span class="hljs-keyword">for</span> p <span class="hljs-keyword">in</span> players:
+      <span class="hljs-keyword">if</span> p.is_buyer:
+          records_list: <span class="hljs-built_in">list</span>[Transaction] = Transaction.<span class="hljs-built_in">filter</span>(buyer = p)
+          <span class="hljs-keyword">for</span> record <span class="hljs-keyword">in</span> records_list:
+              <span class="hljs-keyword">yield</span> [
+                  record.group.session.code,
+                  record.group.id_in_subsession,
+                  record.group.round_number,
+                  record.buyer.id_in_subsession,
+                  record.seller.id_in_subsession,
+                  record.price,
+                  record.seconds
+              ]
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p><a href="https://github.com/oTree-org/more-demos/blob/master/double_auction/Trading.html" target="_blank"><code>Trading.html</code></a> （JavaScript部分）の99行目から101行目において， seller が財を持っていない場合にオファーを送信するボタンを押せないように変更するコードが記述されています．これ自体に問題は無いのですが， buyer が既に財を1つ手に入れている場合に対する処理は記述されておらず，結局， buyer は何個でも財を買える状態になっています．もしも buyer が買える財の数を1つだけにする場合には自分で実装する必要があります．</p>
+<ul>
 <li>なお下平は，てっきり buyer は1つだけ買えるものと勘違いしていたため，（島田さんの授業で実施した）実験データを見て「複数個買えとる buyer おるがや．バグか！」と早とちりし，RAさんも巻き込んで検証に多大な時間をかけてしまいました．たとえば，参加者が多い場合に，ある参加者のオファーがサーバーに飛んできてマッチングを計算している最中に，他の参加者のオファーが飛んできて，おかしくなっているのではないか，などと，当てずっぽうの仮設を立て無為な時間を過ごしました（ちなみに oTree はシングルスレッドで動いているため，処理に割り込むということはありません）．三上さんにこの点を指摘していただいたおかげで自分の過ちに気づくことができました．まずはじっくりコードを読め，という教訓を得ました．</li>
 </ul>
 </li>
@@ -981,7 +1014,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第8回","level":"1.1.8","depth":2,"next":{"title":"演習","level":"1.1.9","depth":2,"path":"exercise.md","ref":"exercise.md","articles":[]},"previous":{"title":"第7回","level":"1.1.7","depth":2,"path":"day7.md","ref":"day7.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day8.md","mtime":"2022-07-15T13:19:51.478Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-07-15T13:21:00.536Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第8回","level":"1.1.8","depth":2,"next":{"title":"演習","level":"1.1.9","depth":2,"path":"exercise.md","ref":"exercise.md","articles":[]},"previous":{"title":"第7回","level":"1.1.7","depth":2,"path":"day7.md","ref":"day7.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day8.md","mtime":"2022-07-15T13:59:25.509Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-07-15T14:03:03.795Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
