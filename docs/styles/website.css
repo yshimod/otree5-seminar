@@ -1,0 +1,21 @@
+.page-toc {
+    float: none;
+}
+
+.ytubevideo {
+    padding: 10px 0 10px 20px;
+}
+
+.book .book-body .page-wrapper .page-inner {
+    max-width: 1000px !important;
+}
+
+.navigation.navigation-prev
+{
+    display: none;
+}
+
+.navigation.navigation-next
+{
+    display: none;
+}

@@ -3,7 +3,7 @@
 <html lang="ja" >
     <head>
         <meta charset="UTF-8">
-        <title>【oTree 5 勉強会】 · oTree 5 勉強会</title>
+        <title>【演習】 · oTree 5 勉強会</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 3.7.4">
@@ -56,8 +56,8 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="day1.html" />
     
+    <link rel="prev" href="day8.html" />
     
 
     </head>
@@ -86,7 +86,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -203,7 +203,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10" data-path="exercise.html">
+        <li class="chapter active" data-level="1.10" data-path="exercise.html">
             
                 <a href="exercise.html">
             
@@ -442,7 +442,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >【oTree 5 勉強会】</a>
+        <a href="." >【演習】</a>
     </h1>
 </div>
 
@@ -457,109 +457,96 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="otree-5-勉強会">oTree 5 勉強会</h1>
-<p>2022年5月12日から7月14日までの全10回にわたって，行動実験フレームワーク oTree <a href="https://www.sciencedirect.com/science/article/pii/S2214635016000101" target="_blank">(Chen et al., 2015)</a> （バージョン5以降）の勉強会を，阪大社研の実験関係者を中心に実施しました．
-この Web ページは，勉強会の内容を記録するものです．
-勉強会は終了しましたが，内容を随時更新していくかもしれません．
-更新履歴は<a href="https://github.com/yshimod/otree5-seminar" target="_blank">リポジトリ</a>のコミット履歴を参照してください．
-（下平勇太）</p>
-<h2 id="質問・コメント">質問・コメント</h2>
-<p>質問・コメントがある場合は，（直接，下平に連絡していただいても構いませんが，） <a href="https://github.com/yshimod/otree5-seminar/issues" target="_blank">https://github.com/yshimod/otree5-seminar/issues</a> でスレッドを立ててください．</p>
-<h2 id="目次">目次</h2>
+                                <p>【演習】 2022年6月30日・7月7日</p>
+<h1 id="【演習】-少し特殊な最後通牒ゲームを作る">【演習】 少し特殊な最後通牒ゲームを作る</h1>
 <ul>
-<li><a href="day1.html">Ubuntuで oTree 本番環境を構築する</a><ul>
-<li>Python の導入に関しては<a href="server_setup/#python-を-pyenv--virtualenv-で導入">こちら</a></li>
-<li>oTree のインストールに関しては<a href="server_setup/#pipで-otree-のインストール">こちら</a></li>
-<li>PostgreSQL のインストールに関しては<a href="server_setup/#データベースサーバーソフトウェアの-postgresql-を導入">こちら</a></li>
-<li>環境変数の設定に関しては<a href="server_setup/#環境変数の設定">こちら</a></li>
+<li>課題: 次の論文での実験を実装する<br><a href="https://www.sciencedirect.com/science/article/pii/S0167268116301366" target="_blank">https://www.sciencedirect.com/science/article/pii/S0167268116301366</a><br>Rodriguez-Lara, I. (2016). Equity and bargaining power in ultimatum games.
+<em>Journal of Economic Behavior &amp; Organization</em>, 130, 144-165.</li>
+</ul>
+<ul>
+<li><p><a href="https://github.com/yshimod/RodriguezLara2016/tree/initial" target="_blank">https://github.com/yshimod/RodriguezLara2016/tree/initial</a> のリポジトリ（ initial ブランチ）をダウンロードして（ GitHub アカウントがあればフォークしてからクローンして），それを編集していく．</p>
+<ul>
+<li><a href="https://github.com/yshimod/RodriguezLara2016/archive/refs/heads/initial.zip" target="_blank">ZIP ファイルのダウンロード</a></li>
 </ul>
 </li>
 </ul>
 <ul>
-<li><a href="day2.html">GitとGitHubの使い方 ・ Herokuの使い方</a><ul>
-<li><a href="day2.html#2-gitとgithubの使い方">GitとGitHubの使い方</a></li>
-<li>Herokuの使い方に関しては<a href="heroku/">こちら</a></li>
+<li><p>エフォートタスクはすでに1つのアプリ（ <code>effort</code> ）で実装されてい（るものとし）て，そのスコア（クイズの得点）が <code>participant.effort_score</code> に入っているので，この値を使う．</p>
+</li>
+<li><p>実装の優先順位は...</p>
+<ol>
+<li>Ultimatum game (Scenario 1) だけでも完成させる．<ol>
+<li>新しいアプリを追加する．</li>
+<li>プレイヤーの役割と reward level をプレイヤーごとランダムに決める．</li>
+<li>グループの joint endowment を計算して記録しておく．</li>
+<li>サンプルゲーム「trust」「dictator」などを参考に，最後通牒ゲームを実装する．</li>
+<li>結果表示画面で最後通牒ゲームにおける意思決定と利得を表示させる．</li>
+</ol>
+</li>
+<li>No-veto-cost game (Scenario 2) も完成させる．<ul>
+<li>最終的な報酬として，2つのゲーム（ Scenario ）のどちらかをランダムに選ぶ機構を実装する．</li>
+</ul>
+</li>
+<li>見てくれを良くする．</li>
+<li><code>SESSION_CONFIGS</code> で定義する変数を使って，2つのゲームの順番を変える機構を実装する．</li>
+<li>インストラクションを実装する．</li>
+<li>エフォートタスクを実装する．</li>
+</ol>
+</li>
+</ul>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/nZLnngQsWes?rel=0&amp;enablejsapi=1&amp;origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
+
+
+<h4 id="6月30日">6月30日</h4>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/ka8scVX9YzY?rel=0&amp;enablejsapi=1&amp;origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
+
+<ul>
+<li>やったこと...<ul>
+<li>実験課題用に新しいアプリを作る．</li>
+<li>必要なページのクラスをとりあえず定義し，対応するテンプレートファイルも作成する．</li>
+<li>必要なフィールドを定義する．</li>
+<li><code>creating_session()</code> で reward level をランダムに決定する．<ul>
+<li>まだ プレイヤーの役割はランダム化していない．</li>
+</ul>
+</li>
+<li>最初の待機ページの <code>after_all_players_arrive()</code> で， <code>effort</code> アプリで生成した変数を受け取り， group のフィールドに代入する．</li>
+<li>同じく <code>after_all_players_arrive()</code> で， joint endowment も計算し group のフィールドに代入する．</li>
+<li>意思決定のページを該当する役割のプライヤーにのみ表示するように <code>is_displayed()</code> を定義する．</li>
+<li>入力フォームを設定する．<ul>
+<li>まだ，最大値・最小値の検証は実装していない．</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="7月7日">7月7日</h4>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/nU4EayIL9Cc?rel=0&amp;enablejsapi=1&amp;origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
+
+<ul>
+<li>やったこと...<ul>
+<li>Scenario 1 の利得計算の実装を行う．</li>
+<li>入力フォームの最大値・最小値の検証を実装する．</li>
+<li>プレイヤーの役割をランダムに決定する．</li>
+<li>Scenario 2 (No-veto-cost game) 用のページを追加する．フィールドも追加する．</li>
+<li>Scenario 1 と Scenario 2 のどちらを報酬支払対象として選ぶのかをランダムに決定する機構を実装する．</li>
+<li>入力フォームをスライダーにする．</li>
 </ul>
 </li>
 </ul>
 <ul>
-<li><a href="day3.html">VS Code の導入 ・ oTree プログラミングの概要</a><ul>
-<li><a href="day3.html#vs-code-の導入">VS Code の導入</a></li>
-<li><a href="day3.html#シェルで使用する-otree-サブコマンド">シェルで使用する oTree サブコマンド</a></li>
+<li>（とりあえず見た目は美しくないけど）完成したものはこちら:<ul>
+<li><a href="https://github.com/yshimod/RodriguezLara2016" target="_blank">https://github.com/yshimod/RodriguezLara2016</a> （ master ブランチ）</li>
+<li>2つのゲーム（Scenario）の順番を切り替えられるようにもしています．</li>
 </ul>
 </li>
 </ul>
 <ul>
-<li><a href="day4.html">oTree プログラミングの進め方</a> （どこからコードを書いていけばよいか分からない場合はこちら）<ul>
-<li><a href="day4.html#a1-入力フォームの検証">入力フォームの検証</a></li>
-<li><a href="day4.html#a2-自作の関数の引数は何">自作の関数の引数は何？</a></li>
-<li><a href="day4.html#a3-otree-の通貨型">oTree の通貨型</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><a href="day5.html">テンプレートにおけるプログラミング</a><ul>
-<li>機能の一覧は<a href="otree_ref/templatefile.html">こちら</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><a href="day6.html">oTree の組み込み関数の使い方</a><ul>
-<li>機能の一覧は<a href="otree_ref/init.html">こちら</a></li>
-<li><a href="day6.html#意思決定データを-group-に記録する">意思決定データを Group に記録する</a></li>
-<li><a href="day6.html#ページ表示をスキップする">ページ表示をスキップする</a></li>
-<li><a href="day6.html#フィールド名max-で入力フォーム検証の条件を動的に設定する"><code>フィールド名_max()</code> で入力フォーム検証の条件を動的に設定する</a></li>
-<li><a href="day6.html#creatingsession-を使ったプレイヤーのシャッフル"><code>creating_session()</code> を使ったプレイヤーのシャッフル</a></li>
-<li><a href="day6.html#tips-関数内でインポートしてよいか">関数内でインポートしてよいか？</a></li>
-<li><a href="day6.html#意思決定画面で時間制限を設定してみる">意思決定画面で時間制限を設定してみる</a></li>
-<li><a href="day6.html#tips--staticmethod-は何か">「 <code>@staticmethod</code> 」は何か？</a></li>
-<li><a href="day6.html#確率的に繰り返しを終了するとき-numrounds-は最大数を設定する">確率的に繰り返しを終了するとき <code>NUM_ROUNDS</code> は最大数を設定する</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><a href="day7.html">（Qualtricsのような）質問紙調査を作る方法</a><ul>
-<li><a href="day7.html#2-データモデルでたくさんのフィールドを定義する">データモデルでたくさんのフィールドを定義する</a></li>
-<li><a href="day7.html#3-入力フォームの順番をランダム化する">入力フォームの順番をランダム化する</a></li>
-<li><a href="day7.html#4-ページの順番をランダム化する">ページの順番をランダム化する</a></li>
-<li><a href="day7.html#css">CSS</a></li>
-<li><a href="day7.html#bootstrap">Bootstrap</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><a href="day8.html">ExtraModel ・ JavaScript ・ Live page</a><ul>
-<li><a href="day8.html#extramodel">ExtraModel</a></li>
-<li><a href="day8.html#javascript">JavaScript</a></li>
-<li><a href="day8.html#live-page">Live page</a></li>
-<li><a href="day8.html#三上さん特別レクチャーダブルオークションの実装">三上さん特別レクチャー（ダブルオークションの実装）</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><a href="exercise.html">演習 （少し特殊な最後通牒ゲームを作る）</a></li>
-</ul>
-<h2 id="資料">資料</h2>
-<ul>
-<li>【開発編】<ul>
-<li><a href="otree_ref/cmd.html">シェルで使用するoTreeサブコマンド</a></li>
-<li><a href="otree_ref/settings.html">settings.py の書き方</a></li>
-<li><a href="otree_ref/init.html">__init__.py の書き方</a></li>
-<li><a href="otree_ref/templatefile.html">テンプレートファイルの書き方</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>【デプロイ編】<ul>
-<li><a href="server_setup/">Ubuntuで oTree を動かす</a></li>
-<li><a href="heroku/">Herokuで oTree を動かす</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>【Ubuntuの仮想環境の構築】<ul>
-<li><a href="ubuntu/wsl2.html">WSL2</a></li>
-<li><a href="ubuntu/vagrant.html">VirtualBox + Vagrant</a></li>
+<li>補遺（近日執筆）<ul>
+<li>2つのゲーム（Scenario）の順番を切り替えられるようにする方法．</li>
+<li>1つのラウンドで2つのゲームを行う実装ではなく，ラウンド数を2にして，各ラウンドで1つのゲームを行う実装．</li>
 </ul>
 </li>
 </ul>
@@ -590,10 +577,10 @@
 
             
                 
-                
-                <a href="day1.html" class="navigation navigation-next navigation-unique" aria-label="Next page: 【1】 Ubuntuで oTree 本番環境を構築する">
-                    <i class="fa fa-angle-right"></i>
+                <a href="day8.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 【8】 ExtraModel ・ JavaScript ・ Live page">
+                    <i class="fa fa-angle-left"></i>
                 </a>
+                
                 
             
         
@@ -602,7 +589,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"showToc":false,"title":"【oTree 5 勉強会】","level":"1.1","depth":1,"next":{"title":"【1】 Ubuntuで oTree 本番環境を構築する","level":"1.2","depth":1,"path":"day1.md","ref":"day1.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"README.md","mtime":"2022-07-16T07:37:08.599Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-07-16T07:42:03.589Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"showToc":false,"title":"【演習】","level":"1.10","depth":1,"next":{"title":"【資料: 開発編】","level":"2.1","depth":1,"ref":"","articles":[]},"previous":{"title":"【8】 ExtraModel ・ JavaScript ・ Live page","level":"1.9","depth":1,"path":"day8.md","ref":"day8.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"exercise.md","mtime":"2022-07-16T07:35:53.544Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-07-16T07:42:03.589Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

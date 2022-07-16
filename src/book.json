@@ -1,7 +1,30 @@
 {
     "root": "./",
-    "title": "oTree5 勉強会",
+    "title": "oTree 5 勉強会",
     "description": "",
     "author": "",
-    "language": "ja"
+    "language": "ja",
+    "styles": {
+        "website": "styles/website.css"
+    },
+    "plugins": [
+        "page-toc",
+        "sitemap",
+        "@honkit/honkit-plugin-ga",
+        "accordion"
+    ],
+    "pluginsConfig": {
+        "page-toc": {
+            "selector": ".markdown-section h2, .markdown-section h3, .markdown-section h4",
+            "position": "before-first",
+            "showByDefault": true
+        },
+        "sitemap": {
+            "url": "https://yshimod.github.io",
+            "pathSuffix": "/otree5-seminar/"
+        },
+        "ga": {
+            "trackingID": "G-6WR8KXSQYF"
+        }
+    }
 }

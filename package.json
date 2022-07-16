@@ -10,6 +10,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "honkit": "^3.7.1"
+    "honkit": "^3.7.3",
+    "gitbook-plugin-page-toc": "^1.1.1",
+    "honkit-plugin-sitemap": "^1.0.2",
+    "@honkit/honkit-plugin-ga": "git+https://github.com/yshimod/honkit-plugin-ga.git#yshimod/mod",
+    "gitbook-plugin-accordion": "^1.1.3"
   }
 }

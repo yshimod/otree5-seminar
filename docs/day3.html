@@ -3,7 +3,7 @@
 <html lang="ja" >
     <head>
         <meta charset="UTF-8">
-        <title>【oTree 5 勉強会】 · oTree 5 勉強会</title>
+        <title>【3】 VS Code の導入 ・ oTree プログラミングの概要 · oTree 5 勉強会</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 3.7.4">
@@ -56,8 +56,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="day1.html" />
+    <link rel="next" href="day4.html" />
     
+    
+    <link rel="prev" href="day2.html" />
     
 
     </head>
@@ -86,7 +88,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -125,7 +127,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4" data-path="day3.html">
+        <li class="chapter active" data-level="1.4" data-path="day3.html">
             
                 <a href="day3.html">
             
@@ -442,7 +444,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >【oTree 5 勉強会】</a>
+        <a href="." >【3】 VS Code の導入 ・ oTree プログラミングの概要</a>
     </h1>
 </div>
 
@@ -457,112 +459,183 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="otree-5-勉強会">oTree 5 勉強会</h1>
-<p>2022年5月12日から7月14日までの全10回にわたって，行動実験フレームワーク oTree <a href="https://www.sciencedirect.com/science/article/pii/S2214635016000101" target="_blank">(Chen et al., 2015)</a> （バージョン5以降）の勉強会を，阪大社研の実験関係者を中心に実施しました．
-この Web ページは，勉強会の内容を記録するものです．
-勉強会は終了しましたが，内容を随時更新していくかもしれません．
-更新履歴は<a href="https://github.com/yshimod/otree5-seminar" target="_blank">リポジトリ</a>のコミット履歴を参照してください．
-（下平勇太）</p>
-<h2 id="質問・コメント">質問・コメント</h2>
-<p>質問・コメントがある場合は，（直接，下平に連絡していただいても構いませんが，） <a href="https://github.com/yshimod/otree5-seminar/issues" target="_blank">https://github.com/yshimod/otree5-seminar/issues</a> でスレッドを立ててください．</p>
-<h2 id="目次">目次</h2>
+                                <p>【第3回】 2022年5月26日</p>
+<h1 id="vs-code-の導入-・-otree-プログラミングの概要">VS Code の導入 ・ oTree プログラミングの概要</h1>
+<h2 id="vs-code-の導入">VS Code の導入</h2>
 <ul>
-<li><a href="day1.html">Ubuntuで oTree 本番環境を構築する</a><ul>
-<li>Python の導入に関しては<a href="server_setup/#python-を-pyenv--virtualenv-で導入">こちら</a></li>
-<li>oTree のインストールに関しては<a href="server_setup/#pipで-otree-のインストール">こちら</a></li>
-<li>PostgreSQL のインストールに関しては<a href="server_setup/#データベースサーバーソフトウェアの-postgresql-を導入">こちら</a></li>
-<li>環境変数の設定に関しては<a href="server_setup/#環境変数の設定">こちら</a></li>
+<li>VS Code (Visual Studio Code) <a href="https://code.visualstudio.com/" target="_blank">https://code.visualstudio.com/</a><ul>
+<li>Visual Studio（統合開発環境... 単なるテキストエディタではなくコンパイラ等もついている）とは異なる！</li>
+</ul>
+</li>
+<li>WSL2やVagrantで入れたUbuntuを使っている場合でも，<strong>Windowsに</strong> VS Codeを入れる．</li>
+<li>WSL 拡張機能 <a href="https://docs.microsoft.com/ja-jp/windows/wsl/tutorials/wsl-vscode" target="_blank">https://docs.microsoft.com/ja-jp/windows/wsl/tutorials/wsl-vscode</a></li>
+<li>Python 拡張機能 <a href="https://marketplace.visualstudio.com/items?itemName=ms-python.python" target="_blank">https://marketplace.visualstudio.com/items?itemName=ms-python.python</a></li>
+<li>VSCodeのチュートリアル（ドットインストール） <a href="https://dotinstall.com/lessons/basic_vscode" target="_blank">https://dotinstall.com/lessons/basic_vscode</a></li>
+</ul>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/p4NOI6n9A4s?rel=0&amp;enablejsapi=1&amp;origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
+
+<ul>
+<li>勉強会当日にVS Codeの拡張機能のインストールをやってみましたが，少々グダついたので，該当部分を撮り直して差し替えています．</li>
+<li>「VSCodeのターミナルは通常のターミナルと同じことができるのか？」という質問をいただきました．<ul>
+<li>同じシェル（たとえばWSLのUbuntuのbash）に接続している限り，VSCode内蔵のターミナルはOSのターミナルと同じことができる．</li>
+<li>接続しているシェル（WindowsならPowerShellかコマンドプロンプトかWSLのbash，Macならzshかbashか...）が異なれば，操作，挙動も変わる．</li>
+<li>自分で設定しない限り，WSLのbashにVSCode内蔵のターミナルで接続したときに <code>~/.bash_profile</code> や <code>~/.profile</code> が読み込まれない（ <code>~/.bashrc</code> は読み込まれる）．そのため，環境変数などの設定を <code>~/.bashrc</code> ではなく <code>~/.bash_profile</code> にしか書いていない場合，その設定が無いままシェルを動かしていることになるため挙動が変わる． oTree の環境変数の設定に注意．</li>
+<li>ターミナルの機能（フォントの設定やショートカット）は，VSCode内蔵のターミナルでは（同様の設定をしない限り）使えない．</li>
+<li>「シェル」と「ターミナル」は全く異なる概念．だが（特にWindowsの場合は一体として扱われることが多いため）混同しやすい．<ul>
+<li><a href="https://www.cc.kyoto-su.ac.jp/~hirai/text/shell.html" target="_blank">平井重行「シェル」</a></li>
+<li><a href="https://jsnotice.com/posts/2021-05-31/" target="_blank">@sirycity「PowerShellやWindowsTerminalの違い(というか関連性)について」</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="どのテキストエディタを使うべきか？">どのテキストエディタを使うべきか？</h4>
+<ul>
+<li><strong>結論: 好きなものを使う．状況に応じて使い分ける．</strong></li>
+<li>「VS Code と PyCharm，どちらが良いか？」という質問をいただきました．<ul>
+<li>私はPyCharmを使ったことがないので分かりません．</li>
+<li>Webで検索すると，賛否両論のようです．<ul>
+<li>VS Code の方が軽量？</li>
+<li>PyCharmはPython特化なので oTree プログラミングにおいては有用？</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>VSCodeが良いな，と思うところ... （拡張機能が豊富なおかげで）いろいろな言語での開発が便利:<ul>
+<li>Jupyter Notebook（ブラウザで作業するのではなく）</li>
+<li>LaTeX（VSCodeで生成したPDFをプレビューできる）</li>
+<li>markdown（VSCodeでプレビューできる）</li>
+</ul>
+</li>
+<li>専用のエディタを使った方が良い場合も<ul>
+<li>R は RStudio （VS Codeでもある程度似たことはできるが）</li>
+<li>Wolfram Engine は無料で使えるようになったが，やはり課金してMathematicaを使う方が便利</li>
+</ul>
+</li>
+<li>今どきはクラウドで作業することも多い:<ul>
+<li>LaTeX は Overleaf</li>
+<li>Python (Jupyter) は Google Colaboratory</li>
+</ul>
+</li>
+<li>おせっかい機能が不要であれば，よりシンプルなエディタを使うのが良い<ul>
+<li>Vim</li>
+<li>Emacs</li>
+<li><a href="https://hide.maruo.co.jp/software/hidemaru.html" target="_blank">秀丸エディタ</a></li>
+<li><a href="https://notepad-plus-plus.org/" target="_blank">Notepad++</a></li>
+<li><a href="https://www.mimikaki.net/" target="_blank">mi</a></li>
+</ul>
+</li>
+<li>Windows標準の「メモ帳」を使うときは要注意！<ul>
+<li>（最近は改善されたようですが）文字コード，改行コードの扱いが不親切．</li>
+</ul>
+</li>
+<li>「エディタ戦争」<ul>
+<li><a href="https://qiita.com/JJ1LIS/items/22e406ec26ad1e5c6228" target="_blank">@JJ1LIS「3分でわかるエディタ戦争物語」</a></li>
+<li><a href="https://gigazine.net/news/20210723-the-era-of-visual-studio-code/" target="_blank">GIGAZINE「戦国時代だったテキストエディタ界をVisual Studio Codeが天下統一しつつある」</a></li>
+<li><a href="https://jp.quora.com/Visual-Studio-Code%E3%81%AFVim%E3%82%84Emacs%E5%8E%9F%E7%90%86%E4%B8%BB%E7%BE%A9%E8%80%85%E3%82%92%E3%81%A9%E3%81%AE%E3%81%8F%E3%82%89%E3%81%84%E6%BB%85%E3%81%BC%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F%E3%81%8B" target="_blank">Quoraトピック「Visual Studio CodeはVimやEmacs原理主義者をどのくらい滅ぼしましたか？」</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="シェルで使用する-otree-サブコマンド">シェルで使用する oTree サブコマンド</h2>
+<h4 id="サブコマンド">サブコマンド</h4>
+<ul>
+<li><a href="otree_ref/cmd.html">シェルで使用する oTree サブコマンド</a></li>
+</ul>
+<h4 id="startproject-と-startapp-コマンドで生成されるもの"><code>startproject</code> と <code>startapp</code> コマンドで生成されるもの</h4>
+<p>以下のディレクトリ・ファイルは oTree を動かすために最低限必要なもの．ただし， <code>Procfile</code> と <code>requirements.txt</code> は Heroku にデプロイするために必要なものであり， Heroku を使わないのであれば不要．</p>
+<ul>
+<li><code>settings.py</code><ul>
+<li>セッションの設定を記述する．</li>
+<li><a href="otree_ref/settings.html"><code>settings.py</code>の書き方</a></li>
 </ul>
 </li>
 </ul>
 <ul>
-<li><a href="day2.html">GitとGitHubの使い方 ・ Herokuの使い方</a><ul>
-<li><a href="day2.html#2-gitとgithubの使い方">GitとGitHubの使い方</a></li>
-<li>Herokuの使い方に関しては<a href="heroku/">こちら</a></li>
+<li><p><code>requirements.txt</code></p>
+<ul>
+<li>pipで導入するパッケージを列挙する．</li>
+<li>Herokuを使うときに必要なファイル．</li>
+<li><p>デフォルト（ oTree v5.8.4）の記述内容:</p>
+<pre><code class="lang-python"><span class="hljs-comment"># oTree-may-overwrite-this-file</span>
+<span class="hljs-comment"># IF YOU MODIFY THIS FILE, remove these comments.</span>
+<span class="hljs-comment"># otherwise, oTree will automatically overwrite it.</span>
+otree==<span class="hljs-number">5.8</span><span class="hljs-number">.4</span>
+psycopg2&gt;=<span class="hljs-number">2.8</span><span class="hljs-number">.4</span>
+sentry-sdk&gt;=<span class="hljs-number">0.7</span><span class="hljs-number">.9</span>
+</code></pre>
+</li>
+<li><p>↑ コメントアウト中にも書かれているとおり，「oTree-may-overwrite-this-file」の文字列があると， oTree が勝手に <code>requirements.txt</code> を書き換えるため，自分でライブラリのバージョンを固定したり別のライブラリを追加したりする場合は注意する．</p>
+</li>
+<li><p>他人から oTree プロジェクトのファイルをもらったときに，その人と同じパッケージを入れるには，以下のようにpipを使う．</p>
+<pre><code class="lang-bash">pip install -r requirements.txt
+</code></pre>
+</li>
 </ul>
 </li>
 </ul>
 <ul>
-<li><a href="day3.html">VS Code の導入 ・ oTree プログラミングの概要</a><ul>
-<li><a href="day3.html#vs-code-の導入">VS Code の導入</a></li>
-<li><a href="day3.html#シェルで使用する-otree-サブコマンド">シェルで使用する oTree サブコマンド</a></li>
+<li><p><code>Procfile</code></p>
+<ul>
+<li>Heroku用の設定ファイル．</li>
+<li>拡張子はないが単なるテキストファイル．</li>
+<li><p>デフォルト（ oTree v5.8.4 ）の記述内容:</p>
+<pre><code>web: otree prodserver1of2
+worker: otree prodserver2of2
+</code></pre></li>
+<li><p>↑ 2行目のworker dynoのコマンドは不要だと思われる．</p>
+</li>
 </ul>
 </li>
 </ul>
 <ul>
-<li><a href="day4.html">oTree プログラミングの進め方</a> （どこからコードを書いていけばよいか分からない場合はこちら）<ul>
-<li><a href="day4.html#a1-入力フォームの検証">入力フォームの検証</a></li>
-<li><a href="day4.html#a2-自作の関数の引数は何">自作の関数の引数は何？</a></li>
-<li><a href="day4.html#a3-otree-の通貨型">oTree の通貨型</a></li>
+<li><code>_static</code> ディレクトリ<ul>
+<li>画像ファイルやCSSファイル，JSファイルを置いておく．</li>
 </ul>
 </li>
 </ul>
 <ul>
-<li><a href="day5.html">テンプレートにおけるプログラミング</a><ul>
-<li>機能の一覧は<a href="otree_ref/templatefile.html">こちら</a></li>
+<li><code>_templates</code> ディレクトリ<ul>
+<li>複数アプリ使い回すHTMLテンプレートを置いておく．</li>
 </ul>
 </li>
 </ul>
 <ul>
-<li><a href="day6.html">oTree の組み込み関数の使い方</a><ul>
-<li>機能の一覧は<a href="otree_ref/init.html">こちら</a></li>
-<li><a href="day6.html#意思決定データを-group-に記録する">意思決定データを Group に記録する</a></li>
-<li><a href="day6.html#ページ表示をスキップする">ページ表示をスキップする</a></li>
-<li><a href="day6.html#フィールド名max-で入力フォーム検証の条件を動的に設定する"><code>フィールド名_max()</code> で入力フォーム検証の条件を動的に設定する</a></li>
-<li><a href="day6.html#creatingsession-を使ったプレイヤーのシャッフル"><code>creating_session()</code> を使ったプレイヤーのシャッフル</a></li>
-<li><a href="day6.html#tips-関数内でインポートしてよいか">関数内でインポートしてよいか？</a></li>
-<li><a href="day6.html#意思決定画面で時間制限を設定してみる">意思決定画面で時間制限を設定してみる</a></li>
-<li><a href="day6.html#tips--staticmethod-は何か">「 <code>@staticmethod</code> 」は何か？</a></li>
-<li><a href="day6.html#確率的に繰り返しを終了するとき-numrounds-は最大数を設定する">確率的に繰り返しを終了するとき <code>NUM_ROUNDS</code> は最大数を設定する</a></li>
+<li>各アプリのディレクトリ<ul>
+<li><code>__init__.py</code></li>
+<li><code>*.html</code></li>
 </ul>
 </li>
 </ul>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/BeNZQ3DkEfg?rel=0&amp;enablejsapi=1&amp;origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
+
+
+<h2 id="otree-のデータモデル">oTree のデータモデル</h2>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/wKQI2L8wdJQ?rel=0&amp;enablejsapi=1&amp;origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
+
 <ul>
-<li><a href="day7.html">（Qualtricsのような）質問紙調査を作る方法</a><ul>
-<li><a href="day7.html#2-データモデルでたくさんのフィールドを定義する">データモデルでたくさんのフィールドを定義する</a></li>
-<li><a href="day7.html#3-入力フォームの順番をランダム化する">入力フォームの順番をランダム化する</a></li>
-<li><a href="day7.html#4-ページの順番をランダム化する">ページの順番をランダム化する</a></li>
-<li><a href="day7.html#css">CSS</a></li>
-<li><a href="day7.html#bootstrap">Bootstrap</a></li>
+<li>詳しくは <a href="https://otree.readthedocs.io/ja/latest/conceptual_overview.html" target="_blank">https://otree.readthedocs.io/ja/latest/conceptual_overview.html</a></li>
+</ul>
+<h2 id="管理者画面">管理者画面</h2>
+<ul>
+<li>Demo</li>
+<li>Sessions</li>
+<li>Rooms</li>
+<li>Data</li>
+<li>Server Check</li>
+<li>一つの実験セッションの中で<ul>
+<li>Links</li>
+<li>Monitor</li>
+<li>Data</li>
+<li>Payments</li>
+<li>Description</li>
+<li>Edit</li>
 </ul>
 </li>
 </ul>
-<ul>
-<li><a href="day8.html">ExtraModel ・ JavaScript ・ Live page</a><ul>
-<li><a href="day8.html#extramodel">ExtraModel</a></li>
-<li><a href="day8.html#javascript">JavaScript</a></li>
-<li><a href="day8.html#live-page">Live page</a></li>
-<li><a href="day8.html#三上さん特別レクチャーダブルオークションの実装">三上さん特別レクチャー（ダブルオークションの実装）</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><a href="exercise.html">演習 （少し特殊な最後通牒ゲームを作る）</a></li>
-</ul>
-<h2 id="資料">資料</h2>
-<ul>
-<li>【開発編】<ul>
-<li><a href="otree_ref/cmd.html">シェルで使用するoTreeサブコマンド</a></li>
-<li><a href="otree_ref/settings.html">settings.py の書き方</a></li>
-<li><a href="otree_ref/init.html">__init__.py の書き方</a></li>
-<li><a href="otree_ref/templatefile.html">テンプレートファイルの書き方</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>【デプロイ編】<ul>
-<li><a href="server_setup/">Ubuntuで oTree を動かす</a></li>
-<li><a href="heroku/">Herokuで oTree を動かす</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>【Ubuntuの仮想環境の構築】<ul>
-<li><a href="ubuntu/wsl2.html">WSL2</a></li>
-<li><a href="ubuntu/vagrant.html">VirtualBox + Vagrant</a></li>
-</ul>
-</li>
-</ul>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/ltIQU9trdtg?rel=0&amp;enablejsapi=1&amp;origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
                                 
                                 </section>
@@ -590,8 +663,12 @@
 
             
                 
+                <a href="day2.html" class="navigation navigation-prev " aria-label="Previous page: 【2】 GitとGitHubの使い方 ・ Herokuの使い方">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="day1.html" class="navigation navigation-next navigation-unique" aria-label="Next page: 【1】 Ubuntuで oTree 本番環境を構築する">
+                
+                <a href="day4.html" class="navigation navigation-next " aria-label="Next page: 【4】 oTree プログラミングの進め方">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -602,7 +679,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"showToc":false,"title":"【oTree 5 勉強会】","level":"1.1","depth":1,"next":{"title":"【1】 Ubuntuで oTree 本番環境を構築する","level":"1.2","depth":1,"path":"day1.md","ref":"day1.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"README.md","mtime":"2022-07-16T07:37:08.599Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-07-16T07:42:03.589Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"【3】 VS Code の導入 ・ oTree プログラミングの概要","level":"1.4","depth":1,"next":{"title":"【4】 oTree プログラミングの進め方","level":"1.5","depth":1,"path":"day4.md","ref":"day4.md","articles":[]},"previous":{"title":"【2】 GitとGitHubの使い方 ・ Herokuの使い方","level":"1.3","depth":1,"path":"day2.md","ref":"day2.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day3.md","mtime":"2022-07-16T07:03:40.611Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-07-16T07:42:03.589Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

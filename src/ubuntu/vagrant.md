@@ -10,8 +10,7 @@
 
 ## 手順
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/8GJrRopkoTc" frameborder="0" allowfullscreen></iframe>
-
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/8GJrRopkoTc?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 1. [VirtualBox](https://www.virtualbox.org/) のインストール
 2. [Vagrant](https://www.vagrantup.com/) のインストール
@@ -26,7 +25,7 @@
 
 ## Vagrantfileの中身
 
-```Vagrantfile
+```ruby
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
@@ -82,7 +81,7 @@ Vagrant.configure("2") do |config|
   #   # Display the VirtualBox GUI when booting the machine
   #   vb.gui = true
   #
-  #   # Customize the amount of memory on the VM:
+    # Customize the amount of memory on the VM:
     vb.memory = "8192"
   end
   #

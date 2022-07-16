@@ -1,0 +1,1103 @@
+
+<!DOCTYPE HTML>
+<html lang="ja" >
+    <head>
+        <meta charset="UTF-8">
+        <title>【8】 ExtraModel ・ JavaScript ・ Live page · oTree 5 勉強会</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 3.7.4">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-page-toc/page-toc.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-accordion/accordion.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+        <link rel="stylesheet" href="styles/website.css">
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="exercise.html" />
+    
+    
+    <link rel="prev" href="day7.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="検索ワードを入力" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    【oTree 5 勉強会】
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="day1.html">
+            
+                <a href="day1.html">
+            
+                    
+                    【1】 Ubuntuで oTree 本番環境を構築する
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="day2.html">
+            
+                <a href="day2.html">
+            
+                    
+                    【2】 GitとGitHubの使い方 ・ Herokuの使い方
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="day3.html">
+            
+                <a href="day3.html">
+            
+                    
+                    【3】 VS Code の導入 ・ oTree プログラミングの概要
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="day4.html">
+            
+                <a href="day4.html">
+            
+                    
+                    【4】 oTree プログラミングの進め方
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="day5.html">
+            
+                <a href="day5.html">
+            
+                    
+                    【5】 テンプレートにおけるプログラミング
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="day6.html">
+            
+                <a href="day6.html">
+            
+                    
+                    【6】 oTree の組み込み関数の使い方
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="day7.html">
+            
+                <a href="day7.html">
+            
+                    
+                    【7】 （Qualtricsのような）質問紙調査を作る方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.9" data-path="day8.html">
+            
+                <a href="day8.html">
+            
+                    
+                    【8】 ExtraModel ・ JavaScript ・ Live page
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="exercise.html">
+            
+                <a href="exercise.html">
+            
+                    
+                    【演習】
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" >
+            
+                <span>
+            
+                    
+                    【資料: 開発編】
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="otree_ref/cmd.html">
+            
+                <a href="otree_ref/cmd.html">
+            
+                    
+                    シェルで使用するoTreeサブコマンド
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="otree_ref/settings.html">
+            
+                <a href="otree_ref/settings.html">
+            
+                    
+                    settings.py の書き方
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="otree_ref/init.html">
+            
+                <a href="otree_ref/init.html">
+            
+                    
+                    __init__.py の書き方
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="otree_ref/templatefile.html">
+            
+                <a href="otree_ref/templatefile.html">
+            
+                    
+                    テンプレートファイルの書き方
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" >
+            
+                <span>
+            
+                    
+                    【資料: デプロイ編】
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="server_setup/">
+            
+                <a href="server_setup/">
+            
+                    
+                    Ubuntuで oTree を動かす
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="heroku/">
+            
+                <a href="heroku/">
+            
+                    
+                    Herokuで oTree を動かす
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" >
+            
+                <span>
+            
+                    
+                    【資料: その他】
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="ubuntu/">
+            
+                <a href="ubuntu/">
+            
+                    
+                    Ubuntuの仮想環境の構築
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.2.1" data-path="ubuntu/wsl2.html">
+            
+                <a href="ubuntu/wsl2.html">
+            
+                    
+                    WSL2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.2" data-path="ubuntu/vagrant.html">
+            
+                <a href="ubuntu/vagrant.html">
+            
+                    
+                    VirtualBox + Vagrant
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="references/">
+            
+                <a href="references/">
+            
+                    
+                    参考文献
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            HonKitで公開 
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >【8】 ExtraModel ・ JavaScript ・ Live page</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <p>【第8回】 2022年7月14日</p>
+<h1 id="extramodel-・-javascript-・-live-page">ExtraModel ・ JavaScript ・ Live page</h1>
+<h2 id="extramodel">ExtraModel</h2>
+<ul>
+<li><a href="otree_ref/init.html#extramodel">詳細はこちら</a></li>
+</ul>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/dimFNK-jyOM?rel=0&amp;enablejsapi=1&amp;origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
+
+
+<h3 id="customexport"><code>custom_export()</code></h3>
+<ul>
+<li><a href="otree_ref/init.html#customexport">詳細はこちら</a></li>
+</ul>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/-y3MuhCiLic?rel=0&amp;enablejsapi=1&amp;origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
+
+
+
+<h2 id="javascript">JavaScript</h2>
+<ul>
+<li>画面の表示内容を動的に書き換えたり，入力フォームの値の検証を自前で実装したりする場合には JavaScript を使う．</li>
+</ul>
+<h3 id="javascript-の記述方法">JavaScript の記述方法</h3>
+<ul>
+<li><p>テンプレートファイルに <code>{{ block scripts }} {{ endblock }}</code> を置き，その中に<code>&lt;script&gt;</code> タグで JavaScript コードを書く．</p>
+<pre><code class="lang-html">{{ block title }}
+    タイトル
+{{ endblock }}
+
+{{ block content }}
+    {{ formfields }}
+    {{ next_button }}
+{{ endblock }}
+
+{{ block scripts }}
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+        alert(<span class="hljs-string">&quot;Hello World!&quot;</span>);
+    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+{{ endblock }}
+</code></pre>
+</li>
+<li><p>JS ファイル（ <code>myscripts.js</code> ）を作成して， <code>_static/global</code> などに入れておき，それを読み込む．</p>
+<pre><code class="lang-html">{{ block title }}
+    タイトル
+{{ endblock }}
+
+{{ block content }}
+    {{ formfields }}
+    {{ next_button }}
+{{ endblock }}
+
+{{ block scripts }}
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;{{ static &apos;global/myscripts.js&apos; }}&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+{{ endblock }}
+</code></pre>
+<p>  JS ファイル <code>myscripts.js</code> の中身は以下．</p>
+<pre><code class="lang-js">alert(<span class="hljs-string">&quot;Hello World!&quot;</span>);
+</code></pre>
+</li>
+</ul>
+<h3 id="jsvars"><code>js_vars()</code></h3>
+<ul>
+<li><p>oTree サーバーから JavaScript に変数を渡すには，ページクラスの組み込みメソッド <code>js_vars()</code> を使う．</p>
+</li>
+<li><p>たとえば以下のように設定する．</p>
+<pre><code class="lang-python"><span class="hljs-meta">@staticmethod</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">js_vars</span>(<span class="hljs-params">player: Player</span>):</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">dict</span>(
+        testlist = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, <span class="hljs-number">10</span>, <span class="hljs-number">2</span>))
+    )
+</code></pre>
+</li>
+<li><p>返り値の辞書オブジェクトの中の値は，単なる数値，文字列，リスト，辞書オブジェクト，など， JSON 文字列化できるものに限られる．</p>
+</li>
+<li><p>渡した変数を JavaScript で使うには，自動的に定義される <code>js_vars</code> なるオブジェクトから取り出す．たとえば以下のように記述する．</p>
+<pre><code class="lang-html">{{ block scripts }}
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+        <span class="hljs-keyword">const</span> testlist = js_vars.testlist;    <span class="hljs-comment">// js_vars から 自分が定義した testlist を取り出す．</span>
+
+        <span class="hljs-comment">// リストの要素を一つずつ console.log する．</span>
+        testlist.forEach(<span class="hljs-function"><span class="hljs-params">el</span> =&gt;</span> {
+            <span class="hljs-built_in">console</span>.log(el);
+        });
+    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+{{ endblock }}
+</code></pre>
+</li>
+</ul>
+<h3 id="jquery">jQuery</h3>
+<ul>
+<li><p>oTree ではデフォルトで jQuery が読み込まれている．</p>
+</li>
+<li><p><a href="https://api.jquery.com/" target="_blank">jQuery のドキュメント</a></p>
+</li>
+<li><p>jQuery のバージョンは 3.2.1 （oTree v5.8.5 において）．</p>
+</li>
+<li><p>JavaScript コードの中で <code>jQuery()</code> や <code>$()</code> で jQuery を呼び出す．</p>
+<ul>
+<li>たとえば <code>document.getElementById(&quot;id_something&quot;)</code> は <code>$(&quot;#id_something&quot;)</code> と似た機能．ただし後者は jQuery のオブジェクトが返ってくる．</li>
+</ul>
+</li>
+</ul>
+<h3 id="（作例）-javascript-で（おせっかいな）-mpl-を実装する．">（作例） JavaScript で（おせっかいな） MPL を実装する．</h3>
+<ul>
+<li><p>MPLでスイッチングポイントをクリックしたときに，自動的にラジオボタンが切り替える JavaScript コード:</p>
+<ul>
+<li>コード（js_samples アプリ） <a href="https://github.com/yshimod/otree_survey" target="_blank">https://github.com/yshimod/otree_survey</a></li>
+<li><p>デモページ（「JavaScriptを使った作例」の1ページ目） <a href="https://otree-seminar-survey-sample.herokuapp.com/demo" target="_blank">https://otree-seminar-survey-sample.herokuapp.com/demo</a></p>
+</li>
+<li><p>定数に <code>optR = [200, 250, 300, 350, 400]</code> を設定しておく．</p>
+</li>
+<li><p>player モデルで <code>switching_point</code> なるフィールドを <code>models.IntegerField()</code> で定義しておく．MPLの1行ずつデータを取りたい場合は各行に相当するフィールドを定義する．</p>
+</li>
+</ul>
+<div class="accordion accordionClose"><div class="accordionButton"><div class="accordionTitle">テンプレート</div><div class="accordionSpinnerBox"><div class="accordionSpinner"></div></div></div><div class="accordionContent">
+<pre><code class="lang-html">{{ block title }}
+    タイトル
+{{ endblock }}
+
+{{ block content }}
+    <span class="hljs-tag">&lt;<span class="hljs-name">table</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;table table-striped table-hover&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">thead</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">th</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;text-end&quot;</span>&gt;</span>オプションL<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">th</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;text-start&quot;</span>&gt;</span>オプションR<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">thead</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">tbody</span>&gt;</span>
+            {{ for v in C.optR }}
+                <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;text-end&quot;</span>&gt;</span>
+                        50%の確率で650円
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;text-center BtnChoice BtnL&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;mpl_{{ forloop.counter0 }}&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;L_mpl_{{ forloop.counter0 }}&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;{{ forloop.counter0 }}&quot;</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;text-center BtnChoice BtnR&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;mpl_{{ forloop.counter0 }}&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;R_mpl_{{ forloop.counter0 }}&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;{{ forloop.counter0 }}&quot;</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;text-start&quot;</span>&gt;</span>
+                        100%の確率で{{ v }}円
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+            {{ endfor }}
+        <span class="hljs-tag">&lt;/<span class="hljs-name">tbody</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;hidden&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;switching_point&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;id_switching_point&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;&quot;</span>&gt;</span>
+    {{ next_button }}
+{{ endblock }}
+
+{{ block scripts }}
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+        <span class="hljs-keyword">const</span> listlength = <span class="hljs-number">5</span>;    <span class="hljs-comment">// 本当は js_vars から受け取ると良い．</span>
+        <span class="hljs-keyword">const</span> btnsAll = <span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">&apos;.BtnChoice&apos;</span>);
+        btnsAll.forEach(<span class="hljs-function"><span class="hljs-params">el</span> =&gt;</span> {
+            el.addEventListener(<span class="hljs-string">&apos;click&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                <span class="hljs-keyword">let</span> switchingPoint;
+                <span class="hljs-keyword">const</span> tmpCol = el.id.slice(<span class="hljs-number">0</span>,<span class="hljs-number">1</span>);
+                <span class="hljs-keyword">if</span> (tmpCol == <span class="hljs-string">&quot;L&quot;</span>) {
+                    switchingPoint = <span class="hljs-built_in">parseInt</span>(el.name.slice(<span class="hljs-number">4</span>), <span class="hljs-number">10</span>) + <span class="hljs-number">1</span>;
+                }
+                <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (tmpCol == <span class="hljs-string">&quot;R&quot;</span>) {
+                    switchingPoint = <span class="hljs-built_in">parseInt</span>(el.name.slice(<span class="hljs-number">4</span>), <span class="hljs-number">10</span>);
+                }
+                <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;id_switching_point&quot;</span>).value = switchingPoint;
+                <span class="hljs-keyword">let</span> tmpRow;
+                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; listlength; i++) {
+                    tmpRow = <span class="hljs-string">&apos;mpl_&apos;</span> + i;
+                    <span class="hljs-keyword">if</span> (i &lt; switchingPoint) {
+                        <span class="hljs-built_in">document</span>.getElementsByName(tmpRow)[<span class="hljs-number">0</span>].checked = <span class="hljs-literal">true</span>;
+                        <span class="hljs-built_in">document</span>.getElementsByName(tmpRow)[<span class="hljs-number">1</span>].checked = <span class="hljs-literal">false</span>;
+                    } <span class="hljs-keyword">else</span> {
+                        <span class="hljs-built_in">document</span>.getElementsByName(tmpRow)[<span class="hljs-number">0</span>].checked = <span class="hljs-literal">false</span>;
+                        <span class="hljs-built_in">document</span>.getElementsByName(tmpRow)[<span class="hljs-number">1</span>].checked = <span class="hljs-literal">true</span>;
+                    }
+                }
+            }, <span class="hljs-literal">false</span>);
+        });
+    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+{{ endblock }}
+</code></pre>
+</div></div>
+<p class="codepen" data-height="500" data-theme-id="dark" data-default-tab="result" data-slug-hash="VwXLxbw" data-editable="true" data-user="yshimod" style="height: 500px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+    <span>See the Pen <a href="https://codepen.io/yshimod/pen/VwXLxbw" target="_blank">
+    oTree day8-1</a> by yshimod (<a href="https://codepen.io/yshimod" target="_blank">@yshimod</a>)
+    on <a href="https://codepen.io" target="_blank">CodePen</a>.</span>
+</p>
+
+
+
+</li>
+</ul>
+<h3 id="ライブラリの利用">ライブラリの利用</h3>
+<ul>
+<li><p>JavaScript のライブラリを自分で読み込んで使っても良い．</p>
+</li>
+<li><p>ライブラリをインストールするには， CDN を使うか，ダウンロードしたライブラリのコードを <code>_static</code> ディレクトリに置いておく．</p>
+</li>
+<li><p>oTree 公式ドキュメントでは <a href="https://www.highcharts.com/" target="_blank">HighCharts</a> を使っている．<br><a href="https://otree.readthedocs.io/en/latest/templates.html#charts" target="_blank">https://otree.readthedocs.io/en/latest/templates.html#charts</a></p>
+</li>
+<li><p>（日本語ドキュメントが豊富な） <a href="https://www.chartjs.org/" target="_blank">Chart.js</a> も有用．</p>
+<ul>
+<li>コード（js_samples アプリ） <a href="https://github.com/yshimod/otree_survey" target="_blank">https://github.com/yshimod/otree_survey</a></li>
+<li>デモページ（「JavaScriptを使った作例」の2ページ目） <a href="https://otree-seminar-survey-sample.herokuapp.com/demo" target="_blank">https://otree-seminar-survey-sample.herokuapp.com/demo</a></li>
+</ul>
+<div class="accordion accordionClose"><div class="accordionButton"><div class="accordionTitle">テンプレート</div><div class="accordionSpinnerBox"><div class="accordionSpinner"></div></div></div><div class="accordionContent">
+<pre><code class="lang-html">{{ block title }}
+    タイトル
+{{ endblock }}
+
+{{ block content }}
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;row align-items-center&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;col-8&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;width: 480px; max-width: 100%; margin: auto;&quot;</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">canvas</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;myChart&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;height: 300px; width: 100%;&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">canvas</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;col-2&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-danger btn-lg&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;updateFunction();&quot;</span>&gt;</span>ボタン<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    {{ next_button }}
+{{ endblock }}
+
+{{ block scripts }}
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js&quot;</span> <span class="hljs-attr">tegrity</span>=<span class="hljs-string">&quot;sha256-cHVO4dqZfamRhWD7s4iXyaXWVK10odD+qp4xidFzqTI=&quot;</span> <span class="hljs-attr">crossorigin</span>=<span class="hljs-string">&quot;anonymous&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+        <span class="hljs-keyword">const</span> ctx = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;myChart&quot;</span>);
+        <span class="hljs-keyword">const</span> myChart = <span class="hljs-keyword">new</span> Chart(ctx, {
+            <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;bar&apos;</span>,
+            <span class="hljs-attr">data</span>: {
+                <span class="hljs-attr">labels</span>: [<span class="hljs-string">&apos;&apos;</span>],
+                <span class="hljs-attr">datasets</span>: [
+                    {
+                        <span class="hljs-attr">label</span>: <span class="hljs-string">&apos;ド&apos;</span>,
+                        <span class="hljs-attr">data</span>: [<span class="hljs-number">20</span>],
+                        <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">&quot;#ffcf00&quot;</span>,
+                        <span class="hljs-attr">stack</span>: <span class="hljs-string">&apos;stack1&apos;</span>
+                    },
+                    {
+                        <span class="hljs-attr">label</span>: <span class="hljs-string">&apos;イ&apos;</span>,
+                        <span class="hljs-attr">data</span>: [<span class="hljs-number">30</span>],
+                        <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">&quot;#dd0000&quot;</span>,
+                        <span class="hljs-attr">stack</span>: <span class="hljs-string">&apos;stack1&apos;</span>
+                    },
+                    {
+                        <span class="hljs-attr">label</span>: <span class="hljs-string">&apos;ツ&apos;</span>,
+                        <span class="hljs-attr">data</span>: [<span class="hljs-number">50</span>],
+                        <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">&quot;#000000&quot;</span>,
+                        <span class="hljs-attr">stack</span>: <span class="hljs-string">&apos;stack1&apos;</span>
+                    }
+                ],
+            },
+            <span class="hljs-attr">options</span>: {
+                <span class="hljs-attr">plugins</span>: {
+                    <span class="hljs-attr">title</span>: {
+                        <span class="hljs-attr">display</span>: <span class="hljs-literal">true</span>,
+                        <span class="hljs-attr">text</span>: <span class="hljs-string">&apos;ドイツの割合&apos;</span>
+                    },
+                    <span class="hljs-attr">legend</span>: {
+                        <span class="hljs-attr">position</span>: <span class="hljs-string">&apos;bottom&apos;</span>,
+                        <span class="hljs-attr">onClick</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> }
+                    },
+                },
+                <span class="hljs-attr">responsive</span>: <span class="hljs-literal">true</span>,
+                <span class="hljs-attr">tooltip</span>: {
+                    <span class="hljs-attr">mode</span>: <span class="hljs-string">&apos;index&apos;</span>
+                },
+                <span class="hljs-attr">hover</span>: <span class="hljs-literal">true</span>,
+                <span class="hljs-attr">scales</span>: {
+                    <span class="hljs-attr">y</span>: {
+                        <span class="hljs-attr">stacked</span>: <span class="hljs-literal">true</span>,
+                        <span class="hljs-attr">max</span>: <span class="hljs-number">100</span>
+                    }
+                }
+            }
+        });
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">updateFunction</span>(<span class="hljs-params"></span>) </span>{
+            <span class="hljs-keyword">const</span> yellow = <span class="hljs-built_in">Math</span>.random();
+            <span class="hljs-keyword">const</span> red = <span class="hljs-built_in">Math</span>.random();
+            <span class="hljs-keyword">const</span> black = <span class="hljs-built_in">Math</span>.random();
+            <span class="hljs-keyword">const</span> totnum = yellow + red + black;
+            myChart.data.datasets[<span class="hljs-number">0</span>].data[<span class="hljs-number">0</span>] = <span class="hljs-number">100</span> * yellow / totnum;
+            myChart.data.datasets[<span class="hljs-number">1</span>].data[<span class="hljs-number">0</span>] = <span class="hljs-number">100</span> * red / totnum;
+            myChart.data.datasets[<span class="hljs-number">2</span>].data[<span class="hljs-number">0</span>] = <span class="hljs-number">100</span> * black / totnum;
+            myChart.update();
+        }
+    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+{{ endblock }}
+</code></pre>
+</div></div>
+<p class="codepen" data-height="500" data-theme-id="dark" data-default-tab="result" data-slug-hash="XWEbqRy" ta-editable="true" data-user="yshimod" style="height: 500px; box-sizing: border-box; display: flex; align-items: center; stify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+    <span>See the Pen <a href="https://codepen.io/yshimod/pen/XWEbqRy" target="_blank">
+    oTree day8-2</a> by yshimod (<a href="https://codepen.io/yshimod" target="_blank">@yshimod</a>)
+    on <a href="https://codepen.io" target="_blank">CodePen</a>.</span>
+</p>
+
+
+</li>
+</ul>
+<ul>
+<li><a href="https://www.jspsych.org/" target="_blank">jsPsych</a> を使う場合は工夫が必要．<br>実装例:<ul>
+<li><a href="https://github.com/yshimod/jspsych_on_otree" target="_blank">https://github.com/yshimod/jspsych_on_otree</a></li>
+<li><a href="https://www.otreehub.com/projects/jspsych-on-otree/" target="_blank">https://www.otreehub.com/projects/jspsych-on-otree/</a></li>
+</ul>
+</li>
+</ul>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/VMMWpYfzvsc?rel=0&amp;enablejsapi=1&amp;origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
+
+
+<h2 id="live-page">Live page</h2>
+<ul>
+<li><a href="https://otree.readthedocs.io/en/latest/live.html" target="_blank">https://otree.readthedocs.io/en/latest/live.html</a></li>
+<li>Udemyの講座 <a href="https://www.udemy.com/course/learn-otree/" target="_blank">https://www.udemy.com/course/learn-otree/</a> の Live page に関するレクチャー（「Advanced oTree Features」の「Real Time Interaction between Participants - oTree LivePages」）は無料で見れる．</li>
+</ul>
+<ul>
+<li><p>通常，クライアントと oTree サーバーのデータのやり取りは HTTP プロトコルによって行われる．</p>
+<ul>
+<li><p>画面を表示するとき（実験刺激を呈示するとき）には，クライアントが oTree サーバー（ Web サーバー ）に GET メソッドでリクエストを送信し，リクエストに応じてサーバーがクライアントに画面の内容（ HTML文書 ）を送信し返す．なお， HTML は Python によってテンプレートファイルをもとに動的に生成される．</p>
+</li>
+<li><p>次のページへ進むときには，クライアントがサーバーに POST メソッドで，入力フォームの値を含めたリクエストを送信し，これを受けてサーバーがデータを受け取りつつ，次の画面の内容を送信し返す．</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>HTTP プロトコルはクライアントからリクエストを送信することによって通信が始める方法であり，サーバー側から通信を始めることはできない．この問題を解決する，すなわちサーバー側から通信を開始する方法として WebSocket プロトコルが存在する．</p>
+</li>
+<li><p>oTree において WebSocket による通信を利用するためには Live page と呼ばれる機能を使う．</p>
+</li>
+<li><p>「サーバー側から通信を開始する方法」があると言っても， oTree の Live page は管理者（実験者）の任意のタイミングでデータを送信することはできず，セッションの参加者の操作をきっかけとしてデータを送信することになる．</p>
+</li>
+<li><p>WebSocket の通信内容を Chrome で確認するには，デベロッパーツールを開き，Networkタブで，名前が <code>live</code> から始まる要素（ Type が websocket ）の Messages を見れば良い．</p>
+</li>
+</ul>
+<h3 id="（javascript）-live-page-を作動させる-livesend">（JavaScript） Live page を作動させる <code>liveSend()</code></h3>
+<ul>
+<li><p>テンプレートにおいて JavaScript で <code>liveSend()</code> を呼び出すと， oTree サーバーで <code>live_method()</code> が作動する．</p>
+</li>
+<li><p><code>liveSend()</code> の引数として JavaScript のオブジェクトを渡すことができる．数値，文字列だけでも良い．</p>
+</li>
+<li><p>たとえばクリックのタイミングで発火させる場合には以下のように実装すれば良い．</p>
+<pre><code class="lang-html">{{ block content }}
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;number&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;sendnumber&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;sendbutton&quot;</span>&gt;</span>送信<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+{{ endblock }}
+
+{{ block scripts }}
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">my_send_func</span>(<span class="hljs-params"></span>) </span>{
+            <span class="hljs-keyword">const</span> sendnumber_value = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;sendnumber&quot;</span>).value;
+            <span class="hljs-keyword">const</span> send_obj = {
+                <span class="hljs-string">&quot;number&quot;</span>: sendnumber_value
+            };
+            liveSend(send_obj);
+        }
+
+        <span class="hljs-built_in">window</span>.onload = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+            <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;sendbutton&quot;</span>).addEventListener(<span class="hljs-string">&quot;click&quot;</span>, my_send_func, <span class="hljs-literal">false</span>);
+        };
+    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+{{ endblock }}
+</code></pre>
+</li>
+<li><p>JavaScript で <code>liveSend()</code> を呼び出しても，（後述の） <code>live_method()</code> がページクラスで定義されていなければ実行されない．</p>
+</li>
+</ul>
+<h3 id="（python）-クライアントにデータを送信する-livemethod">（Python） クライアントにデータを送信する <code>live_method()</code></h3>
+<ul>
+<li><p>ページクラスの組み込みメソッド <code>live_method()</code> を Live page を使うページのクラスで定義する．</p>
+</li>
+<li><p>引数は <code>player</code> と <code>data</code> ． <code>data</code> には <code>liveSend()</code> の引数に渡したものが入っている．</p>
+</li>
+<li><p>宛先をキーとして，送信するデータを格納した辞書オブジェクトを関数の返り値にすると，指定した宛先（当該 player 以外でもよい）にデータを送信できる．</p>
+</li>
+<li><p>宛先は <code>id_in_group</code> の自然数で指定する．</p>
+<ul>
+<li><code>liveSend()</code> を実行した player 自身にデータを送る場合は <code>{player.id_in_group: 値}</code> を返す．</li>
+<li>group の全員に送信する場合のキーは <code>0</code>．</li>
+<li>他の group や subsession 全体へは送信できない．</li>
+<li>キーが数値ないし変数のときには <code>dict()</code> が使えないので， <code>{ }</code> で辞書オブジェクトを定義する．</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>たとえば <code>liveSend()</code> で <code>{&quot;number&quot;: &quot;3&quot;}</code> なる値がサーバーに送信された後，中身の数値を10倍したものを， group の全員に送信するためには以下のようにする．</p>
+<pre><code class="lang-python"><span class="hljs-meta">@staticmethod</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">live_method</span>(<span class="hljs-params">player: Player, data</span>):</span>
+    received_number = <span class="hljs-built_in">int</span>(data[<span class="hljs-string">&quot;number&quot;</span>])    <span class="hljs-comment">## 数値 3 が入る．</span>
+    return_number = received_number * <span class="hljs-number">10</span>
+
+    <span class="hljs-keyword">return</span> {
+        <span class="hljs-number">0</span>: {<span class="hljs-string">&quot;return_number&quot;</span>: return_number}
+    }
+</code></pre>
+</li>
+</ul>
+<h3 id="（javascript）-サーバーから送信されたデータを受け取る-liverecv">（JavaScript） サーバーから送信されたデータを受け取る <code>liveRecv()</code></h3>
+<ul>
+<li><p>テンプレートにおいて JavaScript で <code>liveRecv()</code> を定義しておくと， oTree サーバーで <code>live_method()</code> が作動してデータが送信されたタイミングで自動的に <code>liveRecv()</code> が発火する．</p>
+</li>
+<li><p><code>liveRecv()</code> の引数として <code>data</code> を受け取る． <code>live_method()</code> の返り値である辞書オブジェクトの値のみが入っている（宛先のキーは送信されない）．</p>
+</li>
+<li><p>たとえば <code>{&quot;return_number&quot;: 30}</code> なるデータを受け取り，このタイミングで受け取った数字を画面に表示させるためには以下のようにする．</p>
+<pre><code class="lang-html">{{ block content }}
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;number&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;sendnumber&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;sendbutton&quot;</span>&gt;</span>送信<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+        受け取った値: <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;pushednumber&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+{{ endblock }}
+
+{{ block scripts }}
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">liveRecv</span>(<span class="hljs-params">data</span>) </span>{
+            <span class="hljs-keyword">const</span> pushednumber = data.return_number;
+            <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;pushednumber&quot;</span>).innerText = pushednumber;
+        }
+
+        <span class="hljs-comment">// 以下は liveSend() のために既に記述していた部分．</span>
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">my_send_func</span>(<span class="hljs-params"></span>) </span>{
+            <span class="hljs-keyword">const</span> sendnumber_value = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;sendnumber&quot;</span>).value;
+            <span class="hljs-keyword">const</span> send_obj = {
+                <span class="hljs-string">&quot;number&quot;</span>: sendnumber_value
+            };
+            liveSend(send_obj);
+        }
+
+        <span class="hljs-built_in">window</span>.onload = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+            <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;sendbutton&quot;</span>).addEventListener(<span class="hljs-string">&quot;click&quot;</span>, my_send_func, <span class="hljs-literal">false</span>);
+        };
+    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+{{ endblock }}
+</code></pre>
+</li>
+</ul>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/6SLXuQuXvrk?rel=0&amp;enablejsapi=1&amp;origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
+
+
+<h2 id="三上さん特別レクチャー（ダブルオークションの実装）">三上さん特別レクチャー（ダブルオークションの実装）</h2>
+<ul>
+<li><p><a href="https://sites.google.com/view/ryomikami/japanese" target="_blank">信州大 三上亮さん</a> に Live page を解説していただきました．ありがとうございます．</p>
+</li>
+<li><p><a href="https://drive.google.com/file/d/1tjHZmcoO_Hfdf9mo6skRx_JlAGpi5FQJ/view?usp=sharing" target="_blank">スライド</a></p>
+</li>
+<li><p>連続時間ダブルオークションのコード:<br><a href="https://github.com/oTree-org/more-demos" target="_blank">https://github.com/oTree-org/more-demos</a> （double_auction アプリ）</p>
+<ul>
+<li>コメントを付けたコード <a href="https://github.com/RyoMikami/otree5_lecture" target="_blank">https://github.com/RyoMikami/otree5_lecture</a></li>
+<li>デモページ <a href="https://otree-more-demos.herokuapp.com/" target="_blank">https://otree-more-demos.herokuapp.com/</a></li>
+</ul>
+</li>
+</ul>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/iyjIbaW_yXQ?rel=0&amp;enablejsapi=1&amp;origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
+
+<ul>
+<li><p>（下平注） このサンプルのコードにはいくつか注意するべき点があります． Live page の勉強用や，授業におけるデモンストレーションとして使うならまだしも，ダブルオークションの研究で使う場合は以下の点を検討した方が良さそうです．</p>
+<ul>
+<li><p><a href="https://github.com/oTree-org/more-demos/blob/master/double_auction/__init__.py" target="_blank"><code>__init__.py</code></a> の61行目から66行目において，売買が成立する <code>buyer</code> と <code>seller</code> のペアを探す関数を定義されていますが， <code>id_in_group</code> の昇順に一人ずつ取引が成立するか確認して，最初に見つかったペアを返す実装となっています．通常は，売りオファーの安い順・買いオファーの高い順，およびオファーの早い順，に取引を成立させていく必要があると思われます．</p>
+</li>
+<li><p><a href="https://github.com/oTree-org/more-demos/blob/master/double_auction/__init__.py" target="_blank"><code>__init__.py</code></a> の53行目から58行目で <code>Transaction</code> なる ExtraModel を定義し，85行目から91行目において取引の内容（誰とどの価格で取引したか，など）を <code>Transaction</code> に記録しています．留保価格/生産費用（ <code>break_even_point</code> ），オファー（ <code>current_offer</code> ），利得（ <code>payoff</code> ）は player のフィールドが定義され，そこに記録されているのですが，価格は記録されていません．また， <code>custom_export()</code> で <code>Transaction</code> の中身を CSV ファイルに出力するような実装が行われていません．したがって，このままの状態では価格を直接確認することはできません．複数個の財を購入した buyer については，利得と留保価格から価格を逆算することもできません． z-Tree の contracts テーブルのような，1レコードに取引時刻，ペアのID，取引価格，を記録したテーブルは <code>custom_export()</code> を使って自分で実装しなければなりません．</p>
+<ul>
+<li><p>たとえば以下のような実装が考えられます．</p>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">custom_export</span>(<span class="hljs-params">players: <span class="hljs-built_in">list</span>[Player]</span>):</span>
+  <span class="hljs-keyword">yield</span> [
+      <span class="hljs-string">&quot;セッションコード&quot;</span>,
+      <span class="hljs-string">&quot;groupのid_in_subsession&quot;</span>,
+      <span class="hljs-string">&quot;ラウンド&quot;</span>,
+      <span class="hljs-string">&quot;buyerのid_in_subsession&quot;</span>,
+      <span class="hljs-string">&quot;sellerのid_in_subsession&quot;</span>,
+      <span class="hljs-string">&quot;価格&quot;</span>,
+      <span class="hljs-string">&quot;経過秒&quot;</span>
+  ]
+
+  <span class="hljs-keyword">for</span> p <span class="hljs-keyword">in</span> players:
+      <span class="hljs-keyword">if</span> p.is_buyer:
+          records_list: <span class="hljs-built_in">list</span>[Transaction] = Transaction.<span class="hljs-built_in">filter</span>(buyer = p)
+          <span class="hljs-keyword">for</span> record <span class="hljs-keyword">in</span> records_list:
+              <span class="hljs-keyword">yield</span> [
+                  record.group.session.code,
+                  record.group.id_in_subsession,
+                  record.group.round_number,
+                  record.buyer.id_in_subsession,
+                  record.seller.id_in_subsession,
+                  record.price,
+                  record.seconds
+              ]
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p><a href="https://github.com/oTree-org/more-demos/blob/master/double_auction/Trading.html" target="_blank"><code>Trading.html</code></a> （JavaScript部分）の99行目から101行目において， <code>seller</code> が財を持っていない場合にオファーを送信するボタンを押せないように変更するコードが記述されています．これ自体に問題は無いのですが， <code>buyer</code> が既に財を1つ手に入れている場合に対する処理は記述されておらず，結局， <code>buyer</code> は何個でも財を買える状態になっています．もしも <code>buyer</code> が買える財の数を1つだけにする場合には自分で実装する必要があります．</p>
+<ul>
+<li>なお下平は，てっきり <code>buyer</code> は1つだけ買えるものと勘違いしていたため，（島田さんの授業で実施した）実験データを見て「複数個買えとる <code>buyer</code> おるがや．バグか！」と早とちりし，RAさんも巻き込んで検証に多大な時間をかけてしまいました．たとえば，参加者が多い場合に，ある参加者のオファーがサーバーに飛んできてマッチングを計算している最中に，他の参加者のオファーが飛んできて，おかしくなっているのではないか，などと，当てずっぽうの仮設を立て無為な時間を過ごしました（ちなみに oTree はシングルプロセスで動いているため，処理に割り込むということはありません）．三上さんにこの点を指摘していただいたおかげで自分の過ちに気づくことができました．まずはじっくりコードを読め，という教訓を得ました．</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="day7.html" class="navigation navigation-prev " aria-label="Previous page: 【7】 （Qualtricsのような）質問紙調査を作る方法">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="exercise.html" class="navigation navigation-next " aria-label="Next page: 【演習】">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"【8】 ExtraModel ・ JavaScript ・ Live page","level":"1.9","depth":1,"next":{"title":"【演習】","level":"1.10","depth":1,"path":"exercise.md","ref":"exercise.md","articles":[]},"previous":{"title":"【7】 （Qualtricsのような）質問紙調査を作る方法","level":"1.8","depth":1,"path":"day7.md","ref":"day7.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day8.md","mtime":"2022-07-16T07:32:50.349Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-07-16T07:42:03.589Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-page-toc/anchor-3.1.1.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-page-toc/page-toc.js"></script>
+        
+    
+        
+        <script src="gitbook/@honkit/honkit-plugin-ga/plugin.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-accordion/accordionSelector.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
