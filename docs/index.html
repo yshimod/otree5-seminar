@@ -104,7 +104,7 @@
                 <a href="day1.html">
             
                     
-                    【1】 Ubuntuで oTree 本番環境を構築する
+                    Ubuntuで oTree 本番環境を構築する
             
                 </a>
             
@@ -117,7 +117,7 @@
                 <a href="day2.html">
             
                     
-                    【2】 GitとGitHubの使い方 ・ Herokuの使い方
+                    GitとGitHubの使い方 ・ Herokuの使い方
             
                 </a>
             
@@ -130,7 +130,7 @@
                 <a href="day3.html">
             
                     
-                    【3】 VS Code の導入 ・ oTree プログラミングの概要
+                    VS Code の導入 ・ oTree プログラミングの概要
             
                 </a>
             
@@ -143,7 +143,7 @@
                 <a href="day4.html">
             
                     
-                    【4】 oTree プログラミングの進め方
+                    oTree プログラミングの進め方
             
                 </a>
             
@@ -156,7 +156,7 @@
                 <a href="day5.html">
             
                     
-                    【5】 テンプレートにおけるプログラミング
+                    テンプレートにおけるプログラミング
             
                 </a>
             
@@ -169,7 +169,7 @@
                 <a href="day6.html">
             
                     
-                    【6】 oTree の組み込み関数の使い方
+                    oTree の組み込み関数の使い方
             
                 </a>
             
@@ -182,7 +182,7 @@
                 <a href="day7.html">
             
                     
-                    【7】 （Qualtricsのような）質問紙調査を作る方法
+                    （Qualtricsのような）質問紙調査を作る方法
             
                 </a>
             
@@ -195,7 +195,7 @@
                 <a href="day8.html">
             
                     
-                    【8】 ExtraModel ・ JavaScript ・ Live page
+                    ExtraModel ・ JavaScript ・ Live page
             
                 </a>
             
@@ -208,7 +208,7 @@
                 <a href="exercise.html">
             
                     
-                    【演習】
+                    演習 （少し特殊な最後通牒ゲームを作る）
             
                 </a>
             
@@ -486,6 +486,8 @@
 <li><a href="day3.html">VS Code の導入 ・ oTree プログラミングの概要</a><ul>
 <li><a href="day3.html#vs-code-の導入">VS Code の導入</a></li>
 <li><a href="day3.html#シェルで使用する-otree-サブコマンド">シェルで使用する oTree サブコマンド</a></li>
+<li><a href="day3.html#otree-のデータモデル">oTree のデータモデル</a></li>
+<li><a href="day3.html#管理者画面">管理者画面</a></li>
 </ul>
 </li>
 </ul>
@@ -591,7 +593,7 @@
             
                 
                 
-                <a href="day1.html" class="navigation navigation-next navigation-unique" aria-label="Next page: 【1】 Ubuntuで oTree 本番環境を構築する">
+                <a href="day1.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Ubuntuで oTree 本番環境を構築する">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -602,7 +604,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"showToc":false,"title":"【oTree 5 勉強会】","level":"1.1","depth":1,"next":{"title":"【1】 Ubuntuで oTree 本番環境を構築する","level":"1.2","depth":1,"path":"day1.md","ref":"day1.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"README.md","mtime":"2022-07-16T07:37:08.599Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-07-16T07:42:03.589Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"showToc":false,"title":"【oTree 5 勉強会】","level":"1.1","depth":1,"next":{"title":"Ubuntuで oTree 本番環境を構築する","level":"1.2","depth":1,"path":"day1.md","ref":"day1.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"README.md","mtime":"2022-07-16T12:17:00.111Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-07-16T12:19:47.764Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

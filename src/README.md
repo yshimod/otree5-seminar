@@ -34,6 +34,8 @@ showToc: false
 - [VS Code の導入 ・ oTree プログラミングの概要](day3.md)
     - [VS Code の導入](day3.md#vs-code-の導入)
     - [シェルで使用する oTree サブコマンド](day3.md#シェルで使用する-otree-サブコマンド)
+    - [oTree のデータモデル](day3.md#otree-のデータモデル)
+    - [管理者画面](day3.md#管理者画面)
 
 
 - [oTree プログラミングの進め方](day4.md) （どこからコードを書いていけばよいか分からない場合はこちら）
