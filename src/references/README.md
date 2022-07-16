@@ -4,8 +4,8 @@
 - oTree 公式ドキュメント [https://otree.readthedocs.io/en/latest/](https://otree.readthedocs.io/en/latest/)
 - PyPIの oTree のページ [https://pypi.org/project/otree/](https://pypi.org/project/otree/)
 - oTree Hub [https://www.otreehub.com/](https://www.otreehub.com/)
-- Google グループ "oTree help & discussion" [https://groups.google.com/g/otree](https://groups.google.com/g/otree)
-- 公式フォーラム（2022年5月23日スタート） [https://www.otreehub.com/forum/](https://www.otreehub.com/forum/)
+- 公式フォーラム [https://www.otreehub.com/forum/](https://www.otreehub.com/forum/)
+- Google グループ "oTree help & discussion"（フォーラムは ↑ の oTree Hub に移行済み） [https://groups.google.com/g/otree](https://groups.google.com/g/otree)
 
 ### 公式ではないドキュメント
 

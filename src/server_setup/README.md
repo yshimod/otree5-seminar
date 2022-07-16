@@ -30,7 +30,7 @@
 - [Ubuntuの仮想環境の構築](../ubuntu/README.md)
 
 
-## Python を pyenv (+ virtualenv) で導入 <a id="pythoninstallation"></a>
+## Python を pyenv (+ virtualenv) で導入
 
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/xOPHDOUsg0c?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
@@ -85,7 +85,7 @@
     - `python -V` でインストールしたバージョン（3.9.11）が表示されたら，ちゃんと設定できている．
 
 
-## pipで oTree のインストール <a id="otreeinstallation"></a>
+## pipで oTree のインストール
 
 1. （PostgreSQLが必要な場合）パッケージpsycopg2を入れるために必要なライブラリlibpq-devをインストール  
 [https://www.psycopg.org/docs/](https://www.psycopg.org/docs/)
@@ -129,7 +129,7 @@
             - Vagrantで入れたUbuntuや，遠隔地のサーバー（SSHで接続中）で動かしている場合は，localhostではなく動かしているサーバーのIPアドレスを陽に指定してアクセスしてみる．
 
 
-## 本番としてoTreeを動かすために必要なこと <a id="postinstallation"></a>
+## 本番としてoTreeを動かすために必要なこと
 
 #### データベースサーバーソフトウェアの PostgreSQL を導入
 
@@ -146,7 +146,7 @@
 - oTreeの以前のバージョンではRedisの導入が必須だったが，v3.3.4以降（しれっと）不要になった．
 
 
-#### 環境変数の設定 <a id="envvar"></a>
+#### 環境変数の設定
 
 - （Bashを使っている場合は）.bashrcに環境変数を設定．
   ```bash
@@ -176,7 +176,7 @@
     - oTree の公式ドキュメントでは言及されていないが，settings.pyの `SECRET_KEY` も環境変数から受け取るように変えた方が良い気がする．
 
 
-#### ネットワークの設定 <a id="webserver"></a>
+#### ネットワークの設定
 - [https://otreecb.netlify.app/reference/ubuntu_server_setup.html#step-3-install-nginx](https://otreecb.netlify.app/reference/ubuntu_server_setup.html#step-3-install-nginx) が詳しい．
 - WSL2のUbuntuを使っている場合はポートフォワードを設定する必要がある．
     - [https://docs.microsoft.com/ja-jp/windows/wsl/networking](https://docs.microsoft.com/ja-jp/windows/wsl/networking)

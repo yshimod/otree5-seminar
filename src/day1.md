@@ -64,10 +64,10 @@
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/AlKiPuN4gYg?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 
-- [詳しくはこちら](server_setup/README.md#pythoninstallation)
+- [詳しくはこちら](server_setup/README.md#python-を-pyenv--virtualenv-で導入)
 - 動画内で少々グダついてしまったので，補足します．  
     17:35あたりから，pipで oTree とpsycopg2をインストールしようとしていますが，psycopg2のインストールに失敗しています．
-    状況を詳しく説明すると，[資料](server_setup/README.md#pythoninstallation)ではまっさらなUbuntuにpyenv+virtualenvを使ってPythonをインストールし，そのPython（pip）を使って oTree とpsycopg2をインストールしようとしているのに対し，動画ではMacで，私が予めhomebrewを使って入れていたpyenv+virtualenvを使って，同様のことをしようとしています．
+    状況を詳しく説明すると，[資料](server_setup/README.md#python-を-pyenv--virtualenv-で導入)ではまっさらなUbuntuにpyenv+virtualenvを使ってPythonをインストールし，そのPython（pip）を使って oTree とpsycopg2をインストールしようとしているのに対し，動画ではMacで，私が予めhomebrewを使って入れていたpyenv+virtualenvを使って，同様のことをしようとしています．
     Pythonのビルドに必要なもののインストールをhomebrewは勝手にやってくれるのですが，その勝手にやってくれていた部分に不具合があり（[https://qiita.com/sukapontan/items/4dccf3262bfd544e4204](https://qiita.com/sukapontan/items/4dccf3262bfd544e4204) 参照）psycopg2のインストールに失敗したようでした．
     結局動画では，psycopg2をインストールせず oTree のみをインストールして，先に進めました．
 - 【フリーライド】立命館竹内研長瀬さんのチュートリアル動画も参考になります．
@@ -83,7 +83,7 @@
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/oTbznkpAvjM?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 
-- [詳しくはこちら](server_setup/README.md#postinstallation)
+- [詳しくはこちら](server_setup/README.md#本番としてotreeを動かすために必要なこと)
 - 「 oTree 勉強会」なる催し物の第1回でやるべき内容ではなかったかもしれませんが，お付き合いください．
 - 動画の中で環境変数の設定について説明していますが，ボケたことを言っていますね．
     11:38あたりで「MacのBash」うんぬんと言っていますが，どんなOSであれBashはBashなので，おかしいです．
@@ -104,7 +104,7 @@
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/9Hzzzg2-xX8?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 
-- [詳しくはこちら](server_setup/README.md#webserver)
+- [詳しくはこちら](server_setup/README.md#ネットワークの設定)
 - 「 oTree 勉強会」なる催し物の第1回でやるべき内容ではないし，Herokuで十分な人にとっても不要な内容かも分かりませんが，お付き合いください．
 - もしも日本がどこぞに侵略戦争をしかけて各国からあらゆる制裁が加えられたときには自前のサーバーを建てなければならないでしょうから，そのときには．
 - WSL2を使っている場合，ネットワークの設定の段階まで来るとややこしさが急激に上昇すると思われます．Microsoftのドキュメント（ [https://docs.microsoft.com/ja-jp/windows/wsl/networking](https://docs.microsoft.com/ja-jp/windows/wsl/networking) ）を参照して，ポートフォワーディングの設定等をする必要があります．

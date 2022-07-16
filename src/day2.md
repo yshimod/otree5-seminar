@@ -79,6 +79,8 @@
   git config --global user.name "namaenamae"
   ```
 
+    - リポジトリを Public にする場合，設定したメールアドレスも公開される．公開したくない場合はコミット用のかりそめのメールアドレスを代わりに設定する必要がある． [https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-email-preferences/setting-your-commit-email-address](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-email-preferences/setting-your-commit-email-address)
+
 1. GitHubへSSHで接続できるようにする．  
     [https://docs.github.com/en/authentication/connecting-to-github-with-ssh/about-ssh](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/about-ssh)
 

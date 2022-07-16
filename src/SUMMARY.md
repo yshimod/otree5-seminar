@@ -1,15 +1,15 @@
 # Summary
 
-* [oTree 5 勉強会](README.md)
-    * [第1回](day1.md)
-    * [第2回](day2.md)
-    * [第3回](day3.md)
-    * [第4回](day4.md)
-    * [第5回](day5.md)
-    * [第6回](day6.md)
-    * [第7回](day7.md)
-    * [第8回](day8.md)
-    * [演習](exercise.md)
+* [【oTree 5 勉強会】](README.md)
+* [【1】 Ubuntuで oTree 本番環境を構築する](day1.md)
+* [【2】 GitとGitHubの使い方 ・ Herokuの使い方](day2.md)
+* [【3】 VS Code の導入 ・ oTree プログラミングの概要](day3.md)
+* [【4】 oTree プログラミングの進め方](day4.md)
+* [【5】 テンプレートにおけるプログラミング](day5.md)
+* [【6】 oTree の組み込み関数の使い方](day6.md)
+* [【7】 （Qualtricsのような）質問紙調査を作る方法](day7.md)
+* [【8】 ExtraModel ・ JavaScript ・ Live page](day8.md)
+* [【演習】](exercise.md)
 
 
 

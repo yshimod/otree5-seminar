@@ -3,7 +3,7 @@
 <html lang="ja" >
     <head>
         <meta charset="UTF-8">
-        <title>第8回 · oTree 5 勉強会</title>
+        <title>【8】 ExtraModel ・ JavaScript ・ Live page · oTree 5 勉強会</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 3.7.4">
@@ -93,21 +93,20 @@
                 <a href="./">
             
                     
-                    oTree 5 勉強会
+                    【oTree 5 勉強会】
             
                 </a>
             
 
             
-            <ul class="articles">
-                
+        </li>
     
-        <li class="chapter " data-level="1.1.1" data-path="day1.html">
+        <li class="chapter " data-level="1.2" data-path="day1.html">
             
                 <a href="day1.html">
             
                     
-                    第1回
+                    【1】 Ubuntuで oTree 本番環境を構築する
             
                 </a>
             
@@ -115,12 +114,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.1.2" data-path="day2.html">
+        <li class="chapter " data-level="1.3" data-path="day2.html">
             
                 <a href="day2.html">
             
                     
-                    第2回
+                    【2】 GitとGitHubの使い方 ・ Herokuの使い方
             
                 </a>
             
@@ -128,12 +127,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.1.3" data-path="day3.html">
+        <li class="chapter " data-level="1.4" data-path="day3.html">
             
                 <a href="day3.html">
             
                     
-                    第3回
+                    【3】 VS Code の導入 ・ oTree プログラミングの概要
             
                 </a>
             
@@ -141,12 +140,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.1.4" data-path="day4.html">
+        <li class="chapter " data-level="1.5" data-path="day4.html">
             
                 <a href="day4.html">
             
                     
-                    第4回
+                    【4】 oTree プログラミングの進め方
             
                 </a>
             
@@ -154,12 +153,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.1.5" data-path="day5.html">
+        <li class="chapter " data-level="1.6" data-path="day5.html">
             
                 <a href="day5.html">
             
                     
-                    第5回
+                    【5】 テンプレートにおけるプログラミング
             
                 </a>
             
@@ -167,12 +166,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.1.6" data-path="day6.html">
+        <li class="chapter " data-level="1.7" data-path="day6.html">
             
                 <a href="day6.html">
             
                     
-                    第6回
+                    【6】 oTree の組み込み関数の使い方
             
                 </a>
             
@@ -180,12 +179,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.1.7" data-path="day7.html">
+        <li class="chapter " data-level="1.8" data-path="day7.html">
             
                 <a href="day7.html">
             
                     
-                    第7回
+                    【7】 （Qualtricsのような）質問紙調査を作る方法
             
                 </a>
             
@@ -193,12 +192,12 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.1.8" data-path="day8.html">
+        <li class="chapter active" data-level="1.9" data-path="day8.html">
             
                 <a href="day8.html">
             
                     
-                    第8回
+                    【8】 ExtraModel ・ JavaScript ・ Live page
             
                 </a>
             
@@ -206,21 +205,16 @@
             
         </li>
     
-        <li class="chapter " data-level="1.1.9" data-path="exercise.html">
+        <li class="chapter " data-level="1.10" data-path="exercise.html">
             
                 <a href="exercise.html">
             
                     
-                    演習
+                    【演習】
             
                 </a>
             
 
-            
-        </li>
-    
-
-            </ul>
             
         </li>
     
@@ -450,7 +444,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >第8回</a>
+        <a href="." >【8】 ExtraModel ・ JavaScript ・ Live page</a>
     </h1>
 </div>
 
@@ -909,7 +903,7 @@
 
 
 
-<h2 id="三上さん特別レクチャー">三上さん特別レクチャー</h2>
+<h2 id="三上さん特別レクチャー（ダブルオークションの実装）">三上さん特別レクチャー（ダブルオークションの実装）</h2>
 <ul>
 <li><p><a href="https://sites.google.com/view/ryomikami/japanese" target="_blank">信州大 三上亮さん</a> に Live page を解説していただきました．ありがとうございます．</p>
 </li>
@@ -928,9 +922,9 @@
 <ul>
 <li><p>（下平注） このサンプルのコードにはいくつか注意するべき点があります． Live page の勉強用や，授業におけるデモンストレーションとして使うならまだしも，ダブルオークションの研究で使う場合は以下の点を検討した方が良さそうです．</p>
 <ul>
-<li><p><a href="https://github.com/oTree-org/more-demos/blob/master/double_auction/__init__.py" target="_blank"><code>__init__.py</code></a> の61行目から66行目において，売買が成立する buyer と seller のペアを探す関数を定義されていますが， <code>id_in_group</code> の昇順に一人ずつ取引が成立するか確認して，最初に見つかったペアを返す実装となっています．通常は，売りオファーの安い順・買いオファーの高い順，およびオファーの早い順，に取引を成立させていく必要があると思われます．</p>
+<li><p><a href="https://github.com/oTree-org/more-demos/blob/master/double_auction/__init__.py" target="_blank"><code>__init__.py</code></a> の61行目から66行目において，売買が成立する <code>buyer</code> と <code>seller</code> のペアを探す関数を定義されていますが， <code>id_in_group</code> の昇順に一人ずつ取引が成立するか確認して，最初に見つかったペアを返す実装となっています．通常は，売りオファーの安い順・買いオファーの高い順，およびオファーの早い順，に取引を成立させていく必要があると思われます．</p>
 </li>
-<li><p><a href="https://github.com/oTree-org/more-demos/blob/master/double_auction/__init__.py" target="_blank"><code>__init__.py</code></a> の53行目から58行目で Transaction なる ExtraModel を定義し，85行目から91行目において取引の内容（誰とどの価格で取引したか，など）を Transaction に記録しています．留保価格/生産費用（break_even_point），オファー（current_offer），利得（payoff）は player のフィールドが定義され，そこに記録されているのですが，価格は記録されていません．また， <code>custom_export()</code> で Transaction の中身を CSV ファイルに出力するような実装が行われていません．したがって，このままの状態では価格を直接確認することはできません．複数個の財を購入した buyer については，利得と留保価格から価格を逆算することもできません． z-Tree の contracts テーブルのような，1レコードに取引時刻，ペアのID，取引価格，を記録したテーブルは <code>custom_export()</code> を使って自分で実装しなければなりません．</p>
+<li><p><a href="https://github.com/oTree-org/more-demos/blob/master/double_auction/__init__.py" target="_blank"><code>__init__.py</code></a> の53行目から58行目で <code>Transaction</code> なる ExtraModel を定義し，85行目から91行目において取引の内容（誰とどの価格で取引したか，など）を <code>Transaction</code> に記録しています．留保価格/生産費用（ <code>break_even_point</code> ），オファー（ <code>current_offer</code> ），利得（ <code>payoff</code> ）は player のフィールドが定義され，そこに記録されているのですが，価格は記録されていません．また， <code>custom_export()</code> で <code>Transaction</code> の中身を CSV ファイルに出力するような実装が行われていません．したがって，このままの状態では価格を直接確認することはできません．複数個の財を購入した buyer については，利得と留保価格から価格を逆算することもできません． z-Tree の contracts テーブルのような，1レコードに取引時刻，ペアのID，取引価格，を記録したテーブルは <code>custom_export()</code> を使って自分で実装しなければなりません．</p>
 <ul>
 <li><p>たとえば以下のような実装が考えられます．</p>
 <pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">custom_export</span>(<span class="hljs-params">players: <span class="hljs-built_in">list</span>[Player]</span>):</span>
@@ -961,9 +955,9 @@
 </li>
 </ul>
 </li>
-<li><p><a href="https://github.com/oTree-org/more-demos/blob/master/double_auction/Trading.html" target="_blank"><code>Trading.html</code></a> （JavaScript部分）の99行目から101行目において， seller が財を持っていない場合にオファーを送信するボタンを押せないように変更するコードが記述されています．これ自体に問題は無いのですが， buyer が既に財を1つ手に入れている場合に対する処理は記述されておらず，結局， buyer は何個でも財を買える状態になっています．もしも buyer が買える財の数を1つだけにする場合には自分で実装する必要があります．</p>
+<li><p><a href="https://github.com/oTree-org/more-demos/blob/master/double_auction/Trading.html" target="_blank"><code>Trading.html</code></a> （JavaScript部分）の99行目から101行目において， <code>seller</code> が財を持っていない場合にオファーを送信するボタンを押せないように変更するコードが記述されています．これ自体に問題は無いのですが， <code>buyer</code> が既に財を1つ手に入れている場合に対する処理は記述されておらず，結局， <code>buyer</code> は何個でも財を買える状態になっています．もしも <code>buyer</code> が買える財の数を1つだけにする場合には自分で実装する必要があります．</p>
 <ul>
-<li>なお下平は，てっきり buyer は1つだけ買えるものと勘違いしていたため，（島田さんの授業で実施した）実験データを見て「複数個買えとる buyer おるがや．バグか！」と早とちりし，RAさんも巻き込んで検証に多大な時間をかけてしまいました．たとえば，参加者が多い場合に，ある参加者のオファーがサーバーに飛んできてマッチングを計算している最中に，他の参加者のオファーが飛んできて，おかしくなっているのではないか，などと，当てずっぽうの仮設を立て無為な時間を過ごしました（ちなみに oTree はシングルスレッドで動いているため，処理に割り込むということはありません）．三上さんにこの点を指摘していただいたおかげで自分の過ちに気づくことができました．まずはじっくりコードを読め，という教訓を得ました．</li>
+<li>なお下平は，てっきり <code>buyer</code> は1つだけ買えるものと勘違いしていたため，（島田さんの授業で実施した）実験データを見て「複数個買えとる <code>buyer</code> おるがや．バグか！」と早とちりし，RAさんも巻き込んで検証に多大な時間をかけてしまいました．たとえば，参加者が多い場合に，ある参加者のオファーがサーバーに飛んできてマッチングを計算している最中に，他の参加者のオファーが飛んできて，おかしくなっているのではないか，などと，当てずっぽうの仮設を立て無為な時間を過ごしました（ちなみに oTree はシングルプロセスで動いているため，処理に割り込むということはありません）．三上さんにこの点を指摘していただいたおかげで自分の過ちに気づくことができました．まずはじっくりコードを読め，という教訓を得ました．</li>
 </ul>
 </li>
 </ul>
@@ -998,12 +992,12 @@
 
             
                 
-                <a href="day7.html" class="navigation navigation-prev " aria-label="Previous page: 第7回">
+                <a href="day7.html" class="navigation navigation-prev " aria-label="Previous page: 【7】 （Qualtricsのような）質問紙調査を作る方法">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="exercise.html" class="navigation navigation-next " aria-label="Next page: 演習">
+                <a href="exercise.html" class="navigation navigation-next " aria-label="Next page: 【演習】">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -1014,7 +1008,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第8回","level":"1.1.8","depth":2,"next":{"title":"演習","level":"1.1.9","depth":2,"path":"exercise.md","ref":"exercise.md","articles":[]},"previous":{"title":"第7回","level":"1.1.7","depth":2,"path":"day7.md","ref":"day7.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day8.md","mtime":"2022-07-15T13:59:25.509Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-07-15T14:03:03.795Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"【8】 ExtraModel ・ JavaScript ・ Live page","level":"1.9","depth":1,"next":{"title":"【演習】","level":"1.10","depth":1,"path":"exercise.md","ref":"exercise.md","articles":[]},"previous":{"title":"【7】 （Qualtricsのような）質問紙調査を作る方法","level":"1.8","depth":1,"path":"day7.md","ref":"day7.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day8.md","mtime":"2022-07-16T07:32:50.349Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-07-16T07:42:03.589Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

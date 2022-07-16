@@ -29,9 +29,9 @@ Rodriguez-Lara, I. (2016). Equity and bargaining power in ultimatum games.
         1. 結果表示画面で最後通牒ゲームにおける意思決定と利得を表示させる．
     1. No-veto-cost game (Scenario 2) も完成させる．
         - 最終的な報酬として，2つのゲーム（ Scenario ）のどちらかをランダムに選ぶ機構を実装する．
-    1. ~~`SESSION_CONFIGS` で定義する変数を使って，2つのゲームの順番を変える機構を実装する．~~ （ちょっと面倒なので後回し）
-    1. ~~インストラクションを実装する．~~ （難しいことではないので後回し）
     1. 見てくれを良くする．
+    1. `SESSION_CONFIGS` で定義する変数を使って，2つのゲームの順番を変える機構を実装する．
+    1. インストラクションを実装する．
     1. エフォートタスクを実装する．
 
 
@@ -68,12 +68,13 @@ Rodriguez-Lara, I. (2016). Equity and bargaining power in ultimatum games.
     - 入力フォームの最大値・最小値の検証を実装する．
     - プレイヤーの役割をランダムに決定する．
     - Scenario 2 (No-veto-cost game) 用のページを追加する．フィールドも追加する．
-    - Scenario 1 と Scenario 2 のどちらを実現させるのかをランダムに決定する機構を実装する．
+    - Scenario 1 と Scenario 2 のどちらを報酬支払対象として選ぶのかをランダムに決定する機構を実装する．
     - 入力フォームをスライダーにする．
 
 
 - （とりあえず見た目は美しくないけど）完成したものはこちら:
     - [https://github.com/yshimod/RodriguezLara2016](https://github.com/yshimod/RodriguezLara2016) （ master ブランチ）
+    - 2つのゲーム（Scenario）の順番を切り替えられるようにもしています．
 
 
 - 補遺（近日執筆）

@@ -69,6 +69,9 @@
 
 #### `startproject` と `startapp` コマンドで生成されるもの
 
+以下のディレクトリ・ファイルは oTree を動かすために最低限必要なもの．ただし， `Procfile` と `requirements.txt` は Heroku にデプロイするために必要なものであり， Heroku を使わないのであれば不要．
+
+
 - `settings.py`
     - セッションの設定を記述する．
     - [`settings.py`の書き方](otree_ref/settings.md)
