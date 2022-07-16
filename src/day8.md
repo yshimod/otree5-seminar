@@ -16,7 +16,7 @@
 
 - [詳細はこちら](otree_ref/init.html#customexport)
 
-<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/-y3MuhCiLic?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+<p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/kxMFqkGdwms?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 
 
