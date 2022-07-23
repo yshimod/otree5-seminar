@@ -662,6 +662,79 @@
 </li>
 <li><p>oTree 公式ドキュメントでは <a href="https://www.highcharts.com/" target="_blank">HighCharts</a> を使っている．<br><a href="https://otree.readthedocs.io/en/latest/templates.html#charts" target="_blank">https://otree.readthedocs.io/en/latest/templates.html#charts</a></p>
 </li>
+<li><p>たとえば， <a href="https://developers-dot-devsite-v2-prod.appspot.com/chart" target="_blank">Google Charts</a> を使って円グラフを表示するには以下のようにする．</p>
+<ol>
+<li><p>円グラフとして表示するデータを oTree （Python） 側から JavaScript へ渡すために， ページクラスの <code>js_vars()</code> メソッドを定義する．</p>
+<pre><code class="lang-python"><span class="hljs-meta">@staticmethod</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">js_vars</span>(<span class="hljs-params">player: Player</span>):</span>
+ <span class="hljs-keyword">return</span> <span class="hljs-built_in">dict</span>(
+     num_of_republicans = <span class="hljs-number">3504</span>,
+     num_of_democrats = <span class="hljs-number">4710</span>
+ )
+</code></pre>
+</li>
+<li><p>テンプレートのコンテンツブロックに，グラフを表示する <code>&lt;div&gt;</code> 要素を記述する． <code>id</code> 属性を必ず設定する．</p>
+<pre><code class="lang-html">{{ block content }}
+ <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>投票の結果は以下の通りです．<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+ <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;piechart1&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;width: 900px; height: 500px;&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+{{ endblock }}
+</code></pre>
+</li>
+<li><p>テンプレートのスクリプトブロックに， JavaScript を記述する．</p>
+<pre><code class="lang-html">{{ block scripts }}
+<span class="hljs-comment">&lt;!-- ↓ を記述して &quot;インストール&quot; する． --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://www.gstatic.com/charts/loader.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+ <span class="hljs-comment">// Load the Visualization API and the corechart package.</span>
+ google.charts.load(<span class="hljs-string">&apos;current&apos;</span>, {<span class="hljs-string">&apos;packages&apos;</span>:[<span class="hljs-string">&apos;corechart&apos;</span>]});
+
+ <span class="hljs-comment">// Set a callback to run when the Google Visualization API is loaded.</span>
+ google.charts.setOnLoadCallback(drawChart);
+
+ <span class="hljs-comment">// Callback that creates and populates a data table, instantiates the pie chart, passes in the data and draws it.</span>
+ <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">drawChart</span>(<span class="hljs-params"></span>) </span>{
+     <span class="hljs-comment">// データテーブルの定義</span>
+     <span class="hljs-keyword">var</span> data1 = <span class="hljs-keyword">new</span> google.visualization.DataTable();
+     data1.addColumn(<span class="hljs-string">&apos;string&apos;</span>, <span class="hljs-string">&apos;政党&apos;</span>);
+     data1.addColumn(<span class="hljs-string">&apos;number&apos;</span>, <span class="hljs-string">&apos;投票者数&apos;</span>);
+     data1.addRows([
+         [<span class="hljs-string">&apos;共和党&apos;</span>, js_vars.num_of_republicans],
+         [<span class="hljs-string">&apos;民主党&apos;</span>, js_vars.num_of_democrats]
+     ]);
+
+     <span class="hljs-comment">// オプションの定義</span>
+     <span class="hljs-keyword">var</span> options1 = {
+         <span class="hljs-attr">pieSliceText</span>: <span class="hljs-string">&apos;label&apos;</span>,    <span class="hljs-comment">// 各ピースに生の値を表示する場合は &apos;value&apos;，パーセンテージは &apos;percentage&apos;</span>
+         <span class="hljs-attr">title</span>: <span class="hljs-string">&apos;投票結果&apos;</span>,    <span class="hljs-comment">// グラフのタイトル</span>
+         <span class="hljs-attr">colors</span>: [<span class="hljs-string">&apos;red&apos;</span>, <span class="hljs-string">&apos;#00AEF3&apos;</span>],    <span class="hljs-comment">// 各ピースの色</span>
+         <span class="hljs-attr">tooltip</span>: {
+             <span class="hljs-attr">text</span>: <span class="hljs-string">&apos;both&apos;</span>    <span class="hljs-comment">// 各ピースでマウスオーバーしたときに表示する情報．生の値のみを表示する場合は &apos;value&apos;，パーセンテージのみは &apos;percentage&apos;</span>
+         }
+     };
+
+     <span class="hljs-comment">// インスタンスを作成</span>
+     <span class="hljs-keyword">var</span> el1 = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&apos;piechart1&apos;</span>);    <span class="hljs-comment">// コンテンツブロックで記述した &lt;div&gt; の id を指定して要素を取得する．</span>
+     <span class="hljs-keyword">var</span> chart1 = <span class="hljs-keyword">new</span> google.visualization.PieChart(el1);
+
+     <span class="hljs-comment">// グラフを描写</span>
+     chart1.draw(data1, options1);
+ }
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+{{ endblock }}
+</code></pre>
+</li>
+</ol>
+<p class="codepen" data-height="500" data-theme-id="dark" data-default-tab="result" data-slug-hash="RwMgyNz" data-editable="true" data-user="yshimod" style="height: 500px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/yshimod/pen/RwMgyNz" target="_blank">
+  Untitled</a> by yshimod (<a href="https://codepen.io/yshimod" target="_blank">@yshimod</a>)
+  on <a href="https://codepen.io" target="_blank">CodePen</a>.</span>
+</p>
+
+
+</li>
+</ul>
+<ul>
 <li><p>（日本語ドキュメントが豊富な） <a href="https://www.chartjs.org/" target="_blank">Chart.js</a> も有用．</p>
 <ul>
 <li>コード（js_samples アプリ） <a href="https://github.com/yshimod/otree_survey" target="_blank">https://github.com/yshimod/otree_survey</a></li>
@@ -1008,7 +1081,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"ExtraModel ・ JavaScript ・ Live page","level":"1.9","depth":1,"next":{"title":"演習 （少し特殊な最後通牒ゲームを作る）","level":"1.10","depth":1,"path":"exercise.md","ref":"exercise.md","articles":[]},"previous":{"title":"（Qualtricsのような）質問紙調査を作る方法","level":"1.8","depth":1,"path":"day7.md","ref":"day7.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day8.md","mtime":"2022-07-16T12:40:20.457Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-07-16T12:45:00.120Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"ExtraModel ・ JavaScript ・ Live page","level":"1.9","depth":1,"next":{"title":"演習 （少し特殊な最後通牒ゲームを作る）","level":"1.10","depth":1,"path":"exercise.md","ref":"exercise.md","articles":[]},"previous":{"title":"（Qualtricsのような）質問紙調査を作る方法","level":"1.8","depth":1,"path":"day7.md","ref":"day7.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day8.md","mtime":"2022-07-23T07:09:57.132Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-07-23T07:20:16.941Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
