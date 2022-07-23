@@ -216,6 +216,79 @@
 - oTree 公式ドキュメントでは [HighCharts](https://www.highcharts.com/) を使っている．  
 [https://otree.readthedocs.io/en/latest/templates.html#charts](https://otree.readthedocs.io/en/latest/templates.html#charts)
 
+- たとえば， [Google Charts](https://developers-dot-devsite-v2-prod.appspot.com/chart) を使って円グラフを表示するには以下のようにする．
+
+    1. 円グラフとして表示するデータを oTree （Python） 側から JavaScript へ渡すために， ページクラスの `js_vars()` メソッドを定義する．
+
+    ```python
+    @staticmethod
+    def js_vars(player: Player):
+        return dict(
+            num_of_republicans = 3504,
+            num_of_democrats = 4710
+        )
+    ```
+
+    1. テンプレートのコンテンツブロックに，グラフを表示する `<div>` 要素を記述する． `id` 属性を必ず設定する．
+    ```html
+    {{ block content }}
+        <p>投票の結果は以下の通りです．</p>
+        <div id="piechart1" style="width: 900px; height: 500px;"></div>
+    {{ endblock }}
+    ```
+
+    1. テンプレートのスクリプトブロックに， JavaScript を記述する．
+    ```html
+    {{ block scripts }}
+    <!-- ↓ を記述して "インストール" する． -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script>
+        // Load the Visualization API and the corechart package.
+        google.charts.load('current', {'packages':['corechart']});
+
+        // Set a callback to run when the Google Visualization API is loaded.
+        google.charts.setOnLoadCallback(drawChart);
+
+        // Callback that creates and populates a data table, instantiates the pie chart, passes in the data and draws it.
+        function drawChart() {
+            // データテーブルの定義
+            var data1 = new google.visualization.DataTable();
+            data1.addColumn('string', '政党');
+            data1.addColumn('number', '投票者数');
+            data1.addRows([
+                ['共和党', js_vars.num_of_republicans],
+                ['民主党', js_vars.num_of_democrats]
+            ]);
+
+            // オプションの定義
+            var options1 = {
+                pieSliceText: 'label',    // 各ピースに生の値を表示する場合は 'value'，パーセンテージは 'percentage'
+                title: '投票結果',    // グラフのタイトル
+                colors: ['red', '#00AEF3'],    // 各ピースの色
+                tooltip: {
+                    text: 'both'    // 各ピースでマウスオーバーしたときに表示する情報．生の値のみを表示する場合は 'value'，パーセンテージのみは 'percentage'
+                }
+            };
+
+            // インスタンスを作成
+            var el1 = document.getElementById('piechart1');    // コンテンツブロックで記述した <div> の id を指定して要素を取得する．
+            var chart1 = new google.visualization.PieChart(el1);
+
+            // グラフを描写
+            chart1.draw(data1, options1);
+        }
+    </script>
+    {{ endblock }}
+    ```
+
+  <p class="codepen" data-height="500" data-theme-id="dark" data-default-tab="result" data-slug-hash="RwMgyNz" data-editable="true" data-user="yshimod" style="height: 500px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+    <span>See the Pen <a href="https://codepen.io/yshimod/pen/RwMgyNz">
+    Untitled</a> by yshimod (<a href="https://codepen.io/yshimod">@yshimod</a>)
+    on <a href="https://codepen.io">CodePen</a>.</span>
+  </p>
+
+
 - （日本語ドキュメントが豊富な） [Chart.js](https://www.chartjs.org/) も有用．
     - コード（js_samples アプリ） [https://github.com/yshimod/otree_survey](https://github.com/yshimod/otree_survey)
     - デモページ（「JavaScriptを使った作例」の2ページ目） [https://otree-seminar-survey-sample.herokuapp.com/demo](https://otree-seminar-survey-sample.herokuapp.com/demo)
