@@ -45,7 +45,6 @@
         - リダイレクト `>`（上書き）, `>>`（追記）
         - パイプ `|`
 
-
 - テキストエディタVimの使い方
     - [https://learnxinyminutes.com/docs/vim/](https://learnxinyminutes.com/docs/vim/)
     - 以下の操作ができるようになっておくとよい．
@@ -65,11 +64,13 @@
 
 
 - [詳しくはこちら](server_setup/README.md#python-を-pyenv--virtualenv-で導入)
+
 - 動画内で少々グダついてしまったので，補足します．  
     17:35あたりから，pipで oTree とpsycopg2をインストールしようとしていますが，psycopg2のインストールに失敗しています．
     状況を詳しく説明すると，[資料](server_setup/README.md#python-を-pyenv--virtualenv-で導入)ではまっさらなUbuntuにpyenv+virtualenvを使ってPythonをインストールし，そのPython（pip）を使って oTree とpsycopg2をインストールしようとしているのに対し，動画ではMacで，私が予めhomebrewを使って入れていたpyenv+virtualenvを使って，同様のことをしようとしています．
     Pythonのビルドに必要なもののインストールをhomebrewは勝手にやってくれるのですが，その勝手にやってくれていた部分に不具合があり（[https://qiita.com/sukapontan/items/4dccf3262bfd544e4204](https://qiita.com/sukapontan/items/4dccf3262bfd544e4204) 参照）psycopg2のインストールに失敗したようでした．
     結局動画では，psycopg2をインストールせず oTree のみをインストールして，先に進めました．
+
 - 【フリーライド】立命館竹内研長瀬さんのチュートリアル動画も参考になります．
     - 「#2 oTree Macでのインストール」:  
         homebrewを使ってpyenvをインストールし，pyenvでPythonをインストールしています．
@@ -84,7 +85,9 @@
 
 
 - [詳しくはこちら](server_setup/README.md#本番としてotreeを動かすために必要なこと)
+
 - 「 oTree 勉強会」なる催し物の第1回でやるべき内容ではなかったかもしれませんが，お付き合いください．
+
 - 動画の中で環境変数の設定について説明していますが，ボケたことを言っていますね．
     11:38あたりで「MacのBash」うんぬんと言っていますが，どんなOSであれBashはBashなので，おかしいです．
     **以下にBashにおける環境変数の設定について整理しました**．
@@ -105,8 +108,11 @@
 
 
 - [詳しくはこちら](server_setup/README.md#ネットワークの設定)
+
 - 「 oTree 勉強会」なる催し物の第1回でやるべき内容ではないし，Herokuで十分な人にとっても不要な内容かも分かりませんが，お付き合いください．
+
 - もしも日本がどこぞに侵略戦争をしかけて各国からあらゆる制裁が加えられたときには自前のサーバーを建てなければならないでしょうから，そのときには．
+
 - WSL2を使っている場合，ネットワークの設定の段階まで来るとややこしさが急激に上昇すると思われます．Microsoftのドキュメント（ [https://docs.microsoft.com/ja-jp/windows/wsl/networking](https://docs.microsoft.com/ja-jp/windows/wsl/networking) ）を参照して，ポートフォワーディングの設定等をする必要があります．
 
 
@@ -117,8 +123,11 @@
 
 
 - [詳しくはこちら](heroku/README.md)
+
 - oTree の著者たちにお金を払ってもよい場合は oTree Hub のHeroku連携機能を使っても良いでしょう．
+
 - oTree Hub を使わない場合， oTree のプログラムを自分でHerokuのサーバーにアップロードする必要があります．この際に多かれ少なかれ，Gitの知識が必要となります．
+
 - 「**Gitを使う必然性は何か？**」という質問をいただきました．
     - oTree Hubに課金できる場合には，Gitの知識がなくてもとりあえずプログラムをデプロイして実験は実施できます．
     - oTree Hubを使わずにHerokuを使う場合，プログラムのデプロイのためにGitの使用が必須となります．

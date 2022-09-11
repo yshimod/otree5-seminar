@@ -463,21 +463,28 @@
 <h1 id="vs-code-の導入-・-otree-プログラミングの概要">VS Code の導入 ・ oTree プログラミングの概要</h1>
 <h2 id="vs-code-の導入">VS Code の導入</h2>
 <ul>
-<li>VS Code (Visual Studio Code) <a href="https://code.visualstudio.com/" target="_blank">https://code.visualstudio.com/</a><ul>
+<li><p>VS Code (Visual Studio Code) <a href="https://code.visualstudio.com/" target="_blank">https://code.visualstudio.com/</a></p>
+<ul>
 <li>Visual Studio（統合開発環境... 単なるテキストエディタではなくコンパイラ等もついている）とは異なる！</li>
 </ul>
 </li>
-<li>WSL2やVagrantで入れたUbuntuを使っている場合でも，<strong>Windowsに</strong> VS Codeを入れる．</li>
-<li>WSL 拡張機能 <a href="https://docs.microsoft.com/ja-jp/windows/wsl/tutorials/wsl-vscode" target="_blank">https://docs.microsoft.com/ja-jp/windows/wsl/tutorials/wsl-vscode</a></li>
-<li>Python 拡張機能 <a href="https://marketplace.visualstudio.com/items?itemName=ms-python.python" target="_blank">https://marketplace.visualstudio.com/items?itemName=ms-python.python</a></li>
-<li>VSCodeのチュートリアル（ドットインストール） <a href="https://dotinstall.com/lessons/basic_vscode" target="_blank">https://dotinstall.com/lessons/basic_vscode</a></li>
+<li><p>WSL2やVagrantで入れたUbuntuを使っている場合でも，<strong>Windowsに</strong> VS Codeを入れる．</p>
+</li>
+<li><p>WSL 拡張機能 <a href="https://docs.microsoft.com/ja-jp/windows/wsl/tutorials/wsl-vscode" target="_blank">https://docs.microsoft.com/ja-jp/windows/wsl/tutorials/wsl-vscode</a></p>
+</li>
+<li><p>Python 拡張機能 <a href="https://marketplace.visualstudio.com/items?itemName=ms-python.python" target="_blank">https://marketplace.visualstudio.com/items?itemName=ms-python.python</a></p>
+</li>
+<li><p>VSCodeのチュートリアル（ドットインストール） <a href="https://dotinstall.com/lessons/basic_vscode" target="_blank">https://dotinstall.com/lessons/basic_vscode</a></p>
+</li>
 </ul>
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/p4NOI6n9A4s?rel=0&amp;enablejsapi=1&amp;origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 
 <ul>
-<li>勉強会当日にVS Codeの拡張機能のインストールをやってみましたが，少々グダついたので，該当部分を撮り直して差し替えています．</li>
-<li>「VSCodeのターミナルは通常のターミナルと同じことができるのか？」という質問をいただきました．<ul>
+<li><p>勉強会当日にVS Codeの拡張機能のインストールをやってみましたが，少々グダついたので，該当部分を撮り直して差し替えています．</p>
+</li>
+<li><p>「VSCodeのターミナルは通常のターミナルと同じことができるのか？」という質問をいただきました．</p>
+<ul>
 <li>同じシェル（たとえばWSLのUbuntuのbash）に接続している限り，VSCode内蔵のターミナルはOSのターミナルと同じことができる．</li>
 <li>接続しているシェル（WindowsならPowerShellかコマンドプロンプトかWSLのbash，Macならzshかbashか...）が異なれば，操作，挙動も変わる．</li>
 <li>自分で設定しない限り，WSLのbashにVSCode内蔵のターミナルで接続したときに <code>~/.bash_profile</code> や <code>~/.profile</code> が読み込まれない（ <code>~/.bashrc</code> は読み込まれる）．そのため，環境変数などの設定を <code>~/.bashrc</code> ではなく <code>~/.bash_profile</code> にしか書いていない場合，その設定が無いままシェルを動かしていることになるため挙動が変わる． oTree の環境変数の設定に注意．</li>
@@ -492,8 +499,10 @@
 </ul>
 <h4 id="どのテキストエディタを使うべきか？">どのテキストエディタを使うべきか？</h4>
 <ul>
-<li><strong>結論: 好きなものを使う．状況に応じて使い分ける．</strong></li>
-<li>「VS Code と PyCharm，どちらが良いか？」という質問をいただきました．<ul>
+<li><p><strong>結論: 好きなものを使う．状況に応じて使い分ける．</strong></p>
+</li>
+<li><p>「VS Code と PyCharm，どちらが良いか？」という質問をいただきました．</p>
+<ul>
 <li>私はPyCharmを使ったことがないので分かりません．</li>
 <li>Webで検索すると，賛否両論のようです．<ul>
 <li>VS Code の方が軽量？</li>
@@ -502,23 +511,27 @@
 </li>
 </ul>
 </li>
-<li>VSCodeが良いな，と思うところ... （拡張機能が豊富なおかげで）いろいろな言語での開発が便利:<ul>
+<li><p>VSCodeが良いな，と思うところ... （拡張機能が豊富なおかげで）いろいろな言語での開発が便利:</p>
+<ul>
 <li>Jupyter Notebook（ブラウザで作業するのではなく）</li>
 <li>LaTeX（VSCodeで生成したPDFをプレビューできる）</li>
 <li>markdown（VSCodeでプレビューできる）</li>
 </ul>
 </li>
-<li>専用のエディタを使った方が良い場合も<ul>
+<li><p>専用のエディタを使った方が良い場合も</p>
+<ul>
 <li>R は RStudio （VS Codeでもある程度似たことはできるが）</li>
 <li>Wolfram Engine は無料で使えるようになったが，やはり課金してMathematicaを使う方が便利</li>
 </ul>
 </li>
-<li>今どきはクラウドで作業することも多い:<ul>
+<li><p>今どきはクラウドで作業することも多い:</p>
+<ul>
 <li>LaTeX は Overleaf</li>
 <li>Python (Jupyter) は Google Colaboratory</li>
 </ul>
 </li>
-<li>おせっかい機能が不要であれば，よりシンプルなエディタを使うのが良い<ul>
+<li><p>おせっかい機能が不要であれば，よりシンプルなエディタを使うのが良い</p>
+<ul>
 <li>Vim</li>
 <li>Emacs</li>
 <li><a href="https://hide.maruo.co.jp/software/hidemaru.html" target="_blank">秀丸エディタ</a></li>
@@ -526,11 +539,13 @@
 <li><a href="https://www.mimikaki.net/" target="_blank">mi</a></li>
 </ul>
 </li>
-<li>Windows標準の「メモ帳」を使うときは要注意！<ul>
+<li><p>Windows標準の「メモ帳」を使うときは要注意！</p>
+<ul>
 <li>（最近は改善されたようですが）文字コード，改行コードの扱いが不親切．</li>
 </ul>
 </li>
-<li>「エディタ戦争」<ul>
+<li><p>「エディタ戦争」</p>
+<ul>
 <li><a href="https://qiita.com/JJ1LIS/items/22e406ec26ad1e5c6228" target="_blank">@JJ1LIS「3分でわかるエディタ戦争物語」</a></li>
 <li><a href="https://gigazine.net/news/20210723-the-era-of-visual-studio-code/" target="_blank">GIGAZINE「戦国時代だったテキストエディタ界をVisual Studio Codeが天下統一しつつある」</a></li>
 <li><a href="https://jp.quora.com/Visual-Studio-Code%E3%81%AFVim%E3%82%84Emacs%E5%8E%9F%E7%90%86%E4%B8%BB%E7%BE%A9%E8%80%85%E3%82%92%E3%81%A9%E3%81%AE%E3%81%8F%E3%82%89%E3%81%84%E6%BB%85%E3%81%BC%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F%E3%81%8B" target="_blank">Quoraトピック「Visual Studio CodeはVimやEmacs原理主義者をどのくらい滅ぼしましたか？」</a></li>
@@ -545,19 +560,17 @@
 <h4 id="startproject-と-startapp-コマンドで生成されるもの"><code>startproject</code> と <code>startapp</code> コマンドで生成されるもの</h4>
 <p>以下のディレクトリ・ファイルは oTree を動かすために最低限必要なもの．ただし， <code>Procfile</code> と <code>requirements.txt</code> は Heroku にデプロイするために必要なものであり， Heroku を使わないのであれば不要．</p>
 <ul>
-<li><code>settings.py</code><ul>
+<li><p><code>settings.py</code></p>
+<ul>
 <li>セッションの設定を記述する．</li>
 <li><a href="otree_ref/settings.html"><code>settings.py</code>の書き方</a></li>
 </ul>
 </li>
-</ul>
-<ul>
 <li><p><code>requirements.txt</code></p>
 <ul>
 <li>pipで導入するパッケージを列挙する．</li>
 <li>Herokuを使うときに必要なファイル．</li>
-<li><p>デフォルト（ oTree v5.8.4）の記述内容:</p>
-<pre><code class="lang-python"><span class="hljs-comment"># oTree-may-overwrite-this-file</span>
+<li>デフォルト（ oTree v5.8.4）の記述内容:<pre><code class="lang-python"><span class="hljs-comment"># oTree-may-overwrite-this-file</span>
 <span class="hljs-comment"># IF YOU MODIFY THIS FILE, remove these comments.</span>
 <span class="hljs-comment"># otherwise, oTree will automatically overwrite it.</span>
 otree==<span class="hljs-number">5.8</span><span class="hljs-number">.4</span>
@@ -565,43 +578,34 @@ psycopg2&gt;=<span class="hljs-number">2.8</span><span class="hljs-number">.4</s
 sentry-sdk&gt;=<span class="hljs-number">0.7</span><span class="hljs-number">.9</span>
 </code></pre>
 </li>
-<li><p>↑ コメントアウト中にも書かれているとおり，「oTree-may-overwrite-this-file」の文字列があると， oTree が勝手に <code>requirements.txt</code> を書き換えるため，自分でライブラリのバージョンを固定したり別のライブラリを追加したりする場合は注意する．</p>
-</li>
-<li><p>他人から oTree プロジェクトのファイルをもらったときに，その人と同じパッケージを入れるには，以下のようにpipを使う．</p>
-<pre><code class="lang-bash">pip install -r requirements.txt
+<li>↑ コメントアウト中にも書かれているとおり，「oTree-may-overwrite-this-file」の文字列があると， oTree が勝手に <code>requirements.txt</code> を書き換えるため，自分でライブラリのバージョンを固定したり別のライブラリを追加したりする場合は注意する．</li>
+<li>他人から oTree プロジェクトのファイルをもらったときに，その人と同じパッケージを入れるには，以下のようにpipを使う．<pre><code class="lang-bash">pip install -r requirements.txt
 </code></pre>
 </li>
 </ul>
 </li>
-</ul>
-<ul>
 <li><p><code>Procfile</code></p>
 <ul>
 <li>Heroku用の設定ファイル．</li>
 <li>拡張子はないが単なるテキストファイル．</li>
-<li><p>デフォルト（ oTree v5.8.4 ）の記述内容:</p>
-<pre><code>web: otree prodserver1of2
+<li>デフォルト（ oTree v5.8.4 ）の記述内容:<pre><code>web: otree prodserver1of2
 worker: otree prodserver2of2
 </code></pre></li>
-<li><p>↑ 2行目のworker dynoのコマンドは不要だと思われる．</p>
-</li>
+<li>↑ 2行目のworker dynoのコマンドは不要だと思われる．</li>
 </ul>
 </li>
-</ul>
+<li><p><code>_static</code> ディレクトリ</p>
 <ul>
-<li><code>_static</code> ディレクトリ<ul>
 <li>画像ファイルやCSSファイル，JSファイルを置いておく．</li>
 </ul>
 </li>
-</ul>
+<li><p><code>_templates</code> ディレクトリ</p>
 <ul>
-<li><code>_templates</code> ディレクトリ<ul>
 <li>複数アプリ使い回すHTMLテンプレートを置いておく．</li>
 </ul>
 </li>
-</ul>
+<li><p>各アプリのディレクトリ</p>
 <ul>
-<li>各アプリのディレクトリ<ul>
 <li><code>__init__.py</code></li>
 <li><code>*.html</code></li>
 </ul>
@@ -679,7 +683,7 @@ worker: otree prodserver2of2
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"VS Code の導入 ・ oTree プログラミングの概要","level":"1.4","depth":1,"next":{"title":"oTree プログラミングの進め方","level":"1.5","depth":1,"path":"day4.md","ref":"day4.md","articles":[]},"previous":{"title":"GitとGitHubの使い方 ・ Herokuの使い方","level":"1.3","depth":1,"path":"day2.md","ref":"day2.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day3.md","mtime":"2022-07-16T12:39:17.711Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-07-23T07:20:16.941Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"VS Code の導入 ・ oTree プログラミングの概要","level":"1.4","depth":1,"next":{"title":"oTree プログラミングの進め方","level":"1.5","depth":1,"path":"day4.md","ref":"day4.md","articles":[]},"previous":{"title":"GitとGitHubの使い方 ・ Herokuの使い方","level":"1.3","depth":1,"path":"day2.md","ref":"day2.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day3.md","mtime":"2022-09-11T10:09:22.219Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-09-11T11:09:20.189Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

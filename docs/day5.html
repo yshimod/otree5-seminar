@@ -483,16 +483,11 @@
 <ul>
 <li><p>oTree 3 はDjangoがベースであったため，Djangoの組み込みフィルターが使えたが， oTree 5 では，Djangoの組み込みフィルターが（ほとんど）使えなくなった．oTree 3 から oTree 5 へ移行するときは注意．多用されていたと思われるフィルターは以下:</p>
 <ul>
-<li><p><code>floatformat:0</code>: 整数への（銀行家の）丸め． oTree 5 では <code>to0</code> に変更されたが，切り下げとなることに注意．</p>
-</li>
-<li><p><code>add</code>: テンプレートで変数の足し算ができた（たとえば <code>{{ x|add:&quot;1&quot; }}</code> とすれば xに1を足した数値が表示されていた）．</p>
-</li>
-<li><p><code>date</code>: 変数が <code>datetime</code> オブジェクトであれば，日付が人間が読める書式に変換されて表示されていた．</p>
-</li>
+<li><code>floatformat:0</code>: 整数への（銀行家の）丸め． oTree 5 では <code>to0</code> に変更されたが，切り下げとなることに注意．</li>
+<li><code>add</code>: テンプレートで変数の足し算ができた（たとえば <code>{{ x|add:&quot;1&quot; }}</code> とすれば xに1を足した数値が表示されていた）．</li>
+<li><code>date</code>: 変数が <code>datetime</code> オブジェクトであれば，日付が人間が読める書式に変換されて表示されていた．</li>
 </ul>
 </li>
-</ul>
-<ul>
 <li><p>テンプレートタグのデリミタが <code>{% %}</code> から <code>{{ }}</code> に変更され，テンプレートタグと変数の記述方法が縮退してしまった．</p>
 <ul>
 <li>oTree 5 でも互換性のために <code>{% %}</code> は使える．ただし，<code>{%</code> と <code>{{</code>， <code>%}</code> と <code>}}</code> をそれぞれ区別しないという実装のようなので，<code>&quot;</code> と <code>&apos;</code> の関係のようにネストさせて使えるというわけではない．</li>
@@ -548,7 +543,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"テンプレートにおけるプログラミング","level":"1.6","depth":1,"next":{"title":"oTree の組み込み関数の使い方","level":"1.7","depth":1,"path":"day6.md","ref":"day6.md","articles":[]},"previous":{"title":"oTree プログラミングの進め方","level":"1.5","depth":1,"path":"day4.md","ref":"day4.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day5.md","mtime":"2022-07-16T12:39:17.712Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-07-23T07:20:16.941Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"テンプレートにおけるプログラミング","level":"1.6","depth":1,"next":{"title":"oTree の組み込み関数の使い方","level":"1.7","depth":1,"path":"day6.md","ref":"day6.md","articles":[]},"previous":{"title":"oTree プログラミングの進め方","level":"1.5","depth":1,"path":"day4.md","ref":"day4.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day5.md","mtime":"2022-09-11T10:15:37.958Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-09-11T11:09:20.189Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

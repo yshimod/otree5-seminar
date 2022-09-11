@@ -484,13 +484,12 @@
 </li>
 <li><p>Gitをインストール．<br> <a href="https://git-scm.com/downloads" target="_blank">https://git-scm.com/downloads</a></p>
 <ul>
-<li>Ubuntuの場合はapt，Macの場合はbrewで入れれば良い．</li>
+<li>Ubuntuの場合は <code>apt</code>，Macの場合は <code>brew</code> で入れれば良い．</li>
 </ul>
 </li>
 <li><p>Heroku CLIをインストール．<br> <a href="https://devcenter.heroku.com/articles/heroku-cli" target="_blank">https://devcenter.heroku.com/articles/heroku-cli</a></p>
 <ul>
-<li><p>WSL2でUbuntuを使っている場合は...</p>
-<pre><code class="lang-bash">curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+<li>WSL2でUbuntuを使っている場合は...<pre><code class="lang-bash">curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
 </code></pre>
 </li>
 </ul>
@@ -508,12 +507,9 @@
 </li>
 <li><p>oTree プロジェクトにHeroku用の設定ファイルが入っているか確認．</p>
 <ul>
-<li><p>Procfile</p>
-</li>
-<li><p>requirements.txt （pipで入れるもののリスト）</p>
-</li>
-<li><p>Pythonのバージョンを指定する場合はruntime.txt</p>
-</li>
+<li><code>Procfile</code></li>
+<li><code>requirements.txt</code> （pipで入れるもののリスト）</li>
+<li>Pythonのバージョンを指定する場合は <code>runtime.txt</code></li>
 </ul>
 </li>
 <li><p>Heroku CLI でHerokuのGitサーバーをリモートリポジトリ（herokuという名前）として追加．「APP名」はHeroku Dashboardで確認する．</p>
@@ -526,16 +522,11 @@ git commit -m <span class="hljs-string">&quot;first commit&quot;</span>
 git push heroku 「ブランチ名」:main
 </code></pre>
 <ul>
-<li><p>GitHubを併用している場合，GitHubのリモートリポジトリが「origin」，Herokuのリモートリポジトリが「heroku」という名前で登録されている．</p>
-</li>
-<li><p><strong>GitHubとGitを明確に区別すること！</strong></p>
-</li>
-<li><p>Herokuのリモートリポジトリのブランチ名は<code>main</code>（ないし<code>master</code>）．</p>
-</li>
-<li><p>ローカルのブランチ名はデフォルトなら <code>master</code>．<code>git push heroku master:main</code> ないしは <code>git push heroku master</code>でプッシュできる．</p>
-</li>
-<li><p>ローカルのブランチ名が，たとえば<code>dev</code>であれば，<code>git push heroku dev:main</code>．</p>
-</li>
+<li>GitHubを併用している場合，GitHubのリモートリポジトリが「origin」，Herokuのリモートリポジトリが「heroku」という名前で登録されている．</li>
+<li><strong>GitHubとGitを明確に区別すること！</strong></li>
+<li>Herokuのリモートリポジトリのブランチ名は<code>main</code>（ないし<code>master</code>）．</li>
+<li>ローカルのブランチ名はデフォルトなら <code>master</code>．<code>git push heroku master:main</code> ないしは <code>git push heroku master</code>でプッシュできる．</li>
+<li>ローカルのブランチ名が，たとえば<code>dev</code>であれば，<code>git push heroku dev:main</code>．</li>
 </ul>
 </li>
 <li><p>プッシュすると自動的にデプロイされる．</p>
@@ -595,7 +586,7 @@ git push heroku 「ブランチ名」:main
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Herokuで oTree を動かす","level":"3.3","depth":1,"next":{"title":"【資料: その他】","level":"4.1","depth":1,"ref":"","articles":[]},"previous":{"title":"Ubuntuで oTree を動かす","level":"3.2","depth":1,"path":"server_setup/README.md","ref":"server_setup/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"heroku/README.md","mtime":"2022-07-16T12:39:17.714Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-07-23T07:20:16.941Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Herokuで oTree を動かす","level":"3.3","depth":1,"next":{"title":"【資料: その他】","level":"4.1","depth":1,"ref":"","articles":[]},"previous":{"title":"Ubuntuで oTree を動かす","level":"3.2","depth":1,"path":"server_setup/README.md","ref":"server_setup/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"heroku/README.md","mtime":"2022-09-11T09:33:02.219Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-09-11T11:09:20.189Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

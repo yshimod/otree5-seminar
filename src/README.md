@@ -40,7 +40,7 @@ showToc: false
 
 - [oTree プログラミングの進め方](day4.md) （どこからコードを書いていけばよいか分からない場合はこちら）
     - [入力フォームの検証](day4.md#a1-入力フォームの検証)
-    - [自作の関数の引数は何？](day4.md#a2-自作の関数の引数は何)
+    - [自作の関数の引数は何？](day4.md#a2-自作の関数の引数は何？)
     - [oTree の通貨型](day4.md#a3-otree-の通貨型)
 
 
@@ -54,9 +54,9 @@ showToc: false
     - [ページ表示をスキップする](day6.md#ページ表示をスキップする)
     - [`フィールド名_max()` で入力フォーム検証の条件を動的に設定する](day6.md#フィールド名max-で入力フォーム検証の条件を動的に設定する)
     - [`creating_session()` を使ったプレイヤーのシャッフル](day6.md#creatingsession-を使ったプレイヤーのシャッフル)
-    - [関数内でインポートしてよいか？](day6.md#tips-関数内でインポートしてよいか)
+    - [関数内でインポートしてよいか？](day6.md#【tips】-関数内でインポートしてよいか？)
     - [意思決定画面で時間制限を設定してみる](day6.md#意思決定画面で時間制限を設定してみる)
-    - [「 `@staticmethod` 」は何か？](day6.md#tips--staticmethod-は何か)
+    - [「 `@staticmethod` 」は何か？](day6.md#【tips】-「-staticmethod-」は何か？)
     - [確率的に繰り返しを終了するとき `NUM_ROUNDS` は最大数を設定する](day6.md#確率的に繰り返しを終了するとき-numrounds-は最大数を設定する)
 
 
@@ -72,7 +72,7 @@ showToc: false
     - [ExtraModel](day8.md#extramodel)
     - [JavaScript](day8.md#javascript)
     - [Live page](day8.md#live-page)
-    - [三上さん特別レクチャー（ダブルオークションの実装）](day8.md#三上さん特別レクチャーダブルオークションの実装)
+    - [三上さん特別レクチャー（ダブルオークションの実装）](day8.md#三上さん特別レクチャー（ダブルオークションの実装）)
 
 
 - [演習 （少し特殊な最後通牒ゲームを作る）](exercise.md)

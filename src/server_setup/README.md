@@ -104,25 +104,25 @@
         - PostgreSQLを使う予定がない場合にはpsycopg2は入れる必要なし．とりあえず諦める．
 1. oTree を動かしてみる
     - まずはシェルでoTreeのバージョンを確認．
-    ```bash
-    otree --version
-    ```
+      ```bash
+      otree --version
+      ```
     - 試しに新規プロジェクトの作成（たとえば新規プロジェクトの名前を `my_oTree` とする）．
-    ```bash
-    otree startproject my_oTree
-    ```
+      ```bash
+      otree startproject my_oTree
+      ```
         - とりあえずサンプルゲームも入れる（「Include sample games?」聞かれたら `y` と答える）．
     - `my_oTree` なるディレクトリが作成されるので，その中に入る．
-    ```bash
-    # my_oTree に入る
-    cd my_oTree
-    # my_oTreeの中身を確認する
-    ls -la
-    ```
+      ```bash
+      # my_oTree に入る
+      cd my_oTree
+      # my_oTreeの中身を確認する
+      ls -la
+      ```
     - oTreeがサーバーとして動くのか確認．
-    ```bash
-    otree prodserver
-    ```
+      ```bash
+      otree prodserver
+      ```
         - ブラウザで `http://localhost:8000` にアクセスできるか？
             - WSL2上で動かしている場合はlocalhostでアクセスできるはず．  
                 （何となれば... [https://docs.microsoft.com/ja-jp/windows/wsl/networking#accessing-linux-networking-apps-from-windows-localhost](https://docs.microsoft.com/ja-jp/windows/wsl/networking#accessing-linux-networking-apps-from-windows-localhost)）

@@ -464,57 +464,50 @@
 <pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Results</span>(<span class="hljs-params">Page</span>):</span>
     <span class="hljs-keyword">pass</span>
 </code></pre>
-<p>  というクラスを定義していれば，テンプレートファイルの名前は <code>Results.html</code> とする．</p>
+<p>というクラスを定義していれば，テンプレートファイルの名前は <code>Results.html</code> とする．</p>
 <ul>
-<li><p>ファイル名が <code>results.html</code> （大文字・小文字の違い）でもエラーが出ずに動いてしまう環境（ファイルシステムに依存）がある．しかし，大文字・小文字もちゃんと一致させておくべき．</p>
-<ul>
-<li><p>Windows や Mac はファイル名の大文字と小文字を区別しない．しかし， Linux は区別する．ありがちなトラブルは，手元のPCでは正常に動くのに，Heroku（Linux）にデプロイしたときには動かない，</p>
-</li>
-<li><p>Git でプロジェクトを管理している場合，ファイル名の大文字・小文字のリネームは無視されるので注意．</p>
-</li>
+<li>ファイル名が <code>results.html</code> （大文字・小文字の違い）でもエラーが出ずに動いてしまう環境（ファイルシステムに依存）がある．しかし，大文字・小文字もちゃんと一致させておくべき．<ul>
+<li>Windows や Mac はファイル名の大文字と小文字を区別しない．しかし， Linux は区別する．ありがちなトラブルは，手元のPCでは正常に動くのに，Heroku（Linux）にデプロイしたときには動かない，</li>
+<li>Git でプロジェクトを管理している場合，ファイル名の大文字・小文字のリネームは無視されるので注意．</li>
 </ul>
 </li>
-<li><p>クラス名とファイル名を一致させたくない場合はページクラスの <code>template_name</code> にパスを渡す．詳しくは<a href="init.html#ページクラスの変数">こちら</a> ．</p>
-</li>
+<li>クラス名とファイル名を一致させたくない場合はページクラスの <code>template_name</code> にパスを渡す．詳しくは<a href="init.html#ページクラスの変数">こちら</a> ．</li>
 </ul>
 </li>
-</ul>
+<li><p><strong>タイトルブロック</strong> （ <code>{{ block title }}</code> と <code>{{ endblock }}</code> に挟まれた部分）</p>
 <ul>
-<li><strong>タイトルブロック</strong> （ <code>{{ block title }}</code> と <code>{{ endblock }}</code> に挟まれた部分）<ul>
 <li>タイトルブロック内に，ページの冒頭で表示するタイトルを記述する．</li>
 <li>記述した文字列がブラウザウィンドウのタイトルにも表示される</li>
 </ul>
 </li>
-</ul>
+<li><p><strong>コンテンツブロック</strong> （ <code>{{ block content }}</code> と <code>{{ endblock }}</code> に挟まれた部分）</p>
 <ul>
-<li><strong>コンテンツブロック</strong> （ <code>{{ block content }}</code> と <code>{{ endblock }}</code> に挟まれた部分）<ul>
 <li>コンテンツブロック内に，ページの本文を，HTMLタグも適宜使いながら記述する．</li>
 <li>oTree サーバーに送信したいデータの入力フォームを作るためには，コンテンツブロック内に <code>&lt;input&gt;</code> タグなどを記述する．このとき <code>name</code> 属性に，記録するデータのフィールド名を設定する．</li>
 </ul>
 </li>
-</ul>
-<ul>
-<li>CSSを使う場合は， <strong>スタイルブロック</strong> （ <code>{{ block styles }}</code> と <code>{{ endblock }}</code> に挟まれた部分）に <code>&lt;style&gt;</code> タグで直書きするか <code>&lt;link&gt;</code> タグを書いてCSSファイルを読み込む．</li>
-</ul>
-<ul>
-<li>JavaScriptを使う場合は， <strong>スクリプトブロック</strong> （ <code>{{ block scripts }}</code> と <code>{{ endblock }}</code> に挟まれた部分）に <code>&lt;script&gt;</code> タグで直書きするかJSファイルを読み込む．</li>
-</ul>
-<ul>
-<li>oTree はまずはじめに oTree サーバーがテンプレートファイルを読み込んで変数の展開などを行い HTML を生成して，これをクライアント（参加者のブラウザ）に送信する．<br><a href="https://otree.readthedocs.io/en/latest/templates.html#how-templates-work-an-example" target="_blank">https://otree.readthedocs.io/en/latest/templates.html#how-templates-work-an-example</a></li>
+<li><p>CSSを使う場合は， <strong>スタイルブロック</strong> （ <code>{{ block styles }}</code> と <code>{{ endblock }}</code> に挟まれた部分）に <code>&lt;style&gt;</code> タグで直書きするか <code>&lt;link&gt;</code> タグを書いてCSSファイルを読み込む．</p>
+</li>
+<li><p>JavaScriptを使う場合は， <strong>スクリプトブロック</strong> （ <code>{{ block scripts }}</code> と <code>{{ endblock }}</code> に挟まれた部分）に <code>&lt;script&gt;</code> タグで直書きするかJSファイルを読み込む．</p>
+</li>
+<li><p>oTree はまずはじめに oTree サーバーがテンプレートファイルを読み込んで変数の展開などを行い HTML を生成して，これをクライアント（参加者のブラウザ）に送信する．
+<a href="https://otree.readthedocs.io/en/latest/templates.html#how-templates-work-an-example" target="_blank">https://otree.readthedocs.io/en/latest/templates.html#how-templates-work-an-example</a></p>
+</li>
 </ul>
 <h2 id="変数の展開">変数の展開</h2>
 <ul>
-<li>テンプレート内に <code>{{ 変数名 }}</code> と記述すると， oTree サーバーはその箇所に変数を展開し，参加者には具体的な変数の中身が代入されて表示される．</li>
-</ul>
-<ul>
-<li>たとえば，<code>C.ENDOWMENT</code> の値が <code>1000</code> であるとして，テンプレートに  <pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>あなたの初期保有は{{ C.ENDOWMENT }}ポイントです．<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<li><p>テンプレート内に <code>{{ 変数名 }}</code> と記述すると， oTree サーバーはその箇所に変数を展開し，参加者には具体的な変数の中身が代入されて表示される．</p>
+</li>
+<li><p>たとえば，<code>C.ENDOWMENT</code> の値が <code>1000</code> であるとして，テンプレートに</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>あなたの初期保有は{{ C.ENDOWMENT }}ポイントです．<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 </code></pre>
-と記述したとき，クライアントが oTree サーバーから受け取るHTMLデータは，<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>あなたの初期保有は1000ポイントです．<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<p>と記述したとき，クライアントが oTree サーバーから受け取るHTMLデータは，</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>あなたの初期保有は1000ポイントです．<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 </code></pre>
-となる．</li>
-</ul>
+<p>となる．</p>
+</li>
+<li><p>以下のインスタンスオブジェクトが使える．</p>
 <ul>
-<li>以下のインスタンスオブジェクトが使える．<ul>
 <li><code>player</code></li>
 <li>（当該 player の） <code>group</code></li>
 <li>（当該 player の） <code>subsession</code></li>
@@ -523,19 +516,15 @@
 <li><code>C</code></li>
 </ul>
 </li>
-</ul>
-<ul>
 <li><p>変数の演算はできない．</p>
 <ul>
-<li><p>たとえば <code>{{ C.ENDOWMENT * 10 }}</code> として値を10倍して表示する，という使い方はできない．</p>
-</li>
-<li><p>データベースに保存していない変数で表示したいものは，ページクラスで定義した <code>vars_for_template()</code> の中で変数を定義してテンプレートに変数を渡す必要がある．</p>
-<ul>
-<li>たとえば，変数を使いたい画面のページクラスに以下のように記述する．  <pre><code class="lang-python"><span class="hljs-meta">@staticmethod</span>
+<li>たとえば <code>{{ C.ENDOWMENT * 10 }}</code> として値を10倍して表示する，という使い方はできない．</li>
+<li>データベースに保存していない変数で表示したいものは，ページクラスで定義した <code>vars_for_template()</code> の中で変数を定義してテンプレートに変数を渡す必要がある．<ul>
+<li>たとえば，変数を使いたい画面のページクラスに以下のように記述する．<pre><code class="lang-python"><span class="hljs-meta">@staticmethod</span>
 <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">vars_for_template</span>(<span class="hljs-params">player: Player</span>):</span>
-  <span class="hljs-keyword">return</span> <span class="hljs-built_in">dict</span>(
-      ENDOWMENT_times_10 = C.ENDOWMENT * <span class="hljs-number">10</span>
-  )
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">dict</span>(
+        ENDOWMENT_times_10 = C.ENDOWMENT * <span class="hljs-number">10</span>
+    )
 </code></pre>
 そしてテンプレートにおいて <code>{{ ENDOWMENT_times_10 }}</code> と記述すれば， <code>C.ENDOWMENT</code> を10倍した値が画面で表示される．</li>
 </ul>
@@ -583,10 +572,10 @@
 <h2 id="テンプレートタグ">テンプレートタグ</h2>
 <h3 id="if"><code>if</code></h3>
 <ul>
-<li>変数の値によって条件分岐させる．</li>
-</ul>
-<ul>
-<li>書き方の例:<pre><code class="lang-html">{{ if player.contribution == 0 }}
+<li><p>変数の値によって条件分岐させる．</p>
+</li>
+<li><p>書き方の例:</p>
+<pre><code class="lang-html">{{ if player.contribution == 0 }}
     <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>あなたは利己的な意思決定をしました．<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 {{ elif player.contribution &lt; 100 }}
     <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>あなたは少しだけ貢献しました．<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
@@ -595,40 +584,29 @@
 {{ endif }}
 </code></pre>
 </li>
-</ul>
-<ul>
-<li>使える関係演算子の一覧: <code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>, <code>in</code>, <code>not in</code></li>
-</ul>
-<ul>
+<li><p>使える関係演算子の一覧: <code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>, <code>in</code>, <code>not in</code></p>
+</li>
 <li><p>使える論理演算子の一覧: <code>and</code>, <code>or</code>, <code>not</code></p>
 <ul>
-<li><p><code>and</code> と <code>or</code> では <code>and</code> が優先される．</p>
-<ul>
+<li><code>and</code> と <code>or</code> では <code>and</code> が優先される．<ul>
 <li>たとえば <code>{{ if expr1 or expr2 and expr3 }}</code> と書いたとき，はじめに <code>expr2 and expr3</code> の真偽が評価される．<code>expr1 = True</code>， <code>expr2 = False</code>， <code>expr3 = False</code>， のとき， <code>expr1 or expr2 and expr3</code> は真．</li>
 </ul>
 </li>
-<li><p>テンプレートタグの中で括弧 <code>()</code> は使えない．論理演算の優先順位を示す場合には <code>if</code> タグをネストさせる．</p>
-</li>
+<li>テンプレートタグの中で括弧 <code>()</code> は使えない．論理演算の優先順位を示す場合には <code>if</code> タグをネストさせる．</li>
 </ul>
 </li>
-</ul>
-<ul>
 <li><p>省略した書き方もある．</p>
 <ul>
-<li><p><code>{{ expr1 ?? &quot;真&quot; :: &quot;偽&quot; }}</code> と書いたとき， <code>expr1</code> が真であれば「真」と表示される．</p>
-</li>
-<li><p><code>expr1</code> は真偽値そのものでないといけない．たとえば <code>{{ x == 1 ?? &quot;真&quot; :: &quot;偽&quot; }}</code> は動かない．</p>
-</li>
-<li><p><code>::</code> 以降を省略してはいけない．偽のときに何も表示させない場合は <code>{{ expr1 ?? &quot;真&quot; :: &quot;&quot; }}</code> と書く．</p>
-</li>
+<li><code>{{ expr1 ?? &quot;真&quot; :: &quot;偽&quot; }}</code> と書いたとき， <code>expr1</code> が真であれば「真」と表示される．</li>
+<li><code>expr1</code> は真偽値そのものでないといけない．たとえば <code>{{ x == 1 ?? &quot;真&quot; :: &quot;偽&quot; }}</code> は動かない．</li>
+<li><code>::</code> 以降を省略してはいけない．偽のときに何も表示させない場合は <code>{{ expr1 ?? &quot;真&quot; :: &quot;&quot; }}</code> と書く．</li>
 </ul>
 </li>
 </ul>
 <h3 id="for"><code>for</code></h3>
 <ul>
-<li>変数がリスト型や辞書型のとき，forループで値を一つずつ取り出して表示できる．</li>
-</ul>
-<ul>
+<li><p>変数がリスト型や辞書型のとき，forループで値を一つずつ取り出して表示できる．</p>
+</li>
 <li><p>書き方の例:</p>
 <pre><code class="lang-html">{{ for p in player.get_others_in_subsession() }}
     <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>プレイヤー{{ p.id_in_group }}さんの報酬は{{ p.payoff }}でした．<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
@@ -638,80 +616,77 @@
 {{ endfor }}
 </code></pre>
 </li>
-</ul>
-<ul>
 <li><p>辞書型のときはキーと値を別々に取ることもできる．たとえば <code>mydict = {&apos;key1&apos;: 10, &apos;key2&apos;: 20}</code> のとき，</p>
 <pre><code class="lang-html">{{ for k, v in mydict.items() }}
     <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>{{ k }}: {{ v }}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 {{ endfor }}
 </code></pre>
 </li>
-</ul>
-<ul>
 <li><p>forループの中で変数 <code>forloop.counter</code> にはカウンター番号が入っている．インデックスを0から始める場合は <code>forloop.counter0</code>．</p>
 <ul>
-<li>たとえばMPLを作るときに，定数に <code>optR = [200, 250, 300, 350, 400]</code> を定義して，テンプレートで<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">table</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>オプションL<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>オプションR<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
-  {{ for v in C.optR }}
-      <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>50%の確率で650円<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;mpl_{{ forloop.counter0 }}&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;L&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;mpl_{{ forloop.counter0 }}&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;R&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>100%の確率で{{v}}円<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
-  {{ endfor }}
+<li><p>たとえばMPLを作るときに，定数に <code>optR = [200, 250, 300, 350, 400]</code> を定義して，テンプレートで</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">table</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>オプションL<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>オプションR<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+    {{ for v in C.optR }}
+        <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>50%の確率で650円<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;mpl_{{ forloop.counter0 }}&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;L&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;mpl_{{ forloop.counter0 }}&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;R&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>100%の確率で{{v}}円<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+    {{ endfor }}
 <span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span>
 </code></pre>
-と記述すると，以下のような表が生成される．<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">table</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>オプションL<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>オプションR<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>50%の確率で650円<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;mpl_0&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;L&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;mpl_0&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;R&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>100%の確率で200円<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>50%の確率で650円<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;mpl_1&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;L&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;mpl_1&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;R&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>100%の確率で250円<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>50%の確率で650円<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;mpl_2&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;L&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;mpl_2&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;R&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>100%の確率で300円<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>50%の確率で650円<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;mpl_3&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;L&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;mpl_3&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;R&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>100%の確率で350円<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>50%の確率で650円<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;mpl_4&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;L&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;mpl_4&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;R&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>100%の確率で400円<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+<p>と記述すると，以下のような表が生成される．</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">table</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>オプションL<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>オプションR<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>50%の確率で650円<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;mpl_0&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;L&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;mpl_0&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;R&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>100%の確率で200円<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>50%の確率で650円<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;mpl_1&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;L&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;mpl_1&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;R&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>100%の確率で250円<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>50%の確率で650円<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;mpl_2&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;L&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;mpl_2&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;R&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>100%の確率で300円<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>50%の確率で650円<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;mpl_3&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;L&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;mpl_3&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;R&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>100%の確率で350円<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>50%の確率で650円<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;mpl_4&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;L&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;mpl_4&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;R&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>100%の確率で400円<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span>
 </code></pre>
 </li>
 </ul>
 </li>
-</ul>
-<ul>
-<li>forループをネストさせる場合， <code>forloop.counter</code> は内側のforループのカウンター番号が展開される．外側のforループのカウンター番号を展開する場合は <code>{{ with parentloop_counter = forloop.counter }} {{ endwith }}</code> で内側のforループを挟み， 外側のカウンター番号として <code>{{ parentloop_counter }}</code> を使う．たとえば  <pre><code class="lang-html">{{ for i in &quot;ABC&quot; }}
+<li><p>forループをネストさせる場合， <code>forloop.counter</code> は内側のforループのカウンター番号が展開される．外側のforループのカウンター番号を展開する場合は <code>{{ with parentloop_counter = forloop.counter }} {{ endwith }}</code> で内側のforループを挟み， 外側のカウンター番号として <code>{{ parentloop_counter }}</code> を使う．たとえば</p>
+<pre><code class="lang-html">{{ for i in &quot;ABC&quot; }}
     <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>{{ forloop.counter }}({{ i }})<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
     {{ with parentloop_counter = forloop.counter }}
         {{ for j in &quot;abc&quot; }}
@@ -720,7 +695,8 @@
     {{ endwith }}
 {{ endfor }}
 </code></pre>
-は<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>1(A)<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<p>は</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>1(A)<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>1(A) - 1(a)<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>1(A) - 2(b)<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>1(A) - 3(c)<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
@@ -733,10 +709,10 @@
 <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>3(C) - 2(b)<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>3(C) - 3(c)<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 </code></pre>
-と展開される．</li>
-</ul>
-<ul>
-<li>使うリストなどが空だった場合の例外処理は <code>{{ empty }}</code> を使って記述．<pre><code class="lang-html">{{ for v in C.mylist }}
+<p>と展開される．</p>
+</li>
+<li><p>使うリストなどが空だった場合の例外処理は <code>{{ empty }}</code> を使って記述．</p>
+<pre><code class="lang-html">{{ for v in C.mylist }}
     <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>{{ forloop.counter }}番目の要素は{{v}}．<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 {{ empty }}
     <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>このリストは空です．<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
@@ -746,16 +722,15 @@
 </ul>
 <h3 id="include"><code>include</code></h3>
 <ul>
-<li>テンプレート中で，パーツとなるテンプレートファイルを読み込むことができる．</li>
-</ul>
-<ul>
-<li>たとえば意思決定画面でもインストラクションを表示させたいときに，インストラクションの本文（タイトルブロックや「次へ」ボタンなどを除いた部分）だけを別のHTMLファイル（同じアプリ <code>publicgoodsgame</code> のディレクトリ内の <code>instr.html</code> ）として作っておく．作ったHTMLを以下のようにして読み込むと，読み込んだファイル全体が <code>{{ include &quot;パス&quot; }}</code> を記述した部分に展開される．<pre><code class="lang-html">{{ include &quot;publicgoodsgame/instr.html&quot; }}
+<li><p>テンプレート中で，パーツとなるテンプレートファイルを読み込むことができる．</p>
+</li>
+<li><p>たとえば意思決定画面でもインストラクションを表示させたいときに，インストラクションの本文（タイトルブロックや「次へ」ボタンなどを除いた部分）だけを別のHTMLファイル（同じアプリ <code>publicgoodsgame</code> のディレクトリ内の <code>instr.html</code> ）として作っておく．作ったHTMLを以下のようにして読み込むと，読み込んだファイル全体が <code>{{ include &quot;パス&quot; }}</code> を記述した部分に展開される．</p>
+<pre><code class="lang-html">{{ include &quot;publicgoodsgame/instr.html&quot; }}
 </code></pre>
 </li>
-</ul>
+<li><p><code>include</code> するファイルのテンプレートに変数を（1つだけ）渡すこともできる．</p>
 <ul>
-<li><code>include</code> するファイルのテンプレートに変数を（1つだけ）渡すこともできる．<ul>
-<li>たとえば <code>instr.html</code> の中で <code>{{ thisyear }}</code> と記述しておき，  <pre><code class="lang-html">{{ include &quot;publicgoodsgame/instr.html&quot; with thisyear=2022 }}
+<li>たとえば <code>instr.html</code> の中で <code>{{ thisyear }}</code> と記述しておき，<pre><code class="lang-html">{{ include &quot;publicgoodsgame/instr.html&quot; with thisyear=2022 }}
 </code></pre>
 と記述すると，<code>instr.html</code> の <code>{{ thisyear }}</code> に「2022」を展開した上で，<code>instr.html</code> 全体が <code>{{ include &quot;パス&quot; }}</code> を記述した部分に展開される．</li>
 </ul>
@@ -763,19 +738,18 @@
 </ul>
 <h3 id="static"><code>static</code></h3>
 <ul>
-<li>プロジェクトディレクトリ直下の <code>_static</code> ディレクトリに置いたファイルについて，開発環境でのパスとブラウザが認識できるパスは異なる．ブラウザが認識できるパスを取得するために <code>static</code> タグを使う．</li>
-</ul>
-<ul>
-<li><a href="https://otree.readthedocs.io/en/latest/misc/advanced.html#static-files" target="_blank">https://otree.readthedocs.io/en/latest/misc/advanced.html#static-files</a></li>
-</ul>
-<ul>
-<li>たとえば <code>_static/global</code> ディレクトリに画像ファイル <code>photo.png</code> を置いて，それを表示させるためには，テンプレートに  <pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;{{ static &apos;global/photo.png&apos; }}&quot;</span>/&gt;</span>
+<li><p>プロジェクトディレクトリ直下の <code>_static</code> ディレクトリに置いたファイルについて，開発環境でのパスとブラウザが認識できるパスは異なる．ブラウザが認識できるパスを取得するために <code>static</code> タグを使う．</p>
+</li>
+<li><p><a href="https://otree.readthedocs.io/en/latest/misc/advanced.html#static-files" target="_blank">https://otree.readthedocs.io/en/latest/misc/advanced.html#static-files</a></p>
+</li>
+<li><p>たとえば <code>_static/global</code> ディレクトリに画像ファイル <code>photo.png</code> を置いて，それを表示させるためには，テンプレートに</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;{{ static &apos;global/photo.png&apos; }}&quot;</span>/&gt;</span>
 </code></pre>
-と記述する．これを oTree は<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;/static/global/photo.png&quot;</span>&gt;</span>
+<p>と記述する．これを oTree は</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;/static/global/photo.png&quot;</span>&gt;</span>
 </code></pre>
-と生成する．</li>
-</ul>
-<ul>
+<p>と生成する．</p>
+</li>
 <li><p>プロジェクトディレクトリ直下の <code>_static</code> ディレクトリは， oTree 本体が用意している <code>_static</code> （中身は以下）を上書きする．</p>
 <div class="accordion accordionClose"><div class="accordionButton"><div class="accordionTitle">oTree 本体の <code>_static</code> の中身</div><div class="accordionSpinnerBox"><div class="accordionSpinner"></div></div></div><div class="accordionContent">
 <pre><code>.
@@ -830,77 +804,50 @@
 </ul>
 <h3 id="extends"><code>extends</code></h3>
 <ul>
-<li>親テンプレートファイル（たとえば <code>myapp</code> なるアプリのディレクトリに <code>mytemplate.html</code> なるファイル）を自分で作ったとき，（ページクラスの <code>template_name</code> で指定する）テンプレートファイルの冒頭で <code>{{ extends &quot;myapp/mytemplate.html&quot; }}</code> と記述しておけば，自分で作った親テンプレートファイルの記述を継承できる．</li>
-</ul>
-<ul>
-<li>親テンプレートファイルを作るとき，その冒頭に <code>{{ extends &quot;otree/Page.html&quot; }}</code> と記述する必要がある．</li>
+<li><p>親テンプレートファイル（たとえば <code>myapp</code> なるアプリのディレクトリに <code>mytemplate.html</code> なるファイル）を自分で作ったとき，（ページクラスの <code>template_name</code> で指定する）テンプレートファイルの冒頭で <code>{{ extends &quot;myapp/mytemplate.html&quot; }}</code> と記述しておけば，自分で作った親テンプレートファイルの記述を継承できる．</p>
+</li>
+<li><p>親テンプレートファイルを作るとき，その冒頭に <code>{{ extends &quot;otree/Page.html&quot; }}</code> と記述する必要がある．</p>
+</li>
 </ul>
 <h3 id="block"><code>block</code></h3>
 <ul>
 <li><p>タイトルブロック: <code>{{ block title }}</code> と <code>{{ endblock }}</code> に挟まれた部分．</p>
 <ul>
-<li><p>タイトルブロック内に，ページの冒頭で表示するタイトルを記述する．</p>
-</li>
-<li><p>oTree サーバーはテンプレートを解釈して，記述した内容を <code>&lt;head&gt;</code> の <code>&lt;title&gt;</code> タグの中身（ブラウザウィンドウのタイトルに表示される）と，<code>&lt;body&gt;</code> の冒頭にある <code>&lt;h2&gt;</code> タグの中に挿入する．</p>
-</li>
-<li><p><code>&lt;h2&gt;</code> タグ内にテキストが挿入されることによって，ページ内にタイトルが大きな文字で表示される．</p>
-</li>
-<li><p>ページ内で表示するタイトルのスタイルを変えることを目的として，タイトルブロックの中で（ <code>&lt;h2&gt;</code> 要素の中で ）HTMLタグを使うことができる．しかし，タイトルブロック内でHTMLタグを駆使するのではなく，CSSで <code>.otree-title</code> クラスのスタイルを上書きで指定するべき．</p>
-</li>
+<li>タイトルブロック内に，ページの冒頭で表示するタイトルを記述する．</li>
+<li>oTree サーバーはテンプレートを解釈して，記述した内容を <code>&lt;head&gt;</code> の <code>&lt;title&gt;</code> タグの中身（ブラウザウィンドウのタイトルに表示される）と，<code>&lt;body&gt;</code> の冒頭にある <code>&lt;h2&gt;</code> タグの中に挿入する．</li>
+<li><code>&lt;h2&gt;</code> タグ内にテキストが挿入されることによって，ページ内にタイトルが大きな文字で表示される．</li>
+<li>ページ内で表示するタイトルのスタイルを変えることを目的として，タイトルブロックの中で（ <code>&lt;h2&gt;</code> 要素の中で ）HTMLタグを使うことができる．しかし，タイトルブロック内でHTMLタグを駆使するのではなく，CSSで <code>.otree-title</code> クラスのスタイルを上書きで指定するべき．</li>
 </ul>
 </li>
-</ul>
-<ul>
 <li><p>コンテンツブロック: <code>{{ block content }}</code> と <code>{{ endblock }}</code> に挟まれた部分．</p>
 <ul>
-<li><p>コンテンツブロック内に，ページの本文を，HTMLタグも適宜使って記述する．</p>
-</li>
-<li><p>oTree サーバーはテンプレートを解釈して，記述した内容を <code>&lt;body&gt;</code> 内の <code>&lt;form&gt;</code> タグの中に挿入する．</p>
-</li>
-<li><p><code>&lt;form&gt;</code> タグに <code>method=&quot;post&quot;</code> が設定されているため，<code>&lt;form&gt;</code> タグ内の <code>&lt;input&gt;</code> 要素等のデータがPOSTメソッドでサーバーに送信される．</p>
-<ul>
-<li><p>たとえば <code>name</code> 属性が <code>name=&quot;contribution&quot;</code> としてある入力フォームに「12」と入力してフォームを送信したとき（「次へ」ボタンを押したとき），HTTPリクエストの本文は <code>contribution=12</code> となる． oTree サーバーがこのHTTPリクエストを受け取りデータベースの <code>contribution</code> カラムに値 <code>12</code> を書き込んでくれる．</p>
-</li>
-<li><p><code>&lt;input&gt;</code> の他に <code>&lt;select&gt;</code> や <code>&lt;textarea&gt;</code> など， <code>&lt;form&gt;</code> の中で使えるものが同様に使える．</p>
-</li>
+<li>コンテンツブロック内に，ページの本文を，HTMLタグも適宜使って記述する．</li>
+<li>oTree サーバーはテンプレートを解釈して，記述した内容を <code>&lt;body&gt;</code> 内の <code>&lt;form&gt;</code> タグの中に挿入する．</li>
+<li><code>&lt;form&gt;</code> タグに <code>method=&quot;post&quot;</code> が設定されているため，<code>&lt;form&gt;</code> タグ内の <code>&lt;input&gt;</code> 要素等のデータがPOSTメソッドでサーバーに送信される．<ul>
+<li>たとえば <code>name</code> 属性が <code>name=&quot;contribution&quot;</code> としてある入力フォームに「12」と入力してフォームを送信したとき（「次へ」ボタンを押したとき），HTTPリクエストの本文は <code>contribution=12</code> となる． oTree サーバーがこのHTTPリクエストを受け取りデータベースの <code>contribution</code> カラムに値 <code>12</code> を書き込んでくれる．</li>
+<li><code>&lt;input&gt;</code> の他に <code>&lt;select&gt;</code> や <code>&lt;textarea&gt;</code> など， <code>&lt;form&gt;</code> の中で使えるものが同様に使える．</li>
 </ul>
 </li>
-<li><p>（入力フォームが何もなくても）フォームの送信をすれば， oTree サーバーが次のページに遷移させる．コンテンツブロック内でフォームを送信させるボタンを作れば，それが次のページへ進ませるボタンとなる．</p>
-</li>
-<li><p><a href="https://developer.mozilla.org/ja/docs/Learn/Forms" target="_blank">HTMLフォーム</a></p>
-</li>
-<li><p><a href="https://developer.mozilla.org/ja/docs/Learn/Forms/Sending_and_retrieving_form_data" target="_blank">フォームデータの送信</a></p>
-</li>
-<li><p><a href="https://developer.mozilla.org/ja/docs/Learn/Forms/How_to_structure_a_web_form" target="_blank">フォームの構築方法</a></p>
-</li>
-<li><p><a href="https://developer.mozilla.org/ja/docs/Learn/Forms/Form_validation" target="_blank">クライアント側のフォームデータ検証</a></p>
-</li>
+<li>（入力フォームが何もなくても）フォームの送信をすれば， oTree サーバーが次のページに遷移させる．コンテンツブロック内でフォームを送信させるボタンを作れば，それが次のページへ進ませるボタンとなる．</li>
+<li><a href="https://developer.mozilla.org/ja/docs/Learn/Forms" target="_blank">HTMLフォーム</a></li>
+<li><a href="https://developer.mozilla.org/ja/docs/Learn/Forms/Sending_and_retrieving_form_data" target="_blank">フォームデータの送信</a></li>
+<li><a href="https://developer.mozilla.org/ja/docs/Learn/Forms/How_to_structure_a_web_form" target="_blank">フォームの構築方法</a></li>
+<li><a href="https://developer.mozilla.org/ja/docs/Learn/Forms/Form_validation" target="_blank">クライアント側のフォームデータ検証</a></li>
 </ul>
 </li>
-</ul>
-<ul>
 <li><p>テンプレートで <code>{{ block styles }} {{ endblock }}</code> のブロックを使えば，挟まれた部分が HTML の <code>&lt;head&gt;</code> タグ内に置かれる．</p>
 <ul>
-<li><p><code>&lt;style&gt;</code> タグで直接 CSS を書ける．</p>
-</li>
-<li><p>CSSファイルを <code>&lt;link rel=&quot;stylesheet&quot; href=&quot;ここにURL&quot;&gt;</code> や <code>&lt;link rel=&quot;stylesheet&quot; href=&quot;{{ static &apos;パス&apos; }}&quot;&gt;</code> として読み込むのも良い．</p>
-</li>
+<li><code>&lt;style&gt;</code> タグで直接 CSS を書ける．</li>
+<li>CSSファイルを <code>&lt;link rel=&quot;stylesheet&quot; href=&quot;ここにURL&quot;&gt;</code> や <code>&lt;link rel=&quot;stylesheet&quot; href=&quot;{{ static &apos;パス&apos; }}&quot;&gt;</code> として読み込むのも良い．</li>
 </ul>
 </li>
-</ul>
-<ul>
 <li><p>テンプレートで <code>{{ block scripts }} {{ endblock }}</code> のブロックを使えば，挟まれた部分が HTML の <code>&lt;body&gt;</code> タグ内の一番下に置かれる．</p>
 <ul>
-<li><p><code>&lt;script type=&quot;text/javascript&quot;&gt;</code> タグで直接 JavaScript を書ける．</p>
-</li>
-<li><p>JavaScriptファイルを <code>&lt;script src=&quot;ここにURL&quot;&gt;&lt;/script&gt;</code> や <code>&lt;script type=&quot;text/javascript&quot; src=&quot;{{ static &apos;パス&apos; }}&quot;&gt;&lt;/script&gt;</code> として読み込むのも良い．</p>
-</li>
-<li><p>（ oTree が想定した使い方ではないが，） <code>&lt;form&gt;</code> タグ内に記述したくない要素を記述するのにも使えそう．</p>
-</li>
+<li><code>&lt;script type=&quot;text/javascript&quot;&gt;</code> タグで直接 JavaScript を書ける．</li>
+<li>JavaScriptファイルを <code>&lt;script src=&quot;ここにURL&quot;&gt;&lt;/script&gt;</code> や <code>&lt;script type=&quot;text/javascript&quot; src=&quot;{{ static &apos;パス&apos; }}&quot;&gt;&lt;/script&gt;</code> として読み込むのも良い．</li>
+<li>（ oTree が想定した使い方ではないが，） <code>&lt;form&gt;</code> タグ内に記述したくない要素を記述するのにも使えそう．</li>
 </ul>
 </li>
-</ul>
-<ul>
 <li><p>自分が記述したテンプレートファイルの各ブロックの内容は，以下の該当箇所に展開され，一つのHTMLが完成する．</p>
 <pre><code class="lang-html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
@@ -995,17 +942,16 @@
 </ul>
 <h3 id="with"><code>with</code></h3>
 <ul>
-<li>テンプレートファイルにおいて変数を定義して展開できる．</li>
-</ul>
-<ul>
-<li>たとえば以下のようにして使う．  <pre><code class="lang-html">{{ with ritoku = player.payoff }}
+<li><p>テンプレートファイルにおいて変数を定義して展開できる．</p>
+</li>
+<li><p>たとえば以下のようにして使う．</p>
+<pre><code class="lang-html">{{ with ritoku = player.payoff }}
     <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>あなたの利得は{{ ritoku }}です．
 {{ endwith }}
 </code></pre>
 </li>
-</ul>
-<ul>
-<li>パーツのテンプレートファイルを <code>include</code> するときに2つ以上の変数を渡すときは，以下のようにすると良い．  <pre><code class="lang-html">{{ with thisyear = 2022 }}{{ with thismonth = &quot;May&quot; }}
+<li><p>パーツのテンプレートファイルを <code>include</code> するときに2つ以上の変数を渡すときは，以下のようにすると良い．  </p>
+<pre><code class="lang-html">{{ with thisyear = 2022 }}{{ with thismonth = &quot;May&quot; }}
     {{ include &quot;publicgoodsgame/instr.html&quot; }}
 {{ endwith }}{{ endwith }}
 </code></pre>
@@ -1013,8 +959,7 @@
 </ul>
 <h3 id="formfield"><code>formfield</code></h3>
 <ul>
-<li><p><code>{{ formfield &quot;フィールド名&quot; }}</code> とすると，当該フィールドの入力フォームが以下のように展開される．</p>
-<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;{{ classes }}&quot;</span>&gt;</span>
+<li><code>{{ formfield &quot;フィールド名&quot; }}</code> とすると，当該フィールドの入力フォームが以下のように展開される．<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;{{ classes }}&quot;</span>&gt;</span>
     {{ if is_checkbox }}
         <span class="hljs-comment">&lt;!-- widget=widgets.CheckboxInput としている場合 --&gt;</span>
         {{ fld }}
@@ -1050,65 +995,56 @@
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
 <ul>
-<li><p>↑ で <code>{{ fld }}</code> と記述している部分は以下のような HTML タグが生成される．</p>
-<ul>
-<li><p>チェックボックスの場合</p>
-<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;checkbox&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-check-input&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;id_フィールド名&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;フィールド名&quot;</span> <span class="hljs-attr">required</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;y&quot;</span>&gt;</span>
+<li>↑ で <code>{{ fld }}</code> と記述している部分は以下のような HTML タグが生成される．<ul>
+<li>チェックボックスの場合<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;checkbox&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-check-input&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;id_フィールド名&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;フィールド名&quot;</span> <span class="hljs-attr">required</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;y&quot;</span>&gt;</span>
 </code></pre>
 </li>
-<li><p>テキスト入力欄の場合</p>
-<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-control&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;id_フィールド名&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;フィールド名&quot;</span> <span class="hljs-attr">required</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;&quot;</span>&gt;</span>
+<li>テキスト入力欄の場合<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-control&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;id_フィールド名&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;フィールド名&quot;</span> <span class="hljs-attr">required</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;&quot;</span>&gt;</span>
 </code></pre>
 </li>
-<li><p><code>models.LongStringField</code> を使っている場合</p>
-<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-control&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;id_フィールド名&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;フィールド名&quot;</span> <span class="hljs-attr">required</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span>
+<li><code>models.LongStringField</code> を使っている場合<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-control&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;id_フィールド名&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;フィールド名&quot;</span> <span class="hljs-attr">required</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span>
 </code></pre>
 </li>
-<li><p>ドロップダウンメニューの場合</p>
-<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-select&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;id_フィールド名&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;フィールド名&quot;</span> <span class="hljs-attr">required</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;&quot;</span>&gt;</span>--------<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;1&quot;</span>&gt;</span>A<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;2&quot;</span>&gt;</span>B<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;3&quot;</span>&gt;</span>C<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+<li>ドロップダウンメニューの場合<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-select&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;id_フィールド名&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;フィールド名&quot;</span> <span class="hljs-attr">required</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;&quot;</span>&gt;</span>--------<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;1&quot;</span>&gt;</span>A<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;2&quot;</span>&gt;</span>B<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;3&quot;</span>&gt;</span>C<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span>
 </code></pre>
 </li>
-<li><p>ラジオボタンの場合</p>
-<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;id_フィールド名&quot;</span> <span class="hljs-attr">required</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-check&quot;</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-check-input&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;id_フィールド名-0&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;フィールド名&quot;</span> <span class="hljs-attr">required</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;1&quot;</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;id_フィールド名-0&quot;</span>&gt;</span>A<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-check&quot;</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-check-input&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;id_フィールド名-1&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;フィールド名&quot;</span> <span class="hljs-attr">required</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;2&quot;</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;id_フィールド名-1&quot;</span>&gt;</span>B<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-check&quot;</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-check-input&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;id_フィールド名-2&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;フィールド名&quot;</span> <span class="hljs-attr">required</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;3&quot;</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;id_フィールド名-2&quot;</span>&gt;</span>C<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<li>ラジオボタンの場合<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;id_フィールド名&quot;</span> <span class="hljs-attr">required</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-check&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-check-input&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;id_フィールド名-0&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;フィールド名&quot;</span> <span class="hljs-attr">required</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;1&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;id_フィールド名-0&quot;</span>&gt;</span>A<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-check&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-check-input&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;id_フィールド名-1&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;フィールド名&quot;</span> <span class="hljs-attr">required</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;2&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;id_フィールド名-1&quot;</span>&gt;</span>B<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-check&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-check-input&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;id_フィールド名-2&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;フィールド名&quot;</span> <span class="hljs-attr">required</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;3&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;id_フィールド名-2&quot;</span>&gt;</span>C<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
 </li>
 </ul>
 </li>
-<li><p>データモデルでの定義と実際に生成される HTML 要素の対応に関する詳細は <a href="init.html#テンプレートタグで入力フォームを作る">こちら</a> ．</p>
-</li>
+<li>データモデルでの定義と実際に生成される HTML 要素の対応に関する詳細は <a href="init.html#テンプレートタグで入力フォームを作る">こちら</a> ．</li>
 </ul>
 </li>
 </ul>
 <h3 id="formfielderrors"><code>formfield_errors</code></h3>
 <ul>
-<li>（ブラウザでの検証に通過した上で） oTree サーバーでの検証に失敗した際にエラーメッセージを展開できる．</li>
-</ul>
-<ul>
-<li>エラーメッセージを表示したい場所（入力フォームの下など）に <code>{{ formfield_errors &quot;フィールド名&quot; }}</code> を記述しておく．</li>
-</ul>
-<ul>
-<li><code>{{ formfield &quot;フィールド名&quot; }}</code> を使って入力フォームを実装する場合は， <code>{{ formfield_errors &quot;フィールド名&quot; }}</code> を記述しなくてもエラーメッセージを入力フォームの下で表示してくれる（ oTree 3 ではページタイトルの下側にまとめて表示されていた）．</li>
-</ul>
-<ul>
-<li><code>{{ for }}</code> ループを使う場合は，たとえば以下のようにする．<pre><code class="lang-html">{{ for eachfield in form }}
+<li><p>（ブラウザでの検証に通過した上で） oTree サーバーでの検証に失敗した際にエラーメッセージを展開できる．</p>
+</li>
+<li><p>エラーメッセージを表示したい場所（入力フォームの下など）に <code>{{ formfield_errors &quot;フィールド名&quot; }}</code> を記述しておく．</p>
+</li>
+<li><p><code>{{ formfield &quot;フィールド名&quot; }}</code> を使って入力フォームを実装する場合は， <code>{{ formfield_errors &quot;フィールド名&quot; }}</code> を記述しなくてもエラーメッセージを入力フォームの下で表示してくれる（ oTree 3 ではページタイトルの下側にまとめて表示されていた）．</p>
+</li>
+<li><p><code>{{ for }}</code> ループを使う場合は，たとえば以下のようにする．</p>
+<pre><code class="lang-html">{{ for eachfield in form }}
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
         {{ eachfield.label }}
         {{ formfield_errors eachfield.name }}
@@ -1116,17 +1052,14 @@
 {{ endfor }}
 </code></pre>
 </li>
-</ul>
-<ul>
-<li>oTree サーバーでの検証に引っかかった場合に以下の要素が追加されたページが表示される．<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-control-errors&quot;</span>&gt;</span>ここにエラーメッセージ<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<li><p>oTree サーバーでの検証に引っかかった場合に以下の要素が追加されたページが表示される．</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-control-errors&quot;</span>&gt;</span>ここにエラーメッセージ<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
 </li>
-</ul>
-<ul>
-<li>エラーメッセージはページクラスの組み込みメソッド <code>error_message()</code> やモジュールレベルの組み込み関数 <code>フィールド名_error_message()</code> を使ってカスタマイズできる．</li>
-</ul>
-<ul>
-<li><a href="https://otree.readthedocs.io/en/latest/forms.html#raw-html-widgets" target="_blank">https://otree.readthedocs.io/en/latest/forms.html#raw-html-widgets</a></li>
+<li><p>エラーメッセージはページクラスの組み込みメソッド <code>error_message()</code> やモジュールレベルの組み込み関数 <code>フィールド名_error_message()</code> を使ってカスタマイズできる．</p>
+</li>
+<li><p><a href="https://otree.readthedocs.io/en/latest/forms.html#raw-html-widgets" target="_blank">https://otree.readthedocs.io/en/latest/forms.html#raw-html-widgets</a></p>
+</li>
 </ul>
 <h3 id="formfields"><code>formfields</code></h3>
 <ul>
@@ -1138,11 +1071,10 @@
 </ul>
 <h3 id="nextbutton"><code>next_button</code></h3>
 <ul>
-<li><code>{{ next_button }}</code> と記述すれば， oTree サーバーが以下の <code>&lt;button&gt;</code> タグを生成してくれる．  <pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;otree-btn-next btn btn-primary&quot;</span>&gt;</span>次へ<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<li><p><code>{{ next_button }}</code> と記述すれば， oTree サーバーが以下の <code>&lt;button&gt;</code> タグを生成してくれる．</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;otree-btn-next btn btn-primary&quot;</span>&gt;</span>次へ<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 </code></pre>
 </li>
-</ul>
-<ul>
 <li><p>よりシンプルには，以下のどちらかをコンテンツブロック内に記述すれば良い．</p>
 <pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span>&gt;</span>次へ<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 </code></pre>
@@ -1155,41 +1087,32 @@
 </ul>
 <h3 id="chat"><code>chat</code></h3>
 <ul>
-<li><code>{{ chat }}</code> と記述すれば，チャット機能が実装される．</li>
-</ul>
-<ul>
-<li><a href="https://otree.readthedocs.io/en/latest/multiplayer/chat.html" target="_blank">https://otree.readthedocs.io/en/latest/multiplayer/chat.html</a></li>
+<li><p><code>{{ chat }}</code> と記述すれば，チャット機能が実装される．</p>
+</li>
+<li><p><a href="https://otree.readthedocs.io/en/latest/multiplayer/chat.html" target="_blank">https://otree.readthedocs.io/en/latest/multiplayer/chat.html</a></p>
+</li>
 </ul>
 <h2 id="form-オブジェクト"><code>form</code> オブジェクト</h2>
 <ul>
-<li><code>form</code> 自体はテンプレートタグではなく，デフォルトでテンプレートに渡される変数（オブジェクト）．</li>
-</ul>
-<ul>
+<li><p><code>form</code> 自体はテンプレートタグではなく，デフォルトでテンプレートに渡される変数（オブジェクト）．</p>
+</li>
 <li><p>ページクラスで <code>form_fields</code> に渡したフィールドに対応する入力フォームがすべて含まれている．</p>
 <ul>
-<li><p><code>{{ form.フィールド名 }}</code> は <code>{{ formfield &quot;フィールド名&quot; }}</code> のラベルを除いた入力フォーム部分のみが展開される．</p>
-<ul>
-<li><p>HTMLタグの <code>name</code> 属性にはフィールド名が入っている．</p>
-</li>
-<li><p>HTMLタグの <code>id</code> 属性には <code>&quot;id_フィールド名&quot;</code> なる文字列が入っている．</p>
-</li>
+<li><code>{{ form.フィールド名 }}</code> は <code>{{ formfield &quot;フィールド名&quot; }}</code> のラベルを除いた入力フォーム部分のみが展開される．<ul>
+<li>HTMLタグの <code>name</code> 属性にはフィールド名が入っている．</li>
+<li>HTMLタグの <code>id</code> 属性には <code>&quot;id_フィールド名&quot;</code> なる文字列が入っている．</li>
 </ul>
 </li>
-<li><p><code>{{ form.フィールド名.name }}</code> はフィールド名が展開される．</p>
-</li>
-<li><p><code>{{ form.フィールド名.id }}</code> は <code>&quot;id_フィールド名&quot;</code> なる文字列が展開される．</p>
-</li>
-<li><p><code>{{ form.フィールド名.label }}</code> は以下のHTMLタグが展開される．</p>
-<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;id_フィールド名&quot;</span>&gt;</span>データモデルで `label` に設定した文字列<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<li><code>{{ form.フィールド名.name }}</code> はフィールド名が展開される．</li>
+<li><code>{{ form.フィールド名.id }}</code> は <code>&quot;id_フィールド名&quot;</code> なる文字列が展開される．</li>
+<li><code>{{ form.フィールド名.label }}</code> は以下のHTMLタグが展開される．<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;id_フィールド名&quot;</span>&gt;</span>データモデルで `label` に設定した文字列<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
 </code></pre>
 </li>
-<li><p><code>{{ form.フィールド名.description }}</code> はデータモデルで <code>help_text</code> に設定した文字列が展開される．</p>
-</li>
-<li><p><code>{{ form.フィールド名.errors }}</code> は oTree の検証に引っかかったときのエラーメッセージ（文字列）がリストに入った状態で展開される．</p>
-<ul>
+<li><code>{{ form.フィールド名.description }}</code> はデータモデルで <code>help_text</code> に設定した文字列が展開される．</li>
+<li><code>{{ form.フィールド名.errors }}</code> は oTree の検証に引っかかったときのエラーメッセージ（文字列）がリストに入った状態で展開される．<ul>
 <li>たとえば，以下のような使い方をする．<pre><code class="lang-html">{{ if form.フィールド名.errors }}
-  <span class="hljs-comment">&lt;!-- エラーが発生した場合 --&gt;</span>
-  {{ form.フィールド名.errors.0 }}    {# ← リストの0番目にエラーメッセージ（文字列）が入っている #}
+    <span class="hljs-comment">&lt;!-- エラーが発生した場合 --&gt;</span>
+    {{ form.フィールド名.errors.0 }}    {# ← リストの0番目にエラーメッセージ（文字列）が入っている #}
 {{ endif }}
 </code></pre>
 </li>
@@ -1197,9 +1120,8 @@
 </li>
 </ul>
 </li>
-</ul>
-<ul>
-<li>たとえば <code>{{ for }}</code> ループを使って以下のような実装が可能．<pre><code class="lang-html">{{ for eachfield in form }}
+<li><p>たとえば <code>{{ for }}</code> ループを使って以下のような実装が可能．</p>
+<pre><code class="lang-html">{{ for eachfield in form }}
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
         {{ eachfield.label }}
         <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;{{ eachfield.id }}&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;{{ eachfield.name }}&quot;</span>&gt;</span>
@@ -1207,32 +1129,30 @@
 {{ endfor }}
 </code></pre>
 </li>
-</ul>
-<ul>
 <li><p>入力フォームがドロップダウンメニューの場合， <code>{{ form.フィールド名 }}</code> から更にパーツを取り出すことができる．</p>
 <ul>
-<li>たとえば<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-select&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;id_フィールド名&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;フィールド名&quot;</span> <span class="hljs-attr">required</span>&gt;</span>
-  {{ for eachopt in form.フィールド名 }}
-      {{ eachopt }}
-  {{ endfor }}
+<li><p>たとえば</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-select&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;id_フィールド名&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;フィールド名&quot;</span> <span class="hljs-attr">required</span>&gt;</span>
+    {{ for eachopt in form.フィールド名 }}
+        {{ eachopt }}
+    {{ endfor }}
 <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span>
 </code></pre>
-としたとき， <code>{{ eachopt }}</code> には，たとえば以下の HTML タグが展開される．<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;1&quot;</span>&gt;</span>A<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+<p>としたとき， <code>{{ eachopt }}</code> には，たとえば以下の HTML タグが展開される．</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;1&quot;</span>&gt;</span>A<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
 </code></pre>
 </li>
 </ul>
 </li>
-</ul>
-<ul>
 <li><p>入力フォームがラジオボタンの場合， <code>{{ form.フィールド名 }}</code> から更にパーツを取り出すことができる．</p>
 <ul>
 <li><p>たとえば</p>
 <pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-select&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;id_フィールド名&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;フィールド名&quot;</span> <span class="hljs-attr">required</span>&gt;</span>
-  {{ for eachopt in form.フィールド名 }}
-      <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
-          {{ eachopt.label }}: {{ eachopt }}
-      <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
-  {{ endfor }}
+    {{ for eachopt in form.フィールド名 }}
+        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+            {{ eachopt.label }}: {{ eachopt }}
+        <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    {{ endfor }}
 <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span>
 </code></pre>
 <p>としたとき， <code>{{ eachopt }}</code> には，たとえば以下の HTML タグが展開される．</p>
@@ -1242,8 +1162,7 @@
 <pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;id_フィールド名-0&quot;</span>&gt;</span>A<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
 </code></pre>
 </li>
-<li><p>インデックス（パーツの <code>id</code> 属性で <code>&quot;id_フィールド名-&quot;</code> のあとに入る数字）は0から始まることに注意．</p>
-</li>
+<li>インデックス（パーツの <code>id</code> 属性で <code>&quot;id_フィールド名-&quot;</code> のあとに入る数字）は0から始まることに注意．</li>
 </ul>
 </li>
 </ul>
@@ -1251,12 +1170,10 @@
 <ul>
 <li><p>テンプレート内で <code>{# #}</code> で囲った箇所はコメントとして， oTree サーバーは無視する．</p>
 <ul>
-<li><p>行の中では  </p>
-<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>初期保有は{{ C.ENDOWMENT }}です．<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span> {# ← ENDOWMENTが流し込まれる． #}
+<li>行の中では<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>初期保有は{{ C.ENDOWMENT }}です．<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span> {# ← ENDOWMENTが流し込まれる． #}
 </code></pre>
 </li>
-<li><p>複数行に渡るときは  </p>
-<pre><code class="lang-html">{#
+<li>複数行に渡るときは<pre><code class="lang-html">{#
 <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>初期保有は{{ C.ENDOWMENT }}です．<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>意思決定してください．<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 #}
@@ -1264,9 +1181,8 @@
 </li>
 </ul>
 </li>
-</ul>
-<ul>
-<li>HTMLのコメント <code>&lt;!-- コメント --&gt;</code> については， oTree サーバーは無視せず，そのままクライアントに渡す．したがって，HTMLのコメントは画面には表示されないが，検証モードなどを使えばコメントの中身が見えてしまう．</li>
+<li><p>HTMLのコメント <code>&lt;!-- コメント --&gt;</code> については， oTree サーバーは無視せず，そのままクライアントに渡す．したがって，HTMLのコメントは画面には表示されないが，検証モードなどを使えばコメントの中身が見えてしまう．</p>
+</li>
 </ul>
 
                                 
@@ -1307,7 +1223,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"テンプレートファイルの書き方","level":"2.5","depth":1,"next":{"title":"【資料: デプロイ編】","level":"3.1","depth":1,"ref":"","articles":[]},"previous":{"title":"__init__.py の書き方","level":"2.4","depth":1,"path":"otree_ref/init.md","ref":"otree_ref/init.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"otree_ref/templatefile.md","mtime":"2022-07-16T12:39:17.715Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-07-23T07:20:16.941Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"テンプレートファイルの書き方","level":"2.5","depth":1,"next":{"title":"【資料: デプロイ編】","level":"3.1","depth":1,"ref":"","articles":[]},"previous":{"title":"__init__.py の書き方","level":"2.4","depth":1,"path":"otree_ref/init.md","ref":"otree_ref/init.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"otree_ref/templatefile.md","mtime":"2022-09-11T09:51:39.233Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-09-11T11:09:20.189Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

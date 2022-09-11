@@ -32,62 +32,46 @@
 
 2. Gitをインストール．  
     [https://git-scm.com/downloads](https://git-scm.com/downloads)
-
-    - Ubuntuの場合はapt，Macの場合はbrewで入れれば良い．
+    - Ubuntuの場合は `apt`，Macの場合は `brew` で入れれば良い．
 
 3. Heroku CLIをインストール．  
     [https://devcenter.heroku.com/articles/heroku-cli](https://devcenter.heroku.com/articles/heroku-cli)
-
     - WSL2でUbuntuを使っている場合は...
-
     ```bash
     curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
     ```
 
 4. Heroku CLIでログインしておく．
-
   ```bash
   heroku login
   ```
 
 5. まずは oTree プロジェクトを（ローカルの）Gitで管理する（初期化する）．
-
   ```bash
   git init
   ```
-
     - **すでにGitHubをリモートリポジトリとして使っていてる場合，ここで初期化してはいけない**．
 
 6. oTree プロジェクトにHeroku用の設定ファイルが入っているか確認．
-
-    - Procfile
-
-    - requirements.txt （pipで入れるもののリスト）
-
-    - Pythonのバージョンを指定する場合はruntime.txt
+    - `Procfile`
+    - `requirements.txt` （pipで入れるもののリスト）
+    - Pythonのバージョンを指定する場合は `runtime.txt`
 
 7. Heroku CLI でHerokuのGitサーバーをリモートリポジトリ（herokuという名前）として追加．「APP名」はHeroku Dashboardで確認する．
-
   ```bash
   heroku git:remote -a 「APP名」
   ```
 
 8. Herokuのリモートリポジトリにステージングしてコミットしてプッシュ．
-
   ```bash
   git add .
   git commit -m "first commit"
   git push heroku 「ブランチ名」:main
   ```
-
     - GitHubを併用している場合，GitHubのリモートリポジトリが「origin」，Herokuのリモートリポジトリが「heroku」という名前で登録されている．
-
     - **GitHubとGitを明確に区別すること！**
-
     - Herokuのリモートリポジトリのブランチ名は`main`（ないし`master`）．
-
     - ローカルのブランチ名はデフォルトなら `master`．`git push heroku master:main` ないしは `git push heroku master`でプッシュできる．
-
     - ローカルのブランチ名が，たとえば`dev`であれば，`git push heroku dev:main`．
 
 9. プッシュすると自動的にデプロイされる．

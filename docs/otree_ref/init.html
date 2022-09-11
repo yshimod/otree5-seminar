@@ -473,9 +473,8 @@
 <li>oTree 3 ではインポートするものを細かく指定していた．<br><a href="https://otree.readthedocs.io/en/latest/misc/noself.html#about-the-new-format" target="_blank">https://otree.readthedocs.io/en/latest/misc/noself.html#about-the-new-format</a></li>
 </ul>
 </li>
-</ul>
-<ul>
-<li>他にも使いたいモジュール（<code>time</code>，<code>random</code>，<code>json</code>，<code>numpy</code>など）があれば，冒頭でインポートしておく．</li>
+<li><p>他にも使いたいモジュール（<code>time</code>，<code>random</code>，<code>json</code>，<code>numpy</code> など）があれば，冒頭でインポートしておく．</p>
+</li>
 </ul>
 <h2 id="定数-c-クラス">定数 <code>C</code> クラス</h2>
 <p><a href="https://otree.readthedocs.io/en/latest/models.html#constants" target="_blank">https://otree.readthedocs.io/en/latest/models.html#constants</a></p>
@@ -487,8 +486,6 @@
 <li>セッションごと（トリートメントごと）変化しうる変数は <code>C</code> クラスではなく <code>settings.py</code> の <code>SESSION_CONFIGS</code> の中で定義するべき． <code>SESSION_CONFIGS</code> で定義した変数はCSVデータ出力に含まれる．</li>
 </ul>
 </li>
-</ul>
-<ul>
 <li><p>公式ドキュメントには，辞書型の変数はメソッドで定義せよ，とあるが，辞書型の変数も普通に定義できそう．</p>
 </li>
 <li><p>マナーとして変数名は大文字にしておくと良い？</p>
@@ -533,9 +530,8 @@ SELLER_ROLE = <span class="hljs-string">&quot;売り手&quot;</span>
 </code></pre>
 <p>とすると， <code>player.id_in_group == 1</code> のプレイヤーの <code>player.role</code> は <code>買い手</code> ， <code>player.id_in_group == 2</code> のプレイヤーの <code>player.role</code> は <code>売り手</code> となる．</p>
 </li>
-</ul>
-<ul>
-<li><code>player.id_in_group</code> のラベルとして使いたくない場合， <code>C</code> のクラス変数の名前に <code>_ROLE</code> や <code>ROLE_</code> をつけてはいけない．</li>
+<li><p><code>player.id_in_group</code> のラベルとして使いたくない場合， <code>C</code> のクラス変数の名前に <code>_ROLE</code> や <code>ROLE_</code> をつけてはいけない．</p>
+</li>
 </ul>
 <h2 id="データモデル">データモデル</h2>
 <p><a href="https://otree.readthedocs.io/en/latest/models.html" target="_blank">https://otree.readthedocs.io/en/latest/models.html</a></p>
@@ -543,58 +539,51 @@ SELLER_ROLE = <span class="hljs-string">&quot;売り手&quot;</span>
 <p><a href="https://otree.readthedocs.io/en/latest/models.html#subsession" target="_blank">https://otree.readthedocs.io/en/latest/models.html#subsession</a></p>
 <h4 id="subsession-（メソッド・変数）"><code>subsession.*</code> （メソッド・変数）</h4>
 <ul>
-<li><code>round_number</code><ul>
+<li><p><code>round_number</code></p>
+<ul>
 <li>（当該 player ないし group が属している） subsession のラウンド数（自然数）．</li>
 <li>subsession は player， group の上位概念なので，たとえば，ある player がラウンド1にいて，もう一人の player がラウンド2にいるとき，果たして <code>subsession.round_number</code> は1と2のどちらなのか，と疑問に思うかもしれない．答えは，前者の player について， <code>player.subsession.round_number</code> は1，後者の player について， <code>player.subsession.round_number</code> は2，となる．ラウンドごとに subsession が定義されるため，2人の player が属する subsession が異なっていることに注意．</li>
 </ul>
 </li>
-</ul>
+<li><p><code>get_groups()</code></p>
 <ul>
-<li><code>get_groups()</code><ul>
 <li>返り値: subsession に属する group のリスト．</li>
 </ul>
 </li>
-</ul>
+<li><p><code>get_players()</code></p>
 <ul>
-<li><code>get_players()</code><ul>
 <li>返り値: subsession に属する player のリスト．</li>
 </ul>
 </li>
-</ul>
+<li><p><code>in_all_rounds()</code></p>
 <ul>
-<li><code>in_all_rounds()</code><ul>
 <li>返り値: すべてのラウンドの subsession のリスト．</li>
 </ul>
 </li>
-</ul>
+<li><p><code>in_previous_rounds()</code></p>
 <ul>
-<li><code>in_previous_rounds()</code><ul>
 <li>返り値: （当該ラウンドを含まず）以前のすべてのラウンドの subsession のリスト．</li>
 </ul>
 </li>
-</ul>
+<li><p><code>in_rounds(first, last)</code></p>
 <ul>
-<li><code>in_rounds(first, last)</code><ul>
 <li>返り値: <code>first</code> ラウンド目から <code>last</code> ラウンド目までの（両端を含む）subsession のリスト．</li>
 </ul>
 </li>
-</ul>
+<li><p><code>in_round(round_number)</code></p>
 <ul>
-<li><code>in_round(round_number)</code><ul>
 <li>返り値: <code>round_number</code> ラウンド目の subsession．</li>
 </ul>
 </li>
-</ul>
+<li><p><code>get_group_matrix()</code></p>
 <ul>
-<li><code>get_group_matrix()</code><ul>
 <li>返り値: <code>player.id_in_subsession</code> （自然数）の2次元配列．</li>
 <li><code>get_group_matrix()[i][j]</code> は， <code>group.id_in_subsession</code> が <code>i+1</code> で <code>player.id_in_group</code> が <code>j+1</code> である player の <code>player.id_in_subsession</code>．</li>
 <li>引数で <code>objects=True</code> を渡すと，返り値のリストの要素が <code>id_in_subsession</code> （自然数）ではなく <code>player</code> オブジェクトそのものになる．</li>
 </ul>
 </li>
-</ul>
+<li><p><code>field_maybe_none()</code></p>
 <ul>
-<li><code>field_maybe_none()</code><ul>
 <li>引数: フィールド名（文字列）．</li>
 <li>返り値: 引数のフィールドの値．フィールドの値が <code>None</code> であれば <code>None</code> がエラーを出すことなく返ってくる．</li>
 <li><a href="https://otree.readthedocs.io/en/latest/misc/tips_and_tricks.html#field-maybe-none" target="_blank">https://otree.readthedocs.io/en/latest/misc/tips_and_tricks.html#field-maybe-none</a></li>
@@ -603,22 +592,20 @@ SELLER_ROLE = <span class="hljs-string">&quot;売り手&quot;</span>
 </ul>
 <h4 id="組み込み関数-creatingsession-の中で使うメソッド">組み込み関数 <code>creating_session()</code> の中で使うメソッド</h4>
 <ul>
-<li><code>group_randomly()</code><ul>
+<li><p><code>group_randomly()</code></p>
+<ul>
 <li>player をランダムに group 分けする．</li>
 <li><a href="https://otree.readthedocs.io/en/latest/multiplayer/groups.html#group-randomly" target="_blank">https://otree.readthedocs.io/en/latest/multiplayer/groups.html#group-randomly</a></li>
 <li>引数で <code>fixed_id_in_group = True</code> を取ると，役割（ <code>id_in_group</code> ） を維持したまま group 分けする．</li>
 <li>返り値なし．</li>
 </ul>
 </li>
-</ul>
+<li><p><code>group_like_round(round_number)</code></p>
 <ul>
-<li><code>group_like_round(round_number)</code><ul>
 <li>以前のラウンド（ <code>round_number</code> ラウンド目）の group 分けを引き継ぐ．</li>
 <li><a href="https://otree.readthedocs.io/en/latest/multiplayer/groups.html#group-like-round" target="_blank">https://otree.readthedocs.io/en/latest/multiplayer/groups.html#group-like-round</a></li>
 </ul>
 </li>
-</ul>
-<ul>
 <li><p><code>set_group_matrix(new_structure)</code></p>
 <ul>
 <li>group 分けを自分で決めて設定する．</li>
@@ -626,9 +613,9 @@ SELLER_ROLE = <span class="hljs-string">&quot;売り手&quot;</span>
 <li>引数は <code>player.id_in_subsession</code> （自然数）の2次元リスト．</li>
 <li><p>たとえば， <code>PLAYERS_PER_GROUP = 2</code> で，全ての player 数（ <code>subsession.session.num_participants</code> ）が6のとき，  </p>
 <pre><code class="lang-python">new_structure = [
-  [<span class="hljs-number">1</span>, <span class="hljs-number">3</span>],
-  [<span class="hljs-number">5</span>, <span class="hljs-number">2</span>],
-  [<span class="hljs-number">4</span>, <span class="hljs-number">6</span>]
+    [<span class="hljs-number">1</span>, <span class="hljs-number">3</span>],
+    [<span class="hljs-number">5</span>, <span class="hljs-number">2</span>],
+    [<span class="hljs-number">4</span>, <span class="hljs-number">6</span>]
 ]
 subsession.set_group_matrix(new_structure)
 </code></pre>
@@ -663,12 +650,12 @@ subsession.set_group_matrix(new_structure)
 <li><p><code>creating_session()</code> において <code>set_group_matrix()</code> を使って group 分けを設定するとき， <code>PLAYERS_PER_GROUP</code> は設定せずに <code>None</code> のままでも良い． <code>set_group_matrix()</code> の設定の方が優先される．</p>
 </li>
 <li>返り値はリストのリストであればよく，行列である必要はない．つまり， group のサイズが統一されていなくてもよい．たとえば以下のような設定も可能．<pre><code class="lang-python">subsession.set_group_matrix(
-  [
-      [<span class="hljs-number">1</span>],
-      [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>],
-      [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>],
-      [<span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span>]
-  ]
+    [
+        [<span class="hljs-number">1</span>],
+        [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>],
+        [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>],
+        [<span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span>]
+    ]
 )
 </code></pre>
 </li>
@@ -683,70 +670,61 @@ subsession.set_group_matrix(new_structure)
 <p><a href="https://otree.readthedocs.io/en/latest/models.html#group" target="_blank">https://otree.readthedocs.io/en/latest/models.html#group</a></p>
 <h4 id="group-（メソッド・変数）"><code>group.*</code> （メソッド・変数）</h4>
 <ul>
-<li><code>id_in_subsession</code><ul>
+<li><p><code>id_in_subsession</code></p>
+<ul>
 <li>group の番号（自然数）．</li>
 </ul>
 </li>
-</ul>
+<li><p><code>round_number</code></p>
 <ul>
-<li><code>round_number</code><ul>
 <li>group のラウンド数（自然数）．</li>
 </ul>
 </li>
-</ul>
+<li><p><code>get_players()</code></p>
 <ul>
-<li><code>get_players()</code><ul>
 <li>返り値: group に属する player のリスト．</li>
 </ul>
 </li>
-</ul>
+<li><p><code>in_all_rounds()</code></p>
 <ul>
-<li><code>in_all_rounds()</code><ul>
 <li>返り値: 同一 <code>group.id_in_subsession</code> である，すべてのラウンドの group のリスト．</li>
 </ul>
 </li>
-</ul>
+<li><p><code>in_previous_rounds()</code></p>
 <ul>
-<li><code>in_previous_rounds()</code><ul>
 <li>返り値: 同一 <code>group.id_in_subsession</code> である，（当該ラウンドを含まず）以前のすべてのラウンドの group のリスト．</li>
 </ul>
 </li>
-</ul>
+<li><p><code>in_rounds(first, last)</code></p>
 <ul>
-<li><code>in_rounds(first, last)</code><ul>
 <li>返り値: 同一 <code>group.id_in_subsession</code> である， <code>first</code> ラウンド目から <code>last</code> ラウンド目までの（両端を含む）group のリスト．</li>
 </ul>
 </li>
-</ul>
+<li><p><code>in_round(round_number)</code></p>
 <ul>
-<li><code>in_round(round_number)</code><ul>
 <li>返り値: 同一 <code>group.id_in_subsession</code> である， <code>round_number</code> ラウンド目の group．</li>
 </ul>
 </li>
-</ul>
+<li><p><code>get_player_by_role(role)</code></p>
 <ul>
-<li><code>get_player_by_role(role)</code><ul>
 <li>返り値: group に属する player の中で， <code>player.role</code> が 引数 <code>role</code> （文字列）と等しい player．</li>
 <li><code>C</code> クラスで <code>_ROLE</code> が定義されていないと使えない．</li>
 <li><a href="https://otree.readthedocs.io/en/latest/multiplayer/groups.html#roles" target="_blank">https://otree.readthedocs.io/en/latest/multiplayer/groups.html#roles</a></li>
 </ul>
 </li>
-</ul>
+<li><p><code>get_player_by_id(id_in_group)</code></p>
 <ul>
-<li><code>get_player_by_id(id_in_group)</code><ul>
 <li>返り値: group に属する player の中で， <code>player.id_in_group</code> が 引数 <code>id_in_group</code> （自然数）と等しい player．</li>
 </ul>
 </li>
-</ul>
+<li><p><code>set_players(new_structure)</code></p>
 <ul>
-<li><code>set_players(new_structure)</code><ul>
 <li>group 内の役割（ <code>id_in_group</code> ）を自分で決めて設定する．</li>
 <li>引数は player オブジェクトのリスト．自然数のリスト（たとえば <code>id_in_group</code> のリスト）ではないことに注意．</li>
 </ul>
 </li>
-</ul>
+<li><p><code>field_maybe_none()</code></p>
 <ul>
-<li><code>field_maybe_none()</code><ul>
 <li>引数: フィールド名（文字列）．</li>
 <li>返り値: 引数のフィールドの値．フィールドの値が <code>None</code> であれば <code>None</code> がエラーを出すことなく返ってくる．</li>
 <li><a href="https://otree.readthedocs.io/en/latest/misc/tips_and_tricks.html#field-maybe-none" target="_blank">https://otree.readthedocs.io/en/latest/misc/tips_and_tricks.html#field-maybe-none</a></li>
@@ -762,78 +740,68 @@ subsession.set_group_matrix(new_structure)
 <p><a href="https://otree.readthedocs.io/en/latest/models.html#player" target="_blank">https://otree.readthedocs.io/en/latest/models.html#player</a></p>
 <h4 id="player-（メソッド・変数）"><code>player.*</code> （メソッド・変数）</h4>
 <ul>
-<li><code>id_in_subsession</code><ul>
+<li><p><code>id_in_subsession</code></p>
+<ul>
 <li>subsession でユニークな player の番号（自然数）．</li>
 <li>管理者画面で番号は 「P1」「P2」，... と表示される．</li>
 <li><code>player.participant.id_in_session</code> と等しい．</li>
 </ul>
 </li>
-</ul>
+<li><p><code>id_in_group</code></p>
 <ul>
-<li><code>id_in_group</code><ul>
 <li>group でユニークな player の役割番号．</li>
 </ul>
 </li>
-</ul>
+<li><p><code>role</code></p>
 <ul>
-<li><code>role</code><ul>
 <li><code>C</code> クラスで <code>_ROLE</code> が定義されている場合， <code>id_in_group</code> に対応するラベルの文字列．</li>
 </ul>
 </li>
-</ul>
+<li><p><code>payoff</code></p>
 <ul>
-<li><code>payoff</code><ul>
 <li>報酬額を記録する組み込みのフィールド．</li>
 <li><a href="https://otree.readthedocs.io/en/latest/currency.html#payoffs" target="_blank">https://otree.readthedocs.io/en/latest/currency.html#payoffs</a></li>
 <li>全 subsession の <code>player.payoff</code> の合計が自動的に計算され，管理者画面の Payments で確認できる．</li>
 <li>自動的にoTreeの通貨型に変換されるので注意．</li>
 </ul>
 </li>
-</ul>
+<li><p><code>round_number</code></p>
 <ul>
-<li><code>round_number</code><ul>
 <li>player のラウンド数（自然数）．</li>
 </ul>
 </li>
-</ul>
+<li><p><code>in_all_rounds()</code></p>
 <ul>
-<li><code>in_all_rounds()</code><ul>
 <li>返り値: 同一 participant である，すべてのラウンドの player のリスト．</li>
 </ul>
 </li>
-</ul>
+<li><p><code>in_previous_rounds()</code></p>
 <ul>
-<li><code>in_previous_rounds()</code><ul>
 <li>返り値: 同一 participant である，（当該ラウンドを含まず）以前のすべてのラウンドの player のリスト．</li>
 </ul>
 </li>
-</ul>
+<li><p><code>in_rounds(first, last)</code></p>
 <ul>
-<li><code>in_rounds(first, last)</code><ul>
 <li>返り値: 同一 participant である， <code>first</code> ラウンド目から <code>last</code> ラウンド目までの（両端を含む）player のリスト．</li>
 </ul>
 </li>
-</ul>
+<li><p><code>in_round(round_number)</code></p>
 <ul>
-<li><code>in_round(round_number)</code><ul>
 <li>返り値: 同一 participant である， <code>round_number</code> ラウンド目の player．</li>
 </ul>
 </li>
-</ul>
+<li><p><code>get_others_in_subsession()</code></p>
 <ul>
-<li><code>get_others_in_subsession()</code><ul>
 <li>返り値: player が属する subsession に属する，当該 player 以外の player のリスト．</li>
 </ul>
 </li>
-</ul>
+<li><p><code>get_others_in_group()</code></p>
 <ul>
-<li><code>get_others_in_group()</code><ul>
 <li>返り値: player が属する group に属する，当該 player 以外の player のリスト．</li>
 </ul>
 </li>
-</ul>
+<li><p><code>field_maybe_none()</code></p>
 <ul>
-<li><code>field_maybe_none()</code><ul>
 <li>引数: フィールド名（文字列）．</li>
 <li>返り値: 引数のフィールドの値．フィールドの値が <code>None</code> であれば <code>None</code> がエラーを出すことなく返ってくる．</li>
 <li><a href="https://otree.readthedocs.io/en/latest/misc/tips_and_tricks.html#field-maybe-none" target="_blank">https://otree.readthedocs.io/en/latest/misc/tips_and_tricks.html#field-maybe-none</a></li>
@@ -867,44 +835,29 @@ subsession.set_group_matrix(new_structure)
 <li>たとえば player オブジェクトを引数で受け取る関数の中では <code>player.session.変数名</code> とする．</li>
 </ul>
 </li>
-</ul>
-<ul>
 <li><p>（All apps の）CSV出力で，自分で定義した変数と組み込みの変数も出力される．</p>
 </li>
 <li><p>組み込みの変数・メソッド</p>
 <ul>
-<li><p><code>code</code></p>
-<ul>
-<li><p>セッションで固有なID．</p>
-</li>
-<li><p><code>participant.session_id</code> でもアクセスできる．</p>
-</li>
+<li><code>code</code><ul>
+<li>セッションで固有なID．</li>
+<li><code>participant.session_id</code> でもアクセスできる．</li>
 </ul>
 </li>
-<li><p><code>num_participants</code></p>
-</li>
-<li><p><code>config</code></p>
-<ul>
-<li><p><code>settings.py</code> の <code>SESSION_CONFIGS</code> （の当該セッションの要素内） と <code>SESSION_CONFIG_DEFAULTS</code> で設定した変数が辞書オブジェクトに入っている．</p>
-<ul>
-<li><p><code>config[&apos;participation_fee&apos;]</code></p>
-</li>
-<li><p><code>config[&apos;real_world_currency_per_point&apos;]</code></p>
-</li>
+<li><code>num_participants</code></li>
+<li><code>config</code><ul>
+<li><code>settings.py</code> の <code>SESSION_CONFIGS</code> （の当該セッションの要素内） と <code>SESSION_CONFIG_DEFAULTS</code> で設定した変数が辞書オブジェクトに入っている．<ul>
+<li><code>config[&apos;participation_fee&apos;]</code></li>
+<li><code>config[&apos;real_world_currency_per_point&apos;]</code></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p><code>get_subsessions()</code></p>
-</li>
-<li><p><code>get_participants()</code></p>
-</li>
-<li><p><code>vars</code></p>
-<ul>
-<li><p><code>SESSION_FIELDS</code> で変数名を定義しなくても， <code>session.vars[&quot;変数名&quot;] = なにか</code> として記録できる．</p>
-</li>
-<li><p><code>vars</code> の要素として記録したものは，（ <code>custom_export()</code> を使わない限り）CSV出力で出力されない．</p>
-</li>
+<li><code>get_subsessions()</code></li>
+<li><code>get_participants()</code></li>
+<li><code>vars</code><ul>
+<li><code>SESSION_FIELDS</code> で変数名を定義しなくても， <code>session.vars[&quot;変数名&quot;] = なにか</code> として記録できる．</li>
+<li><code>vars</code> の要素として記録したものは，（ <code>custom_export()</code> を使わない限り）CSV出力で出力されない．</li>
 </ul>
 </li>
 </ul>
@@ -925,55 +878,38 @@ subsession.set_group_matrix(new_structure)
 </li>
 <li><p>組み込みの変数・メソッド</p>
 <ul>
-<li><p><code>session_id</code></p>
-<ul>
+<li><code>session_id</code><ul>
 <li>セッションで固有なID．</li>
 </ul>
 </li>
-<li><p><code>label</code></p>
-<ul>
-<li><p>ルームに名簿（ <code>participant_label_file</code> ）が設定してある場合，各参加者に対応する名簿上の文字列（ラベル）が得られる．</p>
-</li>
-<li><p>管理者画面で得られるセッションワイドリンクにクエリパラメータ <code>?participant_label=123456789</code> などとつけると， <code>participant.label</code> に <code>123456789</code> が入る．</p>
-<ul>
+<li><code>label</code><ul>
+<li>ルームに名簿（ <code>participant_label_file</code> ）が設定してある場合，各参加者に対応する名簿上の文字列（ラベル）が得られる．</li>
+<li>管理者画面で得られるセッションワイドリンクにクエリパラメータ <code>?participant_label=123456789</code> などとつけると， <code>participant.label</code> に <code>123456789</code> が入る．<ul>
 <li>参加者プール（ORSEEなど）やその他システム（Qualtricsなど）で発行されたIDを oTree に引き継ぐ場合に使うと良い．</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p><code>code</code></p>
-<ul>
-<li><p>oTreeが発行した，参加者で固有な（データベース内で固有な）ID．</p>
-</li>
-<li><p>アルファベットと数字のランダム文字列．</p>
-</li>
+<li><code>code</code><ul>
+<li>oTreeが発行した，参加者で固有な（データベース内で固有な）ID．</li>
+<li>アルファベットと数字のランダム文字列．</li>
 </ul>
 </li>
-<li><p><code>id_in_session</code></p>
-<ul>
-<li><p>oTreeが割り振った，参加者で固有な通し番号（自然数）．</p>
-</li>
-<li><p>管理者画面で番号は「P1」「P2」と表示される．</p>
-</li>
-<li><p><code>player.id_in_subsession</code> でもアクセスできる．</p>
-</li>
+<li><code>id_in_session</code><ul>
+<li>oTreeが割り振った，参加者で固有な通し番号（自然数）．</li>
+<li>管理者画面で番号は「P1」「P2」と表示される．</li>
+<li><code>player.id_in_subsession</code> でもアクセスできる．</li>
 </ul>
 </li>
-<li><p><code>payoff</code></p>
-<ul>
+<li><code>payoff</code><ul>
 <li>各 subsession における <code>player.payoff</code> の和．</li>
 </ul>
 </li>
-<li><p><code>payoff_in_real_world_currency()</code></p>
-</li>
-<li><p><code>payoff_plus_participation_fee()</code></p>
-</li>
-<li><p><code>vars</code></p>
-<ul>
-<li><p><code>PARTICIPANT_FIELDS</code> で変数名を定義しなくても， <code>participant.vars[&quot;変数名&quot;] = なにか</code> として記録できる．</p>
-</li>
-<li><p><code>vars</code> の要素として記録したものは，（ <code>custom_export()</code> を使わない限り）CSV出力で出力されない．</p>
-</li>
+<li><code>payoff_in_real_world_currency()</code></li>
+<li><code>payoff_plus_participation_fee()</code></li>
+<li><code>vars</code><ul>
+<li><code>PARTICIPANT_FIELDS</code> で変数名を定義しなくても， <code>participant.vars[&quot;変数名&quot;] = なにか</code> として記録できる．</li>
+<li><code>vars</code> の要素として記録したものは，（ <code>custom_export()</code> を使わない限り）CSV出力で出力されない．</li>
 </ul>
 </li>
 </ul>
@@ -990,45 +926,38 @@ subsession.set_group_matrix(new_structure)
 </li>
 <li><p>使い方:</p>
 <ol>
-<li><p><code>ExtraModel</code> クラスを継承したクラスを定義する．定義しただけテーブルが作られるため，複数のクラスを定義することができる．</p>
-<pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyModel</span>(<span class="hljs-params">ExtraModel</span>):</span>
+<li><code>ExtraModel</code> クラスを継承したクラスを定義する．定義しただけテーブルが作られるため，複数のクラスを定義することができる．<pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyModel</span>(<span class="hljs-params">ExtraModel</span>):</span>
    <span class="hljs-comment"># なにか</span>
 </code></pre>
 </li>
-<li><p><code>Player</code> クラスなどと同様にフィールドを定義する．</p>
-<pre><code class="lang-python">var1 = models.IntegerField()
+<li><code>Player</code> クラスなどと同様にフィールドを定義する．<pre><code class="lang-python">var1 = models.IntegerField()
 var2 = models.StringField()
 </code></pre>
 </li>
-<li><p>フィールドに記録したデータが，どの group の，どの player のデータなのかを記録するためのフィールドを定義する．対戦相手 player が誰であるのかを記録するためのフィールドも定義できる．</p>
-<pre><code class="lang-python">me = models.Link(Player)
+<li>フィールドに記録したデータが，どの group の，どの player のデータなのかを記録するためのフィールドを定義する．対戦相手 player が誰であるのかを記録するためのフィールドも定義できる．<pre><code class="lang-python">me = models.Link(Player)
 opponent = models.Link(Player)
 group = models.Link(Group)
 subsession = models.Link(Subsession)
 </code></pre>
 </li>
-<li><p>たとえば，クラスの定義は以下のようになる．</p>
-<pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyModel</span>(<span class="hljs-params">ExtraModel</span>):</span>
+<li>たとえば，クラスの定義は以下のようになる．<pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyModel</span>(<span class="hljs-params">ExtraModel</span>):</span>
    me = models.Link(Player)
    opponent = models.Link(Player)
    var1 = models.IntegerField()
    var2 = models.BooleanField()
 </code></pre>
 </li>
-<li><p>データを記録するためには <code>create()</code> メソッドでレコードを作る．</p>
-<ul>
+<li>データを記録するためには <code>create()</code> メソッドでレコードを作る．<ul>
 <li>引数で記録したいデータを渡す． </li>
 <li>player （など）とレコードとの紐付けのためのフィールドには， <code>player</code> オブジェクトそのものを渡す．</li>
-<li><p>定義してあるフィールドすべての値を渡す必要はない．渡さなければ，そのフィールドは <code>None</code> となる．</p>
-</li>
-<li><p>たとえば <code>before_next_page()</code> の中で以下のように使う．</p>
-<pre><code class="lang-python"><span class="hljs-meta">@staticmethod</span>
+<li>定義してあるフィールドすべての値を渡す必要はない．渡さなければ，そのフィールドは <code>None</code> となる．</li>
+<li>たとえば <code>before_next_page()</code> の中で以下のように使う．<pre><code class="lang-python"><span class="hljs-meta">@staticmethod</span>
 <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">before_next_page</span>(<span class="hljs-params">player: Player, timeout_happened</span>):</span>
-  MyModel.create(
-      me = player,
-      opponent = player.get_others_in_group()[<span class="hljs-number">0</span>],    <span class="hljs-comment">## opponent には相手 player のオブジェクトを渡す．</span>
-      var1 = <span class="hljs-number">123</span>
-  )
+    MyModel.create(
+        me = player,
+        opponent = player.get_others_in_group()[<span class="hljs-number">0</span>],    <span class="hljs-comment">## opponent には相手 player のオブジェクトを渡す．</span>
+        var1 = <span class="hljs-number">123</span>
+    )
 </code></pre>
 </li>
 </ul>
@@ -1038,25 +967,24 @@ subsession = models.Link(Subsession)
 <li>返り値は定義した <code>ExtraModel</code> クラスのインスタンスオブジェクトのリストである．</li>
 <li>クエリの条件に合致するレコードが1件であってもリストで返ってくることに注意．</li>
 <li>クエリの対象はテーブル全体であり，セッションごと <code>resetdb</code> をしていない場合は別のセッションでのデータにもアクセスできる．逆に言えば，クエリの条件で player， group， subsession を使わない場合，別のセッションで作られたレコードも引っかかる．</li>
-<li><p>既に存在するレコードのフィールドの値を更新することもできる．</p>
-</li>
+<li>既に存在するレコードのフィールドの値を更新することもできる．</li>
 <li><p>たとえば <code>vars_for_template()</code> の中で以下のように使う．</p>
 <pre><code class="lang-python"><span class="hljs-meta">@staticmethod</span>
 <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">vars_for_template</span>(<span class="hljs-params">player: Player</span>):</span>
-  <span class="hljs-comment">## opponent が 自分である（対戦相手の）レコードを取り出す．</span>
-  retrieved_record = MyModel.<span class="hljs-built_in">filter</span>(opponent = player)[<span class="hljs-number">0</span>]
+    <span class="hljs-comment">## opponent が 自分である（対戦相手の）レコードを取り出す．</span>
+    retrieved_record = MyModel.<span class="hljs-built_in">filter</span>(opponent = player)[<span class="hljs-number">0</span>]
 
-  her_var1 = retrieved_record.var1
-  retrieved_record.var2 = <span class="hljs-literal">True</span>
+    her_var1 = retrieved_record.var1
+    retrieved_record.var2 = <span class="hljs-literal">True</span>
 
-  <span class="hljs-comment">## 他人の player オブジェクトを取り出すことも可能．</span>
-  opponent: Player = retrieved_record.me
-  opponent_payoff = opponent.payoff
+    <span class="hljs-comment">## 他人の player オブジェクトを取り出すことも可能．</span>
+    opponent: Player = retrieved_record.me
+    opponent_payoff = opponent.payoff
 
-  <span class="hljs-keyword">return</span> <span class="hljs-built_in">dict</span>(
-      her_var1 = her_var1,
-      opponent_payoff = opponent_payoff
-  )
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">dict</span>(
+        her_var1 = her_var1,
+        opponent_payoff = opponent_payoff
+    )
 </code></pre>
 </li>
 </ul>
@@ -1067,14 +995,15 @@ subsession = models.Link(Subsession)
 <h3 id="フィールドの型">フィールドの型</h3>
 <p><a href="https://otree.readthedocs.io/en/latest/models.html#fields" target="_blank">https://otree.readthedocs.io/en/latest/models.html#fields</a></p>
 <ul>
-<li><code>models.BooleanField</code><ul>
+<li><p><code>models.BooleanField</code></p>
+<ul>
 <li>真偽値型．</li>
 <li>CSVファイルを出力するときは0/1で表示される．</li>
 <li><code>choices</code><ul>
 <li><code>[データベースに記録する値, テンプレートで展開するラベル]</code> の組（リスト）のリストを渡す．</li>
 <li><code>True</code> のラベルを「協力」とする場合は以下のように記述する．<pre><code class="lang-python">choices = [
-  [<span class="hljs-literal">True</span>, <span class="hljs-string">&quot;協力&quot;</span>],
-  [<span class="hljs-literal">False</span>, <span class="hljs-string">&quot;非協力&quot;</span>]
+    [<span class="hljs-literal">True</span>, <span class="hljs-string">&quot;協力&quot;</span>],
+    [<span class="hljs-literal">False</span>, <span class="hljs-string">&quot;非協力&quot;</span>]
 ]
 </code></pre>
 </li>
@@ -1112,9 +1041,8 @@ subsession = models.Link(Subsession)
 </li>
 </ul>
 </li>
-</ul>
+<li><p><code>models.CurrencyField</code></p>
 <ul>
-<li><code>models.CurrencyField</code><ul>
 <li>通貨型．</li>
 <li>整数型や浮動小数点型の値を渡すと通貨型に変換される．</li>
 <li><code>choices</code><ul>
@@ -1125,9 +1053,9 @@ subsession = models.Link(Subsession)
 </ul>
 </li>
 <li>ラベルを設定するとき，以下のように記述できる．<pre><code class="lang-python">choices = [
-  [cu(<span class="hljs-number">0</span>), <span class="hljs-string">&quot;利己的&quot;</span>],
-  [cu(<span class="hljs-number">300</span>), <span class="hljs-string">&quot;効率&quot;</span>],
-  [cu(<span class="hljs-number">500</span>), <span class="hljs-string">&quot;平等&quot;</span>]
+    [cu(<span class="hljs-number">0</span>), <span class="hljs-string">&quot;利己的&quot;</span>],
+    [cu(<span class="hljs-number">300</span>), <span class="hljs-string">&quot;効率&quot;</span>],
+    [cu(<span class="hljs-number">500</span>), <span class="hljs-string">&quot;平等&quot;</span>]
 ]
 </code></pre>
 </li>
@@ -1158,21 +1086,20 @@ subsession = models.Link(Subsession)
 <li><code>blank</code></li>
 </ul>
 </li>
-</ul>
+<li><p><code>models.IntegerField</code></p>
 <ul>
-<li><code>models.IntegerField</code><ul>
 <li>整数型．</li>
 <li>浮動小数点型の値を渡すとエラーとなる（入力フォームの送信時は oTree サーバーの検証に引っかかる）．</li>
 <li>テンプレートタグで自由記述の入力フォームを作るとき， <code>type=&quot;number&quot;</code> とした <code>&lt;input&gt;</code> で生成されるため，数字以外は入力できない．</li>
 <li><code>min</code> や <code>max</code> を設定すると <code>&lt;input&gt;</code> 要素の <code>min</code>， <code>max</code> 属性にも値が渡され，ブラウザでも最小値，最大値の検証が行われる．</li>
 <li><code>choices</code><ul>
 <li>リッカート尺度の入力フォームを実装する場合，たとえば以下のように記述する．<pre><code class="lang-python">choices = [
-  [<span class="hljs-number">1</span>, <span class="hljs-string">&quot;全く同意できない&quot;</span>],
-  [<span class="hljs-number">2</span>, <span class="hljs-string">&quot;同意できない&quot;</span>],
-  [<span class="hljs-number">3</span>, <span class="hljs-string">&quot;どちらともいえない&quot;</span>],
-  [<span class="hljs-number">4</span>, <span class="hljs-string">&quot;同意できる&quot;</span>],
-  [<span class="hljs-number">5</span>, <span class="hljs-string">&quot;非常に同意できる&quot;</span>],
-  [<span class="hljs-number">99</span>, <span class="hljs-string">&quot;わからない&quot;</span>]
+    [<span class="hljs-number">1</span>, <span class="hljs-string">&quot;全く同意できない&quot;</span>],
+    [<span class="hljs-number">2</span>, <span class="hljs-string">&quot;同意できない&quot;</span>],
+    [<span class="hljs-number">3</span>, <span class="hljs-string">&quot;どちらともいえない&quot;</span>],
+    [<span class="hljs-number">4</span>, <span class="hljs-string">&quot;同意できる&quot;</span>],
+    [<span class="hljs-number">5</span>, <span class="hljs-string">&quot;非常に同意できる&quot;</span>],
+    [<span class="hljs-number">99</span>, <span class="hljs-string">&quot;わからない&quot;</span>]
 ]
 </code></pre>
 </li>
@@ -1188,9 +1115,8 @@ subsession = models.Link(Subsession)
 <li><code>blank</code></li>
 </ul>
 </li>
-</ul>
+<li><p><code>models.FloatField</code></p>
 <ul>
-<li><code>models.FloatField</code><ul>
 <li>浮動小数点型．</li>
 <li>Pythonの float と同様，15桁の有効桁数までは正確に表現できる．</li>
 <li>テンプレートタグで自由記述の入力フォームを作るとき， <code>type=&quot;text&quot;</code> とした <code>&lt;input&gt;</code> で生成されるため，数字以外も入力できてしまうが，文字列が送信されると oTree サーバーの検証に引っかかる．</li>
@@ -1206,9 +1132,8 @@ subsession = models.Link(Subsession)
 <li><code>blank</code></li>
 </ul>
 </li>
-</ul>
+<li><p><code>models.StringField</code></p>
 <ul>
-<li><code>models.StringField</code><ul>
 <li>文字列型．</li>
 <li>10000字（<code>max_length</code> 字）を超えると， oTree サーバーの検証に引っかかる．</li>
 <li>テンプレートタグで自由記述の入力フォームを作るとき， <code>type=&quot;text&quot;</code> とした <code>&lt;input&gt;</code> で生成される．</li>
@@ -1230,9 +1155,8 @@ subsession = models.Link(Subsession)
 <li><code>blank</code></li>
 </ul>
 </li>
-</ul>
+<li><p><code>models.LongStringField</code></p>
 <ul>
-<li><code>models.LongStringField</code><ul>
 <li>可変長文字列型．</li>
 <li><code>models.StringField</code> と異なり，文字数制限なし．</li>
 <li>テンプレートタグで自由記述の入力フォームを作るとき， <code>&lt;textarea&gt;</code> タグで生成される．複数行入力できるが，入力された値に含まれる改行コードは空白に置換される．</li>
@@ -1253,12 +1177,9 @@ subsession = models.Link(Subsession)
 <h3 id="テンプレートタグで入力フォームを作る">テンプレートタグで入力フォームを作る</h3>
 <p><a href="https://otree.readthedocs.io/en/latest/forms.html#widgets" target="_blank">https://otree.readthedocs.io/en/latest/forms.html#widgets</a></p>
 <ol>
-<li><p>データを参加者に入力させたいページのクラスにおいて <code>form_model</code> と <code>form_fields</code> を設定する．</p>
-</li>
-<li><p>テンプレートで <code>{{ formfields }}</code> タグを記述する．一つずつ特定して設置する場合には <code>{{ formfield &quot;フィールド名&quot; }}</code> と記述する．</p>
-</li>
-<li><p>テンプレートタグで入力フォームを設置するとき，HTML タグが生成される．</p>
-</li>
+<li>データを参加者に入力させたいページのクラスにおいて <code>form_model</code> と <code>form_fields</code> を設定する．</li>
+<li>テンプレートで <code>{{ formfields }}</code> タグを記述する．一つずつ特定して設置する場合には <code>{{ formfield &quot;フィールド名&quot; }}</code> と記述する．</li>
+<li>テンプレートタグで入力フォームを設置するとき，HTML タグが生成される．</li>
 </ol>
 <ul>
 <li><p><code>models.BooleanField()</code> を特に設定せず使った場合:</p>
@@ -1473,26 +1394,21 @@ subsession = models.Link(Subsession)
 <h3 id="html-タグを直書きして入力フォームを作る">HTML タグを直書きして入力フォームを作る</h3>
 <p><a href="https://otree.readthedocs.io/en/latest/forms.html#raw-html-widgets" target="_blank">https://otree.readthedocs.io/en/latest/forms.html#raw-html-widgets</a></p>
 <ol>
-<li><p>データを参加者に入力させたいページのクラスにおいて <code>form_model</code> と <code>form_fields</code> を設定する．</p>
-</li>
-<li><p>フィールド名を， <code>&lt;input&gt;</code> 要素の <code>name</code> 属性に設定する．</p>
-</li>
-<li><p>テンプレートタグ <code>{{ formfield_errors &apos;フィールド名&apos; }}</code> を書いておくと， oTree による検証のエラーメッセージを表示することができる．</p>
-</li>
+<li>データを参加者に入力させたいページのクラスにおいて <code>form_model</code> と <code>form_fields</code> を設定する．</li>
+<li>フィールド名を， <code>&lt;input&gt;</code> 要素の <code>name</code> 属性に設定する．</li>
+<li>テンプレートタグ <code>{{ formfield_errors &apos;フィールド名&apos; }}</code> を書いておくと， oTree による検証のエラーメッセージを表示することができる．</li>
 </ol>
 <h2 id="ページ">ページ</h2>
 <p><a href="https://otree.readthedocs.io/en/latest/pages.html" target="_blank">https://otree.readthedocs.io/en/latest/pages.html</a></p>
 <ul>
-<li><p>クラス <code>Page</code> を継承する．</p>
-</li>
-<li><p>クラス名がURLに表示される．</p>
-</li>
-<li><p>当該ページで使うテンプレートファイルのファイル名は <code>クラス名.html</code> にする．大文字・小文字を厳密に区別しておく．</p>
-</li>
+<li>クラス <code>Page</code> を継承する．</li>
+<li>クラス名がURLに表示される．</li>
+<li>当該ページで使うテンプレートファイルのファイル名は <code>クラス名.html</code> にする．大文字・小文字を厳密に区別しておく．</li>
 </ul>
 <h3 id="ページクラスの変数">ページクラスの変数</h3>
 <ul>
-<li><code>template_name</code><ul>
+<li><p><code>template_name</code></p>
+<ul>
 <li>テンプレートファイルのパスを渡せば，ページクラスの名称とファイル名が一致していなくても良い．</li>
 <li>一つのテンプレートファイルを複数のページクラスで使い回すことも可能．</li>
 <li>パスはアプリディレクトリから指定する．<ul>
@@ -1503,17 +1419,15 @@ subsession = models.Link(Subsession)
 <li>（ファイルシステムによってはファイル名の大文字と小文字の区別をしないが，）大文字・小文字を厳密に区別しておく．</li>
 </ul>
 </li>
-</ul>
+<li><p><code>form_model</code></p>
 <ul>
-<li><code>form_model</code><ul>
 <li>当該ページで使う入力フォームのモデルを <code>&quot;player&quot;</code>， <code>&quot;group&quot;</code>， <code>&quot;subsession&quot;</code> から選んで文字列を渡す．</li>
 <li>どれか一つしか選べない．一つのページで player モデルのフィールドと group モデルのフィールドの両方の入力フォームを置くことはできない．たとえばとりあえず全部 player モデルでデータを記録しておき， oTree 内部で group モデルのフィールドに転記する，などで対処する．</li>
 <li>動的に変更することはできない．</li>
 </ul>
 </li>
-</ul>
+<li><p><code>form_fields</code></p>
 <ul>
-<li><code>form_fields</code><ul>
 <li>当該ページで入力フォームのフィールド名の文字列をリストで渡す．</li>
 <li><code>form_model</code> で指定したモデルで定義していないフィールドを指定してはいけない．</li>
 <li><code>form_fields</code> で複数要素を指定していて，かつテンプレートタグ <code>{{ formfields }}</code> を使う場合，リストの順番通り入力フォームが作られる．</li>
@@ -1524,16 +1438,14 @@ subsession = models.Link(Subsession)
 <li><code>form_fields</code> で入力フォームのフィールド名を渡した場合，当該フィールドの定義で <code>blank = True</code> と設定しない限り，（ <code>initial</code> を設定してあっても，）ページの入力フォームから適切な値が送信されなければ次のページへ進めない．</li>
 </ul>
 </li>
-</ul>
+<li><p><code>timeout_seconds</code></p>
 <ul>
-<li><code>timeout_seconds</code><ul>
 <li>整数で秒数を渡すと，当該ページでの時間制限を設定できる．</li>
 <li>動的に変更する場合には組み込みメソッド <code>get_timeout_seconds()</code> を使う．</li>
 </ul>
 </li>
-</ul>
+<li><p><code>timer_text</code></p>
 <ul>
-<li><code>timer_text</code><ul>
 <li>時間制限を設定したときに表示されるメッセージ（文字列）を指定する．</li>
 <li>デフォルトでは「このページでの残り時間」と表示される．</li>
 </ul>
@@ -1543,7 +1455,8 @@ subsession = models.Link(Subsession)
 <p>関数を定義する前にデコレータ <code>@staticmethod</code> を記述しておく．
 ただし，デコレータをつけずにおいてインスタンスメソッド（第1引数を <code>self</code> に受け取る関数）として使うことはできない．</p>
 <ul>
-<li><code>live_method()</code><ul>
+<li><p><code>live_method()</code></p>
+<ul>
 <li>引数: <code>(player: Player, data)</code></li>
 <li>返り値: 辞書型．キーは <code>id_in_group</code> の自然数とする．<ul>
 <li>group の全員に送信する場合のキーは <code>0</code>．</li>
@@ -1553,9 +1466,8 @@ subsession = models.Link(Subsession)
 <li><a href="https://otree.readthedocs.io/en/latest/live.html" target="_blank">https://otree.readthedocs.io/en/latest/live.html</a></li>
 </ul>
 </li>
-</ul>
+<li><p><code>get_form_fields()</code></p>
 <ul>
-<li><code>get_form_fields()</code><ul>
 <li>引数: <code>(player: Player)</code></li>
 <li>返り値: フィールド名の文字列のリスト． <code>form_fields</code> と同様．</li>
 <li>ページを読み込む度に実行される（しかも2回実行される？）．</li>
@@ -1563,9 +1475,8 @@ subsession = models.Link(Subsession)
 <li><a href="https://otree.readthedocs.io/en/latest/forms.html#determining-form-fields-dynamically" target="_blank">https://otree.readthedocs.io/en/latest/forms.html#determining-form-fields-dynamically</a></li>
 </ul>
 </li>
-</ul>
+<li><p><code>vars_for_template()</code></p>
 <ul>
-<li><code>vars_for_template()</code><ul>
 <li>引数: <code>(player: Player)</code></li>
 <li>返り値: 辞書型．</li>
 <li>ページを読み込む度に実行される．</li>
@@ -1573,9 +1484,8 @@ subsession = models.Link(Subsession)
 <li><a href="https://otree.readthedocs.io/en/latest/pages.html#vars-for-template" target="_blank">https://otree.readthedocs.io/en/latest/pages.html#vars-for-template</a></li>
 </ul>
 </li>
-</ul>
+<li><p><code>js_vars()</code></p>
 <ul>
-<li><code>js_vars()</code><ul>
 <li>引数: <code>(player: Player)</code></li>
 <li>返り値: 辞書型．</li>
 <li>ページを読み込む度に実行される．</li>
@@ -1589,9 +1499,8 @@ subsession = models.Link(Subsession)
 <li><a href="https://otree.readthedocs.io/en/latest/templates.html#passing-data-from-python-to-javascript-js-vars" target="_blank">https://otree.readthedocs.io/en/latest/templates.html#passing-data-from-python-to-javascript-js-vars</a></li>
 </ul>
 </li>
-</ul>
+<li><p><code>before_next_page()</code></p>
 <ul>
-<li><code>before_next_page()</code><ul>
 <li>引数: <code>(player: Player, timeout_happened)</code><ul>
 <li><code>timeout_happened</code> は真偽値．時間制限でページが進んだ場合にフラグが立つ．</li>
 </ul>
@@ -1602,9 +1511,8 @@ subsession = models.Link(Subsession)
 <li><a href="https://otree.readthedocs.io/en/latest/pages.html#before-next-page" target="_blank">https://otree.readthedocs.io/en/latest/pages.html#before-next-page</a></li>
 </ul>
 </li>
-</ul>
+<li><p><code>is_displayed()</code></p>
 <ul>
-<li><code>is_displayed()</code><ul>
 <li>引数: <code>(player: Player)</code></li>
 <li>返り値: 真偽値．デフォルトでは <code>True</code> を返している．</li>
 <li>ページを表示する前に実行される．</li>
@@ -1612,9 +1520,8 @@ subsession = models.Link(Subsession)
 <li><a href="https://otree.readthedocs.io/en/latest/pages.html#is-displayed" target="_blank">https://otree.readthedocs.io/en/latest/pages.html#is-displayed</a></li>
 </ul>
 </li>
-</ul>
+<li><p><code>error_message()</code></p>
 <ul>
-<li><code>error_message()</code><ul>
 <li>引数: <code>(player: Player, values)</code><ul>
 <li><code>values</code> は入力フォームのフィールド名をキーとする辞書で，入力された値が取り出せる．</li>
 <li>検証したい入力フォームが定義してあるモデルが player でなくても（当該ページのクラスで <code>form_model = &quot;player&quot;</code> と設定してある場合以外であっても），1つ目の引数は <code>player</code> ．<ul>
@@ -1636,17 +1543,15 @@ subsession = models.Link(Subsession)
 <li><a href="https://otree.readthedocs.io/en/latest/misc/tips_and_tricks.html#avoid-duplicated-validation-methods" target="_blank">https://otree.readthedocs.io/en/latest/misc/tips_and_tricks.html#avoid-duplicated-validation-methods</a></li>
 </ul>
 </li>
-</ul>
+<li><p><code>get_timeout_seconds()</code></p>
 <ul>
-<li><code>get_timeout_seconds()</code><ul>
 <li>引数: <code>(player: Player)</code></li>
 <li>返り値: 整数で秒数を渡すと，当該ページでの時間制限を設定できる． <code>timeout_seconds</code> と同様．</li>
 <li><a href="https://otree.readthedocs.io/en/latest/timeouts.html#get-timeout-seconds" target="_blank">https://otree.readthedocs.io/en/latest/timeouts.html#get-timeout-seconds</a></li>
 </ul>
 </li>
-</ul>
+<li><p><code>app_after_this_page()</code></p>
 <ul>
-<li><code>app_after_this_page()</code><ul>
 <li>引数: <code>(player: Player, upcoming_apps)</code><ul>
 <li><code>upcoming_apps</code> は <code>settings.py</code> で設定した <code>SESSION_CONFIGS</code> の <code>app_sequence</code> で，当該アプリより後のアプリ名（文字列）が並んだリスト．</li>
 </ul>
@@ -1660,22 +1565,20 @@ subsession = models.Link(Subsession)
 <h2 id="待機ページ">待機ページ</h2>
 <p><a href="https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html" target="_blank">https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html</a></p>
 <ul>
-<li><p>クラス <code>WaitPage</code> を継承する．</p>
-</li>
-<li><p>クラス名がURLに表示される．</p>
-</li>
+<li>クラス <code>WaitPage</code> を継承する．</li>
+<li>クラス名がURLに表示される．</li>
 </ul>
 <h3 id="待機ページの変数">待機ページの変数</h3>
 <ul>
-<li><code>template_name</code><ul>
+<li><p><code>template_name</code></p>
+<ul>
 <li>待機ページもカスタマイズしようと思えばできる．そのときはテンプレートファイルのパスを渡す．</li>
 <li>使用例: <a href="https://www.otreehub.com/projects/otree-snippets/" target="_blank">https://www.otreehub.com/projects/otree-snippets/</a> の &quot;wait_page_timeout&quot;</li>
 <li><a href="https://otree.readthedocs.io/en/latest/misc/advanced.html#wait-pages" target="_blank">https://otree.readthedocs.io/en/latest/misc/advanced.html#wait-pages</a></li>
 </ul>
 </li>
-</ul>
+<li><p><code>group_by_arrival_time</code></p>
 <ul>
-<li><code>group_by_arrival_time</code><ul>
 <li><code>True</code> を渡せば，次のページ以降の group 分けが，当該待機ページに到達した順の group 分けになる．</li>
 <li>当該待機ページが <code>page_sequence</code> の先頭にある場合のみ <code>group_by_arrival_time = True</code> を設定できる．</li>
 <li><code>group_by_arrival_time = True</code> を設定している場合，全 player が当該待機ページを通るようにする． <code>is_displayed()</code> で特定の役割の player だけスキップする，というようなことをしてはいけない． <code>is_displayed()</code> で特定のラウンド以外はスキップする，という使い方はOK．</li>
@@ -1684,22 +1587,19 @@ subsession = models.Link(Subsession)
 <li><a href="https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html#group-by-arrival-time" target="_blank">https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html#group-by-arrival-time</a></li>
 </ul>
 </li>
-</ul>
+<li><p><code>wait_for_all_groups</code></p>
 <ul>
-<li><code>wait_for_all_groups</code><ul>
 <li><code>True</code> を渡せば，待機ページにおいて group のメンバーではなく， subsession の全メンバーを待機する．</li>
 <li><code>wait_for_all_groups = True</code> としたときは，組み込みメソッド <code>after_all_players_arrive()</code> の引数が subsession オブジェクトとなることに注意．</li>
 </ul>
 </li>
-</ul>
+<li><p><code>title_text</code></p>
 <ul>
-<li><code>title_text</code><ul>
 <li>文字列を渡せば，待機ページで表示される「しばらくお待ちください」の部分を変更することができる．</li>
 </ul>
 </li>
-</ul>
+<li><p><code>body_text</code></p>
 <ul>
-<li><code>body_text</code><ul>
 <li>文字列を渡せば，待機ページで表示される「他の参加者をお待ちください」の部分を変更することができる．</li>
 </ul>
 </li>
@@ -1708,39 +1608,36 @@ subsession = models.Link(Subsession)
 <p>関数を定義する前にデコレータ <code>@staticmethod</code> を記述しておく．
 ただし，デコレータをつけずにおいてインスタンスメソッドとして（第1引数を <code>self</code> にして）使うことはできない．</p>
 <ul>
-<li><code>vars_for_template()</code><ul>
+<li><p><code>vars_for_template()</code></p>
+<ul>
 <li>引数: <code>(player: Player)</code></li>
 <li>返り値: 辞書型．</li>
 <li><code>title_text</code> と <code>body_text</code> それぞれのキーで値を渡すと，待機ページで表示されるタイトルと本文をデフォルトから変更できる．</li>
 <li><code>template_name</code> にパスを渡して独自のテンプレートファイルを使うときには，自分でキーを設定して値をテンプレートに渡せる．</li>
 </ul>
 </li>
-</ul>
+<li><p><code>js_vars()</code></p>
 <ul>
-<li><code>js_vars()</code><ul>
 <li>引数: <code>(player: Player)</code></li>
 <li>返り値: 辞書型．</li>
 <li><code>template_name</code> にパスを渡して独自のテンプレートファイルを使うときのみ設定する．</li>
 </ul>
 </li>
-</ul>
+<li><p><code>is_displayed()</code></p>
 <ul>
-<li><code>is_displayed()</code><ul>
 <li>引数: <code>(player: Player)</code></li>
 <li>返り値: 真偽値．デフォルトでは <code>True</code> を返している．</li>
 <li>逐次手番ゲームにおいて，プレイヤーの役割別に表示させるページを <code>is_displayed()</code> 制御しているとき，待機ページで <code>is_displayed()</code> を使う必要はない．</li>
 </ul>
 </li>
-</ul>
+<li><p><code>app_after_this_page()</code></p>
 <ul>
-<li><code>app_after_this_page()</code><ul>
 <li>引数: <code>(player: Player, upcoming_apps)</code></li>
 <li>返り値: スキップ先のアプリ名（ <code>upcoming_apps</code> の要素である文字列）．</li>
 </ul>
 </li>
-</ul>
+<li><p><code>after_all_players_arrive()</code></p>
 <ul>
-<li><code>after_all_players_arrive()</code><ul>
 <li>引数: <code>(group: Group)</code></li>
 <li><code>wait_for_all_groups = True</code> とした場合の引数は <code>(subsession: Subsession)</code>．</li>
 <li>返り値: 何も返してはいけない．</li>
@@ -1749,7 +1646,7 @@ subsession = models.Link(Subsession)
 <pre><code class="lang-python">after_all_players_arrive = set_payoffs
 </code></pre>
 <pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">after_all_players_arrive</span>(<span class="hljs-params">group: Group</span>):</span>
-  set_payoffs(group)
+    set_payoffs(group)
 </code></pre>
 </li>
 <li><a href="https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html#after-all-players-arrive" target="_blank">https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html#after-all-players-arrive</a></li>
@@ -1774,15 +1671,12 @@ subsession = models.Link(Subsession)
 <li>↑ そのような処理をしたい場合は <code>group_by_arrival_time_method()</code> を使う．</li>
 </ul>
 </li>
-</ul>
+<li><p>subsession の数だけ（ <code>NUM_ROUNDS</code> だけ）実行される．</p>
 <ul>
-<li>subsession の数だけ（ <code>NUM_ROUNDS</code> だけ）実行される．<ul>
 <li><code>creating_session()</code> において group 分けを実装するとき， 陽に <code>group_randomly()</code> が呼び出されないとデフォルトの group 分け（ <code>player.id_in_subsession</code> の昇順で <code>PLAYERS_PER_GROUP</code> 人ずつの group ）になる．</li>
 <li>たとえば 1ラウンド目（ <code>if subsession.round_number == 1</code> ）に <code>group_randomly()</code> を使って group 分けして，以降のラウンドでは1ラウンド目の group を継承したい場合は， <code>if subsession.round_number &gt; 1</code> なる条件において陽に <code>group_like_round(1)</code> を呼び出す必要がある．</li>
 </ul>
 </li>
-</ul>
-<ul>
 <li><p><a href="#組み込み関数-creatingsession-の中で使うメソッド">組み込み関数 <code>creating_session()</code> の中で使うメソッド</a></p>
 </li>
 <li><p><a href="https://otree.readthedocs.io/en/latest/treatments.html" target="_blank">https://otree.readthedocs.io/en/latest/treatments.html</a></p>
@@ -1790,35 +1684,31 @@ subsession = models.Link(Subsession)
 </ul>
 <h3 id="customexport"><code>custom_export()</code></h3>
 <ul>
-<li>独自の構成でデータを CSV ファイルとして出力するときに使う．<ul>
+<li><p>独自の構成でデータを CSV ファイルとして出力するときに使う．</p>
+<ul>
 <li><code>ExtraModel</code> のフィールドに記録したデータはそのままでは CSV ファイルとして出力されないため， <code>custom_export()</code> で出力する．</li>
 <li>通常のフィールドに JSON 文字列でデータが保存してある場合，これを <code>custom_export()</code> の中でパースして，一つのセルに一つのデータが入るようにする．</li>
 </ul>
 </li>
-</ul>
+<li><p>引数: (<code>players: list[Player]</code>) </p>
 <ul>
-<li>引数: (<code>players: list[Player]</code>) <ul>
 <li><code>players</code> は <code>player</code> オブジェクトが入ったリスト．</li>
 </ul>
 </li>
-</ul>
-<ul>
 <li><p>返り値: <code>yield</code> で CSV ファイルで出力したいデータをリストで返す．</p>
 <ul>
 <li><p>たとえば，各 player の <code>player.payoff</code> を出力したい場合，以下のようにすれば良い．</p>
 <pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">custom_export</span>(<span class="hljs-params">players: <span class="hljs-built_in">list</span>[Player]</span>):</span>
-  <span class="hljs-comment">## まず CSV ファイルの1行目に列名を出力すると良い．</span>
-  <span class="hljs-keyword">yield</span> [<span class="hljs-string">&quot;session.code&quot;</span>, <span class="hljs-string">&quot;player.id_in_subsession&quot;</span>, <span class="hljs-string">&quot;group.id_in_subsession&quot;</span>, <span class="hljs-string">&quot;id_in_group&quot;</span>, <span class="hljs-string">&quot;payoff&quot;</span>]
+    <span class="hljs-comment">## まず CSV ファイルの1行目に列名を出力すると良い．</span>
+    <span class="hljs-keyword">yield</span> [<span class="hljs-string">&quot;session.code&quot;</span>, <span class="hljs-string">&quot;player.id_in_subsession&quot;</span>, <span class="hljs-string">&quot;group.id_in_subsession&quot;</span>, <span class="hljs-string">&quot;id_in_group&quot;</span>, <span class="hljs-string">&quot;payoff&quot;</span>]
 
-  <span class="hljs-keyword">for</span> p <span class="hljs-keyword">in</span> players:
-      <span class="hljs-comment">## forループで yield を使うと，リストのデータが CSV ファイルの行として次々追記される．</span>
-      <span class="hljs-keyword">yield</span> [p.session.code, p.id_in_subsession, p.group.id_in_subsession, p.id_in_group, p.payoff]
+    <span class="hljs-keyword">for</span> p <span class="hljs-keyword">in</span> players:
+        <span class="hljs-comment">## forループで yield を使うと，リストのデータが CSV ファイルの行として次々追記される．</span>
+        <span class="hljs-keyword">yield</span> [p.session.code, p.id_in_subsession, p.group.id_in_subsession, p.id_in_group, p.payoff]
 </code></pre>
 </li>
 </ul>
 </li>
-</ul>
-<ul>
 <li><p>セッションごと CSV ファイルを出力することはできず，データベースに保存されているすべてのデータが出力される．したがって，各行にはセッションに固有なID（ <code>player.session.code</code> ）を含めておくと良い．</p>
 </li>
 <li><p>&quot;CSV Data Export&quot; で出力する度に関数が実行される．</p>
@@ -1828,12 +1718,11 @@ subsession = models.Link(Subsession)
 </ul>
 <h3 id="groupbyarrivaltimemethod"><code>group_by_arrival_time_method()</code></h3>
 <ul>
-<li>引数: <code>(subsession: Subsession, waiting_players: list[Player])</code><ul>
+<li><p>引数: <code>(subsession: Subsession, waiting_players: list[Player])</code></p>
+<ul>
 <li><code>waiting_players</code> 到達して待機中の player オブジェクトが入ったリスト．</li>
 </ul>
 </li>
-</ul>
-<ul>
 <li><p>返り値: player オブジェクトが入ったリスト．リストの要素のメンバーで group となる．</p>
 </li>
 <li><p>待機ページにプレイヤーが到達する度に実行される．</p>
@@ -1842,9 +1731,8 @@ subsession = models.Link(Subsession)
 <li><code>creating_session()</code> と同様の用途で使える． <code>creating_session()</code> とは異なり，直前のアプリや直前のラウンド（ subsession ）における行動に応じた処理を実装できる．</li>
 </ul>
 </li>
-</ul>
-<ul>
-<li><a href="https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html#group-by-arrival-time-method" target="_blank">https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html#group-by-arrival-time-method</a></li>
+<li><p><a href="https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html#group-by-arrival-time-method" target="_blank">https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html#group-by-arrival-time-method</a></p>
+</li>
 </ul>
 <h3 id="varsforadminreport"><code>vars_for_admin_report()</code></h3>
 <ul>
@@ -1870,8 +1758,6 @@ subsession = models.Link(Subsession)
 <li>たとえば player のフィールドであれば，引数は <code>player</code> ．</li>
 </ul>
 </li>
-</ul>
-<ul>
 <li><p>返り値: フィールドの最大値．</p>
 </li>
 <li><p><a href="https://otree.readthedocs.io/en/latest/forms.html#field-name-max" target="_blank">https://otree.readthedocs.io/en/latest/forms.html#field-name-max</a></p>
@@ -1888,8 +1774,6 @@ subsession = models.Link(Subsession)
 <li>たとえば player のフィールドであれば，引数は <code>player</code> ．</li>
 </ul>
 </li>
-</ul>
-<ul>
 <li><p>返り値: フィールドの最小値．</p>
 </li>
 <li><p><a href="https://otree.readthedocs.io/en/latest/forms.html#field-name-max" target="_blank">https://otree.readthedocs.io/en/latest/forms.html#field-name-max</a></p>
@@ -1906,8 +1790,6 @@ subsession = models.Link(Subsession)
 <li>たとえば player のフィールドであれば，引数は <code>player</code> ．</li>
 </ul>
 </li>
-</ul>
-<ul>
 <li><p>返り値: フィールドの選択肢のリスト．</p>
 </li>
 <li><p><a href="https://otree.readthedocs.io/en/latest/forms.html#field-name-choices" target="_blank">https://otree.readthedocs.io/en/latest/forms.html#field-name-choices</a></p>
@@ -1928,8 +1810,6 @@ subsession = models.Link(Subsession)
 </li>
 </ul>
 </li>
-</ul>
-<ul>
 <li><p>返り値: エラーメッセージの文字列．</p>
 </li>
 <li><p><a href="https://otree.readthedocs.io/en/latest/forms.html#field-name-error-message" target="_blank">https://otree.readthedocs.io/en/latest/forms.html#field-name-error-message</a></p>
@@ -1995,7 +1875,7 @@ subsession = models.Link(Subsession)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"__init__.py の書き方","level":"2.4","depth":1,"next":{"title":"テンプレートファイルの書き方","level":"2.5","depth":1,"path":"otree_ref/templatefile.md","ref":"otree_ref/templatefile.md","articles":[]},"previous":{"title":"settings.py の書き方","level":"2.3","depth":1,"path":"otree_ref/settings.md","ref":"otree_ref/settings.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"otree_ref/init.md","mtime":"2022-07-16T12:39:17.714Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-07-23T07:20:16.941Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"__init__.py の書き方","level":"2.4","depth":1,"next":{"title":"テンプレートファイルの書き方","level":"2.5","depth":1,"path":"otree_ref/templatefile.md","ref":"otree_ref/templatefile.md","articles":[]},"previous":{"title":"settings.py の書き方","level":"2.3","depth":1,"path":"otree_ref/settings.md","ref":"otree_ref/settings.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"otree_ref/init.md","mtime":"2022-09-11T09:42:28.822Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-09-11T11:09:20.189Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

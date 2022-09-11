@@ -13,12 +13,10 @@
   ```python
   from otree.api import *
   ```
-
     - oTree 3 ではインポートするものを細かく指定していた．  
     [https://otree.readthedocs.io/en/latest/misc/noself.html#about-the-new-format](https://otree.readthedocs.io/en/latest/misc/noself.html#about-the-new-format)
 
-
-- 他にも使いたいモジュール（`time`，`random`，`json`，`numpy`など）があれば，冒頭でインポートしておく．
+- 他にも使いたいモジュール（`time`，`random`，`json`，`numpy` など）があれば，冒頭でインポートしておく．
 
 
 
@@ -28,9 +26,7 @@
 - アプリ内で参照する変数（定数）を定義する．
 
 - `C` クラスで設定するものはCSVデータ出力には含まれない．CSVデータに記録するまでもないような定数（当面は実験の条件として変更しないようなもの）を定義する．
-
     - セッションごと（トリートメントごと）変化しうる変数は `C` クラスではなく `settings.py` の `SESSION_CONFIGS` の中で定義するべき． `SESSION_CONFIGS` で定義した変数はCSVデータ出力に含まれる．
-
 
 - 公式ドキュメントには，辞書型の変数はメソッドで定義せよ，とあるが，辞書型の変数も普通に定義できそう．
 
@@ -75,8 +71,7 @@
   BUYER_ROLE = "買い手"
   SELLER_ROLE = "売り手"
   ```
-  とすると， `player.id_in_group == 1` のプレイヤーの `player.role` は `買い手` ， `player.id_in_group == 2` のプレイヤーの `player.role` は `売り手` となる．
-
+とすると， `player.id_in_group == 1` のプレイヤーの `player.role` は `買い手` ， `player.id_in_group == 2` のプレイヤーの `player.role` は `売り手` となる．
 
 - `player.id_in_group` のラベルとして使いたくない場合， `C` のクラス変数の名前に `_ROLE` や `ROLE_` をつけてはいけない．
 
@@ -97,36 +92,28 @@
     - （当該 player ないし group が属している） subsession のラウンド数（自然数）．
     - subsession は player， group の上位概念なので，たとえば，ある player がラウンド1にいて，もう一人の player がラウンド2にいるとき，果たして `subsession.round_number` は1と2のどちらなのか，と疑問に思うかもしれない．答えは，前者の player について， `player.subsession.round_number` は1，後者の player について， `player.subsession.round_number` は2，となる．ラウンドごとに subsession が定義されるため，2人の player が属する subsession が異なっていることに注意．
 
-
 - `get_groups()`
     - 返り値: subsession に属する group のリスト．
-
 
 - `get_players()`
     - 返り値: subsession に属する player のリスト．
 
-
 - `in_all_rounds()`
     - 返り値: すべてのラウンドの subsession のリスト．
-
 
 - `in_previous_rounds()`
     - 返り値: （当該ラウンドを含まず）以前のすべてのラウンドの subsession のリスト．
 
-
 - `in_rounds(first, last)`
     - 返り値: `first` ラウンド目から `last` ラウンド目までの（両端を含む）subsession のリスト．
 
-
 - `in_round(round_number)`
     - 返り値: `round_number` ラウンド目の subsession．
-
 
 - `get_group_matrix()`
     - 返り値: `player.id_in_subsession` （自然数）の2次元配列．
     - `get_group_matrix()[i][j]` は， `group.id_in_subsession` が `i+1` で `player.id_in_group` が `j+1` である player の `player.id_in_subsession`．
     - 引数で `objects=True` を渡すと，返り値のリストの要素が `id_in_subsession` （自然数）ではなく `player` オブジェクトそのものになる．
-
 
 - `field_maybe_none()`
     - 引数: フィールド名（文字列）．
@@ -143,25 +130,23 @@
     - 引数で `fixed_id_in_group = True` を取ると，役割（ `id_in_group` ） を維持したまま group 分けする．
     - 返り値なし．
 
-
 - `group_like_round(round_number)`
     - 以前のラウンド（ `round_number` ラウンド目）の group 分けを引き継ぐ．
     - [https://otree.readthedocs.io/en/latest/multiplayer/groups.html#group-like-round](https://otree.readthedocs.io/en/latest/multiplayer/groups.html#group-like-round)
-
 
 - `set_group_matrix(new_structure)`
     - group 分けを自分で決めて設定する．
     - [https://otree.readthedocs.io/en/latest/multiplayer/groups.html#group-set-players](https://otree.readthedocs.io/en/latest/multiplayer/groups.html#group-set-players)
     - 引数は `player.id_in_subsession` （自然数）の2次元リスト．
     - たとえば， `PLAYERS_PER_GROUP = 2` で，全ての player 数（ `subsession.session.num_participants` ）が6のとき，  
-    ```python
-    new_structure = [
-        [1, 3],
-        [5, 2],
-        [4, 6]
-    ]
-    subsession.set_group_matrix(new_structure)
-    ```
+      ```python
+      new_structure = [
+          [1, 3],
+          [5, 2],
+          [4, 6]
+      ]
+      subsession.set_group_matrix(new_structure)
+      ```
     とすれば，以下のような group 分けになる．
 
     <table>
@@ -193,16 +178,16 @@
 
     - `creating_session()` において `set_group_matrix()` を使って group 分けを設定するとき， `PLAYERS_PER_GROUP` は設定せずに `None` のままでも良い． `set_group_matrix()` の設定の方が優先される．
     - 返り値はリストのリストであればよく，行列である必要はない．つまり， group のサイズが統一されていなくてもよい．たとえば以下のような設定も可能．
-    ```python
-    subsession.set_group_matrix(
-        [
-            [1],
-            [2, 3],
-            [4, 5, 6],
-            [7, 8, 9, 10]
-        ]
-    )
-    ```
+      ```python
+      subsession.set_group_matrix(
+          [
+              [1],
+              [2, 3],
+              [4, 5, 6],
+              [7, 8, 9, 10]
+          ]
+      )
+      ```
 
 
 #### subsession からアクセスできる上層のオブジェクト
@@ -218,45 +203,35 @@
 - `id_in_subsession`
     - group の番号（自然数）．
 
-
 - `round_number`
     - group のラウンド数（自然数）．
-
 
 - `get_players()`
     - 返り値: group に属する player のリスト．
 
-
 - `in_all_rounds()`
     - 返り値: 同一 `group.id_in_subsession` である，すべてのラウンドの group のリスト．
-
 
 - `in_previous_rounds()`
     - 返り値: 同一 `group.id_in_subsession` である，（当該ラウンドを含まず）以前のすべてのラウンドの group のリスト．
 
-
 - `in_rounds(first, last)`
     - 返り値: 同一 `group.id_in_subsession` である， `first` ラウンド目から `last` ラウンド目までの（両端を含む）group のリスト．
 
-
 - `in_round(round_number)`
     - 返り値: 同一 `group.id_in_subsession` である， `round_number` ラウンド目の group．
-
 
 - `get_player_by_role(role)`
     - 返り値: group に属する player の中で， `player.role` が 引数 `role` （文字列）と等しい player．
     - `C` クラスで `_ROLE` が定義されていないと使えない．
     - [https://otree.readthedocs.io/en/latest/multiplayer/groups.html#roles](https://otree.readthedocs.io/en/latest/multiplayer/groups.html#roles)
 
-
 - `get_player_by_id(id_in_group)`
     - 返り値: group に属する player の中で， `player.id_in_group` が 引数 `id_in_group` （自然数）と等しい player．
-
 
 - `set_players(new_structure)`
     - group 内の役割（ `id_in_group` ）を自分で決めて設定する．
     - 引数は player オブジェクトのリスト．自然数のリスト（たとえば `id_in_group` のリスト）ではないことに注意．
-
 
 - `field_maybe_none()`
     - 引数: フィールド名（文字列）．
@@ -280,14 +255,11 @@
     - 管理者画面で番号は 「P1」「P2」，... と表示される．
     - `player.participant.id_in_session` と等しい．
 
-
 - `id_in_group`
     - group でユニークな player の役割番号．
 
-
 - `role`
     - `C` クラスで `_ROLE` が定義されている場合， `id_in_group` に対応するラベルの文字列．
-
 
 - `payoff`
     - 報酬額を記録する組み込みのフィールド．
@@ -295,34 +267,26 @@
     - 全 subsession の `player.payoff` の合計が自動的に計算され，管理者画面の Payments で確認できる．
     - 自動的にoTreeの通貨型に変換されるので注意．
 
-
 - `round_number`
     - player のラウンド数（自然数）．
-
 
 - `in_all_rounds()`
     - 返り値: 同一 participant である，すべてのラウンドの player のリスト．
 
-
 - `in_previous_rounds()`
     - 返り値: 同一 participant である，（当該ラウンドを含まず）以前のすべてのラウンドの player のリスト．
-
 
 - `in_rounds(first, last)`
     - 返り値: 同一 participant である， `first` ラウンド目から `last` ラウンド目までの（両端を含む）player のリスト．
 
-
 - `in_round(round_number)`
     - 返り値: 同一 participant である， `round_number` ラウンド目の player．
-
 
 - `get_others_in_subsession()`
     - 返り値: player が属する subsession に属する，当該 player 以外の player のリスト．
 
-
 - `get_others_in_group()`
     - 返り値: player が属する group に属する，当該 player 以外の player のリスト．
-
 
 - `field_maybe_none()`
     - 引数: フィールド名（文字列）．
@@ -354,38 +318,23 @@
 - 自分で変数を定義するには， `settings.py` の `SESSION_FIELDS` に変数名の文字列をリストで渡しておく．
 
 - session の下位概念（ subsession， group， player ）からアクセスできる．
-
     - たとえば player オブジェクトを引数で受け取る関数の中では `player.session.変数名` とする．
-
 
 - （All apps の）CSV出力で，自分で定義した変数と組み込みの変数も出力される．
 
 - 組み込みの変数・メソッド
-
     - `code`
-
         - セッションで固有なID．
-
         - `participant.session_id` でもアクセスできる．
-
     - `num_participants`
-
     - `config`
-
         - `settings.py` の `SESSION_CONFIGS` （の当該セッションの要素内） と `SESSION_CONFIG_DEFAULTS` で設定した変数が辞書オブジェクトに入っている．
-
             - `config['participation_fee']`
-
             - `config['real_world_currency_per_point']`
-
     - `get_subsessions()`
-
     - `get_participants()`
-
     - `vars`
-
         - `SESSION_FIELDS` で変数名を定義しなくても， `session.vars["変数名"] = なにか` として記録できる．
-
         - `vars` の要素として記録したものは，（ `custom_export()` を使わない限り）CSV出力で出力されない．
 
 
@@ -397,51 +346,30 @@
 - 自分で変数を定義するには， `settings.py` の `PARTICIPANT_FIELDS` に変数名の文字列をリストで渡しておく．
 
 - participant の下位概念である player からアクセスできる．
-
     - たとえば player オブジェクトを引数で受け取る関数の中では `player.participant.変数名` とする．
 
 - （All appsの）CSV出力で，自分で定義した変数と組み込みの変数も出力される．
 
 - 組み込みの変数・メソッド
-
     - `session_id`
-
         - セッションで固有なID．
-
     - `label`
-
         - ルームに名簿（ `participant_label_file` ）が設定してある場合，各参加者に対応する名簿上の文字列（ラベル）が得られる．
-
         - 管理者画面で得られるセッションワイドリンクにクエリパラメータ `?participant_label=123456789` などとつけると， `participant.label` に `123456789` が入る．
-
             - 参加者プール（ORSEEなど）やその他システム（Qualtricsなど）で発行されたIDを oTree に引き継ぐ場合に使うと良い．
-
     - `code`
-
         - oTreeが発行した，参加者で固有な（データベース内で固有な）ID．
-
         - アルファベットと数字のランダム文字列．
-
     - `id_in_session`
-
         - oTreeが割り振った，参加者で固有な通し番号（自然数）．
-
         - 管理者画面で番号は「P1」「P2」と表示される．
-
         - `player.id_in_subsession` でもアクセスできる．
-
     - `payoff`
-
         - 各 subsession における `player.payoff` の和．
-
     - `payoff_in_real_world_currency()`
-
     - `payoff_plus_participation_fee()`
-
     - `vars`
-
         - `PARTICIPANT_FIELDS` で変数名を定義しなくても， `participant.vars["変数名"] = なにか` として記録できる．
-
         - `vars` の要素として記録したものは，（ `custom_export()` を使わない限り）CSV出力で出力されない．
 
 
@@ -456,32 +384,24 @@
 - ExtraModel のデータは自動には CSV ファイル出力ができないため， [`custom_export()`](#customexport) を使って出力するように設定する．
 
 - 使い方:
-
     1. `ExtraModel` クラスを継承したクラスを定義する．定義しただけテーブルが作られるため，複数のクラスを定義することができる．
-
       ```python
       class MyModel(ExtraModel):
           # なにか
       ```
-
     1. `Player` クラスなどと同様にフィールドを定義する．
-
       ```python
       var1 = models.IntegerField()
       var2 = models.StringField()
       ```
-
     1. フィールドに記録したデータが，どの group の，どの player のデータなのかを記録するためのフィールドを定義する．対戦相手 player が誰であるのかを記録するためのフィールドも定義できる．
-
       ```python
       me = models.Link(Player)
       opponent = models.Link(Player)
       group = models.Link(Group)
       subsession = models.Link(Subsession)
       ```
-
     1. たとえば，クラスの定義は以下のようになる．
-
       ```python
       class MyModel(ExtraModel):
           me = models.Link(Player)
@@ -489,49 +409,44 @@
           var1 = models.IntegerField()
           var2 = models.BooleanField()
       ```
-
     1. データを記録するためには `create()` メソッドでレコードを作る．
         - 引数で記録したいデータを渡す． 
         - player （など）とレコードとの紐付けのためのフィールドには， `player` オブジェクトそのものを渡す．
         - 定義してあるフィールドすべての値を渡す必要はない．渡さなければ，そのフィールドは `None` となる．
-
         - たとえば `before_next_page()` の中で以下のように使う．
-
-        ```python
-        @staticmethod
-        def before_next_page(player: Player, timeout_happened):
-            MyModel.create(
-                me = player,
-                opponent = player.get_others_in_group()[0],    ## opponent には相手 player のオブジェクトを渡す．
-                var1 = 123
-            )
-        ```
-
+          ```python
+          @staticmethod
+          def before_next_page(player: Player, timeout_happened):
+              MyModel.create(
+                  me = player,
+                  opponent = player.get_others_in_group()[0],    ## opponent には相手 player のオブジェクトを渡す．
+                  var1 = 123
+              )
+          ```
     1. すでに作られたレコードを取り出すためには `filter()` メソッドでクエリにかける．
         - 返り値は定義した `ExtraModel` クラスのインスタンスオブジェクトのリストである．
         - クエリの条件に合致するレコードが1件であってもリストで返ってくることに注意．
         - クエリの対象はテーブル全体であり，セッションごと `resetdb` をしていない場合は別のセッションでのデータにもアクセスできる．逆に言えば，クエリの条件で player， group， subsession を使わない場合，別のセッションで作られたレコードも引っかかる．
         - 既に存在するレコードのフィールドの値を更新することもできる．
-
         - たとえば `vars_for_template()` の中で以下のように使う．
-        ```python
-        @staticmethod
-        def vars_for_template(player: Player):
-            ## opponent が 自分である（対戦相手の）レコードを取り出す．
-            retrieved_record = MyModel.filter(opponent = player)[0]
+          ```python
+          @staticmethod
+          def vars_for_template(player: Player):
+              ## opponent が 自分である（対戦相手の）レコードを取り出す．
+              retrieved_record = MyModel.filter(opponent = player)[0]
 
-            her_var1 = retrieved_record.var1
-            retrieved_record.var2 = True
+              her_var1 = retrieved_record.var1
+              retrieved_record.var2 = True
 
-            ## 他人の player オブジェクトを取り出すことも可能．
-            opponent: Player = retrieved_record.me
-            opponent_payoff = opponent.payoff
+              ## 他人の player オブジェクトを取り出すことも可能．
+              opponent: Player = retrieved_record.me
+              opponent_payoff = opponent.payoff
 
-            return dict(
-                her_var1 = her_var1,
-                opponent_payoff = opponent_payoff
-            )
-        ```
+              return dict(
+                  her_var1 = her_var1,
+                  opponent_payoff = opponent_payoff
+              )
+          ```
 
 
 
@@ -544,12 +459,12 @@
     - `choices`
         - `[データベースに記録する値, テンプレートで展開するラベル]` の組（リスト）のリストを渡す．
         - `True` のラベルを「協力」とする場合は以下のように記述する．
-        ```python
-        choices = [
-            [True, "協力"],
-            [False, "非協力"]
-        ]
-        ```
+          ```python
+          choices = [
+              [True, "協力"],
+              [False, "非協力"]
+          ]
+          ```
         - テンプレートタグで入力フォームを作るとき，（ `widget = widgets.RadioSelect` と指定しなくても）ラジオボタンで入力フォームが生成され，ラベルは `choices` で設定したものが表示される．
     - `widget`
         - `choices` を指定せずに `widget = widgets.CheckboxInput` と指定すると，チェックボックスで入力フォームが生成される．
@@ -569,7 +484,6 @@
     - `blank`
         - 強制回答にしない場合は `blank = True` とする．
 
-
 - `models.CurrencyField`
     - 通貨型．
     - 整数型や浮動小数点型の値を渡すと通貨型に変換される．
@@ -579,13 +493,13 @@
             - `cu(first)` ポイントから（最大） `cu(last)` ポイントまで `cu(increment)` ポイント刻みの等差数列（リスト）が返ってくる．
             - たとえば `choices = currency_range(0, 10, 3)` とすると「0ポイント」，「3ポイント」，「6ポイント」，「9ポイント」なる選択肢が生成される．
         - ラベルを設定するとき，以下のように記述できる．
-        ```python
-        choices = [
-            [cu(0), "利己的"],
-            [cu(300), "効率"],
-            [cu(500), "平等"]
-        ]
-        ```
+          ```python
+          choices = [
+              [cu(0), "利己的"],
+              [cu(300), "効率"],
+              [cu(500), "平等"]
+          ]
+          ```
         - `choices` を指定した上で入力フォームを HTML タグ直打ちで実装する場合，送信される値を通貨型に変換した（丸められた）ものが `choices` で指定したリストに含まれないと oTree サーバーの検証に引っかかる．
     - `widget`
         - `choices` を指定した上で `widget = widgets.RadioSelect` と指定すると，選択肢がラジオボタンで生成される．
@@ -602,7 +516,6 @@
         - 最大値．
     - `blank`
 
-
 - `models.IntegerField`
     - 整数型．
     - 浮動小数点型の値を渡すとエラーとなる（入力フォームの送信時は oTree サーバーの検証に引っかかる）．
@@ -610,16 +523,16 @@
     - `min` や `max` を設定すると `<input>` 要素の `min`， `max` 属性にも値が渡され，ブラウザでも最小値，最大値の検証が行われる．
     - `choices`
         - リッカート尺度の入力フォームを実装する場合，たとえば以下のように記述する．
-        ```python
-        choices = [
-            [1, "全く同意できない"],
-            [2, "同意できない"],
-            [3, "どちらともいえない"],
-            [4, "同意できる"],
-            [5, "非常に同意できる"],
-            [99, "わからない"]
-        ]
-        ```
+          ```python
+          choices = [
+              [1, "全く同意できない"],
+              [2, "同意できない"],
+              [3, "どちらともいえない"],
+              [4, "同意できる"],
+              [5, "非常に同意できる"],
+              [99, "わからない"]
+          ]
+          ```
     - `widget`
     - `initial`
     - `label`
@@ -628,7 +541,6 @@
     - `min`
     - `max`
     - `blank`
-
 
 - `models.FloatField`
     - 浮動小数点型．
@@ -644,7 +556,6 @@
     - `min`
     - `max`
     - `blank`
-
 
 - `models.StringField`
     - 文字列型．
@@ -662,7 +573,6 @@
         - デフォルトは `max_length=10000`．
         - ブラウザでは検証されない．文字列の長さの検証を実装するには HTML タグを直書きして `<input>` 要素の `maxlength` 属性を設定する．
     - `blank`
-
 
 - `models.LongStringField`
     - 可変長文字列型．
@@ -684,14 +594,11 @@
 [https://otree.readthedocs.io/en/latest/forms.html#widgets](https://otree.readthedocs.io/en/latest/forms.html#widgets)
 
 1. データを参加者に入力させたいページのクラスにおいて `form_model` と `form_fields` を設定する．
-
 1. テンプレートで `{{ formfields }}` タグを記述する．一つずつ特定して設置する場合には `{{ formfield "フィールド名" }}` と記述する．
-
 1. テンプレートタグで入力フォームを設置するとき，HTML タグが生成される．
 
 
 - `models.BooleanField()` を特に設定せず使った場合:
-
   ```python
   test = models.BooleanField(
       label="ラベル"
@@ -706,7 +613,6 @@
 
 
 - `models.BooleanField()` で選択肢を設定した場合:
-
   ```python
   test = models.BooleanField(
       label="ラベル",
@@ -725,7 +631,6 @@
 
 
 - `models.BooleanField()` で `widgets.RadioSelectHorizontal` を使った場合:
-
   ```python
   test = models.BooleanField(
       label="ラベル",
@@ -741,7 +646,6 @@
 
 
 - `models.BooleanField()` で `widgets.CheckboxInput` を使った場合:
-
   ```python
   test = models.BooleanField(
       label="ラベル",
@@ -757,7 +661,6 @@
 
 
 - `models.IntegerField()` を特に設定せず使った場合:
-
   ```python
   test = models.IntegerField(
       label="ラベル"
@@ -772,7 +675,6 @@
 
 
 - `models.IntegerField()` で最大値を設定した場合:
-
   ```python
   test = models.IntegerField(
       label="ラベル",
@@ -788,7 +690,6 @@
 
 
 - `models.IntegerField()` で選択肢を設定した場合:
-
   ```python
   test = models.IntegerField(
       label="ラベル",
@@ -811,7 +712,6 @@
 
 
 - `models.IntegerField()` で選択肢を設定した上で `widgets.RadioSelect` を使った場合:
-
   ```python
   test = models.IntegerField(
       label="ラベル",
@@ -835,7 +735,6 @@
 
 
 - `models.FloatField()` を特に設定せず使った場合:
-
   ```python
   test = models.FloatField(
       label="ラベル"
@@ -850,7 +749,6 @@
 
 
 - `models.FloatField()` で最小値を設定した場合:
-
   ```python
   test = models.FloatField(
       label="ラベル",
@@ -868,7 +766,6 @@
 
 
 - `models.StringField()` を特に設定せず使った場合:
-
   ```python
   test = models.StringField(
       label="ラベル"
@@ -883,7 +780,6 @@
 
 
 - `models.LongStringField()` を特に設定せず使った場合:
-
   ```python
   test = models.LongStringField(
       label="ラベル"
@@ -904,9 +800,7 @@
 [https://otree.readthedocs.io/en/latest/forms.html#raw-html-widgets](https://otree.readthedocs.io/en/latest/forms.html#raw-html-widgets)
 
 1. データを参加者に入力させたいページのクラスにおいて `form_model` と `form_fields` を設定する．
-
 1. フィールド名を， `<input>` 要素の `name` 属性に設定する．
-
 1. テンプレートタグ `{{ formfield_errors 'フィールド名' }}` を書いておくと， oTree による検証のエラーメッセージを表示することができる．
 
 
@@ -916,9 +810,7 @@
 [https://otree.readthedocs.io/en/latest/pages.html](https://otree.readthedocs.io/en/latest/pages.html)
 
 - クラス `Page` を継承する．
-
 - クラス名がURLに表示される．
-
 - 当該ページで使うテンプレートファイルのファイル名は `クラス名.html` にする．大文字・小文字を厳密に区別しておく．
 
 
@@ -933,12 +825,10 @@
         - 同一アプリ内であれば， `template_name = __name__ + '/MyPage.html'` と書いても良い．
     - （ファイルシステムによってはファイル名の大文字と小文字の区別をしないが，）大文字・小文字を厳密に区別しておく．
 
-
 - `form_model`
     - 当該ページで使う入力フォームのモデルを `"player"`， `"group"`， `"subsession"` から選んで文字列を渡す．
     - どれか一つしか選べない．一つのページで player モデルのフィールドと group モデルのフィールドの両方の入力フォームを置くことはできない．たとえばとりあえず全部 player モデルでデータを記録しておき， oTree 内部で group モデルのフィールドに転記する，などで対処する．
     - 動的に変更することはできない．
-
 
 - `form_fields`
     - 当該ページで入力フォームのフィールド名の文字列をリストで渡す．
@@ -948,11 +838,9 @@
         - `form_fields` で設定してあっても， `get_form_fields()` の設定の方が優先される．
     - `form_fields` で入力フォームのフィールド名を渡した場合，当該フィールドの定義で `blank = True` と設定しない限り，（ `initial` を設定してあっても，）ページの入力フォームから適切な値が送信されなければ次のページへ進めない．
 
-
 - `timeout_seconds`
     - 整数で秒数を渡すと，当該ページでの時間制限を設定できる．
     - 動的に変更する場合には組み込みメソッド `get_timeout_seconds()` を使う．
-
 
 - `timer_text`
     - 時間制限を設定したときに表示されるメッセージ（文字列）を指定する．
@@ -973,14 +861,12 @@
         - 他の group や subsession 全体へは送信できない．
     - [https://otree.readthedocs.io/en/latest/live.html](https://otree.readthedocs.io/en/latest/live.html)
 
-
 - `get_form_fields()`
     - 引数: `(player: Player)`
     - 返り値: フィールド名の文字列のリスト． `form_fields` と同様．
     - ページを読み込む度に実行される（しかも2回実行される？）．
     - `vars_for_template()` よりも先に実行される．
     - [https://otree.readthedocs.io/en/latest/forms.html#determining-form-fields-dynamically](https://otree.readthedocs.io/en/latest/forms.html#determining-form-fields-dynamically)
-
 
 - `vars_for_template()`
     - 引数: `(player: Player)`
@@ -989,7 +875,6 @@
     - `js_vars()` よりも先に実行される．
     - [https://otree.readthedocs.io/en/latest/pages.html#vars-for-template](https://otree.readthedocs.io/en/latest/pages.html#vars-for-template)
 
-
 - `js_vars()`
     - 引数: `(player: Player)`
     - 返り値: 辞書型．
@@ -997,11 +882,10 @@
     - `vars_for_template()` の後に実行される．
     - 返り値のオブジェクトが， HTML のコンテンツブロックの要素の直前において， `js_vars` なる変数名で定義される．したがって， `js_vars` から値を取り出せば良い．
         - たとえば `js_vars()` の返り値が `return {"testlist" = list(range(0, 10, 2))}` であるとき， oTree サーバーは自動的に以下の要素を展開する．
-        ```html
-        <script>var js_vars = {"testlist": [0, 2, 4, 6, 8]};</script>
-        ```
+          ```html
+          <script>var js_vars = {"testlist": [0, 2, 4, 6, 8]};</script>
+          ```
     - [https://otree.readthedocs.io/en/latest/templates.html#passing-data-from-python-to-javascript-js-vars](https://otree.readthedocs.io/en/latest/templates.html#passing-data-from-python-to-javascript-js-vars)
-
 
 - `before_next_page()`
     - 引数: `(player: Player, timeout_happened)`
@@ -1011,14 +895,12 @@
     - 当該ページが `is_displayed()` でスキップされていれば，実行されない．
     - [https://otree.readthedocs.io/en/latest/pages.html#before-next-page](https://otree.readthedocs.io/en/latest/pages.html#before-next-page)
 
-
 - `is_displayed()`
     - 引数: `(player: Player)`
     - 返り値: 真偽値．デフォルトでは `True` を返している．
     - ページを表示する前に実行される．
     - 返り値が `False` の場合，（ `page_sequence` で指定した順番の）次のページへスキップされる．
     - [https://otree.readthedocs.io/en/latest/pages.html#is-displayed](https://otree.readthedocs.io/en/latest/pages.html#is-displayed)
-
 
 - `error_message()`
     - 引数: `(player: Player, values)`
@@ -1033,12 +915,10 @@
     - 入力フォームごと個別に検証用の関数を定義することもできる．ページクラスの外側で `フィールド名_error_message()` を定義する．
     - [https://otree.readthedocs.io/en/latest/misc/tips_and_tricks.html#avoid-duplicated-validation-methods](https://otree.readthedocs.io/en/latest/misc/tips_and_tricks.html#avoid-duplicated-validation-methods)
 
-
 - `get_timeout_seconds()`
     - 引数: `(player: Player)`
     - 返り値: 整数で秒数を渡すと，当該ページでの時間制限を設定できる． `timeout_seconds` と同様．
     - [https://otree.readthedocs.io/en/latest/timeouts.html#get-timeout-seconds](https://otree.readthedocs.io/en/latest/timeouts.html#get-timeout-seconds)
-
 
 - `app_after_this_page()`
     - 引数: `(player: Player, upcoming_apps)`
@@ -1053,7 +933,6 @@
 [https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html](https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html)
 
 - クラス `WaitPage` を継承する．
-
 - クラス名がURLに表示される．
 
 
@@ -1064,7 +943,6 @@
     - 使用例: [https://www.otreehub.com/projects/otree-snippets/](https://www.otreehub.com/projects/otree-snippets/) の "wait_page_timeout"
     - [https://otree.readthedocs.io/en/latest/misc/advanced.html#wait-pages](https://otree.readthedocs.io/en/latest/misc/advanced.html#wait-pages)
 
-
 - `group_by_arrival_time`
     - `True` を渡せば，次のページ以降の group 分けが，当該待機ページに到達した順の group 分けになる．
     - 当該待機ページが `page_sequence` の先頭にある場合のみ `group_by_arrival_time = True` を設定できる．
@@ -1074,15 +952,12 @@
     [https://groups.google.com/g/otree/c/XsFMNoZR7PY](https://groups.google.com/g/otree/c/XsFMNoZR7PY)
     - [https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html#group-by-arrival-time](https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html#group-by-arrival-time)
 
-
 - `wait_for_all_groups`
     - `True` を渡せば，待機ページにおいて group のメンバーではなく， subsession の全メンバーを待機する．
     - `wait_for_all_groups = True` としたときは，組み込みメソッド `after_all_players_arrive()` の引数が subsession オブジェクトとなることに注意．
 
-
 - `title_text`
     - 文字列を渡せば，待機ページで表示される「しばらくお待ちください」の部分を変更することができる．
-
 
 - `body_text`
     - 文字列を渡せば，待機ページで表示される「他の参加者をお待ちください」の部分を変更することができる．
@@ -1101,39 +976,35 @@
     - `title_text` と `body_text` それぞれのキーで値を渡すと，待機ページで表示されるタイトルと本文をデフォルトから変更できる．
     - `template_name` にパスを渡して独自のテンプレートファイルを使うときには，自分でキーを設定して値をテンプレートに渡せる．
 
-
 - `js_vars()`
     - 引数: `(player: Player)`
     - 返り値: 辞書型．
     - `template_name` にパスを渡して独自のテンプレートファイルを使うときのみ設定する．
-
 
 - `is_displayed()`
     - 引数: `(player: Player)`
     - 返り値: 真偽値．デフォルトでは `True` を返している．
     - 逐次手番ゲームにおいて，プレイヤーの役割別に表示させるページを `is_displayed()` 制御しているとき，待機ページで `is_displayed()` を使う必要はない．
 
-
 - `app_after_this_page()`
     - 引数: `(player: Player, upcoming_apps)`
     - 返り値: スキップ先のアプリ名（ `upcoming_apps` の要素である文字列）．
-
 
 - `after_all_players_arrive()`
     - 引数: `(group: Group)`
     - `wait_for_all_groups = True` とした場合の引数は `(subsession: Subsession)`．
     - 返り値: 何も返してはいけない．
     - モジュールレベルで関数（たとえば group オブジェクトを引数に取る `set_payoffs()` ）を独自に定義しておき，以下のように呼び出す設定をしても良い．引数に注意．
-    ```python
-    after_all_players_arrive = 'set_payoffs'
-    ```
-    ```python
-    after_all_players_arrive = set_payoffs
-    ```
-    ```python
-    def after_all_players_arrive(group: Group):
-        set_payoffs(group)
-    ```
+      ```python
+      after_all_players_arrive = 'set_payoffs'
+      ```
+      ```python
+      after_all_players_arrive = set_payoffs
+      ```
+      ```python
+      def after_all_players_arrive(group: Group):
+          set_payoffs(group)
+      ```
     - [https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html#after-all-players-arrive](https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html#after-all-players-arrive)
 
 
@@ -1157,11 +1028,9 @@
     - 直前のアプリや直前のラウンド（ subsession ）における行動に応じた処理はできない．
     - ↑ そのような処理をしたい場合は `group_by_arrival_time_method()` を使う．
 
-
 - subsession の数だけ（ `NUM_ROUNDS` だけ）実行される．
     - `creating_session()` において group 分けを実装するとき， 陽に `group_randomly()` が呼び出されないとデフォルトの group 分け（ `player.id_in_subsession` の昇順で `PLAYERS_PER_GROUP` 人ずつの group ）になる．
     - たとえば 1ラウンド目（ `if subsession.round_number == 1` ）に `group_randomly()` を使って group 分けして，以降のラウンドでは1ラウンド目の group を継承したい場合は， `if subsession.round_number > 1` なる条件において陽に `group_like_round(1)` を呼び出す必要がある．
-
 
 - [組み込み関数 `creating_session()` の中で使うメソッド](#組み込み関数-creatingsession-の中で使うメソッド)
 
@@ -1175,23 +1044,20 @@
     - `ExtraModel` のフィールドに記録したデータはそのままでは CSV ファイルとして出力されないため， `custom_export()` で出力する．
     - 通常のフィールドに JSON 文字列でデータが保存してある場合，これを `custom_export()` の中でパースして，一つのセルに一つのデータが入るようにする．
 
-
 - 引数: (`players: list[Player]`) 
     - `players` は `player` オブジェクトが入ったリスト．
 
-
 - 返り値: `yield` で CSV ファイルで出力したいデータをリストで返す．
     - たとえば，各 player の `player.payoff` を出力したい場合，以下のようにすれば良い．
-    ```python
-    def custom_export(players: list[Player]):
-        ## まず CSV ファイルの1行目に列名を出力すると良い．
-        yield ["session.code", "player.id_in_subsession", "group.id_in_subsession", "id_in_group", "payoff"]
+      ```python
+      def custom_export(players: list[Player]):
+          ## まず CSV ファイルの1行目に列名を出力すると良い．
+          yield ["session.code", "player.id_in_subsession", "group.id_in_subsession", "id_in_group", "payoff"]
 
-        for p in players:
-            ## forループで yield を使うと，リストのデータが CSV ファイルの行として次々追記される．
-            yield [p.session.code, p.id_in_subsession, p.group.id_in_subsession, p.id_in_group, p.payoff]
-    ```
-
+          for p in players:
+              ## forループで yield を使うと，リストのデータが CSV ファイルの行として次々追記される．
+              yield [p.session.code, p.id_in_subsession, p.group.id_in_subsession, p.id_in_group, p.payoff]
+      ```
 
 - セッションごと CSV ファイルを出力することはできず，データベースに保存されているすべてのデータが出力される．したがって，各行にはセッションに固有なID（ `player.session.code` ）を含めておくと良い．
 
@@ -1206,13 +1072,11 @@
 - 引数: `(subsession: Subsession, waiting_players: list[Player])`
     - `waiting_players` 到達して待機中の player オブジェクトが入ったリスト．
 
-
 - 返り値: player オブジェクトが入ったリスト．リストの要素のメンバーで group となる．
 
 - 待機ページにプレイヤーが到達する度に実行される．
     - `page_sequence` の先頭に置かれた待機ページのクラスで `group_by_arrival_time = True` が設定されている場合にのみ呼び出される．
     - `creating_session()` と同様の用途で使える． `creating_session()` とは異なり，直前のアプリや直前のラウンド（ subsession ）における行動に応じた処理を実装できる．
-
 
 - [https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html#group-by-arrival-time-method](https://otree.readthedocs.io/en/latest/multiplayer/waitpages.html#group-by-arrival-time-method)
 
@@ -1241,7 +1105,6 @@
 - 引数: 当該フィールドが定義されているクラスのインスタンス．
     - たとえば player のフィールドであれば，引数は `player` ．
 
-
 - 返り値: フィールドの最大値．
 
 - [https://otree.readthedocs.io/en/latest/forms.html#field-name-max](https://otree.readthedocs.io/en/latest/forms.html#field-name-max)
@@ -1257,7 +1120,6 @@
 - 引数: 当該フィールドが定義されているクラスのインスタンス．
     - たとえば player のフィールドであれば，引数は `player` ．
 
-
 - 返り値: フィールドの最小値．
 
 - [https://otree.readthedocs.io/en/latest/forms.html#field-name-max](https://otree.readthedocs.io/en/latest/forms.html#field-name-max)
@@ -1272,7 +1134,6 @@
 
 - 引数: 当該フィールドが定義されているクラスのインスタンス．
     - たとえば player のフィールドであれば，引数は `player` ．
-
 
 - 返り値: フィールドの選択肢のリスト．
 
@@ -1290,7 +1151,6 @@
     - `value` は入力されたフィールドの値．
     - `*` には当該フィールドが定義されているクラスのインスタンスを書く．
         - たとえば player のフィールドであれば，引数は `player` ．
-
 
 - 返り値: エラーメッセージの文字列．
 

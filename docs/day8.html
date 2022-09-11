@@ -515,7 +515,7 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;{{ static &apos;global/myscripts.js&apos; }}&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 {{ endblock }}
 </code></pre>
-<p>  JS ファイル <code>myscripts.js</code> の中身は以下．</p>
+<p>JS ファイル <code>myscripts.js</code> の中身は以下．</p>
 <pre><code class="lang-js">alert(<span class="hljs-string">&quot;Hello World!&quot;</span>);
 </code></pre>
 </li>
@@ -567,12 +567,9 @@
 <li><p>MPLでスイッチングポイントをクリックしたときに，自動的にラジオボタンが切り替える JavaScript コード:</p>
 <ul>
 <li>コード（js_samples アプリ） <a href="https://github.com/yshimod/otree_survey" target="_blank">https://github.com/yshimod/otree_survey</a></li>
-<li><p>デモページ（「JavaScriptを使った作例」の1ページ目） <a href="https://otree-seminar-survey-sample.herokuapp.com/demo" target="_blank">https://otree-seminar-survey-sample.herokuapp.com/demo</a></p>
-</li>
-<li><p>定数に <code>optR = [200, 250, 300, 350, 400]</code> を設定しておく．</p>
-</li>
-<li><p>player モデルで <code>switching_point</code> なるフィールドを <code>models.IntegerField()</code> で定義しておく．MPLの1行ずつデータを取りたい場合は各行に相当するフィールドを定義する．</p>
-</li>
+<li>デモページ（「JavaScriptを使った作例」の1ページ目） <a href="https://otree-seminar-survey-sample.herokuapp.com/demo" target="_blank">https://otree-seminar-survey-sample.herokuapp.com/demo</a></li>
+<li>定数に <code>optR = [200, 250, 300, 350, 400]</code> を設定しておく．</li>
+<li>player モデルで <code>switching_point</code> なるフィールドを <code>models.IntegerField()</code> で定義しておく．MPLの1行ずつデータを取りたい場合は各行に相当するフィールドを定義する．</li>
 </ul>
 <div class="accordion accordionClose"><div class="accordionButton"><div class="accordionTitle">テンプレート</div><div class="accordionSpinnerBox"><div class="accordionSpinner"></div></div></div><div class="accordionContent">
 <pre><code class="lang-html">{{ block title }}
@@ -664,19 +661,17 @@
 </li>
 <li><p>たとえば， <a href="https://developers-dot-devsite-v2-prod.appspot.com/chart" target="_blank">Google Charts</a> を使って円グラフを表示するには以下のようにする．</p>
 <ol>
-<li><p>円グラフとして表示するデータを oTree （Python） 側から JavaScript へ渡すために， ページクラスの <code>js_vars()</code> メソッドを定義する．</p>
-<pre><code class="lang-python"><span class="hljs-meta">@staticmethod</span>
+<li>円グラフとして表示するデータを oTree （Python） 側から JavaScript へ渡すために， ページクラスの <code>js_vars()</code> メソッドを定義する．<pre><code class="lang-python"><span class="hljs-meta">@staticmethod</span>
 <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">js_vars</span>(<span class="hljs-params">player: Player</span>):</span>
- <span class="hljs-keyword">return</span> <span class="hljs-built_in">dict</span>(
-     num_of_republicans = <span class="hljs-number">3504</span>,
-     num_of_democrats = <span class="hljs-number">4710</span>
- )
+   <span class="hljs-keyword">return</span> <span class="hljs-built_in">dict</span>(
+       num_of_republicans = <span class="hljs-number">3504</span>,
+       num_of_democrats = <span class="hljs-number">4710</span>
+   )
 </code></pre>
 </li>
-<li><p>テンプレートのコンテンツブロックに，グラフを表示する <code>&lt;div&gt;</code> 要素を記述する． <code>id</code> 属性を必ず設定する．</p>
-<pre><code class="lang-html">{{ block content }}
- <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>投票の結果は以下の通りです．<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
- <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;piechart1&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;width: 900px; height: 500px;&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<li>テンプレートのコンテンツブロックに，グラフを表示する <code>&lt;div&gt;</code> 要素を記述する． <code>id</code> 属性を必ず設定する．<pre><code class="lang-html">{{ block content }}
+   <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>投票の結果は以下の通りです．<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;piechart1&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;width: 900px; height: 500px;&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 {{ endblock }}
 </code></pre>
 </li>
@@ -686,40 +681,40 @@
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://www.gstatic.com/charts/loader.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
- <span class="hljs-comment">// Load the Visualization API and the corechart package.</span>
- google.charts.load(<span class="hljs-string">&apos;current&apos;</span>, {<span class="hljs-string">&apos;packages&apos;</span>:[<span class="hljs-string">&apos;corechart&apos;</span>]});
+   <span class="hljs-comment">// Load the Visualization API and the corechart package.</span>
+   google.charts.load(<span class="hljs-string">&apos;current&apos;</span>, {<span class="hljs-string">&apos;packages&apos;</span>:[<span class="hljs-string">&apos;corechart&apos;</span>]});
 
- <span class="hljs-comment">// Set a callback to run when the Google Visualization API is loaded.</span>
- google.charts.setOnLoadCallback(drawChart);
+   <span class="hljs-comment">// Set a callback to run when the Google Visualization API is loaded.</span>
+   google.charts.setOnLoadCallback(drawChart);
 
- <span class="hljs-comment">// Callback that creates and populates a data table, instantiates the pie chart, passes in the data and draws it.</span>
- <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">drawChart</span>(<span class="hljs-params"></span>) </span>{
-     <span class="hljs-comment">// データテーブルの定義</span>
-     <span class="hljs-keyword">var</span> data1 = <span class="hljs-keyword">new</span> google.visualization.DataTable();
-     data1.addColumn(<span class="hljs-string">&apos;string&apos;</span>, <span class="hljs-string">&apos;政党&apos;</span>);
-     data1.addColumn(<span class="hljs-string">&apos;number&apos;</span>, <span class="hljs-string">&apos;投票者数&apos;</span>);
-     data1.addRows([
-         [<span class="hljs-string">&apos;共和党&apos;</span>, js_vars.num_of_republicans],
-         [<span class="hljs-string">&apos;民主党&apos;</span>, js_vars.num_of_democrats]
-     ]);
+   <span class="hljs-comment">// Callback that creates and populates a data table, instantiates the pie chart, passes in the data and draws it.</span>
+   <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">drawChart</span>(<span class="hljs-params"></span>) </span>{
+       <span class="hljs-comment">// データテーブルの定義</span>
+       <span class="hljs-keyword">var</span> data1 = <span class="hljs-keyword">new</span> google.visualization.DataTable();
+       data1.addColumn(<span class="hljs-string">&apos;string&apos;</span>, <span class="hljs-string">&apos;政党&apos;</span>);
+       data1.addColumn(<span class="hljs-string">&apos;number&apos;</span>, <span class="hljs-string">&apos;投票者数&apos;</span>);
+       data1.addRows([
+           [<span class="hljs-string">&apos;共和党&apos;</span>, js_vars.num_of_republicans],
+           [<span class="hljs-string">&apos;民主党&apos;</span>, js_vars.num_of_democrats]
+       ]);
 
-     <span class="hljs-comment">// オプションの定義</span>
-     <span class="hljs-keyword">var</span> options1 = {
-         <span class="hljs-attr">pieSliceText</span>: <span class="hljs-string">&apos;label&apos;</span>,    <span class="hljs-comment">// 各ピースに生の値を表示する場合は &apos;value&apos;，パーセンテージは &apos;percentage&apos;</span>
-         <span class="hljs-attr">title</span>: <span class="hljs-string">&apos;投票結果&apos;</span>,    <span class="hljs-comment">// グラフのタイトル</span>
-         <span class="hljs-attr">colors</span>: [<span class="hljs-string">&apos;red&apos;</span>, <span class="hljs-string">&apos;#00AEF3&apos;</span>],    <span class="hljs-comment">// 各ピースの色</span>
-         <span class="hljs-attr">tooltip</span>: {
-             <span class="hljs-attr">text</span>: <span class="hljs-string">&apos;both&apos;</span>    <span class="hljs-comment">// 各ピースでマウスオーバーしたときに表示する情報．生の値のみを表示する場合は &apos;value&apos;，パーセンテージのみは &apos;percentage&apos;</span>
-         }
-     };
+       <span class="hljs-comment">// オプションの定義</span>
+       <span class="hljs-keyword">var</span> options1 = {
+           <span class="hljs-attr">pieSliceText</span>: <span class="hljs-string">&apos;label&apos;</span>,    <span class="hljs-comment">// 各ピースに生の値を表示する場合は &apos;value&apos;，パーセンテージは &apos;percentage&apos;</span>
+           <span class="hljs-attr">title</span>: <span class="hljs-string">&apos;投票結果&apos;</span>,    <span class="hljs-comment">// グラフのタイトル</span>
+           <span class="hljs-attr">colors</span>: [<span class="hljs-string">&apos;red&apos;</span>, <span class="hljs-string">&apos;#00AEF3&apos;</span>],    <span class="hljs-comment">// 各ピースの色</span>
+           <span class="hljs-attr">tooltip</span>: {
+               <span class="hljs-attr">text</span>: <span class="hljs-string">&apos;both&apos;</span>    <span class="hljs-comment">// 各ピースでマウスオーバーしたときに表示する情報．生の値のみを表示する場合は &apos;value&apos;，パーセンテージのみは   &apos;percentage&apos;</span>
+           }
+       };
 
-     <span class="hljs-comment">// インスタンスを作成</span>
-     <span class="hljs-keyword">var</span> el1 = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&apos;piechart1&apos;</span>);    <span class="hljs-comment">// コンテンツブロックで記述した &lt;div&gt; の id を指定して要素を取得する．</span>
-     <span class="hljs-keyword">var</span> chart1 = <span class="hljs-keyword">new</span> google.visualization.PieChart(el1);
+       <span class="hljs-comment">// インスタンスを作成</span>
+       <span class="hljs-keyword">var</span> el1 = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&apos;piechart1&apos;</span>);    <span class="hljs-comment">// コンテンツブロックで記述した &lt;div&gt; の id を指定して要素を取得する．</span>
+       <span class="hljs-keyword">var</span> chart1 = <span class="hljs-keyword">new</span> google.visualization.PieChart(el1);
 
-     <span class="hljs-comment">// グラフを描写</span>
-     chart1.draw(data1, options1);
- }
+       <span class="hljs-comment">// グラフを描写</span>
+       chart1.draw(data1, options1);
+   }
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 {{ endblock }}
 </code></pre>
@@ -730,11 +725,7 @@
   Untitled</a> by yshimod (<a href="https://codepen.io/yshimod" target="_blank">@yshimod</a>)
   on <a href="https://codepen.io" target="_blank">CodePen</a>.</span>
 </p>
-
-
 </li>
-</ul>
-<ul>
 <li><p>（日本語ドキュメントが豊富な） <a href="https://www.chartjs.org/" target="_blank">Chart.js</a> も有用．</p>
 <ul>
 <li>コード（js_samples アプリ） <a href="https://github.com/yshimod/otree_survey" target="_blank">https://github.com/yshimod/otree_survey</a></li>
@@ -831,12 +822,9 @@
     oTree day8-2</a> by yshimod (<a href="https://codepen.io/yshimod" target="_blank">@yshimod</a>)
     on <a href="https://codepen.io" target="_blank">CodePen</a>.</span>
 </p>
-
-
 </li>
-</ul>
+<li><p><a href="https://www.jspsych.org/" target="_blank">jsPsych</a> を使う場合は工夫が必要．<br>実装例:</p>
 <ul>
-<li><a href="https://www.jspsych.org/" target="_blank">jsPsych</a> を使う場合は工夫が必要．<br>実装例:<ul>
 <li><a href="https://github.com/yshimod/jspsych_on_otree" target="_blank">https://github.com/yshimod/jspsych_on_otree</a></li>
 <li><a href="https://www.otreehub.com/projects/jspsych-on-otree/" target="_blank">https://www.otreehub.com/projects/jspsych-on-otree/</a></li>
 </ul>
@@ -849,19 +837,14 @@
 <h2 id="live-page">Live page</h2>
 <ul>
 <li><a href="https://otree.readthedocs.io/en/latest/live.html" target="_blank">https://otree.readthedocs.io/en/latest/live.html</a></li>
-<li>Udemyの講座 <a href="https://www.udemy.com/course/learn-otree/" target="_blank">https://www.udemy.com/course/learn-otree/</a> の Live page に関するレクチャー（「Advanced oTree Features」の「Real Time Interaction between Participants - oTree LivePages」）は無料で見れる．</li>
-</ul>
-<ul>
+<li><p>Udemyの講座 <a href="https://www.udemy.com/course/learn-otree/" target="_blank">https://www.udemy.com/course/learn-otree/</a> の Live page に関するレクチャー（「Advanced oTree Features」の「Real Time Interaction between Participants - oTree LivePages」）は無料で見れる．</p>
+</li>
 <li><p>通常，クライアントと oTree サーバーのデータのやり取りは HTTP プロトコルによって行われる．</p>
 <ul>
-<li><p>画面を表示するとき（実験刺激を呈示するとき）には，クライアントが oTree サーバー（ Web サーバー ）に GET メソッドでリクエストを送信し，リクエストに応じてサーバーがクライアントに画面の内容（ HTML文書 ）を送信し返す．なお， HTML は Python によってテンプレートファイルをもとに動的に生成される．</p>
-</li>
-<li><p>次のページへ進むときには，クライアントがサーバーに POST メソッドで，入力フォームの値を含めたリクエストを送信し，これを受けてサーバーがデータを受け取りつつ，次の画面の内容を送信し返す．</p>
-</li>
+<li>画面を表示するとき（実験刺激を呈示するとき）には，クライアントが oTree サーバー（ Web サーバー ）に GET メソッドでリクエストを送信し，リクエストに応じてサーバーがクライアントに画面の内容（ HTML文書 ）を送信し返す．なお， HTML は Python によってテンプレートファイルをもとに動的に生成される．</li>
+<li>次のページへ進むときには，クライアントがサーバーに POST メソッドで，入力フォームの値を含めたリクエストを送信し，これを受けてサーバーがデータを受け取りつつ，次の画面の内容を送信し返す．</li>
 </ul>
 </li>
-</ul>
-<ul>
 <li><p>HTTP プロトコルはクライアントからリクエストを送信することによって通信が始める方法であり，サーバー側から通信を始めることはできない．この問題を解決する，すなわちサーバー側から通信を開始する方法として WebSocket プロトコルが存在する．</p>
 </li>
 <li><p>oTree において WebSocket による通信を利用するためには Live page と呼ばれる機能を使う．</p>
@@ -919,8 +902,6 @@
 <li>キーが数値ないし変数のときには <code>dict()</code> が使えないので， <code>{ }</code> で辞書オブジェクトを定義する．</li>
 </ul>
 </li>
-</ul>
-<ul>
 <li><p>たとえば <code>liveSend()</code> で <code>{&quot;number&quot;: &quot;3&quot;}</code> なる値がサーバーに送信された後，中身の数値を10倍したものを， group の全員に送信するためには以下のようにする．</p>
 <pre><code class="lang-python"><span class="hljs-meta">@staticmethod</span>
 <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">live_method</span>(<span class="hljs-params">player: Player, data</span>):</span>
@@ -995,41 +976,39 @@
 <ul>
 <li><p>（下平注） このサンプルのコードにはいくつか注意するべき点があります． Live page の勉強用や，授業におけるデモンストレーションとして使うならまだしも，ダブルオークションの研究で使う場合は以下の点を検討した方が良さそうです．</p>
 <ul>
-<li><p><a href="https://github.com/oTree-org/more-demos/blob/master/double_auction/__init__.py" target="_blank"><code>__init__.py</code></a> の61行目から66行目において，売買が成立する <code>buyer</code> と <code>seller</code> のペアを探す関数を定義されていますが， <code>id_in_group</code> の昇順に一人ずつ取引が成立するか確認して，最初に見つかったペアを返す実装となっています．通常は，売りオファーの安い順・買いオファーの高い順，およびオファーの早い順，に取引を成立させていく必要があると思われます．</p>
-</li>
+<li><a href="https://github.com/oTree-org/more-demos/blob/master/double_auction/__init__.py" target="_blank"><code>__init__.py</code></a> の61行目から66行目において，売買が成立する <code>buyer</code> と <code>seller</code> のペアを探す関数を定義されていますが， <code>id_in_group</code> の昇順に一人ずつ取引が成立するか確認して，最初に見つかったペアを返す実装となっています．通常は，売りオファーの安い順・買いオファーの高い順，およびオファーの早い順，に取引を成立させていく必要があると思われます．</li>
 <li><p><a href="https://github.com/oTree-org/more-demos/blob/master/double_auction/__init__.py" target="_blank"><code>__init__.py</code></a> の53行目から58行目で <code>Transaction</code> なる ExtraModel を定義し，85行目から91行目において取引の内容（誰とどの価格で取引したか，など）を <code>Transaction</code> に記録しています．留保価格/生産費用（ <code>break_even_point</code> ），オファー（ <code>current_offer</code> ），利得（ <code>payoff</code> ）は player のフィールドが定義され，そこに記録されているのですが，価格は記録されていません．また， <code>custom_export()</code> で <code>Transaction</code> の中身を CSV ファイルに出力するような実装が行われていません．したがって，このままの状態では価格を直接確認することはできません．複数個の財を購入した buyer については，利得と留保価格から価格を逆算することもできません． z-Tree の contracts テーブルのような，1レコードに取引時刻，ペアのID，取引価格，を記録したテーブルは <code>custom_export()</code> を使って自分で実装しなければなりません．</p>
 <ul>
 <li><p>たとえば以下のような実装が考えられます．</p>
 <pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">custom_export</span>(<span class="hljs-params">players: <span class="hljs-built_in">list</span>[Player]</span>):</span>
-  <span class="hljs-keyword">yield</span> [
-      <span class="hljs-string">&quot;セッションコード&quot;</span>,
-      <span class="hljs-string">&quot;groupのid_in_subsession&quot;</span>,
-      <span class="hljs-string">&quot;ラウンド&quot;</span>,
-      <span class="hljs-string">&quot;buyerのid_in_subsession&quot;</span>,
-      <span class="hljs-string">&quot;sellerのid_in_subsession&quot;</span>,
-      <span class="hljs-string">&quot;価格&quot;</span>,
-      <span class="hljs-string">&quot;経過秒&quot;</span>
-  ]
+    <span class="hljs-keyword">yield</span> [
+        <span class="hljs-string">&quot;セッションコード&quot;</span>,
+        <span class="hljs-string">&quot;groupのid_in_subsession&quot;</span>,
+        <span class="hljs-string">&quot;ラウンド&quot;</span>,
+        <span class="hljs-string">&quot;buyerのid_in_subsession&quot;</span>,
+        <span class="hljs-string">&quot;sellerのid_in_subsession&quot;</span>,
+        <span class="hljs-string">&quot;価格&quot;</span>,
+        <span class="hljs-string">&quot;経過秒&quot;</span>
+    ]
 
-  <span class="hljs-keyword">for</span> p <span class="hljs-keyword">in</span> players:
-      <span class="hljs-keyword">if</span> p.is_buyer:
-          records_list: <span class="hljs-built_in">list</span>[Transaction] = Transaction.<span class="hljs-built_in">filter</span>(buyer = p)
-          <span class="hljs-keyword">for</span> record <span class="hljs-keyword">in</span> records_list:
-              <span class="hljs-keyword">yield</span> [
-                  record.group.session.code,
-                  record.group.id_in_subsession,
-                  record.group.round_number,
-                  record.buyer.id_in_subsession,
-                  record.seller.id_in_subsession,
-                  record.price,
-                  record.seconds
-              ]
+    <span class="hljs-keyword">for</span> p <span class="hljs-keyword">in</span> players:
+        <span class="hljs-keyword">if</span> p.is_buyer:
+            records_list: <span class="hljs-built_in">list</span>[Transaction] = Transaction.<span class="hljs-built_in">filter</span>(buyer = p)
+            <span class="hljs-keyword">for</span> record <span class="hljs-keyword">in</span> records_list:
+                <span class="hljs-keyword">yield</span> [
+                    record.group.session.code,
+                    record.group.id_in_subsession,
+                    record.group.round_number,
+                    record.buyer.id_in_subsession,
+                    record.seller.id_in_subsession,
+                    record.price,
+                    record.seconds
+                ]
 </code></pre>
 </li>
 </ul>
 </li>
-<li><p><a href="https://github.com/oTree-org/more-demos/blob/master/double_auction/Trading.html" target="_blank"><code>Trading.html</code></a> （JavaScript部分）の99行目から101行目において， <code>seller</code> が財を持っていない場合にオファーを送信するボタンを押せないように変更するコードが記述されています．これ自体に問題は無いのですが， <code>buyer</code> が既に財を1つ手に入れている場合に対する処理は記述されておらず，結局， <code>buyer</code> は何個でも財を買える状態になっています．もしも <code>buyer</code> が買える財の数を1つだけにする場合には自分で実装する必要があります．</p>
-<ul>
+<li><a href="https://github.com/oTree-org/more-demos/blob/master/double_auction/Trading.html" target="_blank"><code>Trading.html</code></a> （JavaScript部分）の99行目から101行目において， <code>seller</code> が財を持っていない場合にオファーを送信するボタンを押せないように変更するコードが記述されています．これ自体に問題は無いのですが， <code>buyer</code> が既に財を1つ手に入れている場合に対する処理は記述されておらず，結局， <code>buyer</code> は何個でも財を買える状態になっています．もしも <code>buyer</code> が買える財の数を1つだけにする場合には自分で実装する必要があります．<ul>
 <li>なお下平は，てっきり <code>buyer</code> は1つだけ買えるものと勘違いしていたため，（島田さんの授業で実施した）実験データを見て「複数個買えとる <code>buyer</code> おるがや．バグか！」と早とちりし，RAさんも巻き込んで検証に多大な時間をかけてしまいました．たとえば，参加者が多い場合に，ある参加者のオファーがサーバーに飛んできてマッチングを計算している最中に，他の参加者のオファーが飛んできて，おかしくなっているのではないか，などと，当てずっぽうの仮設を立て無為な時間を過ごしました（ちなみに oTree はシングルプロセスで動いているため，処理に割り込むということはありません）．三上さんにこの点を指摘していただいたおかげで自分の過ちに気づくことができました．まずはじっくりコードを読め，という教訓を得ました．</li>
 </ul>
 </li>
@@ -1081,7 +1060,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"ExtraModel ・ JavaScript ・ Live page","level":"1.9","depth":1,"next":{"title":"演習 （少し特殊な最後通牒ゲームを作る）","level":"1.10","depth":1,"path":"exercise.md","ref":"exercise.md","articles":[]},"previous":{"title":"（Qualtricsのような）質問紙調査を作る方法","level":"1.8","depth":1,"path":"day7.md","ref":"day7.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day8.md","mtime":"2022-07-23T07:09:57.132Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-07-23T07:20:16.941Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"ExtraModel ・ JavaScript ・ Live page","level":"1.9","depth":1,"next":{"title":"演習 （少し特殊な最後通牒ゲームを作る）","level":"1.10","depth":1,"path":"exercise.md","ref":"exercise.md","articles":[]},"previous":{"title":"（Qualtricsのような）質問紙調査を作る方法","level":"1.8","depth":1,"path":"day7.md","ref":"day7.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day8.md","mtime":"2022-09-11T10:36:44.602Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-09-11T11:09:20.189Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

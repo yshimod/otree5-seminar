@@ -29,7 +29,6 @@
 ### JavaScript の記述方法
 
 - テンプレートファイルに `{{ block scripts }} {{ endblock }}` を置き，その中に`<script>` タグで JavaScript コードを書く．
-
   ```html
   {{ block title }}
       タイトル
@@ -48,7 +47,6 @@
   ```
 
 - JS ファイル（ `myscripts.js` ）を作成して， `_static/global` などに入れておき，それを読み込む．
-
   ```html
   {{ block title }}
       タイトル
@@ -63,8 +61,7 @@
       <script src="{{ static 'global/myscripts.js' }}"></script>
   {{ endblock }}
   ```
-
-    JS ファイル `myscripts.js` の中身は以下．
+JS ファイル `myscripts.js` の中身は以下．
 
   ```js
   alert("Hello World!");
@@ -76,7 +73,6 @@
 - oTree サーバーから JavaScript に変数を渡すには，ページクラスの組み込みメソッド `js_vars()` を使う．
 
 - たとえば以下のように設定する．
-
   ```python
   @staticmethod
   def js_vars(player: Player):
@@ -112,19 +108,15 @@
 - jQuery のバージョンは 3.2.1 （oTree v5.8.5 において）．
 
 - JavaScript コードの中で `jQuery()` や `$()` で jQuery を呼び出す．
-
     - たとえば `document.getElementById("id_something")` は `$("#id_something")` と似た機能．ただし後者は jQuery のオブジェクトが返ってくる．
 
 
 ### （作例） JavaScript で（おせっかいな） MPL を実装する．
 
 - MPLでスイッチングポイントをクリックしたときに，自動的にラジオボタンが切り替える JavaScript コード:
-
     - コード（js_samples アプリ） [https://github.com/yshimod/otree_survey](https://github.com/yshimod/otree_survey)
     - デモページ（「JavaScriptを使った作例」の1ページ目） [https://otree-seminar-survey-sample.herokuapp.com/demo](https://otree-seminar-survey-sample.herokuapp.com/demo)
-
     - 定数に `optR = [200, 250, 300, 350, 400]` を設定しておく．
-
     - player モデルで `switching_point` なるフィールドを ` models.IntegerField()` で定義しておく．MPLの1行ずつデータを取りたい場合は各行に相当するフィールドを定義する．
 
   %accordion%テンプレート%accordion%
@@ -217,77 +209,72 @@
 [https://otree.readthedocs.io/en/latest/templates.html#charts](https://otree.readthedocs.io/en/latest/templates.html#charts)
 
 - たとえば， [Google Charts](https://developers-dot-devsite-v2-prod.appspot.com/chart) を使って円グラフを表示するには以下のようにする．
-
     1. 円グラフとして表示するデータを oTree （Python） 側から JavaScript へ渡すために， ページクラスの `js_vars()` メソッドを定義する．
-
-    ```python
-    @staticmethod
-    def js_vars(player: Player):
-        return dict(
-            num_of_republicans = 3504,
-            num_of_democrats = 4710
-        )
-    ```
-
+      ```python
+      @staticmethod
+      def js_vars(player: Player):
+          return dict(
+              num_of_republicans = 3504,
+              num_of_democrats = 4710
+          )
+      ```
     1. テンプレートのコンテンツブロックに，グラフを表示する `<div>` 要素を記述する． `id` 属性を必ず設定する．
-    ```html
-    {{ block content }}
-        <p>投票の結果は以下の通りです．</p>
-        <div id="piechart1" style="width: 900px; height: 500px;"></div>
-    {{ endblock }}
-    ```
-
+      ```html
+      {{ block content }}
+          <p>投票の結果は以下の通りです．</p>
+          <div id="piechart1" style="width: 900px; height: 500px;"></div>
+      {{ endblock }}
+      ```
     1. テンプレートのスクリプトブロックに， JavaScript を記述する．
-    ```html
-    {{ block scripts }}
-    <!-- ↓ を記述して "インストール" する． -->
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+      ```html
+      {{ block scripts }}
+      <!-- ↓ を記述して "インストール" する． -->
+      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-    <script>
-        // Load the Visualization API and the corechart package.
-        google.charts.load('current', {'packages':['corechart']});
+      <script>
+          // Load the Visualization API and the corechart package.
+          google.charts.load('current', {'packages':['corechart']});
 
-        // Set a callback to run when the Google Visualization API is loaded.
-        google.charts.setOnLoadCallback(drawChart);
+          // Set a callback to run when the Google Visualization API is loaded.
+          google.charts.setOnLoadCallback(drawChart);
 
-        // Callback that creates and populates a data table, instantiates the pie chart, passes in the data and draws it.
-        function drawChart() {
-            // データテーブルの定義
-            var data1 = new google.visualization.DataTable();
-            data1.addColumn('string', '政党');
-            data1.addColumn('number', '投票者数');
-            data1.addRows([
-                ['共和党', js_vars.num_of_republicans],
-                ['民主党', js_vars.num_of_democrats]
-            ]);
+          // Callback that creates and populates a data table, instantiates the pie chart, passes in the data and draws it.
+          function drawChart() {
+              // データテーブルの定義
+              var data1 = new google.visualization.DataTable();
+              data1.addColumn('string', '政党');
+              data1.addColumn('number', '投票者数');
+              data1.addRows([
+                  ['共和党', js_vars.num_of_republicans],
+                  ['民主党', js_vars.num_of_democrats]
+              ]);
 
-            // オプションの定義
-            var options1 = {
-                pieSliceText: 'label',    // 各ピースに生の値を表示する場合は 'value'，パーセンテージは 'percentage'
-                title: '投票結果',    // グラフのタイトル
-                colors: ['red', '#00AEF3'],    // 各ピースの色
-                tooltip: {
-                    text: 'both'    // 各ピースでマウスオーバーしたときに表示する情報．生の値のみを表示する場合は 'value'，パーセンテージのみは 'percentage'
-                }
-            };
+              // オプションの定義
+              var options1 = {
+                  pieSliceText: 'label',    // 各ピースに生の値を表示する場合は 'value'，パーセンテージは 'percentage'
+                  title: '投票結果',    // グラフのタイトル
+                  colors: ['red', '#00AEF3'],    // 各ピースの色
+                  tooltip: {
+                      text: 'both'    // 各ピースでマウスオーバーしたときに表示する情報．生の値のみを表示する場合は 'value'，パーセンテージのみは   'percentage'
+                  }
+              };
 
-            // インスタンスを作成
-            var el1 = document.getElementById('piechart1');    // コンテンツブロックで記述した <div> の id を指定して要素を取得する．
-            var chart1 = new google.visualization.PieChart(el1);
+              // インスタンスを作成
+              var el1 = document.getElementById('piechart1');    // コンテンツブロックで記述した <div> の id を指定して要素を取得する．
+              var chart1 = new google.visualization.PieChart(el1);
 
-            // グラフを描写
-            chart1.draw(data1, options1);
-        }
-    </script>
-    {{ endblock }}
-    ```
+              // グラフを描写
+              chart1.draw(data1, options1);
+          }
+      </script>
+      {{ endblock }}
+      ```
 
   <p class="codepen" data-height="500" data-theme-id="dark" data-default-tab="result" data-slug-hash="RwMgyNz" data-editable="true" data-user="yshimod" style="height: 500px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
     <span>See the Pen <a href="https://codepen.io/yshimod/pen/RwMgyNz">
     Untitled</a> by yshimod (<a href="https://codepen.io/yshimod">@yshimod</a>)
     on <a href="https://codepen.io">CodePen</a>.</span>
   </p>
-
 
 - （日本語ドキュメントが豊富な） [Chart.js](https://www.chartjs.org/) も有用．
     - コード（js_samples アプリ） [https://github.com/yshimod/otree_survey](https://github.com/yshimod/otree_survey)
@@ -387,7 +374,6 @@
       on <a href="https://codepen.io">CodePen</a>.</span>
   </p>
 
-
 - [jsPsych](https://www.jspsych.org/) を使う場合は工夫が必要．  
 実装例:
     - [https://github.com/yshimod/jspsych_on_otree](https://github.com/yshimod/jspsych_on_otree)
@@ -403,13 +389,9 @@
 - [https://otree.readthedocs.io/en/latest/live.html](https://otree.readthedocs.io/en/latest/live.html)
 - Udemyの講座 [https://www.udemy.com/course/learn-otree/](https://www.udemy.com/course/learn-otree/) の Live page に関するレクチャー（「Advanced oTree Features」の「Real Time Interaction between Participants - oTree LivePages」）は無料で見れる．
 
-
 - 通常，クライアントと oTree サーバーのデータのやり取りは HTTP プロトコルによって行われる．
-
     - 画面を表示するとき（実験刺激を呈示するとき）には，クライアントが oTree サーバー（ Web サーバー ）に GET メソッドでリクエストを送信し，リクエストに応じてサーバーがクライアントに画面の内容（ HTML文書 ）を送信し返す．なお， HTML は Python によってテンプレートファイルをもとに動的に生成される．
-
     - 次のページへ進むときには，クライアントがサーバーに POST メソッドで，入力フォームの値を含めたリクエストを送信し，これを受けてサーバーがデータを受け取りつつ，次の画面の内容を送信し返す．
-
 
 - HTTP プロトコルはクライアントからリクエストを送信することによって通信が始める方法であり，サーバー側から通信を始めることはできない．この問題を解決する，すなわちサーバー側から通信を開始する方法として WebSocket プロトコルが存在する．
 
@@ -468,9 +450,7 @@
     - 他の group や subsession 全体へは送信できない．
     - キーが数値ないし変数のときには `dict()` が使えないので， `{ }` で辞書オブジェクトを定義する．
 
-
 - たとえば `liveSend()` で `{"number": "3"}` なる値がサーバーに送信された後，中身の数値を10倍したものを， group の全員に送信するためには以下のようにする．
-
   ```python
   @staticmethod
   def live_method(player: Player, data):
@@ -491,7 +471,6 @@
 - `liveRecv()` の引数として `data` を受け取る． `live_method()` の返り値である辞書オブジェクトの値のみが入っている（宛先のキーは送信されない）．
 
 - たとえば `{"return_number": 30}` なるデータを受け取り，このタイミングで受け取った数字を画面に表示させるためには以下のようにする．
-
   ```html
   {{ block content }}
       <input type="number" id="sendnumber">
@@ -546,42 +525,36 @@
 
 
 - （下平注） このサンプルのコードにはいくつか注意するべき点があります． Live page の勉強用や，授業におけるデモンストレーションとして使うならまだしも，ダブルオークションの研究で使う場合は以下の点を検討した方が良さそうです．
-
     - [`__init__.py`](https://github.com/oTree-org/more-demos/blob/master/double_auction/__init__.py) の61行目から66行目において，売買が成立する `buyer` と `seller` のペアを探す関数を定義されていますが， `id_in_group` の昇順に一人ずつ取引が成立するか確認して，最初に見つかったペアを返す実装となっています．通常は，売りオファーの安い順・買いオファーの高い順，およびオファーの早い順，に取引を成立させていく必要があると思われます．
-
     - [`__init__.py`](https://github.com/oTree-org/more-demos/blob/master/double_auction/__init__.py) の53行目から58行目で `Transaction` なる ExtraModel を定義し，85行目から91行目において取引の内容（誰とどの価格で取引したか，など）を `Transaction` に記録しています．留保価格/生産費用（ `break_even_point` ），オファー（ `current_offer` ），利得（ `payoff` ）は player のフィールドが定義され，そこに記録されているのですが，価格は記録されていません．また， `custom_export()` で `Transaction` の中身を CSV ファイルに出力するような実装が行われていません．したがって，このままの状態では価格を直接確認することはできません．複数個の財を購入した buyer については，利得と留保価格から価格を逆算することもできません． z-Tree の contracts テーブルのような，1レコードに取引時刻，ペアのID，取引価格，を記録したテーブルは `custom_export()` を使って自分で実装しなければなりません．
-
         - たとえば以下のような実装が考えられます．
+          ```python
+          def custom_export(players: list[Player]):
+              yield [
+                  "セッションコード",
+                  "groupのid_in_subsession",
+                  "ラウンド",
+                  "buyerのid_in_subsession",
+                  "sellerのid_in_subsession",
+                  "価格",
+                  "経過秒"
+              ]
 
-        ```python
-        def custom_export(players: list[Player]):
-            yield [
-                "セッションコード",
-                "groupのid_in_subsession",
-                "ラウンド",
-                "buyerのid_in_subsession",
-                "sellerのid_in_subsession",
-                "価格",
-                "経過秒"
-            ]
-
-            for p in players:
-                if p.is_buyer:
-                    records_list: list[Transaction] = Transaction.filter(buyer = p)
-                    for record in records_list:
-                        yield [
-                            record.group.session.code,
-                            record.group.id_in_subsession,
-                            record.group.round_number,
-                            record.buyer.id_in_subsession,
-                            record.seller.id_in_subsession,
-                            record.price,
-                            record.seconds
-                        ]
-        ```
-
+              for p in players:
+                  if p.is_buyer:
+                      records_list: list[Transaction] = Transaction.filter(buyer = p)
+                      for record in records_list:
+                          yield [
+                              record.group.session.code,
+                              record.group.id_in_subsession,
+                              record.group.round_number,
+                              record.buyer.id_in_subsession,
+                              record.seller.id_in_subsession,
+                              record.price,
+                              record.seconds
+                          ]
+          ```
     - [`Trading.html`](https://github.com/oTree-org/more-demos/blob/master/double_auction/Trading.html) （JavaScript部分）の99行目から101行目において， `seller` が財を持っていない場合にオファーを送信するボタンを押せないように変更するコードが記述されています．これ自体に問題は無いのですが， `buyer` が既に財を1つ手に入れている場合に対する処理は記述されておらず，結局， `buyer` は何個でも財を買える状態になっています．もしも `buyer` が買える財の数を1つだけにする場合には自分で実装する必要があります．
-
         - なお下平は，てっきり `buyer` は1つだけ買えるものと勘違いしていたため，（島田さんの授業で実施した）実験データを見て「複数個買えとる `buyer` おるがや．バグか！」と早とちりし，RAさんも巻き込んで検証に多大な時間をかけてしまいました．たとえば，参加者が多い場合に，ある参加者のオファーがサーバーに飛んできてマッチングを計算している最中に，他の参加者のオファーが飛んできて，おかしくなっているのではないか，などと，当てずっぽうの仮設を立て無為な時間を過ごしました（ちなみに oTree はシングルプロセスで動いているため，処理に割り込むということはありません）．三上さんにこの点を指摘していただいたおかげで自分の過ちに気づくことができました．まずはじっくりコードを読め，という教訓を得ました．
 
 
