@@ -114,9 +114,13 @@
 
 ![render16](fig/render16.png)
 
-- 「Create Web Service」を押すとデプロイが開始する．
+- 「Auto-Deploy」を「Yes」にしておくと，GitHubにPushするたび自動的にデプロイが開始する．
 
 ![render17](fig/render17.png)
+
+- 「Create Web Service」を押すとデプロイが開始する．
+
+![render18](fig/render18.png)
 
 - ターミナル画面で「Starting service with 'otree prodserver'」と表示されたらデプロイ完了．
 
