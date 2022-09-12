@@ -16,6 +16,7 @@
 <url> <loc>https://yshimod.github.io/otree5-seminar/otree_ref/templatefile.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://yshimod.github.io/otree5-seminar/server_setup/</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://yshimod.github.io/otree5-seminar/heroku/</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://yshimod.github.io/otree5-seminar/rendercom/</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://yshimod.github.io/otree5-seminar/ubuntu/</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://yshimod.github.io/otree5-seminar/ubuntu/wsl2.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://yshimod.github.io/otree5-seminar/ubuntu/vagrant.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>

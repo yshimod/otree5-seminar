@@ -3,7 +3,7 @@
 <html lang="ja" >
     <head>
         <meta charset="UTF-8">
-        <title>Herokuで oTree を動かす · oTree 5 勉強会</title>
+        <title>Heroku で oTree を動かす · oTree 5 勉強会</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 3.7.4">
@@ -55,6 +55,8 @@
     <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
+    
+    <link rel="next" href="../rendercom/" />
     
     
     <link rel="prev" href="../server_setup/" />
@@ -313,7 +315,7 @@
                 <a href="../server_setup/">
             
                     
-                    Ubuntuで oTree を動かす
+                    Ubuntu で oTree を動かす
             
                 </a>
             
@@ -326,7 +328,20 @@
                 <a href="./">
             
                     
-                    Herokuで oTree を動かす
+                    Heroku で oTree を動かす
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="../rendercom/">
+            
+                <a href="../rendercom/">
+            
+                    
+                    Render で oTree を動かす
             
                 </a>
             
@@ -442,7 +457,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Herokuで oTree を動かす</a>
+        <a href=".." >Heroku で oTree を動かす</a>
     </h1>
 </div>
 
@@ -458,10 +473,14 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="herokuで-otree-を動かす">Herokuで oTree を動かす</h1>
+<ul>
+<li>2022年11月28日より Heroku の無料プランが廃止されます．<br><a href="https://blog.heroku.com/next-chapter" target="_blank">https://blog.heroku.com/next-chapter</a></li>
+<li>Students and Nonprofit Program も用意されるようですが，実際のところどうなるでしょうか？</li>
+<li>Heroku の代替として <a href="../rendercom/">Render</a> が選択肢の一つかもしれません．</li>
+</ul>
 <h2 id="まずはアカウントを作る">まずはアカウントを作る</h2>
 <ul>
 <li><a href="https://signup.heroku.com/" target="_blank">https://signup.heroku.com/</a></li>
-<li>とりあえずは無料枠で．</li>
 </ul>
 <h2 id="方法1-githubのリポジトリからherokuへデプロイする">(方法1) GitHubのリポジトリからHerokuへデプロイする</h2>
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/LnrY1AKVmqQ?rel=0&amp;enablejsapi=1&amp;origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
@@ -545,7 +564,86 @@ git push heroku 「ブランチ名」:main
 </ul>
 <h2 id="課金メニューはどれを選ぶ？">課金メニューはどれを選ぶ？</h2>
 <ul>
-<li>執筆中．</li>
+<li><p>Dyno</p>
+<ul>
+<li>Webサービス用のDynoが1つだけあれば良い（oTree はマルチタスクに非対応なので2つ以上用意しても無駄）．</li>
+<li>Free<ul>
+<li>無料</li>
+<li>RAM: 512MB</li>
+<li>30分間アイドル状態が続くとスリープになる．スリープ時にアクセスするとページが表示されるまでに時間がかかる．</li>
+</ul>
+</li>
+<li>Hobby<ul>
+<li>$7/月（2022年9月時点）</li>
+<li>RAM: 512MB</li>
+<li>常時稼動</li>
+</ul>
+</li>
+<li>Standard-1X<ul>
+<li>$25/月（2022年9月時点）</li>
+<li>RAM: 512MB</li>
+<li>常時稼動</li>
+<li>Preboot（必要性は謎）</li>
+</ul>
+</li>
+<li>Standard-2X<ul>
+<li>$50/月（2022年9月時点）</li>
+<li>RAM: 1GB</li>
+<li>常時稼動</li>
+<li>Preboot（必要性は謎）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Postgres</p>
+<ul>
+<li>Postgres アドオンを使わなくても，SQLiteで oTree を動かすことは可能だが，Dynoが自動的に再起動するたびにSQLiteのデータは消えてしまう点に注意．動作確認で無い限りPostgresアドオンは使っておいたほうが良い．</li>
+<li>レコード行数制限に注目すべき．oTree は，1アプリ1参加者あたり，少なくとも3レコード（Player，Group，Subsession の各テーブル）が必要．ラウンドやアプリが複数あればその分レコード数は増えるし，ExtraModelを使う場合は更に（爆発的に）レコード数が増えるかもしれない．<ul>
+<li>こまめに自分でデータをダンプして，こまめに <code>otree resetdb</code> でリセットする，という運用も可能．</li>
+</ul>
+</li>
+<li>同時接続数の制限は気にしなくても良いはず．なんとなればすなわち，oTree はシングルプロセスなのでPostgresへの接続数は高々1だから．外部からデータベースに直接接続する場合には注意．</li>
+<li>Hobby Dev<ul>
+<li>無料</li>
+<li>レコード行数制限: 1万件</li>
+<li>ストレージ: 1GB</li>
+<li>インメモリキャッシュなし（データへのアクセスに時間がかかる）</li>
+</ul>
+</li>
+<li>Hobby Basic<ul>
+<li>$9/月（2022年9月時点）</li>
+<li>レコード行数制限: 1000万件</li>
+<li>ストレージ: 10GB</li>
+<li>インメモリキャッシュなし（データへのアクセスに時間がかかる）</li>
+</ul>
+</li>
+<li>Standard 0<ul>
+<li>$50/月（2022年9月時点）</li>
+<li>レコード行数制限: 無制限</li>
+<li>ストレージ: 64GB</li>
+<li>RAM: 4GB</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>実践例:<ul>
+<li>Dyno: Standard-1X （$25/月）（選んだ理由: なんとなく，大は小を兼ねると思って．）</li>
+<li>Postgres: Standard 0 （$50/月）（選んだ理由: なんとなく，大は小を兼ねると思って．）</li>
+<li>使用状況: 同時に最大16人が接続</li>
+<li>Memory Usage: 最大 123MB</li>
+<li>Response Time: 最大 1秒</li>
+<li>Throughput: <ul>
+<li>2XXレスポンス: 最大 0.3rps</li>
+<li>3XXレスポンス: 最大 0.2rps</li>
+</ul>
+</li>
+<li>Dyno Load: 最大 0.8 (/1)</li>
+<li>レコード行数: 1万件を超過</li>
+<li>感想: Dyno は Hobby， Postgres は Hobby Basic で十分だったかも．Postgres は使い方次第では Standard 0 まで必要になることがあるかもしれない．</li>
+</ul>
+</li>
 </ul>
 
                                 
@@ -574,10 +672,14 @@ git push heroku 「ブランチ名」:main
 
             
                 
-                <a href="../server_setup/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Ubuntuで oTree を動かす">
+                <a href="../server_setup/" class="navigation navigation-prev " aria-label="Previous page: Ubuntu で oTree を動かす">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
+                
+                <a href="../rendercom/" class="navigation navigation-next " aria-label="Next page: Render で oTree を動かす">
+                    <i class="fa fa-angle-right"></i>
+                </a>
                 
             
         
@@ -586,7 +688,7 @@ git push heroku 「ブランチ名」:main
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Herokuで oTree を動かす","level":"3.3","depth":1,"next":{"title":"【資料: その他】","level":"4.1","depth":1,"ref":"","articles":[]},"previous":{"title":"Ubuntuで oTree を動かす","level":"3.2","depth":1,"path":"server_setup/README.md","ref":"server_setup/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"heroku/README.md","mtime":"2022-09-11T09:33:02.219Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-09-11T11:09:20.189Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Heroku で oTree を動かす","level":"3.3","depth":1,"next":{"title":"Render で oTree を動かす","level":"3.4","depth":1,"path":"rendercom/README.md","ref":"rendercom/README.md","articles":[]},"previous":{"title":"Ubuntu で oTree を動かす","level":"3.2","depth":1,"path":"server_setup/README.md","ref":"server_setup/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"heroku/README.md","mtime":"2022-09-12T11:19:16.641Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-09-12T13:01:22.608Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

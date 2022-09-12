@@ -1,9 +1,13 @@
 # Herokuで oTree を動かす
 
+- 2022年11月28日より Heroku の無料プランが廃止されます．  
+[https://blog.heroku.com/next-chapter](https://blog.heroku.com/next-chapter)
+- Students and Nonprofit Program も用意されるようですが，実際のところどうなるでしょうか？
+- Heroku の代替として [Render](../rendercom/README.md) が選択肢の一つかもしれません．
 
 ## まずはアカウントを作る
 - [https://signup.heroku.com/](https://signup.heroku.com/)
-- とりあえずは無料枠で．
+
 
 ## (方法1) GitHubのリポジトリからHerokuへデプロイする
 
@@ -89,4 +93,58 @@
 
 ## 課金メニューはどれを選ぶ？
 
-- 執筆中．
+- Dyno
+    - Webサービス用のDynoが1つだけあれば良い（oTree はマルチタスクに非対応なので2つ以上用意しても無駄）．
+    - Free
+        - 無料
+        - RAM: 512MB
+        - 30分間アイドル状態が続くとスリープになる．スリープ時にアクセスするとページが表示されるまでに時間がかかる．
+    - Hobby
+        - $7/月（2022年9月時点）
+        - RAM: 512MB
+        - 常時稼動
+    - Standard-1X
+        - $25/月（2022年9月時点）
+        - RAM: 512MB
+        - 常時稼動
+        - Preboot（必要性は謎）
+    - Standard-2X
+        - $50/月（2022年9月時点）
+        - RAM: 1GB
+        - 常時稼動
+        - Preboot（必要性は謎）
+
+- Postgres
+    - Postgres アドオンを使わなくても，SQLiteで oTree を動かすことは可能だが，Dynoが自動的に再起動するたびにSQLiteのデータは消えてしまう点に注意．動作確認で無い限りPostgresアドオンは使っておいたほうが良い．
+    - レコード行数制限に注目すべき．oTree は，1アプリ1参加者あたり，少なくとも3レコード（Player，Group，Subsession の各テーブル）が必要．ラウンドやアプリが複数あればその分レコード数は増えるし，ExtraModelを使う場合は更に（爆発的に）レコード数が増えるかもしれない．
+        - こまめに自分でデータをダンプして，こまめに `otree resetdb` でリセットする，という運用も可能．
+    - 同時接続数の制限は気にしなくても良いはず．なんとなればすなわち，oTree はシングルプロセスなのでPostgresへの接続数は高々1だから．外部からデータベースに直接接続する場合には注意．
+    - Hobby Dev
+        - 無料
+        - レコード行数制限: 1万件
+        - ストレージ: 1GB
+        - インメモリキャッシュなし（データへのアクセスに時間がかかる）
+    - Hobby Basic
+        - $9/月（2022年9月時点）
+        - レコード行数制限: 1000万件
+        - ストレージ: 10GB
+        - インメモリキャッシュなし（データへのアクセスに時間がかかる）
+    - Standard 0
+        - $50/月（2022年9月時点）
+        - レコード行数制限: 無制限
+        - ストレージ: 64GB
+        - RAM: 4GB
+
+
+- 実践例:
+    - Dyno: Standard-1X （$25/月）（選んだ理由: なんとなく，大は小を兼ねると思って．）
+    - Postgres: Standard 0 （$50/月）（選んだ理由: なんとなく，大は小を兼ねると思って．）
+    - 使用状況: 同時に最大16人が接続
+    - Memory Usage: 最大 123MB
+    - Response Time: 最大 1秒
+    - Throughput: 
+        - 2XXレスポンス: 最大 0.3rps
+        - 3XXレスポンス: 最大 0.2rps
+    - Dyno Load: 最大 0.8 (/1)
+    - レコード行数: 1万件を超過
+    - 感想: Dyno は Hobby， Postgres は Hobby Basic で十分だったかも．Postgres は使い方次第では Standard 0 まで必要になることがあるかもしれない．
