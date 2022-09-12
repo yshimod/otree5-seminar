@@ -511,84 +511,94 @@
 <ul>
 <li><p>動作確認で PostgreSQL が不要であればスキップしても良い．</p>
 </li>
-<li><p>「New +」を押して，「PostgreSQL」を選択．
-<img src="fig/render02.png" alt="render02"></p>
+<li><p>「New +」を押して，「PostgreSQL」を選択．</p>
 </li>
-<li><p>設定</p>
+</ul>
+<p><img src="fig/render02.png" alt="render02"></p>
 <ul>
+<li>設定<ul>
 <li>Name: インスタンスの名前（何でも良い）</li>
 <li>Database: PostgreSQL上でのデータベース名（空欄で良い）</li>
 <li>User: PostgreSQL上でのユーザー名（空欄で良い）</li>
 <li>Region: Singapore（日本で実施する場合）</li>
 <li>PostgreSQL Version: 通常は14</li>
-<li>Datadog API Key: 必要に応じて
-<img src="fig/render03.png" alt="render03"></li>
+<li>Datadog API Key: 必要に応じて</li>
 </ul>
 </li>
-<li><p>プラン選択 → 「Create Database」を押す．</p>
+</ul>
+<p><img src="fig/render03.png" alt="render03"></p>
 <ul>
-<li>とりあえず Free を選んでおく．
-<img src="fig/render04.png" alt="render04">
-<img src="fig/render05.png" alt="render05"></li>
+<li>プラン選択 → 「Create Database」を押す．<ul>
+<li>とりあえず Free を選んでおく．</li>
 </ul>
 </li>
-<li><p>インスタンス作成後，「Info」ページ「Connections」の「Internal Database URL」をコピーして控えておく．
-<img src="fig/render06.png" alt="render06"></p>
-</li>
 </ul>
+<p><img src="fig/render04.png" alt="render04"></p>
+<p><img src="fig/render05.png" alt="render05"></p>
+<ul>
+<li>インスタンス作成後，「Info」ページ「Connections」の「Internal Database URL」をコピーして控えておく．</li>
+</ul>
+<p><img src="fig/render06.png" alt="render06"></p>
 <h3 id="3-デプロイする">3. デプロイする</h3>
 <ul>
-<li><p>「New +」を押して，「Web Service」を選択．
-<img src="fig/render07.png" alt="render07"></p>
-</li>
-<li><p>（初回のみ） GitHub のアカウントと接続する．
-<img src="fig/render08.png" alt="render08">
-<img src="fig/render09.png" alt="render09">
-<img src="fig/render10.png" alt="render10">
-<img src="fig/render11.png" alt="render11">
-<img src="fig/render12.png" alt="render12"></p>
-</li>
-<li><p>デプロイしたいリポジトリを選択する．
-<img src="fig/render13.png" alt="render13"></p>
-</li>
-<li><p>設定</p>
+<li>「New +」を押して，「Web Service」を選択．</li>
+</ul>
+<p><img src="fig/render07.png" alt="render07"></p>
 <ul>
+<li>（初回のみ） GitHub のアカウントと接続する．</li>
+</ul>
+<p><img src="fig/render08.png" alt="render08"></p>
+<p><img src="fig/render09.png" alt="render09"></p>
+<p><img src="fig/render10.png" alt="render10"></p>
+<p><img src="fig/render11.png" alt="render11"></p>
+<p><img src="fig/render12.png" alt="render12"></p>
+<ul>
+<li>デプロイしたいリポジトリを選択する．</li>
+</ul>
+<p><img src="fig/render13.png" alt="render13"></p>
+<ul>
+<li>設定<ul>
 <li>Name: インスタンス名（この文字列がURLの一部になるので，参加者に見せてはいけない文字列にはしない．）</li>
 <li>Environment: Python 3</li>
 <li>Region: Singapore（日本で実施する場合）</li>
 <li>Branch: GitHubリポジトリのブランチ名</li>
 <li>Build Command: <code>pip install -r requirements.txt</code></li>
-<li>Start Command: <code>otree prodserver</code>
-<img src="fig/render14.png" alt="render14"></li>
+<li>Start Command: <code>otree prodserver</code></li>
 </ul>
 </li>
-<li><p>プランの選択</p>
+</ul>
+<p><img src="fig/render14.png" alt="render14"></p>
 <ul>
+<li>プランの選択<ul>
 <li>とりあえず Free を選んでおく．</li>
-<li>まだ「Create Web Service」は押さない．
-<img src="fig/render15.png" alt="render15"></li>
+<li>まだ「Create Web Service」は押さない．</li>
 </ul>
 </li>
-<li><p>「Advanced」を押して，環境変数を設定する．</p>
+</ul>
+<p><img src="fig/render15.png" alt="render15"></p>
 <ul>
+<li>「Advanced」を押して，環境変数を設定する．<ul>
 <li><code>PYTHON_VERSION</code>: 使うPythonのバージョンを指定する．</li>
 <li><code>OTREE_ADMIN_PASSWORD</code></li>
 <li><code>OTREE_AUTH_LEVEL</code></li>
 <li><code>OTREE_PRODUCTION</code></li>
-<li><code>DATABASE_URL</code>: PostgreSQL インスタンスの「Internal Database URL」（<code>postgres://</code> から始まる文字列）．指定しなければデータベースとしてSQLiteが使われる．
-<img src="fig/render16.png" alt="render16"></li>
+<li><code>DATABASE_URL</code>: PostgreSQL インスタンスの「Internal Database URL」（<code>postgres://</code> から始まる文字列）．指定しなければデータベースとしてSQLiteが使われる．</li>
 </ul>
 </li>
-<li><p>「Create Web Service」を押すとデプロイが開始する．
-<img src="fig/render17.png" alt="render17"></p>
-</li>
-<li><p>ターミナル画面で「Starting service with &apos;otree prodserver&apos;」と表示されたらデプロイ完了．
-<img src="fig/render19.png" alt="render19"></p>
-</li>
-<li><p>インスタンス名の下に表示されているURLにアクセスするとoTreeのページへ行けるはず．
-<img src="fig/render20.png" alt="render20"></p>
-</li>
 </ul>
+<p><img src="fig/render16.png" alt="render16"></p>
+<ul>
+<li>「Create Web Service」を押すとデプロイが開始する．</li>
+</ul>
+<p><img src="fig/render17.png" alt="render17"></p>
+<ul>
+<li>ターミナル画面で「Starting service with &apos;otree prodserver&apos;」と表示されたらデプロイ完了．</li>
+</ul>
+<p><img src="fig/render19.png" alt="render19"></p>
+<ul>
+<li>インスタンス名の下に表示されているURLにアクセスするとoTreeのページへ行けるはず．</li>
+</ul>
+<p><img src="fig/render20.png" alt="render20"></p>
 <h3 id="4-設定変更の反映">4. 設定変更の反映</h3>
 <ul>
 <li>デプロイ後に環境変数を編集した場合，もう一度デプロイし直さないと反映されない．</li>
@@ -637,7 +647,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Render で oTree を動かす","level":"3.4","depth":1,"next":{"title":"【資料: その他】","level":"4.1","depth":1,"ref":"","articles":[]},"previous":{"title":"Heroku で oTree を動かす","level":"3.3","depth":1,"path":"heroku/README.md","ref":"heroku/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"rendercom/README.md","mtime":"2022-09-12T12:59:58.062Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-09-12T13:01:22.608Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Render で oTree を動かす","level":"3.4","depth":1,"next":{"title":"【資料: その他】","level":"4.1","depth":1,"ref":"","articles":[]},"previous":{"title":"Heroku で oTree を動かす","level":"3.3","depth":1,"path":"heroku/README.md","ref":"heroku/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"rendercom/README.md","mtime":"2022-09-12T13:09:22.313Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-09-12T13:10:27.393Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

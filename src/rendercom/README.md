@@ -41,6 +41,7 @@
 - 動作確認で PostgreSQL が不要であればスキップしても良い．
 
 - 「New +」を押して，「PostgreSQL」を選択．
+
 ![render02](fig/render02.png)
 
 - 設定
@@ -50,14 +51,18 @@
     - Region: Singapore（日本で実施する場合）
     - PostgreSQL Version: 通常は14
     - Datadog API Key: 必要に応じて
+
 ![render03](fig/render03.png)
 
 - プラン選択 → 「Create Database」を押す．
     - とりあえず Free を選んでおく．
+
 ![render04](fig/render04.png)
+
 ![render05](fig/render05.png)
 
 - インスタンス作成後，「Info」ページ「Connections」の「Internal Database URL」をコピーして控えておく．
+
 ![render06](fig/render06.png)
 
 
@@ -65,16 +70,23 @@
 ### 3. デプロイする
 
 - 「New +」を押して，「Web Service」を選択．
+
 ![render07](fig/render07.png)
 
 - （初回のみ） GitHub のアカウントと接続する．
+
 ![render08](fig/render08.png)
+
 ![render09](fig/render09.png)
+
 ![render10](fig/render10.png)
+
 ![render11](fig/render11.png)
+
 ![render12](fig/render12.png)
 
 - デプロイしたいリポジトリを選択する．
+
 ![render13](fig/render13.png)
 
 - 設定
@@ -84,11 +96,13 @@
     - Branch: GitHubリポジトリのブランチ名
     - Build Command: `pip install -r requirements.txt`
     - Start Command: `otree prodserver`
+
 ![render14](fig/render14.png)
 
 - プランの選択
     - とりあえず Free を選んでおく．
     - まだ「Create Web Service」は押さない．
+
 ![render15](fig/render15.png)
 
 - 「Advanced」を押して，環境変数を設定する．
@@ -97,15 +111,19 @@
     - `OTREE_AUTH_LEVEL`
     - `OTREE_PRODUCTION`
     - `DATABASE_URL`: PostgreSQL インスタンスの「Internal Database URL」（`postgres://` から始まる文字列）．指定しなければデータベースとしてSQLiteが使われる．
+
 ![render16](fig/render16.png)
 
 - 「Create Web Service」を押すとデプロイが開始する．
+
 ![render17](fig/render17.png)
 
 - ターミナル画面で「Starting service with 'otree prodserver'」と表示されたらデプロイ完了．
+
 ![render19](fig/render19.png)
 
 - インスタンス名の下に表示されているURLにアクセスするとoTreeのページへ行けるはず．
+
 ![render20](fig/render20.png)
 
 
