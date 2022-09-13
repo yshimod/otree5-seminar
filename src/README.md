@@ -88,8 +88,9 @@ showToc: false
 
 
 - 【デプロイ編】
-    - [Ubuntuで oTree を動かす](server_setup/README.md)
-    - [Herokuで oTree を動かす](heroku/README.md)
+    - [Ubuntu で oTree を動かす](server_setup/README.md)
+    - [Heroku で oTree を動かす](heroku/README.md)
+    - [Render で oTree を動かす](rendercom/README.md)
 
 
 - 【Ubuntuの仮想環境の構築】

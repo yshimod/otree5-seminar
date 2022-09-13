@@ -11,7 +11,7 @@
 
 
 
-## Render
+## Render とは
 
 ![render01](fig/render01.png)
 
