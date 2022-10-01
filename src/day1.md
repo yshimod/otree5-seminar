@@ -25,6 +25,27 @@
     - [https://otree.readthedocs.io/en/latest/install-windows.html#install-windows](https://otree.readthedocs.io/en/latest/install-windows.html#install-windows)
 
 
+### なぜ Linux ？
+Windowsではなく，LinuxやmacOSなどのUNIX系OSで oTree を動かしたい．Windowsがダメなのではないが......
+
+#### Linuxの使い方に慣れましょう
+- サーバ用のOSはLinuxを採用することが多い．
+- 社研ラボの oTree 用サーバのOSはUbuntu（Linux OSの中で一番有名？）．
+- AWSのEC2やGCPのCompute EngineのOSもたいていLinux．
+
+#### 屋上屋を架する愚は避ける
+- oTree の使い方を解説する（初級者向け）ドキュメントはたいていWindowsを使っている．
+- Windowsに直接Python・ oTree を入れる方法は公式ドキュメント [https://otree.readthedocs.io/en/latest/install-windows.html#install-windows](https://otree.readthedocs.io/en/latest/install-windows.html#install-windows) を参照してください．
+- UNIXな環境を前提としたドキュメントは少ない．公式ドキュメントでも説明が雑（MacやLinuxが使える人に詳しい説明は不要と思われている？その推論はいくらか正しいとしても......）．
+
+
+### 参考
+- 公式ドキュメント [https://otree.readthedocs.io/en/latest/server/ubuntu.html](https://otree.readthedocs.io/en/latest/server/ubuntu.html)
+- 情報が古いが...
+    - [https://otree-server-setup.readthedocs.io/en/latest/index.html](https://otree-server-setup.readthedocs.io/en/latest/index.html)
+    - [https://otreecb.netlify.app/reference/ubuntu_server_setup.html](https://otreecb.netlify.app/reference/ubuntu_server_setup.html)
+
+
 
 ## 3. Ubuntuに慣れる
 
@@ -124,9 +145,9 @@
 
 - [詳しくはこちら](heroku/README.md)
 
-- oTree の著者たちにお金を払ってもよい場合は oTree Hub のHeroku連携機能を使っても良いでしょう．
+- oTree の著者たちにお金を払ってもよい場合は oTree Hub の Heroku 連携機能を使っても良いでしょう．
 
-- oTree Hub を使わない場合， oTree のプログラムを自分でHerokuのサーバーにアップロードする必要があります．この際に多かれ少なかれ，Gitの知識が必要となります．
+- oTree Hub を使わない場合， oTree のプログラムを自分で Heroku のサーバーにアップロードする必要があります．この際に多かれ少なかれ，Gitの知識が必要となります．
 
 - 「**Gitを使う必然性は何か？**」という質問をいただきました．
     - oTree Hubに課金できる場合には，Gitの知識がなくてもとりあえずプログラムをデプロイして実験は実施できます．

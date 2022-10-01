@@ -499,6 +499,29 @@
 </ul>
 </li>
 </ul>
+<h3 id="なぜ-linux-？">なぜ Linux ？</h3>
+<p>Windowsではなく，LinuxやmacOSなどのUNIX系OSで oTree を動かしたい．Windowsがダメなのではないが......</p>
+<h4 id="linuxの使い方に慣れましょう">Linuxの使い方に慣れましょう</h4>
+<ul>
+<li>サーバ用のOSはLinuxを採用することが多い．</li>
+<li>社研ラボの oTree 用サーバのOSはUbuntu（Linux OSの中で一番有名？）．</li>
+<li>AWSのEC2やGCPのCompute EngineのOSもたいていLinux．</li>
+</ul>
+<h4 id="屋上屋を架する愚は避ける">屋上屋を架する愚は避ける</h4>
+<ul>
+<li>oTree の使い方を解説する（初級者向け）ドキュメントはたいていWindowsを使っている．</li>
+<li>Windowsに直接Python・ oTree を入れる方法は公式ドキュメント <a href="https://otree.readthedocs.io/en/latest/install-windows.html#install-windows" target="_blank">https://otree.readthedocs.io/en/latest/install-windows.html#install-windows</a> を参照してください．</li>
+<li>UNIXな環境を前提としたドキュメントは少ない．公式ドキュメントでも説明が雑（MacやLinuxが使える人に詳しい説明は不要と思われている？その推論はいくらか正しいとしても......）．</li>
+</ul>
+<h3 id="参考">参考</h3>
+<ul>
+<li>公式ドキュメント <a href="https://otree.readthedocs.io/en/latest/server/ubuntu.html" target="_blank">https://otree.readthedocs.io/en/latest/server/ubuntu.html</a></li>
+<li>情報が古いが...<ul>
+<li><a href="https://otree-server-setup.readthedocs.io/en/latest/index.html" target="_blank">https://otree-server-setup.readthedocs.io/en/latest/index.html</a></li>
+<li><a href="https://otreecb.netlify.app/reference/ubuntu_server_setup.html" target="_blank">https://otreecb.netlify.app/reference/ubuntu_server_setup.html</a></li>
+</ul>
+</li>
+</ul>
 <h2 id="3-ubuntuに慣れる">3. Ubuntuに慣れる</h2>
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/ys42gwdtefE?rel=0&amp;enablejsapi=1&amp;origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
@@ -603,9 +626,9 @@
 <ul>
 <li><p><a href="heroku/">詳しくはこちら</a></p>
 </li>
-<li><p>oTree の著者たちにお金を払ってもよい場合は oTree Hub のHeroku連携機能を使っても良いでしょう．</p>
+<li><p>oTree の著者たちにお金を払ってもよい場合は oTree Hub の Heroku 連携機能を使っても良いでしょう．</p>
 </li>
-<li><p>oTree Hub を使わない場合， oTree のプログラムを自分でHerokuのサーバーにアップロードする必要があります．この際に多かれ少なかれ，Gitの知識が必要となります．</p>
+<li><p>oTree Hub を使わない場合， oTree のプログラムを自分で Heroku のサーバーにアップロードする必要があります．この際に多かれ少なかれ，Gitの知識が必要となります．</p>
 </li>
 <li><p>「<strong>Gitを使う必然性は何か？</strong>」という質問をいただきました．</p>
 <ul>
@@ -660,7 +683,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Ubuntuで oTree 本番環境を構築する","level":"1.2","depth":1,"next":{"title":"GitとGitHubの使い方 ・ Herokuの使い方","level":"1.3","depth":1,"path":"day2.md","ref":"day2.md","articles":[]},"previous":{"title":"【oTree 5 勉強会】","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day1.md","mtime":"2022-09-11T10:03:50.846Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-09-13T04:12:33.517Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Ubuntuで oTree 本番環境を構築する","level":"1.2","depth":1,"next":{"title":"GitとGitHubの使い方 ・ Herokuの使い方","level":"1.3","depth":1,"path":"day2.md","ref":"day2.md","articles":[]},"previous":{"title":"【oTree 5 勉強会】","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"day1.md","mtime":"2022-10-01T12:38:49.659Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-10-01T14:26:06.070Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

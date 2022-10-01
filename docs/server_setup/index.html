@@ -471,37 +471,88 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="ubuntuで-otree-を動かす">Ubuntuで oTree を動かす</h1>
-<h2 id="目的">目的</h2>
-<ul>
-<li>Windowsではなく，LinuxやmacOSなどのUNIX系OSで oTree を動かしたい．Windowsがダメなのではないが......</li>
-</ul>
-<h4 id="linuxの使い方に慣れましょう">Linuxの使い方に慣れましょう</h4>
-<ul>
-<li>サーバ用のOSはLinuxを採用することが多い．</li>
-<li>社研ラボの oTree 用サーバのOSはUbuntu（Linux OSの中で一番有名？）．</li>
-<li>AWSのEC2やGCPのCompute EngineのOSもたいていLinux．</li>
-</ul>
-<h4 id="屋上屋を架する愚は避ける">屋上屋を架する愚は避ける</h4>
-<ul>
-<li>oTree の使い方を解説する（初級者向け）ドキュメントはたいていWindowsを使っている．</li>
-<li>Windowsに直接Python・ oTree を入れる方法は公式ドキュメント <a href="https://otree.readthedocs.io/en/latest/install-windows.html#install-windows" target="_blank">https://otree.readthedocs.io/en/latest/install-windows.html#install-windows</a> を参照してください．</li>
-<li>UNIXな環境を前提としたドキュメントは少ない．公式ドキュメントでも説明が雑（MacやLinuxが使える人に詳しい説明は不要と思われている？その推論はいくらか正しいとしても......）．</li>
-</ul>
-<h2 id="参考">参考</h2>
-<ul>
-<li>公式ドキュメント <a href="https://otree.readthedocs.io/en/latest/server/ubuntu.html" target="_blank">https://otree.readthedocs.io/en/latest/server/ubuntu.html</a></li>
-<li>情報が古いが...<ul>
-<li><a href="https://otree-server-setup.readthedocs.io/en/latest/index.html" target="_blank">https://otree-server-setup.readthedocs.io/en/latest/index.html</a></li>
-<li><a href="https://otreecb.netlify.app/reference/ubuntu_server_setup.html" target="_blank">https://otreecb.netlify.app/reference/ubuntu_server_setup.html</a></li>
-</ul>
-</li>
-</ul>
 <h2 id="linuxマシンを用意する">Linuxマシンを用意する</h2>
 <p>以下のいずれかの方法で．</p>
 <ul>
-<li>isoファイルを公式Webページからダウンロードし，USBメモリに（ブータブルな形式で）コピーする．それを使って実機にインストール．</li>
-<li>VPSやIaaSを契約してインスタンスを作成．</li>
+<li>実機を使う場合，isoファイルを公式WebページからダウンロードしてUSBメモリに（ブータブルな形式で）コピーし，それを使ってインストール．</li>
+<li>VPS（ConoHa）やIaaS（Amazon EC2）を契約してインスタンスを作成．</li>
 <li><a href="../ubuntu/">Ubuntuの仮想環境の構築</a></li>
+</ul>
+<h2 id="linux（ubuntu）をインストールした後にやっておくこと">Linux（Ubuntu）をインストールした後にやっておくこと</h2>
+<p>以下は備忘録．一度も以下のような作業を経験したことがなければ，より詳しい文献に当たるべし．</p>
+<ul>
+<li><p>ユーザーの作成</p>
+<ul>
+<li>作業用のユーザー（たとえば <code>lab</code> ）を作成する．<pre><code>sudo adduser lab
+</code></pre></li>
+<li>sudo権限を付与する．<pre><code>sudo usermod -aG sudo lab
+</code></pre></li>
+</ul>
+</li>
+<li><p>SSHの設定</p>
+<ul>
+<li>SSH公開鍵認証で接続できるように準備する．<ul>
+<li>（Ubuntuサーバー上ではなく）ローカルのPCで鍵を作成する．<pre><code>ssh-keygen -t ed25519
+</code></pre></li>
+<li>生成した秘密鍵（たとえば <code>id_ed25519</code> ）の権限を <code>600</code> にする．<pre><code>chmod 600 id_ed25519
+</code></pre></li>
+<li>生成した公開鍵（ <code>*.pub</code>，たとえば <code>id_ed25519.pub</code> ）を，Ubuntuサーバーに転送する．<ul>
+<li><code>*.pub</code> ファイルを何らかの方法で（実機があればUSBメモリを使う，すでにSSH接続できるのであれば <code>scp</code> コマンドを使うなどして）Ubuntuサーバーの自分のホームディレクトリかどこかに転送しておく．</li>
+<li>ホームディレクトリの中に <code>.ssh</code> ディレクトリを（無ければ）作成．</li>
+<li><code>.ssh</code> ディレクトリに <code>authorized_keys</code> なるテキストファイルを作成し，そこに公開鍵の中身を書く．<ul>
+<li><code>authorized_keys</code> ファイルが存在していなければ， <code>*.pub</code> ファイルを <code>authorized_keys</code> にリネームしてしまう．<pre><code>mv id_ed25519.pub authorized_keys
+</code></pre></li>
+<li><code>authorized_keys</code> ファイルが存在していれば，追記する．<pre><code>cat id_ed25519.pub &gt;&gt; authorized_keys
+rm id_ed25519.pub
+</code></pre></li>
+</ul>
+</li>
+<li><code>authorized_keys</code> の権限は <code>600</code> にする．<pre><code>chmod 600 authorized_keys
+</code></pre></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>/etc/ssh/sshd_config</code> を編集する．<pre><code>sudo vim /etc/ssh/sshd_config
+</code></pre><ul>
+<li>SSH用のポートをデフォルト（<code>22</code>）から変更する．<pre><code>Port 2222
+</code></pre><ul>
+<li>「 <code>Port 22</code> 」と書かれている行はコメントアウトしておく．</li>
+</ul>
+</li>
+<li>SSHでrootにログインできないようにする．<pre><code>PermitRootLogin no
+</code></pre></li>
+<li>パスワードでログインできないようにする．<pre><code>PasswordAuthentication no
+</code></pre></li>
+<li>公開鍵でログインできるようにする．<pre><code>PubkeyAuthentication yes
+</code></pre></li>
+</ul>
+</li>
+<li>諸々の設定の終了後，シェルから出たりマシンを再起動したりする前に，SSHでアクセスできるかどうか確認しておく．SSHの設定が間違っているとアクセスできなくなってしまう．<ul>
+<li>アドレスが <code>133.1.112.999</code>， ユーザー名が <code>lab</code>， ポート番号が <code>2222</code>， 秘密鍵が <code>~/.ssh/id_ed25519</code> の場合，以下のコマンドでログインできる．<pre><code>ssh -i ~/.ssh/id_ed25519 -p 2222 lab@133.1.112.999
+</code></pre></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>ファイアウォールの設定</p>
+<ul>
+<li>ufwを起動する．<pre><code>sudo ufw enable
+</code></pre></li>
+<li>すべてのポートを閉じる（<code>deny</code> にする... デフォルトの設定 <code>reject</code> でも良いけど）．<pre><code>sudo ufw default deny
+</code></pre></li>
+<li>SSHのデフォルトのポート番号（<code>22</code>）を削除する．<pre><code>sudo ufw delete allow 22
+</code></pre>または<pre><code>sudo ufw delete allow &quot;OpenSSH&quot;
+</code></pre></li>
+<li>自分で設定したSSHのポート番号（たとえば <code>2222</code>）を許可する．<pre><code>sudo ufw allow 2222
+</code></pre></li>
+<li>oTree 用のポート番号（たとえば <code>8000</code>）を許可しておいても良い．<pre><code>sudo ufw allow 8000
+</code></pre></li>
+<li>設定が終わったら反映させる．<pre><code>sudo ufw reload
+</code></pre></li>
+<li>諸々の設定の終了後，シェルから出たりマシンを再起動したりする前に，SSHでアクセスできるかどうか確認しておく．ファイアウォールの設定が間違っているとアクセスできなくなってしまう．</li>
+</ul>
+</li>
 </ul>
 <h2 id="python-を-pyenv--virtualenv-で導入">Python を pyenv (+ virtualenv) で導入</h2>
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/xOPHDOUsg0c?rel=0&amp;enablejsapi=1&amp;origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
@@ -523,51 +574,43 @@
 </li>
 </ul>
 <ol>
-<li>Pythonのビルド環境（build-essential等）をaptでインストール<br><a href="https://github.com/pyenv/pyenv/wiki" target="_blank">https://github.com/pyenv/pyenv/wiki</a><pre><code class="lang-bash">sudo apt-get update
+<li>Pythonのビルド環境（build-essential等）をaptでインストール<br><a href="https://github.com/pyenv/pyenv/wiki" target="_blank">https://github.com/pyenv/pyenv/wiki</a><pre><code>sudo apt-get update
 sudo apt-get install make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
-</code></pre>
-</li>
-<li>pyenvを導入<br><a href="https://github.com/pyenv/pyenv" target="_blank">https://github.com/pyenv/pyenv</a><pre><code class="lang-bash">git <span class="hljs-built_in">clone</span> https://github.com/pyenv/pyenv.git ~/.pyenv
-<span class="hljs-built_in">cd</span> ~/.pyenv &amp;&amp; src/configure &amp;&amp; make -C src
-<span class="hljs-built_in">echo</span> <span class="hljs-string">&apos;export PYENV_ROOT=&quot;$HOME/.pyenv&quot;&apos;</span> &gt;&gt; ~/.bashrc
-<span class="hljs-built_in">echo</span> <span class="hljs-string">&apos;command -v pyenv &gt;/dev/null || export PATH=&quot;$PYENV_ROOT/bin:$PATH&quot;&apos;</span> &gt;&gt; ~/.bashrc
-<span class="hljs-built_in">echo</span> <span class="hljs-string">&apos;eval &quot;$(pyenv init -)&quot;&apos;</span> &gt;&gt; ~/.bashrc
-<span class="hljs-built_in">echo</span> <span class="hljs-string">&apos;export PYENV_ROOT=&quot;$HOME/.pyenv&quot;&apos;</span> &gt;&gt; ~/.profile
-<span class="hljs-built_in">echo</span> <span class="hljs-string">&apos;command -v pyenv &gt;/dev/null || export PATH=&quot;$PYENV_ROOT/bin:$PATH&quot;&apos;</span> &gt;&gt; ~/.profile
-<span class="hljs-built_in">echo</span> <span class="hljs-string">&apos;eval &quot;$(pyenv init -)&quot;&apos;</span> &gt;&gt; ~/.profile
-</code></pre>
-<ul>
+</code></pre></li>
+<li>pyenvを導入<br><a href="https://github.com/pyenv/pyenv" target="_blank">https://github.com/pyenv/pyenv</a><pre><code>git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+cd ~/.pyenv &amp;&amp; src/configure &amp;&amp; make -C src
+echo &apos;export PYENV_ROOT=&quot;$HOME/.pyenv&quot;&apos; &gt;&gt; ~/.bashrc
+echo &apos;command -v pyenv &gt;/dev/null || export PATH=&quot;$PYENV_ROOT/bin:$PATH&quot;&apos; &gt;&gt; ~/.bashrc
+echo &apos;eval &quot;$(pyenv init -)&quot;&apos; &gt;&gt; ~/.bashrc
+echo &apos;export PYENV_ROOT=&quot;$HOME/.pyenv&quot;&apos; &gt;&gt; ~/.profile
+echo &apos;command -v pyenv &gt;/dev/null || export PATH=&quot;$PYENV_ROOT/bin:$PATH&quot;&apos; &gt;&gt; ~/.profile
+echo &apos;eval &quot;$(pyenv init -)&quot;&apos; &gt;&gt; ~/.profile
+</code></pre><ul>
 <li>導入が終わったら，いったんシェルを開き直す．</li>
 </ul>
 </li>
-<li>pyenvのプラグインpyenv-virtualenvを導入<br><a href="https://github.com/pyenv/pyenv-virtualenv" target="_blank">https://github.com/pyenv/pyenv-virtualenv</a><pre><code class="lang-bash">git <span class="hljs-built_in">clone</span> https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
-<span class="hljs-built_in">echo</span> <span class="hljs-string">&apos;eval &quot;$(pyenv virtualenv-init -)&quot;&apos;</span> &gt;&gt; ~/.bashrc
-</code></pre>
-<ul>
+<li>pyenvのプラグインpyenv-virtualenvを導入<br><a href="https://github.com/pyenv/pyenv-virtualenv" target="_blank">https://github.com/pyenv/pyenv-virtualenv</a><pre><code>git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
+echo &apos;eval &quot;$(pyenv virtualenv-init -)&quot;&apos; &gt;&gt; ~/.bashrc
+</code></pre><ul>
 <li>導入が終わったら，いったんシェルを開き直す．</li>
 </ul>
 </li>
-<li>pyenvでPythonをインストール<pre><code class="lang-bash">pyenv install 3.9.11
-</code></pre>
-</li>
-<li>pyenv-virtualenvでoTree専用の環境（myotree5と名付ける）を作成<pre><code class="lang-bash">pyenv virtualenv 3.9.11 myotree5
-</code></pre>
-</li>
-<li>用意した環境myotree5を使うように切り替える<pre><code class="lang-bash">pyenv global myotree5
-</code></pre>
-<ul>
+<li>pyenvでPythonをインストール<pre><code>pyenv install 3.9.11
+</code></pre></li>
+<li>pyenv-virtualenvでoTree専用の環境（myotree5と名付ける）を作成<pre><code>pyenv virtualenv 3.9.11 myotree5
+</code></pre></li>
+<li>用意した環境myotree5を使うように切り替える<pre><code>pyenv global myotree5
+</code></pre><ul>
 <li><code>python -V</code> でインストールしたバージョン（3.9.11）が表示されたら，ちゃんと設定できている．</li>
 </ul>
 </li>
 </ol>
 <h2 id="pipで-otree-のインストール">pipで oTree のインストール</h2>
 <ol>
-<li>（PostgreSQLが必要な場合）パッケージpsycopg2を入れるために必要なライブラリlibpq-devをインストール<br><a href="https://www.psycopg.org/docs/" target="_blank">https://www.psycopg.org/docs/</a><pre><code class="lang-bash">sudo apt-get install libpq-dev
-</code></pre>
-</li>
-<li>pipで oTree （とpsycopg2）をインストール<pre><code class="lang-bash">pip install otree psycopg2
-</code></pre>
-<ul>
+<li>（PostgreSQLが必要な場合）パッケージpsycopg2を入れるために必要なライブラリlibpq-devをインストール<br><a href="https://www.psycopg.org/docs/" target="_blank">https://www.psycopg.org/docs/</a><pre><code>sudo apt-get install libpq-dev
+</code></pre></li>
+<li>pipで oTree （とpsycopg2）をインストール<pre><code>pip install otree psycopg2
+</code></pre><ul>
 <li>パッケージのバージョンを特定する場合は <code>otree==5.8.1</code> などとする．</li>
 <li><code>which otree</code> でパスが表示されたら，ちゃんとインストールできている．</li>
 <li>何か必要なものが入っていないと，あるいは依存関係の問題で，psycopg2のインストールは失敗するかも．<ul>
@@ -579,24 +622,20 @@ sudo apt-get install make build-essential libssl-dev zlib1g-dev libbz2-dev libre
 </ul>
 </li>
 <li>oTree を動かしてみる<ul>
-<li>まずはシェルでoTreeのバージョンを確認．<pre><code class="lang-bash">otree --version
-</code></pre>
-</li>
-<li>試しに新規プロジェクトの作成（たとえば新規プロジェクトの名前を <code>my_oTree</code> とする）．<pre><code class="lang-bash">otree startproject my_oTree
-</code></pre>
-<ul>
+<li>まずはシェルでoTreeのバージョンを確認．<pre><code>otree --version
+</code></pre></li>
+<li>試しに新規プロジェクトの作成（たとえば新規プロジェクトの名前を <code>my_oTree</code> とする）．<pre><code>otree startproject my_oTree
+</code></pre><ul>
 <li>とりあえずサンプルゲームも入れる（「Include sample games?」聞かれたら <code>y</code> と答える）．</li>
 </ul>
 </li>
-<li><code>my_oTree</code> なるディレクトリが作成されるので，その中に入る．<pre><code class="lang-bash"><span class="hljs-comment"># my_oTree に入る</span>
-<span class="hljs-built_in">cd</span> my_oTree
-<span class="hljs-comment"># my_oTreeの中身を確認する</span>
+<li><code>my_oTree</code> なるディレクトリが作成されるので，その中に入る．<pre><code># my_oTree に入る
+cd my_oTree
+# my_oTreeの中身を確認する
 ls -la
-</code></pre>
-</li>
-<li>oTreeがサーバーとして動くのか確認．<pre><code class="lang-bash">otree prodserver
-</code></pre>
-<ul>
+</code></pre></li>
+<li>oTreeがサーバーとして動くのか確認．<pre><code>otree prodserver
+</code></pre><ul>
 <li>ブラウザで <code>http://localhost:8000</code> にアクセスできるか？<ul>
 <li>WSL2上で動かしている場合はlocalhostでアクセスできるはず．<br>  （何となれば... <a href="https://docs.microsoft.com/ja-jp/windows/wsl/networking#accessing-linux-networking-apps-from-windows-localhost" target="_blank">https://docs.microsoft.com/ja-jp/windows/wsl/networking#accessing-linux-networking-apps-from-windows-localhost</a>）</li>
 <li>Vagrantで入れたUbuntuや，遠隔地のサーバー（SSHで接続中）で動かしている場合は，localhostではなく動かしているサーバーのIPアドレスを陽に指定してアクセスしてみる．</li>
@@ -608,7 +647,7 @@ ls -la
 </li>
 </ol>
 <h2 id="本番としてotreeを動かすために必要なこと">本番としてoTreeを動かすために必要なこと</h2>
-<h4 id="データベースサーバーソフトウェアの-postgresql-を導入">データベースサーバーソフトウェアの PostgreSQL を導入</h4>
+<h3 id="データベースサーバーソフトウェアの-postgresql-を導入">データベースサーバーソフトウェアの PostgreSQL を導入</h3>
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/uYNYo1IICvA?rel=0&amp;enablejsapi=1&amp;origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 <ul>
@@ -617,63 +656,178 @@ ls -la
 <li>SQLite3でもパフォーマンスは悪くない？（要検証）</li>
 <li>Herokuでの動作環境を再現するにはPostgreSQLを使う（HerokuはPostgreSQL必須）．</li>
 </ul>
-<h4 id="redis-は不要">Redis は不要</h4>
+<h3 id="redis-は不要">Redis は不要</h3>
 <ul>
 <li>oTreeの以前のバージョンではRedisの導入が必須だったが，v3.3.4以降（しれっと）不要になった．</li>
 </ul>
-<h4 id="環境変数の設定">環境変数の設定</h4>
+<h3 id="環境変数の設定">環境変数の設定</h3>
 <ul>
 <li><p>（Bashを使っている場合は）.bashrcに環境変数を設定．</p>
-<pre><code class="lang-bash"><span class="hljs-comment"># oTree実験者画面へのパスワードをたとえば000999にしてみる．本当はもっと複雑なものにする．</span>
-<span class="hljs-comment"># ユーザー名のデフォルトは admin</span>
-<span class="hljs-built_in">export</span> OTREE_ADMIN_PASSWORD=000999
+<pre><code># oTree実験者画面へのパスワードをたとえば000999にしてみる．本当はもっと複雑なものにする．
+# ユーザー名のデフォルトは admin
+export OTREE_ADMIN_PASSWORD=000999
 
-<span class="hljs-comment"># OTREE_AUTH_LEVEL=STUDY とするとパスワード保護が有効になる．</span>
-<span class="hljs-comment"># パスワードをOTREE_ADMIN_PASSWORDで設定していないのにOTREE_AUTH_LEVEL=STUDYとするとログインできなくなる．</span>
-<span class="hljs-built_in">export</span> OTREE_AUTH_LEVEL=STUDY
+# OTREE_AUTH_LEVEL=STUDY とするとパスワード保護が有効になる．
+# パスワードをOTREE_ADMIN_PASSWORDで設定していないのにOTREE_AUTH_LEVEL=STUDYとするとログインできなくなる．
+export OTREE_AUTH_LEVEL=STUDY
 
-<span class="hljs-comment"># OTREE_PRODUCTIONが未定義であったり値が0であったりするとDEBUGモードになり，デバッグ用の情報が表示される．</span>
-<span class="hljs-comment"># OTREE_PRODUCTION=1 とすることでデバッグ用の情報を非表示にする．</span>
-<span class="hljs-built_in">export</span> OTREE_PRODUCTION=1
+# OTREE_PRODUCTIONが未定義であったり値が0であったりするとDEBUGモードになり，デバッグ用の情報が表示される．
+# OTREE_PRODUCTION=1 とすることでデバッグ用の情報を非表示にする．
+export OTREE_PRODUCTION=1
 
-<span class="hljs-comment"># PostgreSQL が設定済みであれば，</span>
-<span class="hljs-comment">#    データベースにアクセスするロール名（たとえばuser01）</span>
-<span class="hljs-comment">#    パスワード（たとえば0099）</span>
-<span class="hljs-comment">#    アドレス（oTreeと同じマシンで動かす場合はlocalhost）</span>
-<span class="hljs-comment">#    データベース名（たとえばotreedb）</span>
-<span class="hljs-comment"># を oTree に環境変数DATABASE_URLで教える．</span>
-<span class="hljs-built_in">export</span> DATABASE_URL=postgres://user01:0099@localhost/otreedb
-<span class="hljs-comment"># DATABASE_URLを設定しなければ oTree はSQLiteを使う．</span>
-</code></pre>
-<ul>
+# PostgreSQL が設定済みであれば，
+#    データベースにアクセスするロール名（たとえばuser01）
+#    パスワード（たとえば0099）
+#    アドレス（oTreeと同じマシンで動かす場合はlocalhost）
+#    データベース名（たとえばotreedb）
+# を oTree に環境変数DATABASE_URLで教える．
+export DATABASE_URL=postgres://user01:0099@localhost/otreedb
+# DATABASE_URLを設定しなければ oTree はSQLiteを使う．
+</code></pre><ul>
 <li>Vim（vi）を使って.bashrcを編集できるようにしておいた方が良い．nanoでも良いが．</li>
 <li>PostgreSQLのURL（<code>DATABASE_URL</code>）にパスワード（例では0099）を書いても良い．そのときはPostgreSQLのパスワードファイル.pgpassが不要．</li>
 <li>oTree の公式ドキュメントでは言及されていないが，settings.pyの <code>SECRET_KEY</code> も環境変数から受け取るように変えた方が良い気がする．</li>
 </ul>
 </li>
 </ul>
-<h4 id="ネットワークの設定">ネットワークの設定</h4>
+<h2 id="インターネット（lan外）からアクセスできるようにする">インターネット（LAN外）からアクセスできるようにする</h2>
 <ul>
-<li><a href="https://otreecb.netlify.app/reference/ubuntu_server_setup.html#step-3-install-nginx" target="_blank">https://otreecb.netlify.app/reference/ubuntu_server_setup.html#step-3-install-nginx</a> が詳しい．</li>
-<li>WSL2のUbuntuを使っている場合はポートフォワードを設定する必要がある．<ul>
-<li><a href="https://docs.microsoft.com/ja-jp/windows/wsl/networking" target="_blank">https://docs.microsoft.com/ja-jp/windows/wsl/networking</a></li>
-<li><a href="https://bayashi.net/diary/2020/1121" target="_blank">https://bayashi.net/diary/2020/1121</a></li>
+<li>oTreeが動いているマシンにグローバルIPアドレスが割り当てられていて，oTreeのポート（8000）がインターネットに開放されていれば，特別な設定をしなくてもインターネットからoTreeにアクセスできる．</li>
+<li><p>しかし，そのような状況は稀である．</p>
+<ul>
+<li>何も設定していないのにインターネットから接続できてしまっている場合は逆に改めたほうが良い．</li>
 </ul>
 </li>
-<li>サーバーのIPアドレスを固定する．</li>
-<li>ファイアウォール（ufw）で開放するポートを設定．<ul>
-<li>LAN内で完結する場合（学内のラボなど）はあまり気にしなくて良い．</li>
-<li>インターネットにさらす場合は慎重に設定する． oTree のデフォルトのポート8000は開放しない．</li>
+<li><p>WSL2のUbuntuを使っている場合は設定が難しそうなので，ここでは諦める．</p>
+<ul>
+<li>LAN内でアクセスできるようにするだけでもポートフォワーディングの設定が必要．</li>
 </ul>
 </li>
-<li>インターネットにさらす場合は...<ul>
-<li>ドメイン取得（SSL証明書の発行のために必須）．</li>
-<li>nginx（Webサーバーソフトウェア）をリバースプロキシ（インターネットからはポート443で受け入れて，それをlocalhost:8000に渡す）として設定．</li>
-<li>HTTPSで通信できるようにcertbotで証明書発行．</li>
+<li><p>参考: <a href="https://otreecb.netlify.app/reference/ubuntu_server_setup.html#step-3-install-nginx" target="_blank">https://otreecb.netlify.app/reference/ubuntu_server_setup.html#step-3-install-nginx</a></p>
+</li>
+</ul>
+<h3 id="グローバルipアドレスの確保">グローバルIPアドレスの確保</h3>
+<ul>
+<li>インターネットからアクセスするためには固定されたグローバルIPアドレスが必要．</li>
+<li>自宅サーバーで固定されたグローバルIPアドレスが無い場合はDDNSを契約する．</li>
+<li>学内サーバーの場合は担当者（計算機室，情報基盤センター的な部局の窓口）にお願いする．</li>
+<li>グローバルIPアドレスが割り当てられているマシンの下にLANがあり（要するに，LANのゲートウェイにグローバルIPアドレスが割り当てられている），そのLAN内のマシンを oTree のサーバーにする場合は，ポートフォワーディングの設定が必要．</li>
+</ul>
+<h3 id="ドメインの取得">ドメインの取得</h3>
+<ul>
+<li>HTTPS通信をするためにはSSL証明書が必要．SSL証明書を発行するためにはドメインが必要．</li>
+<li>学内サーバーの場合は担当者（計算機室，情報基盤センター的な部局の窓口）にお願いする．</li>
+<li>Amazon EC2 を使う場合，Amazon Route 53 でドメインを取得すると良い．</li>
+<li>ドメインを取得後，DNSにグローバルIPアドレスとドメインの対応関係を登録する．</li>
+<li>以下では <code>myotree.iser.osaka-u.ac.jp</code> なる（サブ）ドメインを取得したとする．</li>
+</ul>
+<h3 id="nginx-の設定">Nginx の設定</h3>
+<ul>
+<li>Nginx とは Webサーバーアプリケーション．「エンジンエックス」と読む．「エヌジンクス」と読むとバカにされる．</li>
+<li>そもそも oTree には Webサーバーの機能が含まれているものの，HTTP通信しかできない．</li>
+<li>Nginx をリバースプロキシとして使い， oTree サーバーとクライアント（ブラウザ）がHTTPS通信できるようにする．<ul>
+<li>インターネットから oTree サーバーが動いているマシンまでのHTTPS通信を，一旦 Nginx が受け取り，それを oTree に（<code>localhost:8000</code> に）渡す．</li>
 </ul>
 </li>
-<li>oTree サーバー稼働中のプロセス管理<ul>
-<li>nohupを使うとSSHの接続が切れてもプロセスが閉じない．</li>
+</ul>
+<ol>
+<li><p>Nginx のインストール</p>
+<pre><code>sudo apt install nginx
+</code></pre></li>
+<li><p>Nginx が自動起動するように設定</p>
+<pre><code>sudo systemctl enable nginx
+</code></pre></li>
+<li><p>Nginx の通信のポートを開放する．</p>
+<pre><code>sudo ufw allow &apos;Nginx Full&apos;
+sudo ufw reload
+</code></pre></li>
+<li><p>Nginx のデフォルトの設定を削除する．</p>
+<pre><code>sudo unlink /etc/nginx/sites-enabled/default
+</code></pre><ul>
+<li>シンボリックリンクを削除しているだけで，設定ファイル自体は <code>/etc/nginx/sites-available/default</code> に残っているので安心して良い．</li>
+</ul>
+</li>
+<li><p>Nginx の設定ファイルを作成する．</p>
+<pre><code>sudo vim /etc/nginx/sites-available/otree-reverse-proxy.conf
+</code></pre><p>内容は以下．コピペすれば良い．</p>
+<pre><code>map $http_upgrade $connection_upgrade {
+   default upgrade;
+   &apos;&apos; close;
+}
+
+server {
+   access_log /var/log/nginx/otree-reverse-access.log;
+   error_log /var/log/nginx/otree-reverse-error.log;
+
+   ## 取得したドメインを設定する．
+   server_name myotree.iser.osaka-u.ac.jp;
+
+   location / {
+       proxy_buffering off;
+       proxy_pass http://localhost:8000;
+       proxy_http_version 1.1;
+       proxy_set_header Upgrade $http_upgrade;
+       proxy_set_header Connection $connection_upgrade; 
+       proxy_set_header HOST $host;
+       proxy_set_header X-Real-Ip $remote_addr;
+       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+       proxy_set_header X-Forwarded-Host $server_name;
+       proxy_set_header X-Forwarded-Proto $scheme;
+       proxy_set_header X-Forwarded-Port $server_port;
+   }
+}
+</code></pre></li>
+<li><p>作成した設定ファイルをアクティブにする（<code>/etc/nginx/sites-enabled</code> ディレクトリにシンボリックリンクを張る）．</p>
+<pre><code>sudo ln -s /etc/nginx/sites-available/otree-reverse-proxy.conf /etc/nginx/sites-enabled/otree-reverse-proxy.conf
+</code></pre></li>
+<li><p>作成した設定ファイルを反映させる．
+まず作成した設定ファイルに問題がないかテストする．</p>
+<pre><code>sudo nginx -t
+</code></pre><p>問題がなければ Nginx を再起動して設定を反映させる．</p>
+<pre><code>sudo systemctl restart nginx
+</code></pre></li>
+</ol>
+<h3 id="ssl-の設定">SSL の設定</h3>
+<ul>
+<li>HTTPS通信のためにSSL証明書を取得する．</li>
+<li>Let&apos;s Encrypt を使って，無料のTLS/SSL証明書を取得する．</li>
+</ul>
+<ol>
+<li><p>Cerbotのインストール</p>
+<pre><code>sudo apt install certbot python3-certbot-nginx
+</code></pre></li>
+<li><p>SSL証明書の取得</p>
+<pre><code>sudo certbot --nginx -d myotree.iser.osaka-u.ac.jp
+</code></pre><ul>
+<li>コマンド実行後，同意を求められたら同意する（<code>A</code> を入力してEnter）．</li>
+<li>メールアドレスを聞いてもよいか質問されたらNoを返す（<code>N</code> を入力してEnter）で良い．</li>
+<li>&quot;Please choose whether or not to redirect HTTP traffic to HTTPS, removing HTTP access.&quot; が出たら Redirect を選ぶ（<code>2</code> を入力してEnter）．<ul>
+<li>自動的に 先ほど作成した Nginx の設定ファイルを良きに計らって書き換えてくれる．</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Nginx を再起動して設定を反映させる．</p>
+<pre><code>sudo systemctl restart nginx
+</code></pre></li>
+<li><p>Let’s Encryptの証明書の有効期限は90日間．期限が残り30日になったタイミングでcertbotは自動的に証明書を更新してくれる．特に設定は必要ないが，念の為，改めて自動更新を有効にしておく．</p>
+<pre><code>sudo systemctl enable certbot.timer
+</code></pre></li>
+</ol>
+<h3 id="otree-の起動">oTree の起動</h3>
+<ul>
+<li>Nginxの設定が終わったら，通常通り， oTree のプロジェクトディレクトリに移動して， oTree を起動する．<pre><code>otree prodserver 8000
+</code></pre></li>
+<li>ブラウザで <code>https://myotree.iser.osaka-u.ac.jp</code> にアクセスして，いつもの oTree の画面が表示されれば成功．<ul>
+<li>Chrome であれば，アドレスバーの左側に南京錠のアイコンが表示されていれば正しくHTTPS通信ができている．</li>
+</ul>
+</li>
+<li>SSH接続していて oTree を <code>otree prodserver</code> コマンドで起動している場合，SSH接続が切断してしまうと oTree も終了してしまう．これを防ぐために，<code>nohup</code> コマンドで oTree をバックグラウンドで実行する．<pre><code>nohup otree prodserver 8000 &amp;
+</code></pre><ul>
+<li>終了するときには <code>ps</code> コマンドで oTree のプロセスID（PID）を探し， <code>kill</code> コマンドで終了させる．</li>
+</ul>
+</li>
+<li>MTurkでの実験など，一定期間 oTree を起動したままほったらかしにする場合には，より高度なプロセス管理が必要．<ul>
 <li>SupervisorやCircusを使うのが良い，らしい．</li>
 </ul>
 </li>
@@ -717,7 +871,7 @@ ls -la
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Ubuntu で oTree を動かす","level":"3.2","depth":1,"next":{"title":"Heroku で oTree を動かす","level":"3.3","depth":1,"path":"heroku/README.md","ref":"heroku/README.md","articles":[]},"previous":{"title":"【資料: デプロイ編】","level":"3.1","depth":1,"ref":"","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"server_setup/README.md","mtime":"2022-09-11T10:02:30.724Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-09-13T04:12:33.517Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Ubuntu で oTree を動かす","level":"3.2","depth":1,"next":{"title":"Heroku で oTree を動かす","level":"3.3","depth":1,"path":"heroku/README.md","ref":"heroku/README.md","articles":[]},"previous":{"title":"【資料: デプロイ編】","level":"3.1","depth":1,"ref":"","articles":[]},"dir":"ltr"},"config":{"plugins":["page-toc","sitemap","@honkit/honkit-plugin-ga","accordion"],"root":"./","styles":{"website":"styles/website.css"},"pluginsConfig":{"accordion":{},"search":{},"page-toc":{"selector":".markdown-section h2, .markdown-section h3, .markdown-section h4","position":"before-first","showByDefault":true},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"url":"https://yshimod.github.io","pathSuffix":"/otree5-seminar/"},"@honkit/honkit-plugin-ga":{},"ga":{"trackingID":"G-6WR8KXSQYF"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oTree 5 勉強会","language":"ja","gitbook":"*","description":""},"file":{"path":"server_setup/README.md","mtime":"2022-10-01T14:25:13.648Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2022-10-01T14:26:06.070Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
