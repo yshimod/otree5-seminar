@@ -6,7 +6,7 @@
 
 - 今日のゴール
     - コード [https://github.com/yshimod/otree_survey](https://github.com/yshimod/otree_survey)
-    - デモページ [https://otree-seminar-survey-sample.herokuapp.com/demo](https://otree-seminar-survey-sample.herokuapp.com/demo)
+    - デモページ [https://otree-survey.onrender.com/demo](https://otree-survey.onrender.com/demo)
 
 
 ## 1. 定数 `C` クラスに質問紙調査の「素材」を定義しておく

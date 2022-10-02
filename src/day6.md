@@ -601,7 +601,6 @@
 
 - 最大数が定義できない場合や，データベースの列数が増えることによるパフォーマンス低下を避ける場合，ライブページと ExtraModel を使って実装するのが良い．
     - [https://www.otreehub.com/projects/otree-more-demos/](https://www.otreehub.com/projects/otree-more-demos/) の「supergames_indefinite」アプリ．
-        - デモページ [https://otree-more-demos.herokuapp.com/demo/supergames_indefinite](https://otree-more-demos.herokuapp.com/demo/supergames_indefinite)
 
 
 <p class="ytubevideo"><iframe width="560" height="315" src="https://www.youtube.com/embed/NZfKz8p9iF4?rel=0&enablejsapi=1&origin=https://yshimod.github.io/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
