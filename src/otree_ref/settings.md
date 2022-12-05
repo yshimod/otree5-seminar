@@ -250,7 +250,7 @@
 
 - 環境変数で `export OTREE_AUTH_LEVEL=STUDY` とするか `settings.py` で以下の設定すると本番モード（管理者画面全体がパスワード保護）で起動する．
   ```python
-  OTREE_AUTH_LEVEL = "STUDY"
+  AUTH_LEVEL = "STUDY"
   ```
 
 - `STUDY` を `DEMO` に変えると，管理者画面のデモページ以外がパスワード保護で起動する．
